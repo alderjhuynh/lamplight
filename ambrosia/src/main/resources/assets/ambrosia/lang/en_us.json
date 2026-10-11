@@ -1,4 +1,6 @@
 {
   "effect.ambrosia.nourishment": "Nourishment",
-  "effect.ambrosia.famished": "Famished"
+  "effect.ambrosia.famished": "Famished",
+  "item.ambrosia.frying_pan": "Frying Pan",
+  "item.ambrosia.pan_fried": "Pan-Fried %s"
 }

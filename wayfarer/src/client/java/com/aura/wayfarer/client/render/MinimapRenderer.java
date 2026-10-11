@@ -14,7 +14,7 @@ import net.minecraft.util.Mth;
 
 public final class MinimapRenderer implements HudElement {
     private static final int MARGIN = 8;
-    private static final int UNEXPLORED = 0xFF14181D;
+    private static final int UNEXPLORED = MapPalette.UNEXPLORED;
 
     private final MinimapProcessor processor = new MinimapProcessor();
     private MinimapTextureCache textures;
@@ -59,7 +59,7 @@ public final class MinimapRenderer implements HudElement {
             int x0 = MARGIN;
             int y0 = MARGIN;
 
-            g.fill(x0 - 2, y0 - 2, x0 + size + 2, y0 + size + 2, 0xCC000000);
+            g.fill(x0 - 2, y0 - 2, x0 + size + 2, y0 + size + 2, MapPalette.FRAME);
             g.fill(x0, y0, x0 + size, y0 + size, UNEXPLORED);
 
             textures.beginFrame();
@@ -117,7 +117,7 @@ public final class MinimapRenderer implements HudElement {
                 }
             } catch (Throwable ignored) {}
 
-            g.outline(x0 - 2, y0 - 2, size + 4, size + 4, 0x88FFFFFF);
+            g.outline(x0 - 2, y0 - 2, size + 4, size + 4, MapPalette.OUTLINE);
 
             if (firstFrame) {
                 firstFrame = false;

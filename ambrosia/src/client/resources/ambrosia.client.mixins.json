@@ -6,7 +6,9 @@
 		"appleskin.ClientTooltipComponentMixin",
 		"appleskin.FoodDataAccessor",
 		"appleskin.HudMixin",
-		"appleskin.ItemStackTooltipMixin"
+		"appleskin.ItemStackTooltipMixin",
+		"FryingPanFirstPersonMixin",
+		"FryingPanThirdPersonMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -15,10 +15,13 @@ import net.minecraft.util.ARGB;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.FormattedCharSink;
 import net.minecraft.util.StringDecomposer;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.component.TooltipDisplay;
 import org.joml.Matrix3x2fStack;
 
@@ -150,10 +153,12 @@ public final class TooltipOverlayHandler {
     }
 
     /**
-     * Appends the food overlay to the tooltip lines of any food item. Called
-     * from the {@code ItemStack.getTooltipLines} mixin.
+     * Appends the food overlay plus any on-eat status effects to the tooltip
+     * lines of any food item. Called from the {@code ItemStack.getTooltipLines}
+     * mixin. Effects reuse the vanilla potion tooltip formatting so beneficial
+     * effects (Famished, Nourishment) render in the blue buff style.
      */
-    public void onItemTooltip(ItemStack stack, TooltipFlag type, List<Component> tooltip) {
+    public void onItemTooltip(ItemStack stack, Item.TooltipContext context, TooltipFlag type, List<Component> tooltip) {
         if (stack.isEmpty() || !FoodHelper.isFood(stack)) {
             return;
         }
@@ -166,12 +171,17 @@ public final class TooltipOverlayHandler {
 
         FoodProperties food = FoodHelper.getDefaultFoodValues(stack);
         FoodOverlay overlay = new FoodOverlay(food, FoodHelper.isRotten(stack));
-        if (!overlay.shouldRenderHungerBars()) {
-            return;
-        }
 
         try {
-            tooltip.add(new FoodOverlayTextComponent(overlay));
+            if (overlay.shouldRenderHungerBars()) {
+                tooltip.add(new FoodOverlayTextComponent(overlay));
+            }
+
+            List<MobEffectInstance> statusEffects = FoodHelper.getStatusEffects(stack);
+            if (!statusEffects.isEmpty()) {
+                float durationScale = stack.getOrDefault(DataComponents.POTION_DURATION_SCALE, 1.0F);
+                PotionContents.addPotionTooltip(statusEffects, tooltip::add, durationScale, context.tickRate());
+            }
         } catch (UnsupportedOperationException ignored) {
             // Immutable lines, e.g. HIDE_TOOLTIP handled above, plus any other cause.
         }

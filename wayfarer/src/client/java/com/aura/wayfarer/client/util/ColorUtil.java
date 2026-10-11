@@ -53,8 +53,8 @@ public final class ColorUtil {
         if (mode <= 0) return rgb;
         if (mode == 1) {
 
-            if (vSlope > 0) return brightnessRgb(rgb, 1.10f);
-            if (vSlope < 0) return brightnessRgb(rgb, 0.90f);
+            if (vSlope > 0) return brightnessRgb(rgb, 1.05f);
+            if (vSlope < 0) return brightnessRgb(rgb, 0.95f);
             return rgb;
         }
 
@@ -77,11 +77,36 @@ public final class ColorUtil {
         if (cos == 1.0f) direct = maxDirect;
         else if (cos > 0) direct = (float) Math.ceil(cos * 10f) / 10f * maxDirect * 0.88388f;
         else direct = 0f;
-        float white = 0.5f + direct;
-        float ambient = 0.2f;
 
-        float mult = ambient + white;
+        // Gentle relief: slopes whisper instead of brooding (~0.88..1.08).
+        float mult = 0.88f + direct * 0.30f;
         return brightnessRgb(rgb, mult);
+    }
+
+    /**
+     * Calm light multiplier from sky/block light levels (0..15 each).
+     *
+     * <p>Full sun reads ~1.0 while unlit corners stay readable at ~0.86 —
+     * night on the map feels dusky, never brooding.
+     */
+    public static float calmLight(int sky, int block) {
+        float min = 9f;
+        float raw = (min + Math.max(sky, block)) / (15f + min);
+        float t = Math.max(0f, Math.min(1f, (raw - 0.375f) / 0.625f));
+        return 0.86f + 0.14f * t;
+    }
+
+    /**
+     * Calm elevation multiplier. Higher ground lifts a breath, low ground
+     * dips gently — the ordering cue survives without darkening oceans
+     * and valleys into ink.
+     */
+    public static float calmDepth(int h, int slopeMode) {
+        float norm = (h - 40f) / 88f;
+        norm = Math.max(0f, Math.min(1f, norm));
+        if (slopeMode >= 2) return 0.96f + 0.08f * norm;
+        if (slopeMode == 1) return 0.94f + 0.12f * norm;
+        return 0.97f + 0.06f * norm;
     }
 
     public static int lerp(int aRgb, int bRgb, float t) {

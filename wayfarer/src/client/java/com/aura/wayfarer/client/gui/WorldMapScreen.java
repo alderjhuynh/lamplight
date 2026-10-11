@@ -1,6 +1,7 @@
 package com.aura.wayfarer.client.gui;
 
 import com.aura.wayfarer.client.config.WayfarerConfig;
+import com.aura.wayfarer.client.render.MapPalette;
 import com.aura.wayfarer.client.render.MapTextureCache;
 import com.aura.wayfarer.client.storage.RegionFileStorage;
 import com.aura.wayfarer.client.storage.RegionPos;
@@ -68,7 +69,7 @@ public class WorldMapScreen extends Screen {
     @Override
     public void extractRenderState(GuiGraphicsExtractor g, int mouseX, int mouseY, float delta) {
 
-        g.fill(0, 0, width, height, 0xDD0A0A0A);
+        g.fill(0, 0, width, height, MapPalette.SCREEN_BG);
         float scale = (float) easeOutCubic(animProgress);
         Matrix3x2fStack pose = g.pose();
         boolean scaled = scale != 1f;
@@ -127,14 +128,14 @@ public class WorldMapScreen extends Screen {
                 if (iw <= 0 || ih <= 0) continue;
                 if (ix0 + iw < 0 || iz0 + ih < 0 || ix0 > width || iz0 > height) continue;
                 if (texId == null) {
-                    g.fill(ix0, iz0, ix0 + iw, iz0 + ih, 0xFF14181D);
+                    g.fill(ix0, iz0, ix0 + iw, iz0 + ih, MapPalette.UNEXPLORED);
                     continue;
                 }
                 try {
                     g.blit(net.minecraft.client.renderer.RenderPipelines.GUI_TEXTURED, texId,
                             ix0, iz0, 0f, 0f, iw, ih, 512, 512, 512, 512);
                 } catch (Throwable t) {
-                    g.fill(ix0, iz0, ix0 + iw, iz0 + ih, 0xFF334455);
+                    g.fill(ix0, iz0, ix0 + iw, iz0 + ih, MapPalette.REGION_ERROR);
                 }
             }
         }

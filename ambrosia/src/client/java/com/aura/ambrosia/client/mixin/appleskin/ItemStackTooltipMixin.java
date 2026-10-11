@@ -19,6 +19,6 @@ public abstract class ItemStackTooltipMixin {
     @Inject(at = @At("RETURN"), method = "getTooltipLines")
     private void ambrosia$appendFoodOverlay(Item.TooltipContext context, Player player, TooltipFlag type,
                                            CallbackInfoReturnable<List<Component>> cir) {
-        TooltipOverlayHandler.INSTANCE.onItemTooltip((ItemStack) (Object) this, type, cir.getReturnValue());
+        TooltipOverlayHandler.INSTANCE.onItemTooltip((ItemStack) (Object) this, context, type, cir.getReturnValue());
     }
 }

@@ -22,6 +22,7 @@ Lamplight is a vanilla-plus modpack built to feel like settling into a warm worl
 - Folio: scrolls and spellbooks
 - Wayfarer: backpacks, waypoints, and maps
 - Puppeteer: player animations
+- Picturesque: an optional raytracing shader
 
 ## Design pillars
 

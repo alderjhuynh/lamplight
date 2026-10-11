@@ -3,7 +3,8 @@
 	"package": "com.aura.menagerie.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
-		"ExampleMixin"
+		"PlayerShoulderCrowMixin",
+		"ServerPlayerShoulderMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

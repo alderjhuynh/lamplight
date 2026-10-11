@@ -12,7 +12,7 @@ public final class MapRegionData {
     public MapRegionData(RegionPos pos) {
         this.pos = pos;
         this.pixels = new int[RegionPos.REGION_PIXEL_SIZE * RegionPos.REGION_PIXEL_SIZE];
-        Arrays.fill(pixels, 0xFF000000);
+        Arrays.fill(pixels, com.aura.wayfarer.client.render.MapPalette.UNEXPLORED);
     }
 
     public MapRegionData(RegionPos pos, int[] pixels) {

@@ -3,7 +3,8 @@
 	"package": "com.aura.menagerie.client.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"client": [
-		"ExampleClientMixin"
+		"AvatarRenderStateMixin",
+		"AvatarRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

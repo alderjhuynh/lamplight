@@ -10,21 +10,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/**
- * Prevents hunger (food level) from decreasing while Nourishment is active,
- * while still allowing saturation to drain.
- * <p>
- * Vanilla {@code FoodData.tick} converts overflow exhaustion ({@code > 4.0})
- * into {@code saturation - 1}, or {@code foodLevel - 1} when saturation is
- * empty. Healing also adds exhaustion internally, which then drains saturation
- * through that same path — that saturation drain must keep working.
- * <p>
- * Instead of targeting a specific bytecode instruction (brittle across
- * versions), this snapshots the food level before the tick and restores it
- * afterwards if it decreased while nourished. Saturation, exhaustion, and
- * tick-timer changes are left untouched, so saturation-powered healing works
- * normally.
- */
 @Mixin(FoodData.class)
 public abstract class FoodDataMixin {
 

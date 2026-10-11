@@ -1,6 +1,7 @@
 package com.aura.wayfarer.client.world;
 
 import com.aura.wayfarer.client.render.MapColorSampler;
+import com.aura.wayfarer.client.render.MapPalette;
 import com.aura.wayfarer.client.util.ColorUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.biome.Biome;
@@ -97,26 +98,22 @@ public final class ChunkSnapshotter {
             for (int x = 0; x < CHUNK_SIZE; x++) {
                 int idx = z * CHUNK_SIZE + x;
                 if (transparent[idx]) {
-                    out[idx] = 0xFF000000;
+                    out[idx] = MapPalette.UNEXPLORED;
                     continue;
                 }
                 int base = rawRgb[idx];
                 int h = heights[idx];
 
-                int muted = ColorUtil.desaturate(base, 0.18f);
+                int tone = base;
 
-                boolean needsPos = doBiomeBlend || doLighting;
-                BlockPos p = null;
-                BlockState surfaceState = null;
-                if (needsPos) {
-                    mutable.set(baseBlockX + x, h, baseBlockZ + z);
-                    p = mutable;
-                    if (doBiomeBlend) {
-                        surfaceState = chunk.getBlockState(p);
-                    }
-                }
+                mutable.set(baseBlockX + x, h, baseBlockZ + z);
+                BlockPos p = mutable;
+                BlockState surfaceState = chunk.getBlockState(p);
 
-                if (doBiomeBlend && p != null && surfaceState != null) {
+                int untinted = untintedFoliageColor(surfaceState);
+                if (untinted >= 0) {
+                    tone = untinted;
+                } else if (doBiomeBlend && surfaceState != null) {
                     int kind = tintKind(surfaceState);
                     if (kind != NO_TINT) {
                         var biome = level.getBiome(p).value();
@@ -126,33 +123,18 @@ public final class ChunkSnapshotter {
                         } else {
                             tint = biome.getFoliageColor();
                         }
-                        muted = ColorUtil.biomeTint(muted, tint);
-                        muted = ColorUtil.desaturate(muted, 0.08f);
+                        tone = ColorUtil.biomeTint(tone, tint);
                     }
                 }
 
                 if (doLighting && p != null) {
                     int sky = level.getBrightness(net.minecraft.world.level.LightLayer.SKY, p);
                     int blk = level.getBrightness(net.minecraft.world.level.LightLayer.BLOCK, p);
-                    float min = 9f;
-                    float bright = (min + Math.max(sky, blk)) / (15f + min);
-                    bright = Math.max(0.65f, Math.min(1.0f, bright));
-                    muted = ColorUtil.brightnessRgb(muted, bright);
+                    tone = ColorUtil.brightnessRgb(tone, ColorUtil.calmLight(sky, blk));
                 }
 
                 if (doDepth) {
-                    float depth;
-
-                    float norm = (h - 40f) / 88f;
-                    norm = Math.max(0f, Math.min(1f, norm));
-                    if (slopeMode >= 2) {
-                        depth = 0.90f + 0.20f * norm;
-                    } else if (slopeMode == 1) {
-                        depth = 0.85f + 0.30f * norm;
-                    } else {
-                        depth = 0.92f + 0.16f * norm;
-                    }
-                    muted = ColorUtil.brightnessRgb(muted, depth);
+                    tone = ColorUtil.brightnessRgb(tone, ColorUtil.calmDepth(h, slopeMode));
                 }
 
                 if (slopeMode > 0) {
@@ -178,10 +160,10 @@ public final class ChunkSnapshotter {
 
                     vSlope = Math.max(-12, Math.min(12, vSlope));
                     dSlope = Math.max(-12, Math.min(12, dSlope));
-                    muted = ColorUtil.applyHillShade(muted, vSlope, dSlope, slopeMode);
+                    tone = ColorUtil.applyHillShade(tone, vSlope, dSlope, slopeMode);
                 }
 
-                out[idx] = 0xFF000000 | (muted & 0xFFFFFF);
+                out[idx] = 0xFF000000 | (tone & 0xFFFFFF);
             }
         }
 
@@ -192,7 +174,13 @@ public final class ChunkSnapshotter {
     private static final int GRASS_TINT = 1;
     private static final int FOLIAGE_TINT = 2;
 
-   private static int tintKind(BlockState state) {
+    private static int untintedFoliageColor(BlockState state) {
+        if (state.is(Blocks.CHERRY_LEAVES)) return 0xE5ACC2;
+        if (state.is(Blocks.PALE_OAK_LEAVES)) return 0x747972;
+        return -1;
+    }
+
+    private static int tintKind(BlockState state) {
         if (state.is(Blocks.GRASS_BLOCK)) return GRASS_TINT;
         if (state.is(Blocks.SHORT_GRASS) || state.is(Blocks.TALL_GRASS)
                 || state.is(Blocks.FERN) || state.is(Blocks.LARGE_FERN)

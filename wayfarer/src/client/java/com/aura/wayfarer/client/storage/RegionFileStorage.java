@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class RegionFileStorage {
     private static final String ROOT_DIR_NAME = "wayfarer";
     private static final int MAGIC = 0x4155524D;
-    private static final byte VERSION = 1;
+    private static final byte VERSION = 2;
     private static final int REGION_SIZE = RegionPos.REGION_PIXEL_SIZE;
     private static final int PIXEL_COUNT = REGION_SIZE * REGION_SIZE;
 

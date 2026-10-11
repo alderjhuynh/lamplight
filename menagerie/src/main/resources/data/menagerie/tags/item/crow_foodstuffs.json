@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "#c:eggs",
+    "minecraft:egg",
+    "minecraft:sugar",
+    "#c:seeds",
+    "minecraft:wheat_seeds",
+    "minecraft:pumpkin_seeds",
+    "minecraft:melon_seeds",
+    "minecraft:beetroot_seeds",
+    "#menagerie:crow_breedables"
+  ]
+}

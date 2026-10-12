@@ -34,6 +34,7 @@ public final class VanillaFoodTweaks {
 
     public static final int DEFAULT_FAMISHED_TICKS = ONE_MINUTE;
     public static final int DEFAULT_NOURISHMENT_TICKS = FIVE_MINUTES;
+    public static final int DEFAULT_COMFORT_TICKS = ONE_MINUTE;
 
     private static final Map<Item, VanillaFoodOverride> OVERRIDES = new ConcurrentHashMap<>();
     private static final Map<Item, CacheEntry> PATCH_CACHE = new ConcurrentHashMap<>();
@@ -58,6 +59,14 @@ public final class VanillaFoodTweaks {
     }
 
     public static void register(Item item, int hunger, float saturation, int famishedTicks, int nourishmentTicks) {
+        register(item, hunger, saturation, famishedTicks, nourishmentTicks, NO_EFFECT);
+    }
+
+    public static void register(Item item, int hunger, int saturation, int famishedTicks, int nourishmentTicks) {
+        register(item, hunger, (float) saturation, famishedTicks, nourishmentTicks);
+    }
+
+    public static void register(Item item, int hunger, float saturation, int famishedTicks, int nourishmentTicks, int comfortTicks) {
         if (hunger < 0) {
             throw new IllegalArgumentException("hunger must be >= 0, got " + hunger);
         }
@@ -68,12 +77,13 @@ public final class VanillaFoodTweaks {
                 java.util.Optional.of(hunger),
                 java.util.Optional.of(saturation),
                 famishedTicks > 0 ? java.util.Optional.of(famishedTicks) : java.util.Optional.empty(),
-                nourishmentTicks > 0 ? java.util.Optional.of(nourishmentTicks) : java.util.Optional.empty()
+                nourishmentTicks > 0 ? java.util.Optional.of(nourishmentTicks) : java.util.Optional.empty(),
+                comfortTicks > 0 ? java.util.Optional.of(comfortTicks) : java.util.Optional.empty()
         ));
     }
 
-    public static void register(Item item, int hunger, int saturation, int famishedTicks, int nourishmentTicks) {
-        register(item, hunger, (float) saturation, famishedTicks, nourishmentTicks);
+    public static void register(Item item, int hunger, int saturation, int famishedTicks, int nourishmentTicks, int comfortTicks) {
+        register(item, hunger, (float) saturation, famishedTicks, nourishmentTicks, comfortTicks);
     }
 
     public static void tweak(Item item, String json) {
@@ -194,6 +204,9 @@ public final class VanillaFoodTweaks {
         override.nourishmentTicks().ifPresent(ticks ->
                 effects.add(new ApplyStatusEffectsConsumeEffect(
                         ModEffects.nourishment(ticks), 1.0F)));
+        override.comfortTicks().ifPresent(ticks ->
+                effects.add(new ApplyStatusEffectsConsumeEffect(
+                        ModEffects.comfort(ticks), 1.0F)));
 
         Consumable.Builder replacement = Consumable.builder()
                 .consumeSeconds(original.consumeSeconds())
@@ -208,7 +221,8 @@ public final class VanillaFoodTweaks {
 
     private static boolean isAmbrosiaStewEffect(MobEffectInstance instance) {
         return isHolder(instance.getEffect(), ModEffects.FAMISHED)
-                || isHolder(instance.getEffect(), ModEffects.NOURISHMENT);
+                || isHolder(instance.getEffect(), ModEffects.NOURISHMENT)
+                || isHolder(instance.getEffect(), ModEffects.COMFORT);
     }
 
     private static boolean isHolder(Holder<MobEffect> a, Holder<MobEffect> b) {

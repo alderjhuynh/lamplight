@@ -1,0 +1,13 @@
+{
+  "type": "ambrosia:cooking_pot",
+  "ingredients": [
+    "minecraft:porkchop",
+    "minecraft:honey_bottle"
+  ],
+  "result": {
+    "id": "ambrosia:honey_glazed_ham",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

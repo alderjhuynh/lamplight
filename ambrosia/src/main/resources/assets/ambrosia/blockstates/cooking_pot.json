@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "ambrosia:block/cooking_pot"
+    },
+    "facing=east": {
+      "model": "ambrosia:block/cooking_pot",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "ambrosia:block/cooking_pot",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "ambrosia:block/cooking_pot",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "ingredient": "ambrosia:mutton_cutlets",
+  "result": {
+    "id": "minecraft:cooked_mutton"
+  },
+  "experience": 0.35,
+  "group": "cooked_mutton"
+}

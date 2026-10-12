@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:bowl",
+    "#minecraft:planks"
+  ],
+  "result": {
+    "id": "ambrosia:mixing_bowl",
+    "count": 1
+  }
+}

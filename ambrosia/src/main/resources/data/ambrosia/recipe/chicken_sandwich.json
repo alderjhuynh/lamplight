@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:bread",
+    "minecraft:cooked_chicken",
+    "ambrosia:lettuce",
+    "ambrosia:tomato"
+  ],
+  "result": {
+    "id": "ambrosia:chicken_sandwich",
+    "count": 1
+  }
+}

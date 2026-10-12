@@ -206,5 +206,6 @@
     "water_creature": []
   },
   "temperature": 0.45,
+  "creature_spawn_probability": 0.15,
   "_comment": "Vantage rewrite caldera \u2014 family canyon, distinct from Terralith/Clifftree source"
 }

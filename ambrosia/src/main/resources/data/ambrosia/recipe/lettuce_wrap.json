@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:lettuce",
+    "minecraft:cooked_chicken"
+  ],
+  "result": {
+    "id": "ambrosia:lettuce_wrap",
+    "count": 1
+  }
+}

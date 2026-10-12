@@ -131,7 +131,7 @@ public class CrowEntity extends ShoulderRidingEntity implements TargetsDroppedIt
     }
 
     public static Heightmap.Types heightmap() {
-        return Heightmap.Types.MOTION_BLOCKING;
+        return Heightmap.Types.MOTION_BLOCKING_NO_LEAVES;
     }
 
     @Override

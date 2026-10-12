@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:beef"
+  ],
+  "result": {
+    "id": "ambrosia:beef_cutlets",
+    "count": 2
+  }
+}

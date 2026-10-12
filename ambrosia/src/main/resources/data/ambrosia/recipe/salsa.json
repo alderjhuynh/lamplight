@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:tomato",
+    "ambrosia:soul_pepper",
+    "minecraft:bowl"
+  ],
+  "result": {
+    "id": "ambrosia:salsa",
+    "count": 2
+  }
+}

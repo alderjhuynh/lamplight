@@ -1,0 +1,13 @@
+{
+  "type": "ambrosia:cooking_pot",
+  "ingredients": [
+    "minecraft:porkchop",
+    "ambrosia:dough"
+  ],
+  "result": {
+    "id": "ambrosia:sausage_roll",
+    "count": 2
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

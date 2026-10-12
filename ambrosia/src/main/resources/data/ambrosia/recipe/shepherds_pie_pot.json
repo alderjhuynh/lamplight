@@ -1,0 +1,14 @@
+{
+  "type": "ambrosia:cooking_pot",
+  "ingredients": [
+    "ambrosia:mutton_cutlets",
+    "minecraft:potato",
+    "ambrosia:dough"
+  ],
+  "result": {
+    "id": "ambrosia:shepherds_pie",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

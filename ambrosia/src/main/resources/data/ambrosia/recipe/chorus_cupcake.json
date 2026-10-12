@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:chorus_fruit",
+    "minecraft:sugar",
+    "ambrosia:dough"
+  ],
+  "result": {
+    "id": "ambrosia:chorus_cupcake",
+    "count": 2
+  }
+}

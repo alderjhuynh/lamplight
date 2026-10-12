@@ -156,5 +156,6 @@
     "water_creature": []
   },
   "temperature": 0.7,
+  "creature_spawn_probability": 0.15,
   "_comment": "Vantage rewrite mirage_isles \u2014 family default, distinct from Terralith/Clifftree source"
 }

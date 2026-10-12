@@ -205,5 +205,6 @@
     "water_creature": []
   },
   "temperature": 1.2,
+  "creature_spawn_probability": 0.15,
   "_comment": "Vantage rewrite shrubland \u2014 family savanna, distinct from Terralith/Clifftree source"
 }

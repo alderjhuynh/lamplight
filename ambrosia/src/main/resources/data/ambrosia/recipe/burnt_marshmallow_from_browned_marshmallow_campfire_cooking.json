@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "ingredient": "ambrosia:browned_marshmallow",
+  "result": {
+    "id": "ambrosia:burnt_marshmallow"
+  },
+  "experience": 0.35,
+  "group": "burnt_marshmallow"
+}

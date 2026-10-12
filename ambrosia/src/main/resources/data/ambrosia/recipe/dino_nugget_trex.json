@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:chicken_cutlets",
+    "#minecraft:eggs"
+  ],
+  "result": {
+    "id": "ambrosia:dino_nugget_trex",
+    "count": 2
+  }
+}

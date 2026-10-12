@@ -1,0 +1,19 @@
+{
+  "type": "ambrosia:cooking_pot",
+  "ingredients": [
+    "minecraft:potato",
+    "minecraft:carrot",
+    [
+      "minecraft:brown_mushroom",
+      "minecraft:red_mushroom"
+    ],
+    "ambrosia:beef_cutlets"
+  ],
+  "result": {
+    "id": "ambrosia:stew",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200,
+  "container": "minecraft:bowl"
+}

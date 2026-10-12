@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:stock",
+    "minecraft:carrot",
+    "minecraft:potato",
+    "ambrosia:lettuce"
+  ],
+  "result": {
+    "id": "ambrosia:vegetable_soup",
+    "count": 1
+  }
+}

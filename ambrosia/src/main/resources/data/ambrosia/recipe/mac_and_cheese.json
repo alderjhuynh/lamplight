@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:noodles",
+    "ambrosia:cheese",
+    "ambrosia:butter"
+  ],
+  "result": {
+    "id": "ambrosia:mac_and_cheese",
+    "count": 1
+  }
+}

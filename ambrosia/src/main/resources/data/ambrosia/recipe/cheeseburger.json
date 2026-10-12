@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:bread",
+    "minecraft:cooked_beef",
+    "ambrosia:cheese",
+    "ambrosia:lettuce"
+  ],
+  "result": {
+    "id": "ambrosia:cheeseburger",
+    "count": 1
+  }
+}

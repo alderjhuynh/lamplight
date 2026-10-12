@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:wine",
+    "minecraft:blaze_powder",
+    "ambrosia:soul_pepper"
+  ],
+  "result": {
+    "id": "ambrosia:blazing_wine",
+    "count": 1
+  }
+}

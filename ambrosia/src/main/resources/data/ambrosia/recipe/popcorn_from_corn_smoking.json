@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "ingredient": "ambrosia:corn",
+  "result": {
+    "id": "ambrosia:popcorn"
+  },
+  "experience": 0.35,
+  "group": "popcorn"
+}

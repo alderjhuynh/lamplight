@@ -211,6 +211,7 @@
     "water_creature": []
   },
   "temperature": 0.14,
+  "creature_spawn_probability": 0.15,
   "temperature_modifier": "frozen",
   "_comment": "Vantage rewrite cold_shrubland \u2014 family canyon, distinct from Terralith/Clifftree source"
 }

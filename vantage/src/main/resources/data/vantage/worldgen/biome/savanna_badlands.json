@@ -222,5 +222,6 @@
     "water_creature": []
   },
   "temperature": 1,
+  "creature_spawn_probability": 0.15,
   "_comment": "Vantage rewrite savanna_badlands \u2014 family savanna, distinct from Terralith/Clifftree source"
 }

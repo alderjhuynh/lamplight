@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:chicken_cutlets",
+    "minecraft:wheat"
+  ],
+  "result": {
+    "id": "ambrosia:dino_nugget_stego",
+    "count": 2
+  }
+}

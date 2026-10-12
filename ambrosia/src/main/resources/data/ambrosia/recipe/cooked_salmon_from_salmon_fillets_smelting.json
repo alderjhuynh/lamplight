@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "ingredient": "ambrosia:salmon_fillets",
+  "result": {
+    "id": "minecraft:cooked_salmon"
+  },
+  "experience": 0.35,
+  "group": "cooked_salmon"
+}

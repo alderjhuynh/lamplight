@@ -1,0 +1,15 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    " ii",
+    " ii",
+    "b  "
+  ],
+  "key": {
+    "i": "iron_ingot",
+    "b": "brick"
+  },
+  "result": {
+    "id": "ambrosia:frying_pan"
+  }
+}

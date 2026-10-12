@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:grapes",
+    "ambrosia:grapes",
+    "minecraft:sugar"
+  ],
+  "result": {
+    "id": "ambrosia:wine",
+    "count": 1
+  }
+}

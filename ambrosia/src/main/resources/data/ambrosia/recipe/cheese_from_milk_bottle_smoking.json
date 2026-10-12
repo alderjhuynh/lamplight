@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "ingredient": "ambrosia:milk_bottle",
+  "result": {
+    "id": "ambrosia:cheese"
+  },
+  "experience": 0.35,
+  "group": "cheese"
+}

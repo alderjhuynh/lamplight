@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:apple",
+    "minecraft:sugar"
+  ],
+  "result": {
+    "id": "ambrosia:caramel_apple",
+    "count": 1
+  }
+}

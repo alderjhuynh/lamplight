@@ -1,0 +1,15 @@
+{
+  "type": "ambrosia:cooking_pot",
+  "ingredients": [
+    "minecraft:carrot",
+    "minecraft:potato",
+    "ambrosia:lettuce"
+  ],
+  "container": "minecraft:bowl",
+  "result": {
+    "id": "ambrosia:vegetable_soup",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

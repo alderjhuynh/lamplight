@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:wine",
+    "minecraft:breeze_rod"
+  ],
+  "result": {
+    "id": "ambrosia:breezing_wine",
+    "count": 1
+  }
+}

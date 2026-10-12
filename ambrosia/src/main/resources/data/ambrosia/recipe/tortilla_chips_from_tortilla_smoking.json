@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "ingredient": "ambrosia:tortilla",
+  "result": {
+    "id": "ambrosia:tortilla_chips"
+  },
+  "experience": 0.35,
+  "group": "tortilla_chips"
+}

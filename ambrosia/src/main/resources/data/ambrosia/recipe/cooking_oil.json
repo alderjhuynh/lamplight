@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:corn",
+    "ambrosia:corn"
+  ],
+  "result": {
+    "id": "ambrosia:cooking_oil",
+    "count": 1
+  }
+}

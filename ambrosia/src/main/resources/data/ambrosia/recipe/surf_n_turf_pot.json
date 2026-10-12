@@ -1,0 +1,13 @@
+{
+  "type": "ambrosia:cooking_pot",
+  "ingredients": [
+    "ambrosia:beef_cutlets",
+    "ambrosia:salmon_fillets"
+  ],
+  "result": {
+    "id": "ambrosia:surf_n_turf",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

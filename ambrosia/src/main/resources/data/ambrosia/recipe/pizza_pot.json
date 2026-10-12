@@ -1,0 +1,14 @@
+{
+  "type": "ambrosia:cooking_pot",
+  "ingredients": [
+    "ambrosia:dough",
+    "ambrosia:cheese",
+    "ambrosia:salsa"
+  ],
+  "result": {
+    "id": "ambrosia:pizza",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

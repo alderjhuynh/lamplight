@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:chocolate_bar",
+    "minecraft:sugar",
+    "#minecraft:eggs",
+    "ambrosia:dough"
+  ],
+  "result": {
+    "id": "ambrosia:chocolate_cake",
+    "count": 1
+  }
+}

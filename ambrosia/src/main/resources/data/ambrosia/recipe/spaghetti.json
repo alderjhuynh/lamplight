@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:noodles",
+    "ambrosia:salsa"
+  ],
+  "result": {
+    "id": "ambrosia:spaghetti",
+    "count": 1
+  }
+}

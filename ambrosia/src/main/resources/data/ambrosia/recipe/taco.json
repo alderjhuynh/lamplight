@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:tortilla",
+    "minecraft:cooked_beef",
+    "ambrosia:salsa"
+  ],
+  "result": {
+    "id": "ambrosia:taco",
+    "count": 1
+  }
+}

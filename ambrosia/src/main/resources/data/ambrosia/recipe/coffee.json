@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:coffee_beans",
+    "ambrosia:milk_bottle"
+  ],
+  "result": {
+    "id": "ambrosia:coffee",
+    "count": 1
+  }
+}

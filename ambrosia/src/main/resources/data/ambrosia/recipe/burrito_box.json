@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:burrito",
+    "ambrosia:fries",
+    "minecraft:apple"
+  ],
+  "result": {
+    "id": "ambrosia:burrito_box",
+    "count": 1
+  }
+}

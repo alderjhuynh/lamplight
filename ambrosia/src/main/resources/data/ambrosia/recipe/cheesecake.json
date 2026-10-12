@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:cheese",
+    "minecraft:sugar",
+    "#minecraft:eggs",
+    "ambrosia:dough"
+  ],
+  "result": {
+    "id": "ambrosia:cheesecake",
+    "count": 1
+  }
+}

@@ -40,6 +40,6 @@ public final class MenagerieEntities {
 
     public static void init() {
         FabricDefaultAttributeRegistry.register(CROW, CrowEntity.bakeAttributes().build());
-        SpawnPlacements.register(CROW, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, CrowEntity::canCrowSpawn);
+        SpawnPlacements.register(CROW, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrowEntity::canCrowSpawn);
     }
 }

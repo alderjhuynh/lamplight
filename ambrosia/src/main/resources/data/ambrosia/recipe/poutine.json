@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:fries",
+    "ambrosia:cheese",
+    "ambrosia:stock"
+  ],
+  "result": {
+    "id": "ambrosia:poutine",
+    "count": 1
+  }
+}

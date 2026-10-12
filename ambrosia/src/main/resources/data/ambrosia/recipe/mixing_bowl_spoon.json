@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:stick",
+    "minecraft:bowl"
+  ],
+  "result": {
+    "id": "ambrosia:mixing_bowl_spoon",
+    "count": 1
+  }
+}

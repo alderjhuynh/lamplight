@@ -121,6 +121,8 @@ public class FryingPanItem extends Item {
         } else if (!player.getInventory().add(result.copy())) {
             player.drop(result.copy(), false);
         }
+        player.getCooldowns().addCooldown(pan, 10);
+        level.playSound(null, player, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.PLAYERS, 0.8F, 1.0F);
         level.playSound(null, at, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 0.8F, 1.2F);
         if (level instanceof ServerLevel server) {
             Vec3 look = player.getLookAngle();

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:dough",
+    "#minecraft:eggs"
+  ],
+  "result": {
+    "id": "ambrosia:noodles",
+    "count": 2
+  }
+}

@@ -1,6 +1,8 @@
 {
   "values": [
     "vantage:sparse_forest",
+    "vantage:coniferous_thicket",
+    "vantage:flower_plateau",
     "#vantage:reference/forest"
   ],
   "replace": false

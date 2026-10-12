@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "p",
+    "i",
+    "s"
+  ],
+  "key": {
+    "p": "ambrosia:soul_pepper",
+    "i": "minecraft:iron_ingot",
+    "s": "minecraft:stick"
+  },
+  "result": {
+    "id": "ambrosia:ritual_dagger"
+  }
+}

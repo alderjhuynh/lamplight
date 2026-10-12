@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:tortilla_chips",
+    "ambrosia:cheese",
+    "ambrosia:salsa"
+  ],
+  "result": {
+    "id": "ambrosia:nachos",
+    "count": 1
+  }
+}

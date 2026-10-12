@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "ingredient": "ambrosia:beef_cutlets",
+  "result": {
+    "id": "minecraft:cooked_beef"
+  },
+  "experience": 0.35,
+  "group": "cooked_beef"
+}

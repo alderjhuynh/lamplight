@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:fried_fish",
+    "ambrosia:fries"
+  ],
+  "result": {
+    "id": "ambrosia:fish_and_chips",
+    "count": 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:rice",
+    "#minecraft:eggs",
+    "ambrosia:cooking_oil"
+  ],
+  "result": {
+    "id": "ambrosia:egg_fried_rice",
+    "count": 1
+  }
+}

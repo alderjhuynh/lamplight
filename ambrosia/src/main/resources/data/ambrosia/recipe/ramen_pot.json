@@ -1,0 +1,15 @@
+{
+  "type": "ambrosia:cooking_pot",
+  "ingredients": [
+    "ambrosia:noodles",
+    "#minecraft:eggs",
+    "minecraft:porkchop"
+  ],
+  "result": {
+    "id": "ambrosia:ramen",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200,
+  "container": "minecraft:bowl"
+}

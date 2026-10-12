@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:salmon"
+  ],
+  "result": {
+    "id": "ambrosia:salmon_fillets",
+    "count": 2
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "ambrosia:cooking_pot",
+  "ingredients": [
+    "ambrosia:beef_cutlets",
+    "ambrosia:dough",
+    "ambrosia:ginger_beer"
+  ],
+  "result": {
+    "id": "ambrosia:steak_and_ale_pie",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

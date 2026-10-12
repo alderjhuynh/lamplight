@@ -1,0 +1,14 @@
+{
+  "type": "ambrosia:cooking_pot",
+  "ingredients": [
+    "ambrosia:beef_cutlets",
+    "minecraft:stick",
+    "ambrosia:tomato"
+  ],
+  "result": {
+    "id": "ambrosia:kebab",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

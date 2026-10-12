@@ -1,0 +1,13 @@
+{
+  "type": "ambrosia:cooking_pot",
+  "ingredients": [
+    "ambrosia:chicken_cutlets",
+    "ambrosia:soul_pepper"
+  ],
+  "result": {
+    "id": "ambrosia:buffalo_wings",
+    "count": 2
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

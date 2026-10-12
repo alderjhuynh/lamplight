@@ -28,14 +28,46 @@ public class Menagerie implements ModInitializer {
 				BiomeSelectors.tag(net.minecraft.tags.BiomeTags.IS_FOREST),
 				MobCategory.CREATURE, MenagerieEntities.CROW, 10, 1, 2);
 		BiomeModifications.addSpawn(
+				BiomeSelectors.tag(net.minecraft.tags.BiomeTags.IS_TAIGA),
+				MobCategory.CREATURE, MenagerieEntities.CROW, 8, 1, 2);
+		BiomeModifications.addSpawn(
 				BiomeSelectors.includeByKey(
-						net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.BIOME,
-								Identifier.fromNamespaceAndPath("minecraft", "plains")),
-						net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.BIOME,
-								Identifier.fromNamespaceAndPath("minecraft", "sunflower_plains"))),
+						biomeKey("minecraft", "plains"),
+						biomeKey("minecraft", "sunflower_plains"),
+						biomeKey("minecraft", "meadow"),
+						biomeKey("minecraft", "cherry_grove")),
+				MobCategory.CREATURE, MenagerieEntities.CROW, 8, 1, 2);
+		// Vantage open-country analogues of plains/meadows/savannas (crows forage open ground).
+		BiomeModifications.addSpawn(
+				BiomeSelectors.includeByKey(
+						vantageBiome("steppe"),
+						vantageBiome("shrubland"),
+						vantageBiome("scrublands"),
+						vantageBiome("cold_shrubland"),
+						vantageBiome("hanging_meadow"),
+						vantageBiome("lush_valley"),
+						vantageBiome("basin"),
+						vantageBiome("highlands"),
+						vantageBiome("mountainous_highlands"),
+						vantageBiome("thornscrub"),
+						vantageBiome("misty_isles"),
+						vantageBiome("burnt_savanna"),
+						vantageBiome("shattered_savanna"),
+						vantageBiome("savanna_badlands"),
+						vantageBiome("savanna_slopes"),
+						vantageBiome("yellowstone")),
 				MobCategory.CREATURE, MenagerieEntities.CROW, 8, 1, 2);
 
 		LOGGER.info("Menagerie init");
+	}
+
+	private static net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome> vantageBiome(String path) {
+		return biomeKey("vantage", path);
+	}
+
+	private static net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome> biomeKey(String namespace, String path) {
+		return net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.BIOME,
+				Identifier.fromNamespaceAndPath(namespace, path));
 	}
 
 	public static Identifier id(String path) {

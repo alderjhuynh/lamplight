@@ -1,0 +1,14 @@
+{
+  "type": "ambrosia:cooking_pot",
+  "ingredients": [
+    "ambrosia:tomato",
+    "ambrosia:tomato"
+  ],
+  "container": "minecraft:bowl",
+  "result": {
+    "id": "ambrosia:tomato_soup",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

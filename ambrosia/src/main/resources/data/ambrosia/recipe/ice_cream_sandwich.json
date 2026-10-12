@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:ice_cream",
+    "minecraft:cookie",
+    "minecraft:cookie"
+  ],
+  "result": {
+    "id": "ambrosia:ice_cream_sandwich",
+    "count": 1
+  }
+}

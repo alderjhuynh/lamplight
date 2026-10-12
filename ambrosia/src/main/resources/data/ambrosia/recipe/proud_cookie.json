@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:cookie",
+    "minecraft:red_dye",
+    "minecraft:orange_dye",
+    "minecraft:yellow_dye",
+    "minecraft:lime_dye",
+    "minecraft:blue_dye",
+    "minecraft:purple_dye"
+  ],
+  "result": {
+    "id": "ambrosia:proud_cookie",
+    "count": 2
+  }
+}

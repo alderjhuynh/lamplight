@@ -10,10 +10,11 @@ public record VanillaFoodOverride(
         Optional<Integer> nutrition,
         Optional<Float> saturation,
         Optional<Integer> famishedTicks,
-        Optional<Integer> nourishmentTicks
+        Optional<Integer> nourishmentTicks,
+        Optional<Integer> comfortTicks
 ) {
     public static VanillaFoodOverride empty() {
-        return new VanillaFoodOverride(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        return new VanillaFoodOverride(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     public static VanillaFoodOverride fromJson(String json) {
@@ -27,7 +28,9 @@ public record VanillaFoodOverride(
                 readEffectTicks(json, VanillaFoodTweaks.DEFAULT_FAMISHED_TICKS,
                         "famishedTicks", "famished"),
                 readEffectTicks(json, VanillaFoodTweaks.DEFAULT_NOURISHMENT_TICKS,
-                        "nourishmentTicks", "nourishment", "nourished")
+                        "nourishmentTicks", "nourishment", "nourished"),
+                readEffectTicks(json, VanillaFoodTweaks.DEFAULT_COMFORT_TICKS,
+                        "comfortTicks", "comfort")
         );
     }
 
@@ -36,7 +39,7 @@ public record VanillaFoodOverride(
     }
 
     public boolean hasEffects() {
-        return famishedTicks.isPresent() || nourishmentTicks.isPresent();
+        return famishedTicks.isPresent() || nourishmentTicks.isPresent() || comfortTicks.isPresent();
     }
 
     public boolean isEmpty() {

@@ -1,0 +1,16 @@
+{
+  "type": "ambrosia:cooking_pot",
+  "ingredients": [
+    "ambrosia:chicken_cutlets",
+    "ambrosia:butter",
+    "ambrosia:milk_bottle",
+    "ambrosia:rice"
+  ],
+  "result": {
+    "id": "ambrosia:butter_chicken",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200,
+  "container": "minecraft:bowl"
+}

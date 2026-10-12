@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "ingredient": "ambrosia:grapes",
+  "result": {
+    "id": "ambrosia:raisins"
+  },
+  "experience": 0.35,
+  "group": "raisins"
+}

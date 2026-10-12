@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:rice",
+    "minecraft:cooked_salmon",
+    "ambrosia:lettuce"
+  ],
+  "result": {
+    "id": "ambrosia:bento_box",
+    "count": 1
+  }
+}

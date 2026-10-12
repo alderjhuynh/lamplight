@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:noodles",
+    "#minecraft:eggs",
+    "ambrosia:roasted_seeds"
+  ],
+  "result": {
+    "id": "ambrosia:pad_thai",
+    "count": 1
+  }
+}

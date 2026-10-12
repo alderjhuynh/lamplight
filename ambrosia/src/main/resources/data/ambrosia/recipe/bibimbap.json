@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ambrosia:rice",
+    "ambrosia:lettuce",
+    "#minecraft:eggs",
+    "ambrosia:tomato"
+  ],
+  "result": {
+    "id": "ambrosia:bibimbap",
+    "count": 1
+  }
+}

@@ -1,5 +1,8 @@
 {
   "key.picturesque.toggle": "Toggle Picturesque grade",
+  "key.picturesque.raytrace": "Toggle Picturesque raytracing",
   "message.picturesque.enabled": "Picturesque grade: on",
-  "message.picturesque.disabled": "Picturesque grade: off"
+  "message.picturesque.disabled": "Picturesque grade: off",
+  "message.picturesque.raytrace.enabled": "Picturesque raytracing: on",
+  "message.picturesque.raytrace.disabled": "Picturesque raytracing: off"
 }

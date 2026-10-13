@@ -1,6 +1,5 @@
 {
   "crow_idle": {
-    "category": "neutral",
     "sounds": [
       { "name": "menagerie:crow_idle_0" },
       { "name": "menagerie:crow_idle_1" },
@@ -10,7 +9,6 @@
     "subtitle": "menagerie.sound.subtitle.crow_idle"
   },
   "crow_hurt": {
-    "category": "neutral",
     "sounds": [
       { "name": "menagerie:crow_hurt_0" },
       { "name": "menagerie:crow_hurt_1" }

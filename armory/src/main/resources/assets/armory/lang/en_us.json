@@ -2,5 +2,12 @@
 	"category.armory": "Armory",
 	"key.armory.backslot_edit": "Edit Back-Slot Transform",
 	"key.armory.draw_sheath": "Use Back Item",
-	"item.armory.iron_katana": "Iron Katana"
+	"item.armory.iron_katana": "Iron Katana",
+	"item.armory.wooden_scythe": "Wooden Scythe",
+	"item.armory.stone_scythe": "Stone Scythe",
+	"item.armory.copper_scythe": "Copper Scythe",
+	"item.armory.iron_scythe": "Iron Scythe",
+	"item.armory.golden_scythe": "Golden Scythe",
+	"item.armory.diamond_scythe": "Diamond Scythe",
+	"item.armory.netherite_scythe": "Netherite Scythe"
 }

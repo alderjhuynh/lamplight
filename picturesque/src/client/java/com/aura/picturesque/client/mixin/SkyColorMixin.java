@@ -12,15 +12,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/**
- * Marshmallow-cloud skies: lays the day's gouache mood over the sky as a
- * kiss, then grades it on the pastel-safe curve.
- *
- * <p>Vantage's per-biome sky colors stay dominant — golden hour rims a
- * little warmer, dusk leans a little coral-rose, night settles a little
- * indigo. Gated by {@code marshmallowSky}; the grade still applies when
- * only grading is on.
- */
 @Mixin(SkyRenderer.class)
 public class SkyColorMixin {
     @Inject(method = "extractRenderState", at = @At("RETURN"))

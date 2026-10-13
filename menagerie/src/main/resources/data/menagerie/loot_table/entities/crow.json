@@ -1,7 +1,6 @@
 {
   "pools": [
     {
-      "name": "crow",
       "rolls": 1,
       "entries": [
         {

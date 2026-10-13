@@ -10,16 +10,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/**
- * Lit-up water: brightens the underwater fog base the way darkness is
- * treated — more light, same hue — instead of repainting it.
- *
- * <p>Vantage's deep teals stay teal, just less murky, with a faint aqua
- * breath so dives feel dreamy. Depth cueing still works, and the
- * atmospheric fog pass ({@code FogColorMixin}) leaves water alone, so this
- * is the only hand on the color. Blurred sky reflections, caustics, and
- * stained-glass colored light remain future passes.
- */
 @Mixin(WaterFogEnvironment.class)
 public class WaterFogMixin {
     @Inject(method = "getBaseColor", at = @At("RETURN"), cancellable = true)

@@ -1,24 +1,5 @@
 package com.aura.picturesque.client.color;
 
-/**
- * The per-frame "mood" Picturesque is aiming for: which sun, sky, fog, and
- * ambient tints to steer vanilla lighting toward.
- *
- * <p>Pure data, no Minecraft types, so the curve is easy to tune and test.
- * Weather dims and cools everything; night hands the scene to lantern amber
- * and indigo instead of going black.
- *
- * <p>Future hook: Almanac (seasons/weather/temperature) and Gloaming
- * (twilight threat) will feed this record instead of raw rain level.
- *
- * @param sunTint     target sunlight color (block + sky light lean this way)
- * @param skyTint     target sky color
- * @param fogTint     target atmospheric fog color
- * @param ambientTint target ambient/bounce color
- * @param shadowTint  colored-pencil shadow tint (periwinkle/mauve family)
- * @param lanternBoost 0..1 extra amber pool emphasis at night
- * @param weatherDim 0 clear .. 1 heavy rain/thunder
- */
 public record LightMood(
         int sunTint,
         int skyTint,

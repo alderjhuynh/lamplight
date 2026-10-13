@@ -8,15 +8,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 
-/**
- * Per-frame cache of what Picturesque wants the world to feel like.
- *
- * <p>Updated once per client tick from time-of-day + weather (the Almanac
- * seam: when Almanac ships seasons and temperature, this is where its data
- * folds into {@link LightMood}). Mixins read from here so render code stays
- * branch-cheap: if the mod is disabled or the player is in a menu, they
- * early-out without touching vanilla values.
- */
 public final class PicturesqueState {
     private static final PicturesqueState INSTANCE = new PicturesqueState();
 
@@ -63,7 +54,6 @@ public final class PicturesqueState {
         return config != null && config.enabled;
     }
 
-    /** Called from the client tick: cheap, allocation-free in the common path. */
     public void tick(Minecraft client) {
         if (config == null || !config.enabled) {
             return;

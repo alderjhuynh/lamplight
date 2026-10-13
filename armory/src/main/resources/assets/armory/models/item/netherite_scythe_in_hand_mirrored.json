@@ -1,0 +1,6 @@
+{
+  "parent": "armory:item/scythe_in_hand",
+  "textures": {
+    "layer0": "armory:item/netherite_scythe_in_hand_mirrored"
+  }
+}

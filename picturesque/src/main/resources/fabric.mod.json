@@ -3,7 +3,7 @@
 	"id": "picturesque",
 	"version": "${version}",
 	"name": "Picturesque",
-	"description": "A cozy gouache-grade look for Lamplight: buttery sun, periwinkle shadows, biome fog, amber lantern glow.",
+	"description": "A cozy gouache-grade look for Lamplight: buttery sun, periwinkle shadows, biome fog, amber lantern glow, plus an optional voxel-raytraced light pass with bloom.",
 	"authors": [
 		"Me!"
 	],
@@ -26,6 +26,10 @@
 		"picturesque.mixins.json",
 		{
 			"config": "picturesque.client.mixins.json",
+			"environment": "client"
+		},
+		{
+			"config": "picturesque.raytrace.mixins.json",
 			"environment": "client"
 		}
 	],

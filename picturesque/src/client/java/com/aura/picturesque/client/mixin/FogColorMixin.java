@@ -12,17 +12,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/**
- * Lays the lighting kiss over atmospheric fog.
- *
- * <p>Lavender mornings, peachy dusks, minty forests — a breath of tint over
- * Vantage's per-biome fog colors, which stay dominant. Vanilla rain
- * darkening and distance cues still read, and everything shares the
- * pastel-safe pigment grade.
- *
- * <p>Only atmospheric fog is touched. Water has its own lift in
- * {@code WaterFogMixin}; lava and powder snow keep their vanilla urgency.
- */
 @Mixin(FogRenderer.class)
 public class FogColorMixin {
     @Inject(method = "setupFog", at = @At("RETURN"))

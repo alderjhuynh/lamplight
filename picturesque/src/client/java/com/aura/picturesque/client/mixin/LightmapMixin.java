@@ -13,16 +13,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/**
- * Warm light without simulation: leans the lightmap toward buttery sun by
- * day, amber lantern pools by night, and periwinkle/mauve ambient shadows.
- *
- * <p>Block light (torches, lanterns, fireplaces) gets the generous amber
- * spill that makes interiors inviting; sky light follows the mood's sun
- * tint; ambient/bounce leans grass-green by day and lantern-warm at night.
- * Everything is a gentle lerp plus the shared gouache grade — no hard
- * contrast, no crushed blacks.
- */
 @Mixin(LightmapRenderStateExtractor.class)
 public class LightmapMixin {
     @Inject(method = "extract", at = @At("RETURN"))
@@ -39,7 +29,6 @@ public class LightmapMixin {
         LightMood mood = pic.mood();
 
         if (config.warmLight) {
-            // Lantern amber takes over as night falls; sun tint leads by day.
             int blockTarget = PicturesquePalette.lerp(
                     mood.sunTint(), PicturesquePalette.LANTERN_AMBER, mood.lanternBoost() * 0.75f);
             state.blockLightTint = lerpVec(state.blockLightTint, blockTarget, 0.35f);

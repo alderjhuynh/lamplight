@@ -1,0 +1,56 @@
+{
+  "type": "minecraft:block",
+  "functions": [
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ],
+  "pools": [
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "lamplight:coffee_crop",
+                  "properties": {
+                    "age": "7"
+                  }
+                }
+              ],
+              "name": "lamplight:coffee_cherries"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "lamplight:coffee_cherries"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "lamplight:coffee_crop",
+          "properties": {
+            "age": "7"
+          }
+        }
+      ],
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lamplight:coffee_cherries"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "lamplight:blocks/coffee_crop"
+}

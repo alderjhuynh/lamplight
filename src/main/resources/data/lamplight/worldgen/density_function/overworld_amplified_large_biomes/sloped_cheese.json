@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:add",
+  "argument1": {
+    "type": "minecraft:mul",
+    "argument1": 4.0,
+    "argument2": {
+      "type": "minecraft:quarter_negative",
+      "argument": {
+        "type": "minecraft:mul",
+        "argument1": {
+          "type": "minecraft:add",
+          "argument1": "lamplight:overworld_amplified_large_biomes/depth",
+          "argument2": {
+            "type": "minecraft:mul",
+            "argument1": "lamplight:overworld_amplified_large_biomes/jaggedness",
+            "argument2": {
+              "type": "minecraft:half_negative",
+              "argument": {
+                "type": "minecraft:noise",
+                "noise": "minecraft:jagged",
+                "xz_scale": 1500.02397,
+                "y_scale": 0.05
+              }
+            }
+          }
+        },
+        "argument2": "lamplight:overworld_amplified_large_biomes/factor"
+      }
+    }
+  },
+  "argument2": "minecraft:overworld/base_3d_noise",
+  "_comment": "Vantage original terrain math for sloped_cheese.json \u2014 distinct"
+}

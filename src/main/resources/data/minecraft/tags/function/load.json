@@ -1,0 +1,8 @@
+{
+  "values": [
+    {
+      "id": "lamplight:setup",
+      "required": false
+    }
+  ]
+}

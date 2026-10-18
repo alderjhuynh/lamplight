@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "lamplight:dough",
+    "#minecraft:eggs"
+  ],
+  "result": {
+    "id": "lamplight:noodles",
+    "count": 2
+  }
+}

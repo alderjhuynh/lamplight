@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "lamplight:block/wine_rack_side",
+    "down": "lamplight:block/wine_rack_top",
+    "up": "lamplight:block/wine_rack_top",
+    "north": "lamplight:block/wine_rack_front",
+    "south": "lamplight:block/wine_rack_side",
+    "west": "lamplight:block/wine_rack_side",
+    "east": "lamplight:block/wine_rack_side"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "lamplight:cooking_pot",
+  "ingredients": [
+    "minecraft:potato",
+    "lamplight:cooking_oil"
+  ],
+  "result": {
+    "id": "lamplight:fries",
+    "count": 2
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

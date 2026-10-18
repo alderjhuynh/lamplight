@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "ingredient": "lamplight:chicken_cutlets",
+  "result": {
+    "id": "minecraft:cooked_chicken"
+  },
+  "experience": 0.35,
+  "group": "cooked_chicken"
+}

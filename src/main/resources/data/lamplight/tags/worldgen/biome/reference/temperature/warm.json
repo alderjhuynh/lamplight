@@ -1,0 +1,10 @@
+{
+  "values": [
+    "#lamplight:reference/badlands_all",
+    "#lamplight:reference/desert_all",
+    "lamplight:granite_cliffs",
+    "lamplight:warm_river",
+    "lamplight:white_mesa",
+    "lamplight:deep_warm_ocean"
+  ]
+}

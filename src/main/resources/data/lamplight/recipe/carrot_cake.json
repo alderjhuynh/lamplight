@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:carrot",
+    "minecraft:sugar",
+    "#minecraft:eggs",
+    "lamplight:dough"
+  ],
+  "result": {
+    "id": "lamplight:carrot_cake",
+    "count": 1
+  }
+}

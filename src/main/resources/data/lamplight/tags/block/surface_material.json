@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#lamplight:snow_and_substrates",
+	"#lamplight:base_overworld_terrain"
+  ]
+}

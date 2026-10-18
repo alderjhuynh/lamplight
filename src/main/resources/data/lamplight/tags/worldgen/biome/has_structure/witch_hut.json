@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "lamplight:orchid_swamp",
+    "lamplight:ice_marsh",
+    "minecraft:swamp"
+  ]
+}

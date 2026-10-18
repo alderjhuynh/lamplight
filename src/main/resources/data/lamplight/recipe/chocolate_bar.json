@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:cocoa_beans",
+    "minecraft:sugar",
+    "lamplight:milk_bottle"
+  ],
+  "result": {
+    "id": "lamplight:chocolate_bar",
+    "count": 2
+  }
+}

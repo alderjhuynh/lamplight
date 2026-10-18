@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "lamplight:noodles",
+    "lamplight:salsa"
+  ],
+  "result": {
+    "id": "lamplight:spaghetti",
+    "count": 1
+  }
+}

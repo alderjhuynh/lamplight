@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "lamplight:moonlight_grove",
+    "lamplight:lavender_forest",
+    "lamplight:crystal_canyon",
+    "lamplight:misty_isles"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "lamplight:shrubland",
+    "lamplight:scrublands",
+    "lamplight:cold_shrubland"
+  ]
+}

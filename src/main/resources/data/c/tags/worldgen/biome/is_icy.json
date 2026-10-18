@@ -1,0 +1,8 @@
+{
+  "values": [
+    "lamplight:frozen_caves",
+    "lamplight:frozen_cliff",
+    "#lamplight:reference/temperature/frozen_all"
+  ],
+  "replace": false
+}

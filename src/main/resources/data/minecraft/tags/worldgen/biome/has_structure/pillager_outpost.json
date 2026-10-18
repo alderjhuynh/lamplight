@@ -1,0 +1,15 @@
+{
+  "values": [
+    "minecraft:savanna_plateau",
+    "minecraft:badlands",
+    "minecraft:wooded_badlands",
+    "windswept_hills",
+    "windswept_gravelly_hills",
+    "lamplight:thornscrub",
+    "lamplight:desert_oasis",
+    "minecraft:sunflower_plains",
+    "#lamplight:reference/forest",
+    "#lamplight:reference/taiga"
+  ],
+  "replace": false
+}

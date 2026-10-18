@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:squeeze",
+  "argument": {
+    "type": "minecraft:mul",
+    "argument1": 0.64,
+    "argument2": {
+      "type": "minecraft:interpolated",
+      "argument": {
+        "type": "minecraft:blend_density",
+        "argument": "lamplight:end/sculpted"
+      }
+    }
+  },
+  "_comment": "Vantage original terrain math for final_density.json \u2014 distinct"
+}

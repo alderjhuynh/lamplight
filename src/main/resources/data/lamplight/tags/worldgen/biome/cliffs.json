@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "lamplight:basalt_cliffs",
+    "lamplight:frozen_cliffs",
+    "lamplight:granite_cliffs",
+    "lamplight:white_cliffs",
+    "lamplight:yosemite_cliffs"
+  ]
+}

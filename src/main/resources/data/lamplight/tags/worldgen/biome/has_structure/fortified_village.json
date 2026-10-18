@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:plains",
+    "minecraft:sunflower_plains",
+    "lamplight:temperate_highlands",
+    "lamplight:forested_highlands",
+    "lamplight:mountainous_highlands",
+    "lamplight:thornscrub",
+    "minecraft:meadow"
+  ]
+}

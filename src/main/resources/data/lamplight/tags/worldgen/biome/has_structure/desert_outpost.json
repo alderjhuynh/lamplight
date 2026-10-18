@@ -1,0 +1,8 @@
+{
+    "replace": false,
+    "values": [
+        "minecraft:desert",
+        "lamplight:desert_oasis",
+        "lamplight:lush_desert"
+    ]
+}

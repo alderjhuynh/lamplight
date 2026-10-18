@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "lamplight:wine",
+    "lamplight:cinnamon"
+  ],
+  "result": {
+    "id": "lamplight:mulled_wine",
+    "count": 1
+  }
+}

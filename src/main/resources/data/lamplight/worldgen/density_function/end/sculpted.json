@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:add",
+  "argument1": "lamplight:end/island_field",
+  "argument2": "lamplight:end/shelf_bias",
+  "_comment": "Vantage original terrain math for sculpted.json \u2014 distinct"
+}

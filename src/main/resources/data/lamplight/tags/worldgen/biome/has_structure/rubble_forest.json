@@ -1,0 +1,19 @@
+{
+  "values": [
+    "minecraft:birch_forest",
+    "minecraft:dark_forest",
+    "minecraft:flower_forest",
+    "minecraft:forest",
+    "minecraft:old_growth_birch_forest",
+    "minecraft:windswept_forest",
+    "lamplight:mountainous_highlands",
+    "lamplight:thornscrub",
+    "lamplight:cloud_forest",
+    "lamplight:forested_highlands",
+    "lamplight:lavender_forest",
+    "lamplight:moonlight_grove",
+    "lamplight:temperate_highlands",
+    "lamplight:lush_valley",
+    "lamplight:yosemite_lowlands"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#lamplight:sapling_cannot_grow_warm",
+    "#lamplight:sapling_cannot_grow_cold"
+  ]
+}

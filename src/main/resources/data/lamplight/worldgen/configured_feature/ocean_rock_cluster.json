@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:fossil",
+  "config": {
+    "fossil_processors": "lamplight:ocean_rock",
+    "fossil_structures": [
+      "lamplight:ocean_rock/rock_cluster_1",
+      "lamplight:ocean_rock/rock_cluster_2",
+      "lamplight:ocean_rock/rock_cluster_3",
+      "lamplight:ocean_rock/rock_cluster_4",
+      "lamplight:ocean_rock/rock_cluster_5"
+    ],
+    "max_empty_corners_allowed": 4,
+    "overlay_processors": "minecraft:empty",
+    "overlay_structures": [
+      "lamplight:ocean_rock/rock_cluster_1",
+      "lamplight:ocean_rock/rock_cluster_2",
+      "lamplight:ocean_rock/rock_cluster_3",
+      "lamplight:ocean_rock/rock_cluster_4",
+      "lamplight:ocean_rock/rock_cluster_5"
+    ]
+  }
+}

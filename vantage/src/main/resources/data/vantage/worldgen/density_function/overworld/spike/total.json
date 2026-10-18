@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:range_choice",
-  "input": "vantage:overworld/spike/size_spline",
-  "min_inclusive": -0.9892,
-  "max_exclusive": 1000000,
-  "when_in_range": "vantage:overworld/spike/noise",
-  "when_out_of_range": -64,
-  "_comment": "Vantage original terrain math for total.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
-}

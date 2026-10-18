@@ -1,0 +1,9 @@
+{
+  "values": [
+    "#minecraft:is_badlands",
+    "lamplight:frozen_caves",
+    "lamplight:warm_caves",
+    "#lamplight:reference/badlands_with_structures"
+  ],
+  "replace": false
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": {
+      "feature": "lamplight:amethyst_geode_closed",
+      "placement": []
+    },
+    "features": [
+      {
+        "chance": 0.5,
+        "feature": {
+          "feature": "lamplight:amethyst_geode_open",
+          "placement": []
+        }
+      }
+    ]
+  }
+}

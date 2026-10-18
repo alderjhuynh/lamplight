@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:cache_once",
+  "argument": {
+    "type": "minecraft:min",
+    "argument1": "lamplight:overworld/cliff/carve",
+    "argument2": 64
+  },
+  "_comment": "Vantage original terrain math for subtract_terrain_base.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+}

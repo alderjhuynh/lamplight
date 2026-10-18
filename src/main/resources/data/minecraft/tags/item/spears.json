@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "lamplight:wooden_scythe",
+    "lamplight:stone_scythe",
+    "lamplight:copper_scythe",
+    "lamplight:iron_scythe",
+    "lamplight:golden_scythe",
+    "lamplight:diamond_scythe",
+    "lamplight:netherite_scythe"
+  ]
+}

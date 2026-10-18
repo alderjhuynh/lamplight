@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "lamplight:tomato",
+    "lamplight:soul_pepper",
+    "minecraft:bowl"
+  ],
+  "result": {
+    "id": "lamplight:salsa",
+    "count": 2
+  }
+}

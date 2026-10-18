@@ -1,0 +1,16 @@
+{
+  "values": [
+    "minecraft:grove",
+    "minecraft:snowy_slopes",
+    "minecraft:jagged_peaks",
+    "minecraft:frozen_peaks",
+    "minecraft:ice_spikes",
+    "lamplight:frozen_cliff",
+    "lamplight:frozen_valley",
+    "lamplight:mountainous_taiga",
+    "lamplight:snowy_shield",
+    "lamplight:wintry_forest",
+    "lamplight:snowy_cherry_grove"
+  ],
+  "replace": false
+}

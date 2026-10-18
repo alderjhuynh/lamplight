@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:add",
+  "argument1": {
+    "type": "minecraft:end_islands"
+  },
+  "argument2": "lamplight:end/base_3d_noise",
+  "_comment": "Vantage original terrain math for island_field.json \u2014 distinct"
+}

@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:add",
-  "argument1": "vantage:ocean_shape",
-  "argument2": {
-    "type": "minecraft:add",
-    "argument1": "vantage:pillars",
-    "argument2": "minecraft:overworld_amplified/offset"
-  }
-}

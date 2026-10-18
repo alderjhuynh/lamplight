@@ -1,0 +1,29 @@
+{
+  "id": "lamplight:frozen_shiver",
+  "length_ticks": 10,
+  "loop": true,
+  "priority": 10,
+  "trigger": {
+    "type": "lamplight:has_mob_effect",
+    "effect": "minecraft:slowness",
+    "min_amplifier": 1
+  },
+  "channels": [
+    {
+      "part": "head",
+      "keyframes": [
+        { "time": 0,  "rotation": [0, -2, 0], "translation": [0, 0, 0] },
+        { "time": 5,  "rotation": [0, 2, 0],  "translation": [0, 0, 0], "easing": "ease_in_out" },
+        { "time": 10, "rotation": [0, -2, 0], "translation": [0, 0, 0], "easing": "ease_in_out" }
+      ]
+    },
+    {
+      "part": "body",
+      "keyframes": [
+        { "time": 0,  "rotation": [0, 0, -1], "translation": [0, 0, 0] },
+        { "time": 5,  "rotation": [0, 0, 1],  "translation": [0, 0, 0], "easing": "ease_in_out" },
+        { "time": 10, "rotation": [0, 0, -1], "translation": [0, 0, 0], "easing": "ease_in_out" }
+      ]
+    }
+  ]
+}

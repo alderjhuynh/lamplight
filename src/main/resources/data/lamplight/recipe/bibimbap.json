@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "lamplight:rice",
+    "lamplight:lettuce",
+    "#minecraft:eggs",
+    "lamplight:tomato"
+  ],
+  "result": {
+    "id": "lamplight:bibimbap",
+    "count": 1
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "values": [
+    "lamplight:tropical_beach",
+    "lamplight:gravel_beach",
+    "minecraft:beach",
+    "minecraft:snowy_beach"
+  ],
+  "replace": false
+}

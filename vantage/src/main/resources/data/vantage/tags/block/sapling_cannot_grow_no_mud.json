@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "#vantage:sapling_cannot_grow_warm",
-    "#vantage:sapling_cannot_grow_cold",
-    "mud",
-    "muddy_mangrove_roots"
-  ]
-}

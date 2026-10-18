@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "lamplight:milk_bottle",
+    "lamplight:milk_bottle"
+  ],
+  "result": {
+    "id": "lamplight:butter",
+    "count": 1
+  }
+}

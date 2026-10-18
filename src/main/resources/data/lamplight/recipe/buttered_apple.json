@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:apple",
+    "lamplight:butter"
+  ],
+  "result": {
+    "id": "lamplight:buttered_apple",
+    "count": 1
+  }
+}

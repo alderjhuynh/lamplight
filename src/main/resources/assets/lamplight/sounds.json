@@ -1,0 +1,97 @@
+{
+  "block.cooking_pot.boil_soup": {
+    "sounds": [
+      {
+        "name": "lamplight:block/cooking_pot/boil_soup1"
+      },
+      {
+        "name": "lamplight:block/cooking_pot/boil_soup2"
+      },
+      {
+        "name": "lamplight:block/cooking_pot/boil_soup3"
+      }
+    ]
+  },
+  "block.cooking_pot.boil_water": {
+    "sounds": [
+      {
+        "name": "lamplight:block/cooking_pot/boil_water1"
+      },
+      {
+        "name": "lamplight:block/cooking_pot/boil_water2"
+      }
+    ]
+  },
+  "entity_glides": {
+    "sounds": [
+      {
+        "name": "lamplight:gliding_loop",
+        "stream": true
+      }
+    ]
+  },
+  "flow_gliding_loop": {
+    "sounds": [
+      {
+        "name": "lamplight:flow_gliding_loop",
+        "stream": true
+      }
+    ]
+  },
+  "dash": {
+    "sounds": [
+      {
+        "name": "lamplight:dash"
+      }
+    ]
+  },
+  "double_jump": {
+    "sounds": [
+      {
+        "name": "lamplight:double_jump"
+      }
+    ]
+  },
+  "wavedash_activates": {
+    "sounds": [
+      {
+        "name": "lamplight:wavedash_activates"
+      }
+    ]
+  },
+  "wavedash_deactivates": {
+    "sounds": [
+      {
+        "name": "lamplight:wavedash_deactivates"
+      }
+    ]
+  },
+  "crow_idle": {
+    "sounds": [
+      {
+        "name": "lamplight:crow_idle_0"
+      },
+      {
+        "name": "lamplight:crow_idle_1"
+      },
+      {
+        "name": "lamplight:crow_idle_2"
+      },
+      {
+        "name": "lamplight:crow_idle_3"
+      }
+    ],
+    "subtitle": "lamplight.sound.subtitle.crow_idle"
+  },
+  "crow_hurt": {
+    "sounds": [
+      {
+        "name": "lamplight:crow_hurt_0"
+      },
+      {
+        "name": "lamplight:crow_hurt_1"
+      }
+    ],
+    "subtitle": "lamplight.sound.subtitle.crow_hurt"
+  }
+}

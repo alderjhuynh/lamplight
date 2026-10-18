@@ -1,0 +1,48 @@
+{
+  "required": true,
+  "package": "com.aura.lamplight.client.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "ambrosia.FryingPanFirstPersonMixin",
+    "ambrosia.FryingPanThirdPersonMixin",
+    "ambrosia.appleskin.ClientTooltipComponentMixin",
+    "ambrosia.appleskin.FoodDataAccessor",
+    "ambrosia.appleskin.HudMixin",
+    "ambrosia.appleskin.ItemStackTooltipMixin",
+    "arcanum.DashHudMixin",
+    "arcanum.DoubleJumpElytraHudMixin",
+    "arcanum.DoubleJumpHudMixin",
+    "arcanum.FlowGlideHudMixin",
+    "arcanum.GlideHudMixin",
+    "arcanum.WavedashHudMixin",
+    "armory.AvatarRendererMixin",
+    "armory.HudMixin",
+    "menagerie.AvatarRenderStateMixin",
+    "menagerie.AvatarRendererMixin",
+    "panacea.LivingEntityRenderStateMixin",
+    "panacea.LivingEntityRendererMixin",
+    "picturesque.FogColorMixin",
+    "picturesque.LightmapMixin",
+    "picturesque.SkyColorMixin",
+    "picturesque.WaterFogMixin",
+    "picturesque.raytrace.GameRendererAccessor",
+    "picturesque.raytrace.PostChainAccessor",
+    "picturesque.raytrace.PostPassAccessor",
+    "picturesque.raytrace.RaytraceBlockMixin",
+    "picturesque.raytrace.RaytraceEntityMixin",
+    "picturesque.raytrace.RaytraceFogMixin",
+    "picturesque.raytrace.RaytraceGameMixin",
+    "picturesque.raytrace.RaytraceLightmapMixin",
+    "picturesque.raytrace.RaytraceSkyMixin",
+    "picturesque.raytrace.RaytraceWaterMixin",
+    "puppeteer.EntityRenderStateAnimationMixin",
+    "puppeteer.HumanoidModelAnimationMixin",
+    "wayfarer.LevelChunkHookMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

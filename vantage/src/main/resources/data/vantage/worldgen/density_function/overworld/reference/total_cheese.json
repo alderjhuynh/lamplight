@@ -1,6 +1,0 @@
-{
-  "type": "minecraft:min",
-  "argument1": "vantage:overworld/reference/megacave",
-  "argument2": "vantage:overworld/reference/cave_cheese",
-  "_comment": "Vantage original terrain math for total_cheese.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
-}

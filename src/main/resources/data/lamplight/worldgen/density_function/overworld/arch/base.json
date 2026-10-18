@@ -1,0 +1,89 @@
+{
+  "type": "minecraft:mul",
+  "argument1": {
+    "type": "minecraft:max",
+    "argument1": {
+      "type": "minecraft:add",
+      "argument1": {
+        "type": "minecraft:abs",
+        "argument": {
+          "type": "minecraft:flat_cache",
+          "argument": {
+            "type": "minecraft:cache_2d",
+            "argument": {
+              "type": "minecraft:noise",
+              "noise": "lamplight:math/arch/shape",
+              "xz_scale": 0.99684,
+              "y_scale": 0.05
+            }
+          }
+        }
+      },
+      "argument2": {
+        "type": "minecraft:mul",
+        "argument1": {
+          "type": "minecraft:add",
+          "argument1": 0.05,
+          "argument2": {
+            "type": "minecraft:mul",
+            "argument1": "overworld/depth",
+            "argument2": 0.0275
+          }
+        },
+        "argument2": "lamplight:overworld/arch/thickness"
+      }
+    },
+    "argument2": {
+      "type": "minecraft:cube",
+      "argument": {
+        "type": "minecraft:add",
+        "argument1": {
+          "type": "minecraft:abs",
+          "argument": {
+            "type": "minecraft:add",
+            "argument1": {
+              "type": "minecraft:add",
+              "argument1": "lamplight:overworld/arch/height_spline",
+              "argument2": {
+                "type": "minecraft:mul",
+                "argument1": 9.0,
+                "argument2": {
+                  "type": "minecraft:noise",
+                  "noise": "lamplight:math/arch/height",
+                  "xz_scale": 1.99684,
+                  "y_scale": 0.31461
+                }
+              }
+            },
+            "argument2": {
+              "type": "minecraft:add",
+              "argument1": {
+                "type": "minecraft:y_clamped_gradient",
+                "from_value": 6.47813,
+                "from_y": -65,
+                "to_value": -13.53781,
+                "to_y": 320
+              },
+              "argument2": {
+                "type": "minecraft:mul",
+                "argument1": "overworld/depth",
+                "argument2": 1e-05
+              }
+            }
+          }
+        },
+        "argument2": {
+          "type": "minecraft:add",
+          "argument1": -1.3,
+          "argument2": {
+            "type": "minecraft:mul",
+            "argument1": "overworld/depth",
+            "argument2": -0.4
+          }
+        }
+      }
+    }
+  },
+  "argument2": -1,
+  "_comment": "Vantage original terrain math for base.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+}

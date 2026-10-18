@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:mul",
+    "argument1": {
+      "type": "minecraft:noise",
+      "noise": "lamplight:math/dune/amount",
+      "xz_scale": 4.98278,
+      "y_scale": 0.05
+    },
+    "argument2": 1.0
+  },
+  "_comment": "Vantage original terrain math for amount.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+}

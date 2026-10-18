@@ -1,0 +1,14 @@
+{
+  "type": "lamplight:cooking_pot",
+  "ingredients": [
+    "lamplight:tomato",
+    "lamplight:tomato"
+  ],
+  "container": "minecraft:bowl",
+  "result": {
+    "id": "lamplight:tomato_soup",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

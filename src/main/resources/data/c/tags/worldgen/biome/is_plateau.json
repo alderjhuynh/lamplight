@@ -1,0 +1,10 @@
+{
+  "values": [
+    "lamplight:coniferous_thicket",
+    "lamplight:flower_plateau",
+    "lamplight:savanna_badlands",
+    "lamplight:white_mesa",
+    "lamplight:yosemite_cliffs"
+  ],
+  "replace": false
+}

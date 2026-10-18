@@ -1,0 +1,13 @@
+{
+  "type": "flat_cache",
+  "argument": {
+    "type": "abs",
+    "argument": {
+      "type": "noise",
+      "noise": "lamplight:pillars",
+      "xz_scale": 0.42731,
+      "y_scale": 0.05
+    }
+  },
+  "_comment": "Vantage original terrain math for pillars_noise.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+}

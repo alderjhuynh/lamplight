@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:add",
+  "argument1": {
+    "type": "minecraft:y_clamped_gradient",
+    "from_value": 1.48597,
+    "from_y": -63,
+    "to_value": -1.53176,
+    "to_y": 320
+  },
+  "argument2": "lamplight:overworld_amplified_large_biomes/offset",
+  "_comment": "Vantage original terrain math for depth.json \u2014 distinct"
+}

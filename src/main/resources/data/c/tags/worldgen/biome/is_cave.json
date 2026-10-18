@@ -1,0 +1,8 @@
+{
+  "values": [
+    "#lamplight:all_caves",
+    "#lamplight:reference/cave",
+    "#lamplight:reference/deep_cave"
+  ],
+  "replace": false
+}

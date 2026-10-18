@@ -1,0 +1,17 @@
+{
+  "type": "lamplight:cooking_pot",
+  "ingredients": [
+    "lamplight:rice",
+    [
+      "minecraft:brown_mushroom",
+      "minecraft:red_mushroom"
+    ]
+  ],
+  "result": {
+    "id": "lamplight:mushroom_risotto",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200,
+  "container": "minecraft:bowl"
+}

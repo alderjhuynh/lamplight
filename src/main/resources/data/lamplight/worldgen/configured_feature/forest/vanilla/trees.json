@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:random_selector",
+    "config": {
+        "features": [
+            {
+                "chance": 0.2,
+                "feature": {
+                    "feature": "lamplight:birch/trees_forest",
+                    "placement": []
+                }
+            },
+            {
+                "chance": 0.1,
+                "feature": {
+                    "feature": "lamplight:forest/vanilla/fancy_oak",
+                    "placement": []
+                }
+            }
+        ],
+        "default": {
+            "feature": "lamplight:forest/vanilla/oak",
+            "placement": []
+        }
+    }
+}

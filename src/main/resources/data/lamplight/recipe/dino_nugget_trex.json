@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "lamplight:chicken_cutlets",
+    "#minecraft:eggs"
+  ],
+  "result": {
+    "id": "lamplight:dino_nugget_trex",
+    "count": 2
+  }
+}

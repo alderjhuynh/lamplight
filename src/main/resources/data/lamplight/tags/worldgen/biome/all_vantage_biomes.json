@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#lamplight:reference/all_with_structures",
+    "lamplight:cave/frostflare_caves",
+    "lamplight:escarpment",
+    "lamplight:hanging_meadow",
+    "lamplight:scree_slope"
+  ]
+}

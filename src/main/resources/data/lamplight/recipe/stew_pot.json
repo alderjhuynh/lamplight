@@ -1,0 +1,19 @@
+{
+  "type": "lamplight:cooking_pot",
+  "ingredients": [
+    "minecraft:potato",
+    "minecraft:carrot",
+    [
+      "minecraft:brown_mushroom",
+      "minecraft:red_mushroom"
+    ],
+    "lamplight:beef_cutlets"
+  ],
+  "result": {
+    "id": "lamplight:stew",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200,
+  "container": "minecraft:bowl"
+}

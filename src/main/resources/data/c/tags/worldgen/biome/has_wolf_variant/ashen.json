@@ -1,0 +1,13 @@
+{
+  "values": [
+    "minecraft:snowy_taiga",
+    "lamplight:snowy_old_growth_taiga",
+    "minecraft:snowy_plains",
+    "minecraft:frozen_river",
+    "lamplight:bog",
+    "lamplight:tundra",
+    "lamplight:wintry_forest",
+    "lamplight:mountainous_taiga"
+  ],
+  "replace": false
+}

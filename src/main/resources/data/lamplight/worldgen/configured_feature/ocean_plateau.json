@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:fossil",
+  "config": {
+    "fossil_processors": "lamplight:ocean_rock",
+    "fossil_structures": [
+      "lamplight:ocean_rock/plateau1",
+      "lamplight:ocean_rock/plateau2",
+      "lamplight:ocean_rock/plateau3",
+      "lamplight:ocean_rock/plateau4",
+      "lamplight:ocean_rock/plateau5",
+      "lamplight:ocean_rock/plateau6",
+      "lamplight:ocean_rock/plateau7",
+      "lamplight:ocean_rock/plateau8",
+      "lamplight:ocean_rock/plateau9"
+    ],
+    "max_empty_corners_allowed": 4,
+    "overlay_processors": "minecraft:empty",
+    "overlay_structures": [
+      "lamplight:ocean_rock/plateau1",
+      "lamplight:ocean_rock/plateau2",
+      "lamplight:ocean_rock/plateau3",
+      "lamplight:ocean_rock/plateau4",
+      "lamplight:ocean_rock/plateau5",
+      "lamplight:ocean_rock/plateau6",
+      "lamplight:ocean_rock/plateau7",
+      "lamplight:ocean_rock/plateau8",
+      "lamplight:ocean_rock/plateau9"
+    ]
+  }
+}

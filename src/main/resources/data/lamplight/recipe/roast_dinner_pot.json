@@ -1,0 +1,15 @@
+{
+  "type": "lamplight:cooking_pot",
+  "ingredients": [
+    "lamplight:chicken_cutlets",
+    "minecraft:potato",
+    "minecraft:carrot",
+    "lamplight:stock"
+  ],
+  "result": {
+    "id": "lamplight:roast_dinner",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

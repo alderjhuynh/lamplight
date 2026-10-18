@@ -1,0 +1,18 @@
+{
+    "structures": [
+        {
+            "structure": "lamplight:mage_tower",
+            "weight": 1
+        },
+        {
+            "structure": "lamplight:mage_complex",
+            "weight": 1
+        }
+    ],
+    "placement": {
+        "type": "minecraft:random_spread",
+        "salt": 2358902,
+        "spacing": 28,
+        "separation": 16
+    }
+}

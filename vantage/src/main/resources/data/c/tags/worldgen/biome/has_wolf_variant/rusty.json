@@ -1,9 +1,0 @@
-{
-  "values": [
-    "#minecraft:is_jungle",
-    "vantage:tropical_river",
-    "minecraft:swamp",
-    "minecraft:mangrove_swamp"
-  ],
-  "replace": false
-}

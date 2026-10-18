@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "lamplight:bog",
+    "lamplight:snowy_old_growth_taiga",
+    "lamplight:frozen_cliff",
+    "lamplight:frozen_valley",
+    "lamplight:tundra",
+    "lamplight:cold_river",
+    "lamplight:cold_caves",
+    "lamplight:frozen_caves",
+    "lamplight:snowy_diorite_shore",
+    "lamplight:diorite_coast",
+    "lamplight:gravel_beach",
+    "#lamplight:reference/temperature/cold",
+    "#lamplight:reference/temperature/frozen_all"
+  ]
+}

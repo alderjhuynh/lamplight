@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:fossil",
+  "config": {
+    "fossil_processors": "lamplight:ocean_rock",
+    "fossil_structures": [
+      "lamplight:ocean_rock/medium_rock_1",
+      "lamplight:ocean_rock/medium_rock_2",
+      "lamplight:ocean_rock/medium_rock_3",
+      "lamplight:ocean_rock/medium_rock_4"
+    ],
+    "max_empty_corners_allowed": 4,
+    "overlay_processors": "minecraft:empty",
+    "overlay_structures": [
+      "lamplight:ocean_rock/medium_rock_1",
+      "lamplight:ocean_rock/medium_rock_2",
+      "lamplight:ocean_rock/medium_rock_3",
+      "lamplight:ocean_rock/medium_rock_4"
+    ]
+  }
+}

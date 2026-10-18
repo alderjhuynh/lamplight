@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:min",
+  "argument1": "lamplight:overworld/reference/megacave",
+  "argument2": "lamplight:overworld/reference/cave_cheese",
+  "_comment": "Vantage original terrain math for total_cheese.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+}

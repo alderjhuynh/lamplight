@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "lamplight:desert_oasis",
+    "lamplight:thornscrub",
+    "lamplight:warm_river",
+    "lamplight:tropical_river",
+    "lamplight:warm_caves",
+    "lamplight:lukewarm_caves",
+    "lamplight:literally_just_fire",
+    "lamplight:tropical_beach",
+    "lamplight:granite_bluff",
+    "#lamplight:reference/temperature/lukewarm",
+    "#lamplight:reference/temperature/warm"
+  ]
+}

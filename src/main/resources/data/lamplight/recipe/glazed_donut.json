@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "lamplight:dough",
+    "minecraft:sugar",
+    "lamplight:cooking_oil"
+  ],
+  "result": {
+    "id": "lamplight:glazed_donut",
+    "count": 2
+  }
+}

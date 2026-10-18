@@ -1,0 +1,11 @@
+{
+  "values": [
+    "minecraft:plains",
+    "minecraft:meadow",
+    "minecraft:sunflower_plains",
+    "#lamplight:reference/plains",
+    "lamplight:flower_plateau",
+    "lamplight:temperate_highlands"
+  ],
+  "replace": false
+}

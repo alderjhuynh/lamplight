@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "lamplight:crystal_canyon",
+    "lamplight:crystal_rainforest",
+    "lamplight:lavender_forest",
+    "lamplight:misty_isles",
+    "lamplight:moonlight_grove",
+    "lamplight:painted_mountains",
+    "lamplight:red_mountains",
+    "lamplight:warped_mesa"
+  ]
+}

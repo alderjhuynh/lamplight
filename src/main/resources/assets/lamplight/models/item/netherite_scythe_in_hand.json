@@ -1,0 +1,6 @@
+{
+  "parent": "lamplight:item/scythe_in_hand",
+  "textures": {
+    "layer0": "lamplight:item/netherite_scythe_in_hand"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "lamplight:cooking_pot",
+  "ingredients": [
+    "minecraft:carrot",
+    "minecraft:potato",
+    "lamplight:lettuce"
+  ],
+  "container": "minecraft:bowl",
+  "result": {
+    "id": "lamplight:vegetable_soup",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

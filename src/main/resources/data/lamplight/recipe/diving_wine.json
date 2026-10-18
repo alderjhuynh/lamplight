@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "lamplight:wine",
+    "minecraft:pufferfish"
+  ],
+  "result": {
+    "id": "lamplight:diving_wine",
+    "count": 1
+  }
+}

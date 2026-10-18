@@ -1,0 +1,22 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.lamplight.propulsion"
+  },
+  "effects": {},
+  "exclusive_set": "#minecraft:exclusive_set/main_effect",
+  "max_cost": {
+    "base": 35,
+    "per_level_above_first": 10
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 12,
+    "per_level_above_first": 10
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "minecraft:crossbow",
+  "weight": 2
+}

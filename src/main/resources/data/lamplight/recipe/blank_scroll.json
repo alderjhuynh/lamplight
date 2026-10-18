@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SP ",
+    " P ",
+    " PS"
+  ],
+  "key": {
+    "S": "minecraft:stick",
+    "P": "minecraft:paper"
+  },
+  "result": {
+    "id": "lamplight:blank_scroll",
+    "count": 1
+  }
+}

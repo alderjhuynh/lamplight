@@ -1,0 +1,15 @@
+{
+  "type": "lamplight:cooking_pot",
+  "ingredients": [
+    "lamplight:noodles",
+    "#minecraft:eggs",
+    "minecraft:porkchop"
+  ],
+  "result": {
+    "id": "lamplight:ramen",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200,
+  "container": "minecraft:bowl"
+}

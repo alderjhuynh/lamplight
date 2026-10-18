@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:old_growth_pine_taiga",
+    "lamplight:mountainous_highlands",
+    "lamplight:birch_taiga",
+    "lamplight:cold_shrubland"
+  ],
+  "replace": false
+}

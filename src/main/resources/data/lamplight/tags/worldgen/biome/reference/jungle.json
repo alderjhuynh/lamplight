@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "lamplight:crystal_canyon",
+    "lamplight:crystal_rainforest",
+    "lamplight:jungle_mountains",
+    "lamplight:stone_jungle",
+    "lamplight:tropical_jungle"
+  ]
+}

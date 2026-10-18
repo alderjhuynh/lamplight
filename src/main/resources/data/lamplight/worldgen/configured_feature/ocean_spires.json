@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:fossil",
+  "config": {
+    "fossil_processors": "lamplight:ocean_rock_stack",
+    "fossil_structures": [
+      "lamplight:ocean_rock/spire1",
+      "lamplight:ocean_rock/spire2",
+      "lamplight:ocean_rock/spire3",
+      "lamplight:ocean_rock/spire4",
+      "lamplight:ocean_rock/spire5",
+      "lamplight:ocean_rock/spire6",
+      "lamplight:ocean_rock/spire7",
+      "lamplight:ocean_rock/spire8",
+      "lamplight:ocean_rock/spire9",
+      "lamplight:ocean_rock/spire10"
+    ],
+    "max_empty_corners_allowed": 4,
+    "overlay_processors": "minecraft:empty",
+    "overlay_structures": [
+      "lamplight:ocean_rock/spire1",
+      "lamplight:ocean_rock/spire2",
+      "lamplight:ocean_rock/spire3",
+      "lamplight:ocean_rock/spire4",
+      "lamplight:ocean_rock/spire5",
+      "lamplight:ocean_rock/spire6",
+      "lamplight:ocean_rock/spire7",
+      "lamplight:ocean_rock/spire8",
+      "lamplight:ocean_rock/spire9",
+      "lamplight:ocean_rock/spire10"
+    ]
+  }
+}

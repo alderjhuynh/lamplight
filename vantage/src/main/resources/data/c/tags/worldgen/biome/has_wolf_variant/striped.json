@@ -1,9 +1,0 @@
-{
-  "values": [
-    "#minecraft:is_badlands",
-    "#vantage:is_desert",
-    "vantage:desert_cliff",
-    "vantage:warm_river"
-  ],
-  "replace": false
-}

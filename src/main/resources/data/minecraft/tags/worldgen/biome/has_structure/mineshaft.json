@@ -1,0 +1,14 @@
+{
+  "values": [
+    "#lamplight:caves",
+    "#lamplight:is_cliff",
+    "#lamplight:is_swamp",
+    "#lamplight:snowy",
+    "#lamplight:is_desert",
+    "#is_beach",
+    "#is_river",
+    "#is_forest",
+    "#lamplight:all_vantage_biomes"
+  ],
+  "replace": false
+}

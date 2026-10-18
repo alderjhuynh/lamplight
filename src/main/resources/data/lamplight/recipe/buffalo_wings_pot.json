@@ -1,0 +1,13 @@
+{
+  "type": "lamplight:cooking_pot",
+  "ingredients": [
+    "lamplight:chicken_cutlets",
+    "lamplight:soul_pepper"
+  ],
+  "result": {
+    "id": "lamplight:buffalo_wings",
+    "count": 2
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

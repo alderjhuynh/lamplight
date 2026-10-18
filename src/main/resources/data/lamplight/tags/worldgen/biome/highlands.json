@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lamplight:highlands",
+    "lamplight:desert_highlands",
+    "lamplight:mountainous_highlands",
+    "lamplight:forested_highlands",
+    "lamplight:temperate_highlands",
+    "lamplight:escarpment"
+  ]
+}

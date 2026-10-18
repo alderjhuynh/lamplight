@@ -1,0 +1,9 @@
+{
+  "values": [
+    "#minecraft:is_jungle",
+    "lamplight:tropical_river",
+    "minecraft:swamp",
+    "minecraft:mangrove_swamp"
+  ],
+  "replace": false
+}

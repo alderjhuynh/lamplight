@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:cache_once",
+  "argument": {
+    "type": "minecraft:mul",
+    "argument1": {
+      "type": "minecraft:add",
+      "argument1": -2.325,
+      "argument2": {
+        "type": "minecraft:flat_cache",
+        "argument": {
+          "type": "minecraft:cache_2d",
+          "argument": {
+            "type": "minecraft:noise",
+            "noise": "lamplight:math/cliff/slope",
+            "xz_scale": 1.02847,
+            "y_scale": 0.05
+          }
+        }
+      }
+    },
+    "argument2": "lamplight:overworld/cliff/cliff_depth"
+  },
+  "_comment": "Vantage original terrain math for carve_depth.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+}

@@ -1,0 +1,47 @@
+{
+  "required": true,
+  "package": "com.aura.lamplight.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "ambrosia.CampfirePanCooldownMixin",
+    "ambrosia.FamishedCanEatMixin",
+    "ambrosia.FoodDataMixin",
+    "ambrosia.NourishmentExhaustionMixin",
+    "ambrosia.VanillaFoodOverrideMixin",
+    "arcanum.CreativeModeTabsMixin",
+    "arcanum.CrossbowPropulsionMixin",
+    "arcanum.EnchantmentCompatMixin",
+    "arcanum.EnchantmentDurabilityMixin",
+    "arcanum.FireworkRocketPropulsionMixin",
+    "arcanum.FlameWalkerMixin",
+    "arcanum.FrostProjectileMixin",
+    "arcanum.IceAspectMixin",
+    "arcanum.IceShieldMixin",
+    "arcanum.ItemStackEnchantMixin",
+    "arcanum.ItemStackTooltipMixin",
+    "arcanum.LivingEntityFallMixin",
+    "arcanum.NoDurabilityMixin",
+    "arcanum.PlayerProjectileMixin",
+    "arcanum.SaturationMixin",
+    "arcanum.TridentLoyaltyMixin",
+    "armory.AbstractContainerMenuInvoker",
+    "armory.InventoryMenuMixin",
+    "armory.InventoryMixin",
+    "armory.PlayerBackSlotDropMixin",
+    "armory.ServerGamePacketListenerMixin",
+    "menagerie.PlayerShoulderCrowMixin",
+    "menagerie.ServerPlayerShoulderMixin",
+    "panacea.FreezeImmunityMixin",
+    "panacea.FrostResistanceMixin",
+    "panacea.ItemStackMixin",
+    "panacea.LuckChanceMixin",
+    "panacea.ShroudedDetectionMixin",
+    "panacea.VulnerabilityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:range_choice",
+  "input": "lamplight:overworld/dune/size_spline",
+  "min_inclusive": -0.99362,
+  "max_exclusive": 1000000,
+  "when_in_range": "lamplight:overworld/dune/noise",
+  "when_out_of_range": -64,
+  "_comment": "Vantage original terrain math for total.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+}

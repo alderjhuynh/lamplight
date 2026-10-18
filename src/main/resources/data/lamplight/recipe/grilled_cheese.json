@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:bread",
+    "lamplight:cheese"
+  ],
+  "result": {
+    "id": "lamplight:grilled_cheese",
+    "count": 1
+  }
+}

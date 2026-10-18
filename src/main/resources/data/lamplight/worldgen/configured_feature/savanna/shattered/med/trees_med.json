@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "lamplight:savanna/shattered/med/oak_med",
+    "features": [
+      {
+        "chance": 0.8,
+        "feature": "lamplight:savanna/shattered/med/acacia_med"
+      }
+    ]
+  }
+}

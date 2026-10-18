@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "ingredient": "lamplight:tortilla",
+  "result": {
+    "id": "lamplight:tortilla_chips"
+  },
+  "experience": 0.35,
+  "group": "tortilla_chips"
+}

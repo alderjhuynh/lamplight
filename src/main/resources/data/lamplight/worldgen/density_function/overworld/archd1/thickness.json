@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:cache_once",
+  "argument": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:add",
+      "argument1": -0.7,
+      "argument2": {
+        "type": "minecraft:noise",
+        "noise": "lamplight:math/arch/vertical_noise",
+        "xz_scale": 0.77993,
+        "y_scale": 5.01217
+      }
+    },
+    "argument2": {
+      "type": "minecraft:mul",
+      "argument1": -0.2,
+      "argument2": {
+        "type": "minecraft:noise",
+        "noise": "minecraft:spaghetti_2d_thickness",
+        "xz_scale": 2.02993,
+        "y_scale": 1.01217
+      }
+    }
+  },
+  "_comment": "Vantage original terrain math for thickness.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+}

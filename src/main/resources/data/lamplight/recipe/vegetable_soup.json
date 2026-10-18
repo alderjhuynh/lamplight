@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "lamplight:stock",
+    "minecraft:carrot",
+    "minecraft:potato",
+    "lamplight:lettuce"
+  ],
+  "result": {
+    "id": "lamplight:vegetable_soup",
+    "count": 1
+  }
+}

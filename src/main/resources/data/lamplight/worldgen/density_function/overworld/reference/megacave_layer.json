@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:range_choice",
+  "input": "lamplight:overworld/reference/megacave",
+  "min_inclusive": -1000000,
+  "max_exclusive": 0.11402,
+  "when_in_range": {
+    "type": "minecraft:mul",
+    "argument1": 4.0,
+    "argument2": {
+      "type": "minecraft:square",
+      "argument": {
+        "type": "minecraft:noise",
+        "noise": "lamplight:math/cheese/cave_layer",
+        "xz_scale": 0.72244,
+        "y_scale": 4.97619
+      }
+    }
+  },
+  "when_out_of_range": 4.0,
+  "_comment": "Vantage original terrain math for megacave_layer.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+}

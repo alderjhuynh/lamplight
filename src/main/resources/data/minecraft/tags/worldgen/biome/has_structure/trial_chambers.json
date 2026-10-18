@@ -1,0 +1,15 @@
+{
+  "values": [
+    "#lamplight:caves",
+    "#lamplight:is_cliff",
+    "#lamplight:is_swamp",
+    "#lamplight:snowy",
+    "#lamplight:is_desert",
+    "#is_beach",
+    "#is_river",
+    "#is_forest",
+    "lamplight:literally_just_fire",
+    "#lamplight:reference/all_with_structures"
+  ],
+  "replace": false
+}

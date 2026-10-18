@@ -1,0 +1,12 @@
+{
+    "values": [
+        "minecraft:bamboo_jungle",
+        "minecraft:jungle",
+        "minecraft:sparse_jungle",
+        "lamplight:crystal_rainforest",
+        "lamplight:jungle_mountains",
+        "lamplight:stone_jungle",
+        "lamplight:stony_spires",
+        "lamplight:tropical_jungle"
+    ]
+}

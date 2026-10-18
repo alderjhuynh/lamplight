@@ -1,0 +1,9 @@
+{
+  "values": [
+    "#lamplight:reference/temperature/frozen_with_structures",
+    "lamplight:frozen_cliffs",
+    "lamplight:frozen_chasm",
+    "lamplight:gravel_desert",
+    "lamplight:ice_marsh"
+  ]
+}

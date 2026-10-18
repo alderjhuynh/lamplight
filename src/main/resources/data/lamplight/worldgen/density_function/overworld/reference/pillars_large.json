@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:range_choice",
+  "input": "lamplight:overworld/reference/pillars_large_base",
+  "min_inclusive": -1000000,
+  "max_exclusive": 0.00888,
+  "when_in_range": 0.0,
+  "when_out_of_range": {
+    "type": "minecraft:mul",
+    "argument1": 1.0,
+    "argument2": "lamplight:overworld/reference/pillars_large_base"
+  },
+  "_comment": "Vantage original terrain math for pillars_large.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+}

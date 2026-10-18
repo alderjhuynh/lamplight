@@ -1,0 +1,12 @@
+{
+  "values": [
+    "minecraft:lush_caves",
+    "minecraft:dripstone_caves",
+    "minecraft:swamp",
+    "minecraft:mangrove_swamp",
+    "minecraft:pale_garden",
+    "#lamplight:caves",
+    "#lamplight:rare_island",
+    "lamplight:hazy_mountain"
+  ]
+}

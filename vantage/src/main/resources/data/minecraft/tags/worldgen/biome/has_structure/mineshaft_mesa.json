@@ -1,9 +1,0 @@
-{
-  "values": [
-    "#minecraft:is_badlands",
-    "vantage:frozen_caves",
-    "vantage:warm_caves",
-    "#vantage:reference/badlands_with_structures"
-  ],
-  "replace": false
-}

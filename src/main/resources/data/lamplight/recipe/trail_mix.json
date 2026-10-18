@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "lamplight:roasted_seeds",
+    "lamplight:raisins",
+    "lamplight:chocolate_bar"
+  ],
+  "result": {
+    "id": "lamplight:trail_mix",
+    "count": 2
+  }
+}

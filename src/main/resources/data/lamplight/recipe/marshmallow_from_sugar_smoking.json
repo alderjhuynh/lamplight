@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "ingredient": "minecraft:sugar",
+  "result": {
+    "id": "lamplight:marshmallow"
+  },
+  "experience": 0.15,
+  "group": "marshmallow"
+}

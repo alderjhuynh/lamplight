@@ -1,0 +1,7 @@
+{
+  "values": [
+    "#lamplight:is_desert",
+    "#lamplight:reference/desert_all"
+  ],
+  "replace": false
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "chance": 0.025,
+        "feature": "lamplight:bonemeal/patches/poppy"
+      },
+      {
+        "chance": 0.025,
+        "feature": "lamplight:bonemeal/patches/dandelion"
+      },
+      {
+        "chance": 0.15,
+        "feature": "lamplight:bonemeal/patches/azure_bluet"
+      }
+    ],
+    "default": "lamplight:bonemeal/patches/fern"
+  }
+}

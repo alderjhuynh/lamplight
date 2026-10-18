@@ -1,0 +1,12 @@
+{
+  "values": [
+    "#lamplight:caves",
+    "#minecraft:is_taiga",
+    "#lamplight:is_desert",
+    "lamplight:tundra",
+    "lamplight:frozen_valley",
+    "#is_forest",
+    "#lamplight:reference/all_with_structures"
+  ],
+  "replace": false
+}

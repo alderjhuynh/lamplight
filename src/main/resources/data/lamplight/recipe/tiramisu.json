@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "lamplight:coffee",
+    "lamplight:chocolate_bar",
+    "lamplight:cheese"
+  ],
+  "result": {
+    "id": "lamplight:tiramisu",
+    "count": 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "lamplight:tortilla",
+    "minecraft:cooked_beef",
+    "lamplight:rice"
+  ],
+  "result": {
+    "id": "lamplight:burrito",
+    "count": 1
+  }
+}

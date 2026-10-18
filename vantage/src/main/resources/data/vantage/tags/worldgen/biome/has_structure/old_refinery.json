@@ -1,8 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "vantage:cave/mushroom_caves",
-    "vantage:cave/spider_caves",
-    "vantage:cave/deep_caves"
-  ]
-}

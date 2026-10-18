@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "lamplight:coffee_cherries"
+  ],
+  "result": {
+    "id": "lamplight:coffee_beans",
+    "count": 2
+  }
+}

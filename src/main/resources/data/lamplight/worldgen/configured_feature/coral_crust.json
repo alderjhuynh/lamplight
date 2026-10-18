@@ -1,0 +1,132 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": {
+          "type": "minecraft:fossil",
+          "config": {
+            "fossil_processors": "lamplight:coral_brain",
+            "fossil_structures": [
+              "lamplight:coral/coral_crust_1",
+              "lamplight:coral/coral_crust_2",
+              "lamplight:coral/coral_crust_3",
+              "lamplight:coral/coral_crust_4",
+              "lamplight:coral/coral_crust_5"
+            ],
+            "max_empty_corners_allowed": 4,
+            "overlay_processors": "lamplight:coral_brain",
+            "overlay_structures": [
+              "lamplight:coral/coral_crust_1",
+              "lamplight:coral/coral_crust_2",
+              "lamplight:coral/coral_crust_3",
+              "lamplight:coral/coral_crust_4",
+              "lamplight:coral/coral_crust_5"
+            ]
+          }
+        },
+        "placement": []
+      },
+      {
+        "feature": {
+          "type": "minecraft:fossil",
+          "config": {
+            "fossil_processors": "lamplight:coral_tube",
+            "fossil_structures": [
+              "lamplight:coral/coral_crust_1",
+              "lamplight:coral/coral_crust_2",
+              "lamplight:coral/coral_crust_3",
+              "lamplight:coral/coral_crust_4",
+              "lamplight:coral/coral_crust_5"
+            ],
+            "max_empty_corners_allowed": 4,
+            "overlay_processors": "lamplight:coral_tube",
+            "overlay_structures": [
+              "lamplight:coral/coral_crust_1",
+              "lamplight:coral/coral_crust_2",
+              "lamplight:coral/coral_crust_3",
+              "lamplight:coral/coral_crust_4",
+              "lamplight:coral/coral_crust_5"
+            ]
+          }
+        },
+        "placement": []
+      },
+      {
+        "feature": {
+          "type": "minecraft:fossil",
+          "config": {
+            "fossil_processors": "lamplight:coral_bubble",
+            "fossil_structures": [
+              "lamplight:coral/coral_crust_1",
+              "lamplight:coral/coral_crust_2",
+              "lamplight:coral/coral_crust_3",
+              "lamplight:coral/coral_crust_4",
+              "lamplight:coral/coral_crust_5"
+            ],
+            "max_empty_corners_allowed": 4,
+            "overlay_processors": "lamplight:coral_bubble",
+            "overlay_structures": [
+              "lamplight:coral/coral_crust_1",
+              "lamplight:coral/coral_crust_2",
+              "lamplight:coral/coral_crust_3",
+              "lamplight:coral/coral_crust_4",
+              "lamplight:coral/coral_crust_5"
+            ]
+          }
+        },
+        "placement": []
+      },
+      {
+        "feature": {
+          "type": "minecraft:fossil",
+          "config": {
+            "fossil_processors": "lamplight:coral_fire",
+            "fossil_structures": [
+              "lamplight:coral/coral_crust_1",
+              "lamplight:coral/coral_crust_2",
+              "lamplight:coral/coral_crust_3",
+              "lamplight:coral/coral_crust_4",
+              "lamplight:coral/coral_crust_5"
+            ],
+            "max_empty_corners_allowed": 4,
+            "overlay_processors": "lamplight:coral_fire",
+            "overlay_structures": [
+              "lamplight:coral/coral_crust_1",
+              "lamplight:coral/coral_crust_2",
+              "lamplight:coral/coral_crust_3",
+              "lamplight:coral/coral_crust_4",
+              "lamplight:coral/coral_crust_5"
+            ]
+          }
+        },
+        "placement": []
+      },
+      {
+        "feature": {
+          "type": "minecraft:fossil",
+          "config": {
+            "fossil_processors": "lamplight:coral_horn",
+            "fossil_structures": [
+              "lamplight:coral/coral_crust_1",
+              "lamplight:coral/coral_crust_2",
+              "lamplight:coral/coral_crust_3",
+              "lamplight:coral/coral_crust_4",
+              "lamplight:coral/coral_crust_5"
+            ],
+            "max_empty_corners_allowed": 4,
+            "overlay_processors": "lamplight:coral_horn",
+            "overlay_structures": [
+              "lamplight:coral/coral_crust_1",
+              "lamplight:coral/coral_crust_2",
+              "lamplight:coral/coral_crust_3",
+              "lamplight:coral/coral_crust_4",
+              "lamplight:coral/coral_crust_5"
+            ]
+          }
+        },
+        "placement": []
+      }
+    ]
+  }
+}

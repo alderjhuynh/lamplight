@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:rabbit"
+  ],
+  "result": {
+    "id": "lamplight:rabbit_cutlets",
+    "count": 2
+  }
+}

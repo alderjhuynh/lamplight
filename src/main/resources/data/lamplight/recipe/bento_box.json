@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "lamplight:rice",
+    "minecraft:cooked_salmon",
+    "lamplight:lettuce"
+  ],
+  "result": {
+    "id": "lamplight:bento_box",
+    "count": 1
+  }
+}

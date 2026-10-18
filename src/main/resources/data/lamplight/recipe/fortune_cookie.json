@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:cookie",
+    "minecraft:paper"
+  ],
+  "result": {
+    "id": "lamplight:fortune_cookie",
+    "count": 2
+  }
+}

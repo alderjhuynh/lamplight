@@ -1,6 +1,0 @@
-{
-  "type": "minecraft:add",
-  "argument1": 0,
-  "argument2": "vantage:overworld_amplified_large_biomes/depth",
-  "_comment": "Vantage original terrain math for depth.json \u2014 distinct"
-}

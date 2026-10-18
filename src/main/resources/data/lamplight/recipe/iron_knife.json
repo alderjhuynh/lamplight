@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "m",
+    "m",
+    "s"
+  ],
+  "key": {
+    "m": "minecraft:iron_ingot",
+    "s": "minecraft:stick"
+  },
+  "result": {
+    "id": "lamplight:iron_knife"
+  }
+}

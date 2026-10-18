@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "moisture=0": {
+      "model": "lamplight:block/soul_farmland"
+    },
+    "moisture=1": {
+      "model": "lamplight:block/soul_farmland"
+    },
+    "moisture=2": {
+      "model": "lamplight:block/soul_farmland"
+    },
+    "moisture=3": {
+      "model": "lamplight:block/soul_farmland"
+    },
+    "moisture=4": {
+      "model": "lamplight:block/soul_farmland"
+    },
+    "moisture=5": {
+      "model": "lamplight:block/soul_farmland"
+    },
+    "moisture=6": {
+      "model": "lamplight:block/soul_farmland"
+    },
+    "moisture=7": {
+      "model": "lamplight:block/soul_farmland_moist"
+    }
+  }
+}

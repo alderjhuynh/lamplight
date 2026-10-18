@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:mul",
+  "argument1": {
+    "type": "minecraft:y_clamped_gradient",
+    "from_value": 1.53182,
+    "from_y": -63,
+    "to_value": -3.03905,
+    "to_y": 320
+  },
+  "argument2": {
+    "type": "minecraft:flat_cache",
+    "argument": {
+      "type": "minecraft:noise",
+      "noise": "lamplight:math/spikes/shift1",
+      "xz_scale": 1.02027,
+      "y_scale": 0.05
+    }
+  },
+  "_comment": "Vantage original terrain math for spike_x.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+}

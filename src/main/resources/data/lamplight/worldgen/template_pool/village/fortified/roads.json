@@ -1,0 +1,114 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/fortified/roads/straight2",
+        "processors": "lamplight:village/fortified/road",
+        "projection": "terrain_matching"
+      },
+      "weight": 25
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/fortified/roads/straight1",
+        "processors": "lamplight:village/fortified/road",
+        "projection": "terrain_matching"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/fortified/roads/t1",
+        "processors": "lamplight:village/fortified/road",
+        "projection": "terrain_matching"
+      },
+      "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/fortified/roads/t2",
+        "processors": "lamplight:village/fortified/road",
+        "projection": "terrain_matching"
+      },
+      "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/fortified/roads/bend1",
+        "processors": "lamplight:village/fortified/road",
+        "projection": "terrain_matching"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/fortified/roads/bend2",
+        "processors": "lamplight:village/fortified/road",
+        "projection": "terrain_matching"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/fortified/roads/inter1",
+        "processors": "lamplight:village/fortified/road",
+        "projection": "terrain_matching"
+      },
+      "weight": 6
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/fortified/roads/intersection_big",
+        "processors": "lamplight:village/fortified/road",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/fortified/terminators/term1",
+        "processors": "lamplight:village/fortified/road",
+        "projection": "terrain_matching"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/fortified/terminators/term2",
+        "processors": "lamplight:village/fortified/road",
+        "projection": "terrain_matching"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/fortified/terminators/term3",
+        "processors": "lamplight:village/fortified/road",
+        "projection": "terrain_matching"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/fortified/terminators/term4",
+        "processors": "lamplight:village/fortified/road",
+        "projection": "terrain_matching"
+      },
+      "weight": 1
+    }
+  ],
+  "fallback": "lamplight:village/fortified/terminators",
+  "name": "lamplight:village/fortified/roads"
+}

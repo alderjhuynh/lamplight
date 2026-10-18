@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:noise",
+  "noise": "lamplight:math/aquifer/is_forced",
+  "xz_scale": 1.01567,
+  "y_scale": 0.48423,
+  "_comment": "Vantage original terrain math for aquifer_force.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+}

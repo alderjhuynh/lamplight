@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "lamplight:cave/mushroom_caves",
+    "lamplight:cave/spider_caves",
+    "lamplight:cave/deep_caves"
+  ]
+}

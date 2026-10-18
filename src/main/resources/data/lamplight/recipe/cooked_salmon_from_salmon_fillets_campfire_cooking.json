@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "ingredient": "lamplight:salmon_fillets",
+  "result": {
+    "id": "minecraft:cooked_salmon"
+  },
+  "experience": 0.35,
+  "group": "cooked_salmon"
+}

@@ -1,0 +1,8 @@
+{
+  "values": [
+    "lamplight:thornscrub",
+    "lamplight:desert_oasis",
+    "#lamplight:reference/temperature/warm"
+  ],
+  "replace": false
+}

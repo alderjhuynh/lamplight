@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "lamplight:grapes",
+    "lamplight:grapes",
+    "minecraft:sugar"
+  ],
+  "result": {
+    "id": "lamplight:wine",
+    "count": 1
+  }
+}

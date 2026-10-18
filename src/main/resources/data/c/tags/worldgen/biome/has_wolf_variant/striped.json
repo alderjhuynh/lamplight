@@ -1,0 +1,9 @@
+{
+  "values": [
+    "#minecraft:is_badlands",
+    "#lamplight:is_desert",
+    "lamplight:desert_cliff",
+    "lamplight:warm_river"
+  ],
+  "replace": false
+}

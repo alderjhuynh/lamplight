@@ -1,0 +1,14 @@
+{
+    "values": [
+        "minecraft:frozen_peaks",
+        "minecraft:jagged_peaks",
+        "minecraft:stony_peaks",
+        "lamplight:basalt_cliffs",
+        "lamplight:emerald_peaks",
+        "lamplight:hazy_mountain",
+        "lamplight:jungle_mountains",
+        "lamplight:mountains",
+        "lamplight:yosemite_cliffs",
+        "lamplight:yosemite_lowlands"
+    ]
+}

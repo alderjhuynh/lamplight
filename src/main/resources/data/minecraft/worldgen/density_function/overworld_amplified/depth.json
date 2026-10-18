@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:add",
+  "argument1": "lamplight:ocean_shape",
+  "argument2": {
+    "type": "minecraft:add",
+    "argument1": "lamplight:pillars",
+    "argument2": "minecraft:overworld_amplified/offset"
+  }
+}

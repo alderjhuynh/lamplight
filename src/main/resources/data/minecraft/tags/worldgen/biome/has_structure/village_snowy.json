@@ -1,0 +1,8 @@
+{
+  "values": [
+    "minecraft:snowy_taiga",
+    "lamplight:snowy_old_growth_taiga",
+    "#lamplight:reference/temperature/frozen_with_structures"
+  ],
+  "replace": false
+}

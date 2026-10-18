@@ -1,0 +1,15 @@
+{
+  "type": "lamplight:cooking_pot",
+  "ingredients": [
+    "lamplight:noodles",
+    "lamplight:cheese",
+    "lamplight:beef_cutlets",
+    "lamplight:tomato"
+  ],
+  "result": {
+    "id": "lamplight:lasagna",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

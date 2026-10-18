@@ -1,0 +1,17 @@
+{
+  "type": "lamplight:cooking_pot",
+  "ingredients": [
+    "lamplight:beef_cutlets",
+    "lamplight:dough",
+    [
+      "minecraft:brown_mushroom",
+      "minecraft:red_mushroom"
+    ]
+  ],
+  "result": {
+    "id": "lamplight:beef_wellington",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

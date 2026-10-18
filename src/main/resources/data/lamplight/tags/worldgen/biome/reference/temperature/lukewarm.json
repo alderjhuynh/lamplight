@@ -1,0 +1,13 @@
+{
+  "values": [
+    "#lamplight:reference/jungle",
+    "#lamplight:reference/savanna",
+    "lamplight:basalt_cliffs",
+    "lamplight:thornscrub",
+    "lamplight:granite_cliffs",
+    "lamplight:scrublands",
+    "lamplight:tropical_jungle",
+    "lamplight:volcanic_crater",
+    "lamplight:volcanic_peaks"
+  ]
+}

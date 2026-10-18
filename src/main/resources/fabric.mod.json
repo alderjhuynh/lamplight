@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "lamplight",
+  "version": "${version}",
+  "name": "Lamplight",
+  "description": "A cozy, vanilla-plus world: worldgen, seasons, building, cooking, magic, creatures, and exploration, all in one mod.",
+  "authors": [
+    "Me!"
+  ],
+  "contact": {},
+  "license": "CC0-1.0",
+  "icon": "assets/lamplight/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.aura.lamplight.Lamplight"
+    ],
+    "client": [
+      "com.aura.lamplight.client.LamplightClient"
+    ]
+  },
+  "mixins": [
+    "lamplight.mixins.json",
+    {
+      "config": "lamplight.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.2",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}

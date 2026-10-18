@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "ingredient": "minecraft:wheat_seeds",
+  "result": {
+    "id": "lamplight:roasted_seeds"
+  },
+  "experience": 0.15,
+  "group": "roasted_seeds"
+}

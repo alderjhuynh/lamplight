@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "functions": [
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ],
+  "pools": [
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lamplight:mixing_bowl"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "lamplight:blocks/mixing_bowl"
+}

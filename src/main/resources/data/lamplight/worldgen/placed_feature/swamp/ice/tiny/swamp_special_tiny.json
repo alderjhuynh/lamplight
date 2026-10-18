@@ -1,0 +1,9 @@
+{
+  "feature": "lamplight:swamp/ice/tiny/swamp_special_tiny",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 3
+    }
+  ]
+}

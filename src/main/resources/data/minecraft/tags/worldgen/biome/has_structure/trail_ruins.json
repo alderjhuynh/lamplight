@@ -1,0 +1,10 @@
+{
+  "values": [
+    "lamplight:snowy_old_growth_taiga",
+    "windswept_hills",
+    "windswept_forest",
+    "#lamplight:reference/taiga",
+    "#lamplight:reference/jungle"
+  ],
+  "replace": false
+}

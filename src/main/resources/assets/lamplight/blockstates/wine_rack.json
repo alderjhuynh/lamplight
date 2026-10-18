@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "lamplight:block/wine_rack"
+    },
+    "facing=east": {
+      "model": "lamplight:block/wine_rack",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "lamplight:block/wine_rack",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "lamplight:block/wine_rack",
+      "y": 270
+    }
+  }
+}

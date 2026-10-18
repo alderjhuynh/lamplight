@@ -1,0 +1,17 @@
+{
+  "values": [
+    "minecraft:grove",
+    "minecraft:old_growth_pine_taiga",
+    "minecraft:old_growth_spruce_taiga",
+    "minecraft:snowy_taiga",
+    "minecraft:taiga",
+    "lamplight:mountain_grove",
+    "lamplight:birch_taiga",
+    "lamplight:cold_shrubland",
+    "lamplight:gravel_desert",
+    "lamplight:hazy_mountain",
+    "lamplight:shield",
+    "lamplight:mountainous_taiga",
+    "lamplight:snowy_shield"
+  ]
+}

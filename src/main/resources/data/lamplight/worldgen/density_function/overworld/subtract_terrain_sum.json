@@ -1,0 +1,12 @@
+{
+  "type": "cache_once",
+  "argument": {
+    "type": "minecraft:range_choice",
+    "input": "lamplight:overworld/subtract_terrain_base",
+    "min_inclusive": -1000000,
+    "max_exclusive": 1.99559,
+    "when_in_range": "lamplight:overworld/cliff/carve",
+    "when_out_of_range": 64
+  },
+  "_comment": "Vantage original terrain math for subtract_terrain_sum.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+}

@@ -1,0 +1,20 @@
+{
+  "values": [
+    "lamplight:cave/deep_caves",
+    "lamplight:cave/frostflare_caves",
+    "lamplight:cave/mushroom_caves",
+    "lamplight:cave/spider_caves",
+    "lamplight:cave/magma_caves",
+    "lamplight:cave/thermal_caves",
+    "lamplight:cave/underground_jungle",
+    "lamplight:caves",
+    "lamplight:warm_caves",
+    "lamplight:lukewarm_caves",
+    "lamplight:cold_caves",
+    "lamplight:frozen_caves",
+    "lamplight:fungal_caves",
+    "lamplight:pale_cave",
+    "minecraft:lush_caves",
+    "minecraft:dripstone_caves"
+  ]
+}

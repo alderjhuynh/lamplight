@@ -1,8 +1,0 @@
-{
-  "values": [
-    "minecraft:snowy_taiga",
-    "vantage:snowy_old_growth_taiga",
-    "#vantage:reference/temperature/frozen_with_structures"
-  ],
-  "replace": false
-}

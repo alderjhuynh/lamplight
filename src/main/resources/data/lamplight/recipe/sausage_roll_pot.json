@@ -1,0 +1,13 @@
+{
+  "type": "lamplight:cooking_pot",
+  "ingredients": [
+    "minecraft:porkchop",
+    "lamplight:dough"
+  ],
+  "result": {
+    "id": "lamplight:sausage_roll",
+    "count": 2
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

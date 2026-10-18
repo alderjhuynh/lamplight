@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "chance": 0.0,
+        "feature": {
+          "feature": "lamplight:coral_big",
+          "placement": [
+            {
+              "type": "minecraft:block_predicate_filter",
+              "predicate": {
+                "type": "minecraft:matching_fluids",
+                "offset": [
+                  0,
+                  12,
+                  0
+                ],
+                "fluids": "#minecraft:water"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "default": {
+      "feature": "lamplight:coral_basic",
+      "placement": []
+    }
+  }
+}

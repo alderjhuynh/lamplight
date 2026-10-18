@@ -1,0 +1,9 @@
+{
+  "values": [
+    "#lamplight:snowy",
+    "#lamplight:reference/temperature/frozen_all",
+    "lamplight:emerald_peaks",
+    "lamplight:mountains"
+  ],
+  "replace": false
+}

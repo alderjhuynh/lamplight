@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "ingredient": "lamplight:browned_marshmallow",
+  "result": {
+    "id": "lamplight:burnt_marshmallow"
+  },
+  "experience": 0.35,
+  "group": "burnt_marshmallow"
+}

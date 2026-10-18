@@ -1,0 +1,14 @@
+{
+    "values": [
+        "minecraft:badlands",
+        "minecraft:wooded_badlands",
+        "minecraft:eroded_badlands",
+        "lamplight:desert_highlands",
+        "lamplight:bryce_canyon",
+        "lamplight:painted_mountains",
+        "lamplight:oasis",
+        "lamplight:savanna_badlands",
+        "lamplight:savanna_slopes",
+        "lamplight:white_mesa"
+    ]
+}

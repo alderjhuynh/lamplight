@@ -1,0 +1,9 @@
+{
+  "values": [
+    "lamplight:sparse_forest",
+    "lamplight:coniferous_thicket",
+    "lamplight:flower_plateau",
+    "#lamplight:reference/forest"
+  ],
+  "replace": false
+}

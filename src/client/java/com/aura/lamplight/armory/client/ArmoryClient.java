@@ -2,6 +2,7 @@ package com.aura.lamplight.armory.client;
 
 import com.aura.lamplight.armory.BackSlotAttachments;
 import com.aura.lamplight.armory.DrawSheathPayload;
+import com.aura.lamplight.client.LamplightKeyCategories;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -19,7 +20,7 @@ public class ArmoryClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		BackSlotTransform.load();
 
-		KeyMapping.Category category = KeyMapping.Category.register(net.minecraft.resources.Identifier.fromNamespaceAndPath("lamplight", "lamplight"));
+		KeyMapping.Category category = LamplightKeyCategories.MAIN;
 
 		if (ENABLE_TRANSFORM_EDITOR) {
 			KeyMapping editTransformKey = KeyMappingHelper.registerKeyMapping(

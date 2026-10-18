@@ -1,5 +1,6 @@
 package com.aura.lamplight.picturesque.client;
 
+import com.aura.lamplight.client.LamplightKeyCategories;
 import com.aura.lamplight.picturesque.client.raytrace.RaytracePostTuner;
 import com.aura.lamplight.picturesque.client.raytrace.RaytraceState;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -9,7 +10,6 @@ import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 
 public class PicturesqueClient implements ClientModInitializer {
     @Override
@@ -17,7 +17,7 @@ public class PicturesqueClient implements ClientModInitializer {
         PicturesqueConfig config = PicturesqueConfig.load();
         PicturesqueState.get().attach(config);
 
-        KeyMapping.Category category = KeyMapping.Category.register(Identifier.fromNamespaceAndPath("lamplight", "lamplight"));
+        KeyMapping.Category category = LamplightKeyCategories.MAIN;
         KeyMapping toggle = KeyMappingHelper.registerKeyMapping(
                 new KeyMapping("key.lamplight.toggle", InputConstants.Type.KEYSYM, InputConstants.KEY_P, category));
         KeyMapping raytrace = KeyMappingHelper.registerKeyMapping(

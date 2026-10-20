@@ -31,14 +31,14 @@ public class LightmapMixin {
         if (config.warmLight) {
             int blockTarget = PicturesquePalette.lerp(
                     mood.sunTint(), PicturesquePalette.LANTERN_AMBER, mood.lanternBoost() * 0.75f);
-            state.blockLightTint = lerpVec(state.blockLightTint, blockTarget, 0.35f);
-            state.skyLightColor = lerpVec(state.skyLightColor, mood.sunTint(), 0.30f);
+            state.blockLightTint = lerpVec(state.blockLightTint, blockTarget, 0.24f);
+            state.skyLightColor = lerpVec(state.skyLightColor, mood.sunTint(), 0.20f);
         }
         if (config.bounceLight) {
             int ambientTarget = config.cozyShadows
                     ? PicturesquePalette.lerp(mood.ambientTint(), mood.shadowTint(), 0.25f)
                     : mood.ambientTint();
-            state.ambientColor = lerpVec(state.ambientColor, ambientTarget, 0.30f);
+            state.ambientColor = lerpVec(state.ambientColor, ambientTarget, 0.22f);
         }
         if (grade > 0.001f) {
             state.blockLightTint = gradeVec(state.blockLightTint, grade * 0.6f);

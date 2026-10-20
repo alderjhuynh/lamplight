@@ -7,7 +7,7 @@ public final class GouacheGrade {
     public static void grade(float r, float g, float b, float strength, float[] out) {
         float s = clamp01(strength);
 
-        float shoulder = 0.22f * s;
+        float shoulder = 0.06f * s;
         float x = filmic(r, shoulder);
         float y = filmic(g, shoulder);
         float z = filmic(b, shoulder);
@@ -18,17 +18,23 @@ public final class GouacheGrade {
 
         float luma = 0.2126f * x + 0.7152f * y + 0.0722f * z;
 
-        float hiWeight = smoothstep(0.80f, 1.0f, luma) * 0.25f * s;
+        float midWeight = bell((luma - 0.42f) / 0.30f) * 0.12f * s;
+        float sat = 1.0f + midWeight;
+        x = lerp(luma, x, sat);
+        y = lerp(luma, y, sat);
+        z = lerp(luma, z, sat);
+
+        luma = 0.2126f * x + 0.7152f * y + 0.0722f * z;
+        float hiWeight = smoothstep(0.58f, 0.95f, luma) * 0.50f * s;
         x = lerp(x, luma, hiWeight);
         y = lerp(y, luma, hiWeight);
         z = lerp(z, luma, hiWeight);
 
-        float midWeight = bell((luma - 0.55f) / 0.45f) * 0.22f * s;
-        float sat = 1.0f + midWeight;
         luma = 0.2126f * x + 0.7152f * y + 0.0722f * z;
-        x = lerp(luma, x, sat);
-        y = lerp(luma, y, sat);
-        z = lerp(luma, z, sat);
+        float compress = 1.0f - smoothstep(0.58f, 1.0f, luma) * 0.18f * s;
+        x *= compress;
+        y *= compress;
+        z *= compress;
 
         float darkWeight = (1.0f - smoothstep(0.0f, 0.35f, luma)) * 0.35f * s;
         float liftR = PicturesquePalette.red(PicturesquePalette.LIFT_PLUM) * 0.5f

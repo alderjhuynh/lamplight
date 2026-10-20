@@ -2,6 +2,7 @@ package com.aura.lamplight.menagerie.registry;
 
 import com.aura.lamplight.menagerie.Menagerie;
 import com.aura.lamplight.menagerie.crow.CrowEntity;
+// import com.aura.lamplight.menagerie.wisp.WispEntity; // Wisp disabled for now.
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -21,6 +22,10 @@ public final class MenagerieEntities {
     public static final EntityType<CrowEntity> CROW = register("crow",
             EntityType.Builder.of(CrowEntity::new, MobCategory.CREATURE).sized(0.45F, 0.45F).clientTrackingRange(10));
     public static final Item CROW_SPAWN_EGG = registerEgg("crow_spawn_egg", CROW, 0x0D111C, 0x1C2030);
+    // Wisp disabled for now.
+    // public static final EntityType<WispEntity> WISP = register("wisp",
+    //         EntityType.Builder.of(WispEntity::new, MobCategory.AMBIENT).sized(0.7F, 0.9F).clientTrackingRange(10));
+    // public static final Item WISP_SPAWN_EGG = registerEgg("wisp_spawn_egg", WISP, 0x173A5E, 0x8FD8FF);
 
     private MenagerieEntities() {
     }
@@ -41,5 +46,9 @@ public final class MenagerieEntities {
     public static void init() {
         FabricDefaultAttributeRegistry.register(CROW, CrowEntity.bakeAttributes().build());
         SpawnPlacements.register(CROW, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrowEntity::canCrowSpawn);
+
+        // Wisp disabled for now.
+        // FabricDefaultAttributeRegistry.register(WISP, WispEntity.bakeAttributes().build());
+        // SpawnPlacements.register(WISP, SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WispEntity::canWispSpawn);
     }
 }

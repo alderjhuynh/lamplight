@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:soul_fire",
+    "minecraft:soul_torch",
+    "minecraft:soul_wall_torch",
+    "minecraft:soul_lantern",
+    "minecraft:soul_campfire",
+    "minecraft:soul_sand",
+    "minecraft:soul_soil",
+    "lamplight:soul_pepper_crop"
+  ]
+}

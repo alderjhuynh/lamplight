@@ -1,5 +1,7 @@
 package com.aura.lamplight.menagerie;
 
+// Wisp disabled for now.
+// import com.aura.lamplight.menagerie.effect.MenagerieEffects;
 import com.aura.lamplight.menagerie.registry.MenagerieEntities;
 import com.aura.lamplight.menagerie.registry.MenagerieSounds;
 import net.fabricmc.api.ModInitializer;
@@ -21,8 +23,12 @@ public class Menagerie implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		MenagerieSounds.init();
+		// MenagerieEffects.init(); // Wisp disabled for now.
 		MenagerieEntities.init();
-		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.SPAWN_EGGS).register(output -> output.accept(MenagerieEntities.CROW_SPAWN_EGG));
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.SPAWN_EGGS).register(output -> {
+			output.accept(MenagerieEntities.CROW_SPAWN_EGG);
+			// output.accept(MenagerieEntities.WISP_SPAWN_EGG); // Wisp disabled for now.
+		});
 
 		BiomeModifications.addSpawn(
 				BiomeSelectors.tag(net.minecraft.tags.BiomeTags.IS_FOREST),
@@ -37,6 +43,16 @@ public class Menagerie implements ModInitializer {
 						biomeKey("minecraft", "meadow"),
 						biomeKey("minecraft", "cherry_grove")),
 				MobCategory.CREATURE, MenagerieEntities.CROW, 8, 1, 2);
+		// Wisp disabled for now.
+		// BiomeModifications.addSpawn(
+		// 		BiomeSelectors.includeByKey(biomeKey("minecraft", "pale_garden")),
+		// 		MobCategory.AMBIENT, MenagerieEntities.WISP, 2, 1, 3);
+		// BiomeModifications.addSpawn(
+		// 		BiomeSelectors.includeByKey(biomeKey("minecraft", "soul_sand_valley")),
+		// 		MobCategory.AMBIENT, MenagerieEntities.WISP, 8, 1, 3);
+		// BiomeModifications.addSpawn(
+		// 		BiomeSelectors.includeByKey(biomeKey("minecraft", "deep_dark")),
+		// 		MobCategory.AMBIENT, MenagerieEntities.WISP, 1, 1, 2);
 		BiomeModifications.addSpawn(
 				BiomeSelectors.includeByKey(
 						vantageBiome("steppe"),

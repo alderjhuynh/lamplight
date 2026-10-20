@@ -93,5 +93,45 @@
       }
     ],
     "subtitle": "lamplight.sound.subtitle.crow_hurt"
+  },
+  "wisp_idle": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.allay.ambient_without_item",
+        "type": "event"
+      },
+      {
+        "name": "minecraft:entity.allay.ambient_with_item",
+        "type": "event"
+      }
+    ],
+    "subtitle": "lamplight.sound.subtitle.wisp_idle"
+  },
+  "wisp_hurt": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.allay.hurt",
+        "type": "event"
+      }
+    ],
+    "subtitle": "lamplight.sound.subtitle.wisp_hurt"
+  },
+  "wisp_pulse": {
+    "sounds": [
+      {
+        "name": "minecraft:block.amethyst_block.chime",
+        "type": "event"
+      }
+    ],
+    "subtitle": "lamplight.sound.subtitle.wisp_pulse"
+  },
+  "wisp_tame": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.allay.item_given",
+        "type": "event"
+      }
+    ],
+    "subtitle": "lamplight.sound.subtitle.wisp_tame"
   }
 }

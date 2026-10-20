@@ -26,7 +26,7 @@ Lamplight is a vanilla-plus modpack built to feel like settling into a warm worl
 
 ## Design pillars
 
-Cozy, with stakes. Warmth means more when the world has some weather and some dusk. Vanilla-plus. It builds on Minecraft’s feel rather than replacing it. Each mod stands alone but is designed to fit together. Players learn by wandering, not reading.
+Cozy, with stakes. Warmth means more when the world has some weather and some dusk. Vanilla-plus. It builds on Minecraft’s feel rather than replacing it. Each mod's gameplay could theoretically stand alone but is designed to fit together. Players learn by wandering, not reading.
 
 ## Who it’s for
 

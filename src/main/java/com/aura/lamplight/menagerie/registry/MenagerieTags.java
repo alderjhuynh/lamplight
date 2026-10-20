@@ -15,6 +15,14 @@ public final class MenagerieTags {
     public static final TagKey<Item> CROW_BREEDABLES = itemTag("crow_breedables");
     public static final TagKey<Item> CROW_FORAGED_SEEDS = itemTag("crow_foraged_seeds");
 
+    public static final TagKey<EntityType<?>> SCATTERS_WISPS = entityTag("scatters_wisps");
+    public static final TagKey<Item> WISP_TAMEABLES = itemTag("wisp_tameables");
+    public static final TagKey<Item> WISP_FOODSTUFFS = itemTag("wisp_foodstuffs");
+    public static final TagKey<Item> WISP_BREEDABLES = itemTag("wisp_breedables");
+    public static final TagKey<Block> WISP_POLLINATES = blockTag("wisp_pollinates");
+    public static final TagKey<Block> WISP_LURES = blockTag("wisp_lures");
+    public static final TagKey<Block> WISP_RECHARGE_BLOCKS = blockTag("wisp_recharge_blocks");
+
     private MenagerieTags() {
     }
 

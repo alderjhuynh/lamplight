@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lamplight:brown_concrete_stairs"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "lamplight:blocks/brown_concrete_stairs"
+}

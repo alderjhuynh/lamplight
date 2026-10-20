@@ -24,6 +24,23 @@
     "lamplight:basalt_slab",
     "lamplight:quartz_brick_slab",
     "lamplight:polished_basalt_slab",
-    "lamplight:smooth_basalt_slab"
+    "lamplight:smooth_basalt_slab",
+    "lamplight:end_stone_slab",
+    "lamplight:white_concrete_slab",
+    "lamplight:orange_concrete_slab",
+    "lamplight:magenta_concrete_slab",
+    "lamplight:light_blue_concrete_slab",
+    "lamplight:yellow_concrete_slab",
+    "lamplight:lime_concrete_slab",
+    "lamplight:pink_concrete_slab",
+    "lamplight:gray_concrete_slab",
+    "lamplight:light_gray_concrete_slab",
+    "lamplight:cyan_concrete_slab",
+    "lamplight:purple_concrete_slab",
+    "lamplight:blue_concrete_slab",
+    "lamplight:brown_concrete_slab",
+    "lamplight:green_concrete_slab",
+    "lamplight:red_concrete_slab",
+    "lamplight:black_concrete_slab"
   ]
 }

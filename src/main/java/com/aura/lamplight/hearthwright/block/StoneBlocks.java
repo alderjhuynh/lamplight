@@ -14,7 +14,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
  * Missing slab, stair, and wall variants of vanilla's stone-like blocks.
@@ -31,6 +30,10 @@ public final class StoneBlocks {
 
     public static void register() {
         add("stone", Blocks.STONE, false, false, true);
+        add("purpur", Blocks.PURPUR_BLOCK, false, false, true);
+        add("quartz", Blocks.QUARTZ_BLOCK, false, false, true);
+        add("prismarine_brick", Blocks.PRISMARINE_BRICKS, false, false, true);
+        add("dark_prismarine", Blocks.DARK_PRISMARINE, false, false, true);
 
         add("deepslate", Blocks.DEEPSLATE, true, true, true);
         add("packed_mud", Blocks.PACKED_MUD, true, true, true);
@@ -47,6 +50,9 @@ public final class StoneBlocks {
         add("cut_red_sandstone", Blocks.CUT_RED_SANDSTONE, false, true, true);
         add("smooth_stone", Blocks.SMOOTH_STONE, false, true, true);
         add("smooth_basalt", Blocks.SMOOTH_BASALT, true, true, true);
+        add("smooth_red_sandstone", Blocks.SMOOTH_RED_SANDSTONE, false, false, true);
+        add("smooth_sandstone", Blocks.SMOOTH_SANDSTONE, false, false, true);
+        add("end_stone", Blocks.END_STONE, true, true, true);
 
         Hearthwright.LOGGER.info("Registered {} stone derivative blocks", ITEMS.size());
     }
@@ -62,7 +68,7 @@ public final class StoneBlocks {
             Block block = Registry.register(
                     BuiltInRegistries.BLOCK,
                     key,
-                    new SlabBlock(derivativeProperties(base).setId(key)));
+                    new SlabBlock(HearthwrightBlocks.derivativeProperties(base).setId(key)));
             ITEMS.add(HearthwrightBlocks.registerBlockItem(name + "_slab", block));
         }
 
@@ -71,7 +77,7 @@ public final class StoneBlocks {
             Block block = Registry.register(
                     BuiltInRegistries.BLOCK,
                     key,
-                    new StairBlock(base.defaultBlockState(), derivativeProperties(base).setId(key)));
+                    new StairBlock(base.defaultBlockState(), HearthwrightBlocks.derivativeProperties(base).setId(key)));
             ITEMS.add(HearthwrightBlocks.registerBlockItem(name + "_stairs", block));
         }
 
@@ -80,13 +86,8 @@ public final class StoneBlocks {
             Block block = Registry.register(
                     BuiltInRegistries.BLOCK,
                     key,
-                    new WallBlock(derivativeProperties(base).forceSolidOn().setId(key)));
+                    new WallBlock(HearthwrightBlocks.derivativeProperties(base).forceSolidOn().setId(key)));
             ITEMS.add(HearthwrightBlocks.registerBlockItem(name + "_wall", block));
         }
-    }
-
-    @SuppressWarnings("deprecation")
-    private static BlockBehaviour.Properties derivativeProperties(Block base) {
-        return BlockBehaviour.Properties.ofLegacyCopy(base);
     }
 }

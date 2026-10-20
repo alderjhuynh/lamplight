@@ -14,6 +14,13 @@
     "lamplight:cut_sandstone_wall",
     "lamplight:cut_red_sandstone_wall",
     "lamplight:smooth_stone_wall",
-    "lamplight:smooth_basalt_wall"
+    "lamplight:smooth_basalt_wall",
+    "lamplight:purpur_wall",
+    "lamplight:quartz_wall",
+    "lamplight:prismarine_brick_wall",
+    "lamplight:dark_prismarine_wall",
+    "lamplight:smooth_red_sandstone_wall",
+    "lamplight:smooth_sandstone_wall",
+    "lamplight:end_stone_wall"
   ]
 }

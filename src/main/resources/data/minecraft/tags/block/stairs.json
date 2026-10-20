@@ -27,6 +27,23 @@
     "lamplight:cut_sandstone_stairs",
     "lamplight:cut_red_sandstone_stairs",
     "lamplight:smooth_stone_stairs",
-    "lamplight:smooth_basalt_stairs"
+    "lamplight:smooth_basalt_stairs",
+    "lamplight:end_stone_stairs",
+    "lamplight:white_concrete_stairs",
+    "lamplight:orange_concrete_stairs",
+    "lamplight:magenta_concrete_stairs",
+    "lamplight:light_blue_concrete_stairs",
+    "lamplight:yellow_concrete_stairs",
+    "lamplight:lime_concrete_stairs",
+    "lamplight:pink_concrete_stairs",
+    "lamplight:gray_concrete_stairs",
+    "lamplight:light_gray_concrete_stairs",
+    "lamplight:cyan_concrete_stairs",
+    "lamplight:purple_concrete_stairs",
+    "lamplight:blue_concrete_stairs",
+    "lamplight:brown_concrete_stairs",
+    "lamplight:green_concrete_stairs",
+    "lamplight:red_concrete_stairs",
+    "lamplight:black_concrete_stairs"
   ]
 }

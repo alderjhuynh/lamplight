@@ -6,6 +6,9 @@ JSON: no new texture files are needed. Column blocks such as basalt, deepslate,
 and cut sandstone keep their separate top/side textures on slabs and stairs,
 while their walls use the side texture like vanilla's sandstone walls do.
 
+Covers terracotta, the stone-like derivatives, and the 16 dyed concrete
+blocks.
+
 Usage:
     python3 tools/generate_derivative_blocks.py
     MINECRAFT_CLIENT_JAR=/path/to/minecraft-client.jar \
@@ -43,6 +46,32 @@ STONE_DERIVATIVES: list[tuple[str, str, tuple[str, ...]]] = [
     ("cut_red_sandstone", "minecraft:cut_red_sandstone", ("stairs", "wall")),
     ("smooth_stone", "minecraft:smooth_stone", ("stairs", "wall")),
     ("smooth_basalt", "minecraft:smooth_basalt", ("slab", "stairs", "wall")),
+    ("purpur", "minecraft:purpur_block", ("wall",)),
+    ("quartz", "minecraft:quartz_block", ("wall",)),
+    ("prismarine_brick", "minecraft:prismarine_bricks", ("wall",)),
+    ("dark_prismarine", "minecraft:dark_prismarine", ("wall",)),
+    ("smooth_red_sandstone", "minecraft:smooth_red_sandstone", ("wall",)),
+    ("smooth_sandstone", "minecraft:smooth_sandstone", ("wall",)),
+    ("end_stone", "minecraft:end_stone", ("slab", "stairs", "wall")),
+]
+
+CONCRETE_COLORS = [
+    "white",
+    "orange",
+    "magenta",
+    "light_blue",
+    "yellow",
+    "lime",
+    "pink",
+    "gray",
+    "light_gray",
+    "cyan",
+    "purple",
+    "blue",
+    "brown",
+    "green",
+    "red",
+    "black",
 ]
 
 
@@ -322,6 +351,27 @@ def emit_wall(name: str, base_id: str, faces: dict[str, str], templates: dict) -
     )
 
 
+def emit_slab_and_stairs(
+    prefix: str,
+    base_id: str,
+    faces: dict[str, str],
+    templates: dict,
+    slabs: list[str],
+    stairs: list[str],
+    translations: dict[str, str],
+) -> None:
+    slab = f"{prefix}_slab"
+    stair = f"{prefix}_stairs"
+
+    emit_slab(slab, base_id, faces, templates)
+    emit_stairs(stair, base_id, faces, templates)
+    slabs.append(slab)
+    stairs.append(stair)
+
+    translations[f"block.{NAMESPACE}.{slab}"] = f"{display_name(prefix)} Slab"
+    translations[f"block.{NAMESPACE}.{stair}"] = f"{display_name(prefix)} Stairs"
+
+
 def main() -> None:
     jar_path = find_client_jar()
     slabs: list[str] = []
@@ -343,17 +393,15 @@ def main() -> None:
         # Terracotta: one slab and one stair for every block in vanilla's tag.
         for base_id in terracotta_ids:
             base_name = base_id.split(":", 1)[1]
-            faces = face_textures(jar, base_id)
-            slab = f"{base_name}_slab"
-            stair = f"{base_name}_stairs"
-
-            emit_slab(slab, base_id, faces, templates)
-            emit_stairs(stair, base_id, faces, templates)
-            slabs.append(slab)
-            stairs.append(stair)
-
-            translations[f"block.{NAMESPACE}.{slab}"] = f"{display_name(base_name)} Slab"
-            translations[f"block.{NAMESPACE}.{stair}"] = f"{display_name(base_name)} Stairs"
+            emit_slab_and_stairs(
+                base_name,
+                base_id,
+                face_textures(jar, base_id),
+                templates,
+                slabs,
+                stairs,
+                translations,
+            )
 
         # Stone-like derivatives from the user-facing list.
         for prefix, base_id, kinds in STONE_DERIVATIVES:
@@ -372,6 +420,20 @@ def main() -> None:
                 else:
                     raise SystemExit(f"Unknown block kind: {kind}")
                 translations[f"block.{NAMESPACE}.{name}"] = f"{display_name(prefix)} {kind.title()}"
+
+        # Concrete: slabs and stairs for the 16 dyed concrete blocks.
+        for color in CONCRETE_COLORS:
+            prefix = f"{color}_concrete"
+            base_id = f"{MINECRAFT}:{prefix}"
+            emit_slab_and_stairs(
+                prefix,
+                base_id,
+                face_textures(jar, base_id),
+                templates,
+                slabs,
+                stairs,
+                translations,
+            )
 
     # --- Tags ------------------------------------------------------------
     tag_dir = RESOURCES / "data" / MINECRAFT / "tags"

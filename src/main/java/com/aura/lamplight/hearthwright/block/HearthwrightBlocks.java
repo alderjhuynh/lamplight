@@ -29,9 +29,10 @@ final class HearthwrightBlocks {
 
     static Item registerBlockItem(String name, Block block) {
         ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, Hearthwright.id(name));
+        // Match vanilla block items, which use the block.lamplight.* translation key.
         return Registry.register(
                 BuiltInRegistries.ITEM,
                 key,
-                new BlockItem(block, new Item.Properties().setId(key)));
+                new BlockItem(block, new Item.Properties().useBlockDescriptionPrefix().setId(key)));
     }
 }

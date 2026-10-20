@@ -15,6 +15,7 @@ public class Armory implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	@Override
+	@SuppressWarnings("all")
 	public void onInitialize() {
 		// force attachment registration
 		Object ignored = BackSlotAttachments.BACK_STACK;

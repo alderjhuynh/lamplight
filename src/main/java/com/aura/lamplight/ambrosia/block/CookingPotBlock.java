@@ -1,6 +1,5 @@
 package com.aura.lamplight.ambrosia.block;
 
-import com.aura.lamplight.ambrosia.Ambrosia;
 import com.aura.lamplight.ambrosia.menu.CookingPotMenu;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
@@ -29,7 +28,6 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
 public class CookingPotBlock extends BaseEntityBlock {
     public static final MapCodec<CookingPotBlock> CODEC = BlockBehaviour.simpleCodec(CookingPotBlock::new);
@@ -72,7 +70,6 @@ public class CookingPotBlock extends BaseEntityBlock {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return level.isClientSide() ? null
                 : createTickerHelper(type, ModBlockEntities.COOKING_POT, CookingPotBlockEntity::tick);

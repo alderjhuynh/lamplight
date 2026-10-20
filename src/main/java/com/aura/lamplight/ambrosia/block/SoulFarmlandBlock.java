@@ -57,6 +57,7 @@ public class SoulFarmlandBlock extends Block {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         BlockState above = level.getBlockState(pos.above());
         return !above.isSolid() || shouldMaintainFarmland(level, pos);

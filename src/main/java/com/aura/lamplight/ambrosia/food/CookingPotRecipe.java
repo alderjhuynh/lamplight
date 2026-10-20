@@ -48,6 +48,7 @@ public record CookingPotRecipe(
             Codec.INT.optionalFieldOf("cookingtime", DEFAULT_COOKING_TIME).forGetter(CookingPotRecipe::cookingTime)
     ).apply(instance, (ings, cont, res, xp, time) -> new CookingPotRecipe(ings, cont, res.item(), res.count(), xp, time)));
 
+    @SuppressWarnings("all")
     public static final StreamCodec<RegistryFriendlyByteBuf, CookingPotRecipe> STREAM_CODEC =
             StreamCodec.composite(
                     Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), CookingPotRecipe::ingredients,

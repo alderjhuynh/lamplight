@@ -5,7 +5,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.phys.Vec3;
 
-// Ported from Alex's Mobs FlightMoveController (LGPL-3.0, see NOTICE_CROW.md).
+@SuppressWarnings("all")
 public class FlightMoveControl extends MoveControl {
     private final Mob parent;
     private final float speedGeneral;

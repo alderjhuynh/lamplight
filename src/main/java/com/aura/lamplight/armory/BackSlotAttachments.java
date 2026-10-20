@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 
 import com.mojang.serialization.Codec;
 
+@SuppressWarnings("deprecation")
 public final class BackSlotAttachments {
 	public static final AttachmentType<ItemStack> BACK_STACK = AttachmentRegistry.<ItemStack>builder()
 			.persistent(ItemStack.OPTIONAL_CODEC)

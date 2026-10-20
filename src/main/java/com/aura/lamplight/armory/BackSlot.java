@@ -12,6 +12,11 @@ public class BackSlot extends Slot {
 	public static final int X = 77;
 	public static final int Y = 44;
 
+	// the creative inventory lays out the player inventory differently;
+	// its back slot sits opposite the offhand, right of the armor slots.
+	public static final int CREATIVE_X = 127;
+	public static final int CREATIVE_Y = 20;
+
 	// empty state ghost icon
 	public static final Identifier EMPTY_ICON = Armory.id("container/slot/back_weapon");
 

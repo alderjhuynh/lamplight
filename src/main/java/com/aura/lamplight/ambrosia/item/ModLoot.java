@@ -56,6 +56,7 @@ public final class ModLoot {
                         .when(LootItemRandomChanceCondition.randomChance(chance)));
     }
 
+    @SuppressWarnings("all")
     public static void register() {
         LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
             Identifier id = key.identifier();

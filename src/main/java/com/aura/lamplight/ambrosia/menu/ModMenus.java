@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.menu.v1.ExtendedMenuType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 
 public final class ModMenus {
     private ModMenus() {}

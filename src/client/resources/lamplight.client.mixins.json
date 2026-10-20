@@ -16,6 +16,7 @@
     "arcanum.GlideHudMixin",
     "arcanum.WavedashHudMixin",
     "armory.AvatarRendererMixin",
+    "armory.CreativeModeInventoryScreenMixin",
     "armory.HudMixin",
     "menagerie.AvatarRenderStateMixin",
     "menagerie.AvatarRendererMixin",

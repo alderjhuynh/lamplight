@@ -4,7 +4,6 @@ import com.aura.lamplight.ambrosia.item.ModItems;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -61,7 +60,6 @@ public class WineRackBlock extends BaseEntityBlock {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return level.isClientSide() ? null
                 : createTickerHelper(type, ModBlockEntities.WINE_RACK, WineRackBlockEntity::tick);

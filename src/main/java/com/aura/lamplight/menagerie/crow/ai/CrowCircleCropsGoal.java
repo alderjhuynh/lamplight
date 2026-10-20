@@ -15,7 +15,6 @@ import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
-// Ported from Alex's Mobs CrowAICircleCrops (LGPL-3.0, see NOTICE_CROW.md).
 public class CrowCircleCropsGoal extends MoveToBlockGoal {
     private final CrowEntity crow;
     private int idleTime;

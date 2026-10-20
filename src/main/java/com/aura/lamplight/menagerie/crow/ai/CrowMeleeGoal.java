@@ -9,8 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
 
-// Ported from Alex's Mobs CrowAIMelee (LGPL-3.0, see NOTICE_CROW.md).
-// Extra damage vs EntityTypeTags.UNDEAD (4) like the original; 1 otherwise.
+@SuppressWarnings("all")
 public class CrowMeleeGoal extends Goal {
     private final CrowEntity crow;
     private float circlingTime;

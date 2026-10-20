@@ -1,6 +1,5 @@
 package com.aura.lamplight.mixin.panacea;
 
-import com.aura.lamplight.panacea.registry.ModEffects;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;

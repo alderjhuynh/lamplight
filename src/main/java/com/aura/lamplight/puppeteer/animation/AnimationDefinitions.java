@@ -13,6 +13,7 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import org.jspecify.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class AnimationDefinitions extends SimpleJsonResourceReloadListener<AnimationDefinition> implements IdentifiableResourceReloadListener {
 
     private static volatile Map<Identifier, AnimationDefinition> LOADED = Map.of();

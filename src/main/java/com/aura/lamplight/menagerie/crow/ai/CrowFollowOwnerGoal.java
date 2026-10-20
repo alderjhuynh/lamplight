@@ -16,9 +16,6 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
-// Ported from Alex's Mobs CrowAIFollowOwner (LGPL-3.0, see NOTICE_CROW.md).
-// Brings the crow to its owner; perching itself is CrowShoulderGoal (vanilla parrot-style
-// shoulder NBT, not passenger riding).
 public class CrowFollowOwnerGoal extends Goal {
     private final CrowEntity crow;
     private final LevelReader world;

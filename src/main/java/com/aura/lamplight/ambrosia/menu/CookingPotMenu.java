@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
+@SuppressWarnings("all")
 public class CookingPotMenu extends AbstractContainerMenu {
     public static final int INPUT_COUNT = 6;
     public static final int CONTAINER_INDEX = 6;

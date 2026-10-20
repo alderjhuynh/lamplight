@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
-// Ported from Alex's Mobs CreatureAITargetItems (LGPL-3.0, see NOTICE_CROW.md).
+@SuppressWarnings("all")
 public class TargetItemsGoal extends TargetGoal {
     private final Sorter sorter;
     private final Predicate<? super ItemEntity> selector;

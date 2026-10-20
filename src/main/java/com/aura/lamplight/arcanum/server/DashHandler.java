@@ -15,6 +15,7 @@ public final class DashHandler {
 
     private DashHandler() {}
 
+    @SuppressWarnings("all")
     public static void register() {
         ServerPlayNetworking.registerGlobalReceiver(ArcanumPackets.DashPayload.TYPE, (payload, context) ->
                 context.server().execute(() -> {

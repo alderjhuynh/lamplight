@@ -1,7 +1,6 @@
 package com.aura.lamplight.panacea.registry;
 
 import com.aura.lamplight.panacea.Panacea;
-import com.aura.lamplight.panacea.block.PotionCauldronBlock;
 import com.aura.lamplight.panacea.blockentity.PotionCauldronBlockEntity;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;

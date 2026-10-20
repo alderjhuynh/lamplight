@@ -5,7 +5,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.level.Level;
 
-// Ported from Alex's Mobs DirectPathNavigator (LGPL-3.0, see NOTICE_CROW.md).
 public class DirectNavigator extends GroundPathNavigation {
     private final Mob mob;
     private final float yOffset;

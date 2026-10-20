@@ -1,19 +1,4 @@
 #!/usr/bin/env python3
-"""Generate derivative slabs, stairs, and walls from vanilla Minecraft blocks.
-
-Every model references the base block's existing textures, so this only writes
-JSON: no new texture files are needed. Column blocks such as basalt, deepslate,
-and cut sandstone keep their separate top/side textures on slabs and stairs,
-while their walls use the side texture like vanilla's sandstone walls do.
-
-Covers terracotta, the stone-like derivatives, and the 16 dyed concrete
-blocks.
-
-Usage:
-    python3 tools/generate_derivative_blocks.py
-    MINECRAFT_CLIENT_JAR=/path/to/minecraft-client.jar \
-        python3 tools/generate_derivative_blocks.py
-"""
 
 from __future__ import annotations
 
@@ -30,7 +15,6 @@ RESOURCES = ROOT / "src" / "main" / "resources"
 NAMESPACE = "lamplight"
 MINECRAFT = "minecraft"
 
-# (name prefix, base block, kinds to generate)
 STONE_DERIVATIVES: list[tuple[str, str, tuple[str, ...]]] = [
     ("stone", "minecraft:stone", ("wall",)),
     ("deepslate", "minecraft:deepslate", ("slab", "stairs", "wall")),
@@ -131,7 +115,6 @@ def write_json(path: Path, value: dict) -> None:
 
 
 def replace_strings(value, replacements: dict[str, str]):
-    """Deep-copy ``value`` while replacing exact string values."""
     if isinstance(value, dict):
         return {key: replace_strings(item, replacements) for key, item in value.items()}
     if isinstance(value, list):
@@ -142,7 +125,6 @@ def replace_strings(value, replacements: dict[str, str]):
 
 
 def face_textures(jar: zipfile.ZipFile, base_id: str) -> dict[str, str]:
-    """Derive slab/stair/wall textures from the base block's model."""
     _, base_name = base_id.split(":", 1)
     model = load_json(jar, f"assets/minecraft/models/block/{base_name}.json")
     textures = model.get("textures", {})
@@ -390,7 +372,6 @@ def main() -> None:
             "wall_loot": load_json(jar, "data/minecraft/loot_table/blocks/stone_brick_wall.json"),
         }
 
-        # Terracotta: one slab and one stair for every block in vanilla's tag.
         for base_id in terracotta_ids:
             base_name = base_id.split(":", 1)[1]
             emit_slab_and_stairs(
@@ -403,7 +384,6 @@ def main() -> None:
                 translations,
             )
 
-        # Stone-like derivatives from the user-facing list.
         for prefix, base_id, kinds in STONE_DERIVATIVES:
             faces = face_textures(jar, base_id)
             for kind in kinds:
@@ -421,7 +401,6 @@ def main() -> None:
                     raise SystemExit(f"Unknown block kind: {kind}")
                 translations[f"block.{NAMESPACE}.{name}"] = f"{display_name(prefix)} {kind.title()}"
 
-        # Concrete: slabs and stairs for the 16 dyed concrete blocks.
         for color in CONCRETE_COLORS:
             prefix = f"{color}_concrete"
             base_id = f"{MINECRAFT}:{prefix}"
@@ -435,7 +414,6 @@ def main() -> None:
                 translations,
             )
 
-    # --- Tags ------------------------------------------------------------
     tag_dir = RESOURCES / "data" / MINECRAFT / "tags"
     all_blocks = slabs + stairs + walls
     write_json(
@@ -449,7 +427,6 @@ def main() -> None:
                 {"replace": False, "values": [f"{NAMESPACE}:{name}" for name in names]},
             )
 
-    # --- Language file ---------------------------------------------------
     lang_path = RESOURCES / "assets" / NAMESPACE / "lang" / "en_us.json"
     lang = json.loads(lang_path.read_text(encoding="utf-8"))
     for key, value in translations.items():

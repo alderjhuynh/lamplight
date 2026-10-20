@@ -15,13 +15,6 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 
-/**
- * Missing slab, stair, and wall variants of vanilla's stone-like blocks.
- *
- * <p>Properties are copied from each base block so hardness, explosion resistance,
- * sounds, map colours, and tool requirements all match. Models reuse the base
- * block's textures, including the separate top/side textures of column blocks.</p>
- */
 public final class StoneBlocks {
     private static final List<Item> ITEMS = new ArrayList<>();
 

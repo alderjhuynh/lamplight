@@ -18,10 +18,6 @@ final class HearthwrightBlocks {
         return ResourceKey.create(Registries.BLOCK, Hearthwright.id(name));
     }
 
-    /**
-     * Copies the base block's hardness, resistance, sound, map colour, and tool
-     * requirements without inheriting its loot table or translation key.
-     */
     @SuppressWarnings("deprecation")
     static BlockBehaviour.Properties derivativeProperties(Block base) {
         return BlockBehaviour.Properties.ofLegacyCopy(base);
@@ -29,7 +25,6 @@ final class HearthwrightBlocks {
 
     static Item registerBlockItem(String name, Block block) {
         ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, Hearthwright.id(name));
-        // Match vanilla block items, which use the block.lamplight.* translation key.
         return Registry.register(
                 BuiltInRegistries.ITEM,
                 key,

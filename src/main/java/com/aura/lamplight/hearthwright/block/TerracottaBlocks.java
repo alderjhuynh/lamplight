@@ -18,12 +18,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 
-/**
- * Slabs and stairs for every terracotta block in the game.
- *
- * <p>The models for these blocks point at vanilla's own terracotta textures, so the
- * whole family is generated without adding a single new texture.</p>
- */
 public final class TerracottaBlocks {
     private static final List<Variant> VARIANTS = new ArrayList<>();
 
@@ -50,7 +44,6 @@ public final class TerracottaBlocks {
             }
         });
 
-        // The coloured terracotta family also belongs alongside vanilla's coloured blocks.
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COLORED_BLOCKS).register(output -> {
             for (Variant variant : VARIANTS) {
                 if (!variant.baseName().equals("terracotta")) {

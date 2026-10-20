@@ -15,12 +15,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 
-/**
- * Slabs and stairs for all 16 dyed concrete blocks.
- *
- * <p>Like the terracotta family, these reuse vanilla's concrete textures and
- * copy the base block's properties.</p>
- */
 public final class ConcreteBlocks {
     private static final List<Variant> VARIANTS = new ArrayList<>();
 

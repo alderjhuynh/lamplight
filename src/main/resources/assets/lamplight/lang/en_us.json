@@ -496,5 +496,8 @@
   "block.lamplight.black_concrete_stairs": "Black Concrete Stairs",
   "block.lamplight.end_stone_slab": "End Stone Slab",
   "block.lamplight.end_stone_stairs": "End Stone Stairs",
-  "block.lamplight.end_stone_wall": "End Stone Wall"
+  "block.lamplight.end_stone_wall": "End Stone Wall",
+  "item.lamplight.raw_rose_gold": "Raw Rose Gold",
+  "item.lamplight.rose_gold_ingot": "Rose Gold Ingot",
+  "item.lamplight.rose_gold_nugget": "Rose Gold Nugget"
 }

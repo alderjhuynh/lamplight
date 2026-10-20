@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:raw_copper",
+    "minecraft:raw_copper",
+    "minecraft:raw_copper",
+    "minecraft:raw_copper",
+    "minecraft:raw_gold",
+    "minecraft:raw_gold",
+    "minecraft:raw_gold",
+    "minecraft:raw_gold"
+  ],
+  "result": {
+    "id": "lamplight:raw_rose_gold"
+  }
+}

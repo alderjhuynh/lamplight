@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:blasting",
+  "experience": 1,
+  "ingredient": "lamplight:raw_rose_gold",
+  "result": {
+    "id": "lamplight:rose_gold_ingot"
+  }
+}

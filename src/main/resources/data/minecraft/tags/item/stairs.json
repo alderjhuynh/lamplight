@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "lamplight:terracotta_stairs",
+    "lamplight:white_terracotta_stairs",
+    "lamplight:orange_terracotta_stairs",
+    "lamplight:magenta_terracotta_stairs",
+    "lamplight:light_blue_terracotta_stairs",
+    "lamplight:yellow_terracotta_stairs",
+    "lamplight:lime_terracotta_stairs",
+    "lamplight:pink_terracotta_stairs",
+    "lamplight:gray_terracotta_stairs",
+    "lamplight:light_gray_terracotta_stairs",
+    "lamplight:cyan_terracotta_stairs",
+    "lamplight:purple_terracotta_stairs",
+    "lamplight:blue_terracotta_stairs",
+    "lamplight:brown_terracotta_stairs",
+    "lamplight:green_terracotta_stairs",
+    "lamplight:red_terracotta_stairs",
+    "lamplight:black_terracotta_stairs"
+  ]
+}

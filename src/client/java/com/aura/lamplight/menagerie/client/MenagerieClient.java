@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityRenderLayerRegist
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 
+@SuppressWarnings("all")
 public class MenagerieClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {

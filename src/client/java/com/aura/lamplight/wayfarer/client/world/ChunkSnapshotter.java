@@ -4,11 +4,9 @@ import com.aura.lamplight.wayfarer.client.render.MapColorSampler;
 import com.aura.lamplight.wayfarer.client.render.MapPalette;
 import com.aura.lamplight.wayfarer.client.util.ColorUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
-import net.minecraft.world.level.material.MapColor;
 
 public final class ChunkSnapshotter {
     private ChunkSnapshotter() {}

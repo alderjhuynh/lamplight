@@ -10,6 +10,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 
+@SuppressWarnings("all")
 public final class FlowGlide {
     private static final double ACCELERATION = 0.04D;
     private static final double VERTICAL_BOOST = 0.05D;

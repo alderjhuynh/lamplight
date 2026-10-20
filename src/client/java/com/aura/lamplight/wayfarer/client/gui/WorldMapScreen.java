@@ -14,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import org.joml.Matrix3x2fStack;
 
+@SuppressWarnings("all")
 public class WorldMapScreen extends Screen {
     private static final Component TITLE = Component.literal("Wayfarer");
 

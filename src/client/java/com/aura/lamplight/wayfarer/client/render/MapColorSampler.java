@@ -3,7 +3,6 @@ package com.aura.lamplight.wayfarer.client.render;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
-import net.minecraft.world.level.material.MapColor;
 
 public final class MapColorSampler {
     private MapColorSampler() {}

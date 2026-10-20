@@ -7,6 +7,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.Set;
 
+@SuppressWarnings("all")
 // items that render on the back with the in-hand model instead of the fixed model. 
 public final class BackSlotHandItems {
 	private static final Set<Identifier> EXTRA_HAND_MODEL_IDS = Set.of(

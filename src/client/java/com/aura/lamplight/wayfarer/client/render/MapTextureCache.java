@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+@SuppressWarnings("all")
 public final class MapTextureCache {
     private static final int MAX_FULL_UPLOADS_PER_FRAME = 2;
     private static final int MAX_TILE_UPLOADS_PER_FRAME = 8;

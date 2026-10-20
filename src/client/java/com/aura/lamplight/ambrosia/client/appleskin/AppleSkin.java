@@ -7,21 +7,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 
-/**
- * Port of AppleSkin's food-related HUD improvements, with the Zephyr config
- * options baked in as {@code static final} constants so they are inlined at
- * build time and are not user-editable.
- *
- * <p>While active it draws overlays on the vanilla HUD: current saturation on
- * the food bar, an exhaustion bar underneath, and, while holding food, the
- * hunger/saturation it would restore plus the health that food would
- * eventually regen.
- *
- * <p>Rendering hooks live in {@code com.aura.lamplight.client.mixin.ambrosia.appleskin.HudMixin}
- * ({@code Hud.extractFood} / {@code Hud.extractPlayerHealth}). Flash animation
- * state advances via {@link #tick(Minecraft)}, called every client tick from
- * the client entrypoint.
- */
+@SuppressWarnings("all")
 public final class AppleSkin {
     public static final AppleSkin INSTANCE = new AppleSkin();
 

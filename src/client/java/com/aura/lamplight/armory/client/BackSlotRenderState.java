@@ -1,6 +1,5 @@
 package com.aura.lamplight.armory.client;
 
-import net.fabricmc.fabric.api.client.rendering.v1.FabricRenderState;
 import net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 

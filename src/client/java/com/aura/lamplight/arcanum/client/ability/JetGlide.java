@@ -9,6 +9,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 
+@SuppressWarnings("all")
 public final class JetGlide {
     private JetGlide() {}
 

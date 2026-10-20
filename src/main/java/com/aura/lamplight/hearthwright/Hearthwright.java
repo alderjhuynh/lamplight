@@ -1,5 +1,6 @@
 package com.aura.lamplight.hearthwright;
 
+import com.aura.lamplight.hearthwright.block.StoneBlocks;
 import com.aura.lamplight.hearthwright.block.TerracottaBlocks;
 import net.fabricmc.api.ModInitializer;
 
@@ -19,7 +20,9 @@ public class Hearthwright implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		TerracottaBlocks.register();
+		StoneBlocks.register();
 		TerracottaBlocks.addCreativeTabEntries();
+		StoneBlocks.addCreativeTabEntries();
 	}
 
 	public static Identifier id(String path) {

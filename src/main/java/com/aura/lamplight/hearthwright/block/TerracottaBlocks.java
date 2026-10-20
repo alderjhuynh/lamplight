@@ -6,9 +6,7 @@ import java.util.List;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -64,8 +62,8 @@ public final class TerracottaBlocks {
     }
 
     private static void addVariant(String baseName, Block baseBlock, MapColor mapColor) {
-        ResourceKey<Block> slabKey = blockKey(baseName + "_slab");
-        ResourceKey<Block> stairsKey = blockKey(baseName + "_stairs");
+        ResourceKey<Block> slabKey = HearthwrightBlocks.blockKey(baseName + "_slab");
+        ResourceKey<Block> stairsKey = HearthwrightBlocks.blockKey(baseName + "_stairs");
 
         Block slab = Registry.register(
                 BuiltInRegistries.BLOCK,
@@ -77,8 +75,8 @@ public final class TerracottaBlocks {
                 stairsKey,
                 new StairBlock(baseBlock.defaultBlockState(), terracottaProperties(mapColor).setId(stairsKey)));
 
-        Item slabItem = registerBlockItem(baseName + "_slab", slab);
-        Item stairsItem = registerBlockItem(baseName + "_stairs", stairs);
+        Item slabItem = HearthwrightBlocks.registerBlockItem(baseName + "_slab", slab);
+        Item stairsItem = HearthwrightBlocks.registerBlockItem(baseName + "_stairs", stairs);
 
         VARIANTS.add(new Variant(baseName, slab, stairs, slabItem, stairsItem));
     }
@@ -89,17 +87,5 @@ public final class TerracottaBlocks {
                 .instrument(NoteBlockInstrument.BASEDRUM)
                 .requiresCorrectToolForDrops()
                 .strength(1.25F, 4.2F);
-    }
-
-    private static ResourceKey<Block> blockKey(String name) {
-        return ResourceKey.create(Registries.BLOCK, Hearthwright.id(name));
-    }
-
-    private static Item registerBlockItem(String name, Block block) {
-        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, Hearthwright.id(name));
-        return Registry.register(
-                BuiltInRegistries.ITEM,
-                key,
-                new BlockItem(block, new Item.Properties().setId(key)));
     }
 }

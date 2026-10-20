@@ -17,6 +17,13 @@
     "lamplight:brown_terracotta_slab",
     "lamplight:green_terracotta_slab",
     "lamplight:red_terracotta_slab",
-    "lamplight:black_terracotta_slab"
+    "lamplight:black_terracotta_slab",
+    "lamplight:deepslate_slab",
+    "lamplight:packed_mud_slab",
+    "lamplight:netherrack_slab",
+    "lamplight:basalt_slab",
+    "lamplight:quartz_brick_slab",
+    "lamplight:polished_basalt_slab",
+    "lamplight:smooth_basalt_slab"
   ]
 }

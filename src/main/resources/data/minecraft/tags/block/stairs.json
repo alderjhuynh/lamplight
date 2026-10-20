@@ -17,6 +17,16 @@
     "lamplight:brown_terracotta_stairs",
     "lamplight:green_terracotta_stairs",
     "lamplight:red_terracotta_stairs",
-    "lamplight:black_terracotta_stairs"
+    "lamplight:black_terracotta_stairs",
+    "lamplight:deepslate_stairs",
+    "lamplight:packed_mud_stairs",
+    "lamplight:netherrack_stairs",
+    "lamplight:basalt_stairs",
+    "lamplight:quartz_brick_stairs",
+    "lamplight:polished_basalt_stairs",
+    "lamplight:cut_sandstone_stairs",
+    "lamplight:cut_red_sandstone_stairs",
+    "lamplight:smooth_stone_stairs",
+    "lamplight:smooth_basalt_stairs"
   ]
 }

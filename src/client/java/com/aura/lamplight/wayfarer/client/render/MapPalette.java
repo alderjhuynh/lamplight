@@ -8,4 +8,5 @@ public final class MapPalette {
     public static final int OUTLINE = 0x998A6F4D;
     public static final int SCREEN_BG = 0xDD241A12;
     public static final int REGION_ERROR = 0xFFCBBFA5;
+    public static final int HUD_TEXT = 0xFFF0E3CB;
 }

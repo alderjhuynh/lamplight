@@ -47,6 +47,7 @@ public final class WayfarerConfig {
     public boolean minimapEnabled = true;
     public int minimapSize = 128;
     public double minimapZoom = 1.0;
+    public double minimapCompassInset = 3.0;
 
     private transient Path file;
 
@@ -67,6 +68,7 @@ public final class WayfarerConfig {
                     loaded.waypointMaxDistance = clamp(loaded.waypointMaxDistance, 0, 100000);
                     loaded.minimapSize = clamp(loaded.minimapSize, 64, 256);
                     loaded.minimapZoom = clamp(loaded.minimapZoom, 0.25, 8.0);
+                    loaded.minimapCompassInset = clamp(loaded.minimapCompassInset, 0.0, 64.0);
                     loaded.waypointOpacity = clamp(loaded.waypointOpacity, 10, 100);
                     loaded.waypointIconScale = clamp(loaded.waypointIconScale, 0.5, 4.0);
                     loaded.waypointNameScale = clamp(loaded.waypointNameScale, 0.5, 4.0);

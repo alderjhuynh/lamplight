@@ -37,7 +37,6 @@ public class Menagerie implements ModInitializer {
 						biomeKey("minecraft", "meadow"),
 						biomeKey("minecraft", "cherry_grove")),
 				MobCategory.CREATURE, MenagerieEntities.CROW, 8, 1, 2);
-		// Vantage open-country analogues of plains/meadows/savannas (crows forage open ground).
 		BiomeModifications.addSpawn(
 				BiomeSelectors.includeByKey(
 						vantageBiome("steppe"),

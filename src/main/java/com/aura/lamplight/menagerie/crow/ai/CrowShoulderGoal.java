@@ -13,13 +13,20 @@ public class CrowShoulderGoal extends Goal {
 
     @Override
     public boolean canUse() {
+        if (!crow.isFollowing() || crow.isSitting() || crow.isLeashed() || crow.isPassenger()) {
+            return false;
+        }
+        if (crow.isInLove()) {
+            return false;
+        }
+        if (crow.getTarget() != null && crow.getTarget().isAlive()) {
+            return false;
+        }
         if (!(crow.getOwner() instanceof ServerPlayer owner)) {
             return false;
         }
-        if (crow.isSitting() || crow.getCommand() != 1) {
-            return false;
-        }
-        if (owner.isSpectator() || owner.getAbilities().flying || owner.isInWater() || owner.isInPowderSnow) {
+        if (!owner.isAlive() || owner.level() != crow.level() || owner.isSpectator()
+                || owner.getAbilities().flying || owner.isInWater() || owner.isInPowderSnow) {
             return false;
         }
         return crow.canSitOnShoulder();
@@ -27,12 +34,20 @@ public class CrowShoulderGoal extends Goal {
 
     @Override
     public void tick() {
-        if (crow.isLeashed() || crow.isRemoved()) {
+        if (crow.isLeashed() || crow.isRemoved() || crow.isSitting() || crow.isPassenger()) {
             return;
         }
         if (crow.getOwner() instanceof ServerPlayer owner
+                && owner.isAlive()
+                && owner.level() == crow.level()
                 && !owner.isSpectator()
-                && crow.getBoundingBox().intersects(owner.getBoundingBox())) {
+                && !owner.getAbilities().flying
+                && !owner.isInWater()
+                && !owner.isInPowderSnow
+                && !crow.isInLove()
+                && (crow.getTarget() == null || !crow.getTarget().isAlive())
+                && crow.distanceToSqr(owner) <= 6.25D
+                && crow.hasLineOfSight(owner)) {
             crow.setEntityOnShoulder(owner);
         }
     }

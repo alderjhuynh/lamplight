@@ -2,13 +2,12 @@ package com.aura.lamplight.menagerie.crow.ai;
 
 import com.aura.lamplight.menagerie.crow.CrowBlockPos;
 import com.aura.lamplight.menagerie.crow.CrowEntity;
-import com.aura.lamplight.menagerie.crow.CrowMaths;
+import com.aura.lamplight.menagerie.crow.CrowMath;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
@@ -18,101 +17,142 @@ import java.util.EnumSet;
 
 public class CrowFollowOwnerGoal extends Goal {
     private final CrowEntity crow;
-    private final LevelReader world;
-    private final PathNavigation navigator;
-    private final float minDist;
     private final boolean teleportToLeaves;
     private float circleDistance = 1;
-    private float yLevel = 2;
+    private final float yLevel = 0;
     private boolean clockwise;
     private LivingEntity owner;
     private int recalcCooldown;
     private float oldWaterCost;
 
-    public CrowFollowOwnerGoal(CrowEntity crow, double speed, float minDist, float maxDist, boolean teleportToLeaves) {
+    public CrowFollowOwnerGoal(CrowEntity crow, boolean teleportToLeaves) {
         this.crow = crow;
-        this.world = crow.level();
-        this.navigator = crow.getNavigation();
-        this.minDist = minDist;
         this.teleportToLeaves = teleportToLeaves;
-        this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
     @Override
     public boolean canUse() {
-        LivingEntity owner = this.crow.getOwner();
-        if (owner == null || owner.isSpectator()) {
+        LivingEntity owner = crow.getOwner();
+        if (owner == null || !owner.isAlive() || owner.isSpectator()
+                || owner.level() != crow.level()) {
             return false;
         }
-        if (this.crow.isSitting() || crow.isPassenger() || crow.getCommand() != 1) {
+        if (!crow.isFollowing() || crow.isPassenger() || crow.isInLove()) {
             return false;
         }
-        if (this.crow.distanceToSqr(owner) < (minDist * minDist)) {
+        if (crow.getTarget() != null && crow.getTarget().isAlive()) {
             return false;
         }
         this.owner = owner;
-        return crow.getTarget() == null || !crow.getTarget().isAlive();
+        return true;
     }
 
     @Override
     public boolean canContinueToUse() {
-        if (this.crow.isSitting()) {
-            return false;
-        }
-        return crow.getCommand() == 1 && !crow.isPassenger() && (crow.getTarget() == null || !crow.getTarget().isAlive());
+        return crow.isFollowing()
+                && !crow.isPassenger()
+                && !crow.isInLove()
+                && owner != null
+                && owner.isAlive()
+                && !owner.isSpectator()
+                && owner.level() == crow.level()
+                && crow.getOwner() == owner
+                && (crow.getTarget() == null || !crow.getTarget().isAlive());
     }
 
     @Override
     public void start() {
-        this.recalcCooldown = 0;
-        this.oldWaterCost = this.crow.getPathfindingMalus(PathType.WATER);
-        this.crow.setPathfindingMalus(PathType.WATER, 0.0F);
+        recalcCooldown = 0;
+        oldWaterCost = crow.getPathfindingMalus(PathType.WATER);
+        crow.setPathfindingMalus(PathType.WATER, 0.0F);
         clockwise = crow.getRandom().nextBoolean();
-        yLevel = crow.getRandom().nextInt(1);
         circleDistance = 1F + crow.getRandom().nextFloat() * 2F;
     }
 
     @Override
     public void stop() {
-        this.owner = null;
-        this.navigator.stop();
-        this.crow.setPathfindingMalus(PathType.WATER, this.oldWaterCost);
+        owner = null;
+        crow.getNavigation().stop();
+        crow.setPathfindingMalus(PathType.WATER, oldWaterCost);
     }
 
     @Override
     public void tick() {
-        this.crow.getLookControl().setLookAt(this.owner, 10.0F, (float) this.crow.getMaxHeadXRot());
-        if (this.crow.isLeashed() || this.crow.isPassenger()) {
+        if (owner == null || !owner.isAlive()) {
+            stop();
             return;
         }
-        double dist = this.crow.distanceToSqr(this.owner);
-        if (--this.recalcCooldown <= 0) {
-            this.recalcCooldown = 10;
-            if (dist >= 144.0D && !crow.aiItemFlag) {
+        crow.getLookControl().setLookAt(owner, 10.0F, crow.getMaxHeadXRot());
+        if (crow.isLeashed() || crow.isPassenger()) {
+            return;
+        }
+
+        double distSq = crow.distanceToSqr(owner);
+        if (--recalcCooldown <= 0) {
+            recalcCooldown = 10;
+            if (distSq >= 144.0D) {
                 crow.setFlying(true);
-                crow.getMoveControl().setWantedPosition(owner.getX(), owner.getY() + owner.getEyeHeight() + 0.2F, owner.getZ(), 1F);
+                crow.getMoveControl().setWantedPosition(
+                        owner.getX(), owner.getY() + owner.getEyeHeight() + 0.2F, owner.getZ(), 1.0F);
                 tryTeleportNearOwner();
             }
         }
-        if (crow.aiItemFlag) {
+
+        if (distSq < 9.0D) {
+            if (canShoulderMount(owner)) {
+                crow.setFlying(true);
+                if (distSq <= 6.25D) {
+                    crow.getMoveControl().setWantedPosition(
+                            crow.getX(), crow.getY(), crow.getZ(), 0.0F);
+                } else {
+                    crow.getMoveControl().setWantedPosition(
+                            owner.getX(), owner.getY() + owner.getEyeHeight() + 0.2F,
+                            owner.getZ(), 0.7F);
+                }
+                return;
+            }
+            Vec3 closeCircle = getCirclePos(owner.position());
+            if (closeCircle != null) {
+                crow.setFlying(true);
+                crow.getMoveControl().setWantedPosition(
+                        closeCircle.x(), closeCircle.y() + owner.getEyeHeight() + 0.2F,
+                        closeCircle.z(), 0.7F);
+            } else {
+                crow.setFlying(true);
+                crow.getMoveControl().setWantedPosition(
+                        crow.getX(), crow.getY(), crow.getZ(), 0.0F);
+            }
             return;
         }
-        // Close enough to perch: fly straight into the owner; CrowShoulderGoal mounts on contact
-        // (vanilla parrot-style shoulder NBT, not passenger riding).
-        if (crow.distanceTo(owner) < 3.0D) {
-            crow.getMoveControl().setWantedPosition(owner.getX(), owner.getY() + owner.getEyeHeight() + 0.2F, owner.getZ(), 0.7F);
-            return;
-        }
+
         Vec3 circle = getCirclePos(owner.position());
         if (circle == null) {
             circle = owner.position();
         }
         crow.setFlying(true);
-        crow.getMoveControl().setWantedPosition(circle.x(), circle.y() + owner.getEyeHeight() + 0.2F, circle.z(), 0.7F);
+        crow.getMoveControl().setWantedPosition(
+                circle.x(), circle.y() + owner.getEyeHeight() + 0.2F, circle.z(), 0.7F);
+    }
+
+    private boolean canShoulderMount(LivingEntity owner) {
+        if (!(owner instanceof ServerPlayer serverPlayer)) {
+            return false;
+        }
+        return serverPlayer.isAlive()
+                && serverPlayer.level() == crow.level()
+                && !serverPlayer.isSpectator()
+                && !serverPlayer.getAbilities().flying
+                && !serverPlayer.isInWater()
+                && !serverPlayer.isInPowderSnow
+                && !crow.isLeashed()
+                && !crow.isInLove()
+                && crow.canSitOnShoulder()
+                && crow.hasLineOfSight(serverPlayer);
     }
 
     public Vec3 getCirclePos(Vec3 target) {
-        float angle = CrowMaths.EIGHT_STARTING_ANGLE * (clockwise ? -crow.tickCount : crow.tickCount);
+        float angle = CrowMath.EIGHT_STARTING_ANGLE * (clockwise ? -crow.tickCount : crow.tickCount);
         double extraX = circleDistance * Mth.sin(angle);
         double extraZ = circleDistance * Mth.cos(angle);
         Vec3 pos = new Vec3(target.x() + extraX, target.y() + yLevel, target.z() + extraZ);
@@ -123,7 +163,7 @@ public class CrowFollowOwnerGoal extends Goal {
     }
 
     private void tryTeleportNearOwner() {
-        BlockPos base = this.owner.blockPosition();
+        BlockPos base = owner.blockPosition();
         for (int i = 0; i < 10; i++) {
             int dx = crow.getRandom().nextInt(7) - 3;
             int dy = crow.getRandom().nextInt(3) - 1;
@@ -135,24 +175,24 @@ public class CrowFollowOwnerGoal extends Goal {
     }
 
     private boolean tryTeleport(int x, int y, int z) {
-        if (Math.abs(x - this.owner.getX()) < 2.0D && Math.abs(z - this.owner.getZ()) < 2.0D) {
+        if (Math.abs(x - owner.getX()) < 2.0D && Math.abs(z - owner.getZ()) < 2.0D) {
             return false;
         }
         BlockPos pos = new BlockPos(x, y, z);
         if (!isTeleportFriendly(pos)) {
             return false;
         }
-        this.crow.snapTo(x + 0.5D, y, z + 0.5D, this.crow.getYRot(), this.crow.getXRot());
-        this.navigator.stop();
+        crow.snapTo(x + 0.5D, y, z + 0.5D, crow.getYRot(), crow.getXRot());
+        crow.getNavigation().stop();
         return true;
     }
 
     private boolean isTeleportFriendly(BlockPos pos) {
-        BlockState below = this.world.getBlockState(pos.below());
-        if (!this.teleportToLeaves && below.getBlock() instanceof LeavesBlock) {
+        BlockState below = crow.level().getBlockState(pos.below());
+        if (!teleportToLeaves && below.getBlock() instanceof LeavesBlock) {
             return false;
         }
-        BlockPos offset = pos.subtract(this.crow.blockPosition());
-        return this.world.noCollision(this.crow, this.crow.getBoundingBox().move(offset));
+        BlockPos offset = pos.subtract(crow.blockPosition());
+        return crow.level().noCollision(crow, crow.getBoundingBox().move(offset));
     }
 }

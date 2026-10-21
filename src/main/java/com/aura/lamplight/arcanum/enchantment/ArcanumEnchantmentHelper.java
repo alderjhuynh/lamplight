@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+@SuppressWarnings("all")
 public final class ArcanumEnchantmentHelper {
     private static final TagKey<Item> ARCANUM_ARMOR =
             TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("minecraft", "armor/master"));

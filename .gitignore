@@ -43,6 +43,6 @@ wisp.md
 rose_gold.md
 progression.md
 make.sh
-server/
-tools/
-vanilla-textures/
+/server/
+/tools/
+/vanilla-textures/

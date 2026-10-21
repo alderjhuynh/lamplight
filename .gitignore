@@ -38,8 +38,11 @@ hs_err_*.log
 replay_*.log
 *.hprof
 *.jfr
-mv.sh
 docs/
 wisp.md
 rose_gold.md
 progression.md
+make.sh
+server/
+tools/
+vanilla-textures/

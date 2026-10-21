@@ -22,7 +22,13 @@ void main() {
     vec4 base = texture(InSampler, texCoord);
     vec3 bloom = texture(BloomSampler, texCoord).rgb;
 
-    vec3 c = base.rgb + bloom * (0.55 * Bloom * Strength);
+    // Add bloom where the base image still has headroom. A bright surface that
+    // already fills most of its range (sunlit sand is the usual offender) has
+    // nowhere to put the extra energy, so adding bloom there just blows it out.
+    // Darker pixels around a light source still receive the full halo.
+    float baseLuma = dot(base.rgb, vec3(0.2126, 0.7152, 0.0722));
+    float headroom = 1.0 - smoothstep(0.55, 0.95, baseLuma);
+    vec3 c = base.rgb + bloom * (0.50 * Bloom * Strength * headroom);
 
     float luma = dot(c, vec3(0.2126, 0.7152, 0.0722));
     float bell = exp(-pow((luma - 0.5) / 0.42, 2.0));

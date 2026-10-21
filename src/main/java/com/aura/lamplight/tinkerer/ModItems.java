@@ -4,12 +4,21 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 
 public class ModItems {
     private ModItems(){
 
     }
+
+    public static final ResourceKey<Item> JEWELING_TABLE_KEY =
+        ResourceKey.create(Registries.ITEM, Tinkerer.id("jeweling_table"));
+
+    public static final Item JEWELING_TABLE = Registry.register(
+        BuiltInRegistries.ITEM,
+        JEWELING_TABLE_KEY,
+        new BlockItem(ModBlocks.JEWELING_TABLE, new Item.Properties().setId(JEWELING_TABLE_KEY)));
 
     public static final ResourceKey<Item> ROSE_GOLD_INGOT_KEY =
         ResourceKey.create(Registries.ITEM, Tinkerer.id("rose_gold_ingot"));

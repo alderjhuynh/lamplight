@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "lamplight:block/jeweling_table_side",
+    "down": "lamplight:block/jeweling_table_bottom",
+    "up": "lamplight:block/jeweling_table_top",
+    "north": "lamplight:block/jeweling_table_front",
+    "south": "lamplight:block/jeweling_table_front",
+    "east": "lamplight:block/jeweling_table_side",
+    "west": "lamplight:block/jeweling_table_side"
+  }
+}

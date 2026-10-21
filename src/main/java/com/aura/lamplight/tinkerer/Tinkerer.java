@@ -14,6 +14,8 @@ public class Tinkerer implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ModBlocks.register();
+		ModMenus.register();
 		ModItems.register();
 	}
 

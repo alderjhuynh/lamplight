@@ -24,7 +24,14 @@ public class CrowMeleeGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return crow.getTarget() != null && crow.getTarget().isAlive() && !crow.isSitting();
+        return !crow.isDelivering() && !crow.isFetching()
+                && crow.getTarget() != null && crow.getTarget().isAlive() && !crow.isSitting();
+    }
+
+    @Override
+    public boolean canContinueToUse() {
+        return !crow.isDelivering() && !crow.isFetching()
+                && crow.getTarget() != null && crow.getTarget().isAlive() && !crow.isSitting();
     }
 
     @Override

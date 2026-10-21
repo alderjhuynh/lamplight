@@ -13,7 +13,7 @@ public class CrowShoulderGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (!crow.isFollowing() || crow.isSitting() || crow.isLeashed() || crow.isPassenger()) {
+        if (crow.isDelivering() || crow.isFetching() || !crow.isFollowing() || crow.isSitting() || crow.isLeashed() || crow.isPassenger()) {
             return false;
         }
         if (crow.isInLove()) {
@@ -34,7 +34,8 @@ public class CrowShoulderGoal extends Goal {
 
     @Override
     public void tick() {
-        if (crow.isLeashed() || crow.isRemoved() || crow.isSitting() || crow.isPassenger()) {
+        if (crow.isDelivering() || crow.isFetching() || crow.isLeashed() || crow.isRemoved()
+                || crow.isSitting() || crow.isPassenger()) {
             return;
         }
         if (crow.getOwner() instanceof ServerPlayer owner

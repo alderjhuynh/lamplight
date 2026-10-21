@@ -13,11 +13,15 @@ import com.google.common.base.Predicate;
 import com.mojang.serialization.Codec;
 import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.TicketType;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -28,6 +32,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -52,10 +57,13 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -63,6 +71,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
@@ -72,15 +81,31 @@ import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 import java.util.Comparator;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
+import java.util.WeakHashMap;
 
 @SuppressWarnings("all")
 public class CrowEntity extends ShoulderRidingEntity {
     private static final float TAMING_CHANCE = 0.30F;
     private static final int EAT_DELAY = 60;
     private static final float FEED_HEAL = 4.0F;
+    private static final int DELIVERY_LEAVE_TICKS = 60;
+    private static final int DELIVERY_WAIT_TICKS = 100;
+    private static final int DELIVERY_TARGET_WAIT_TICKS = 20 * 30;
+    private static final int DELIVERY_DROP_TICKS = 20;
+    private static final int DELIVERY_RETURN_LEAVE_TICKS = 60;
+    private static final long DELIVERY_MAX_TICKS = 20L * 60L * 5L;
+    private static final TicketType CROW_CHUNK_TICKET = new TicketType(TicketType.NO_TIMEOUT,
+            TicketType.FLAG_LOADING | TicketType.FLAG_SIMULATION | TicketType.FLAG_KEEP_DIMENSION_ACTIVE);
+    private static final TicketType CROW_PRELOAD_TICKET = new TicketType(20L * 60L * 5L,
+            TicketType.FLAG_LOADING | TicketType.FLAG_SIMULATION | TicketType.FLAG_KEEP_DIMENSION_ACTIVE
+                    | TicketType.FLAG_CAN_EXPIRE_IF_UNLOADED);
+    private static final Map<ServerLevel, Map<Long, Integer>> FORCED_CROW_CHUNKS = new WeakHashMap<>();
     private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(CrowEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> ATTACK_TICK = SynchedEntityData.defineId(CrowEntity.class, EntityDataSerializers.INT);
 
@@ -96,6 +121,19 @@ public class CrowEntity extends ShoulderRidingEntity {
     private int heldItemTime;
     @Nullable
     private UUID feederId;
+
+    private DeliveryState deliveryState = DeliveryState.IDLE;
+    @Nullable
+    private UUID deliveryTarget;
+    private int deliveryTicks;
+    private long deliveryDeadline;
+    @Nullable
+    private ResourceKey<Level> deliveryHomeDimension;
+    private Vec3 deliveryHomePos = Vec3.ZERO;
+    private boolean fetching;
+    @Nullable
+    private ServerLevel forcedLevel;
+    private long forcedChunk = Long.MIN_VALUE;
 
     public CrowEntity(EntityType<? extends CrowEntity> type, Level level) {
         super(type, level);
@@ -124,8 +162,10 @@ public class CrowEntity extends ShoulderRidingEntity {
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        goalSelector.addGoal(-1, new DeliveryGoal());
         goalSelector.addGoal(0, new FloatGoal(this));
         goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
+        goalSelector.addGoal(2, new FetchBundleGoal());
         goalSelector.addGoal(2, new CrowMeleeGoal(this));
         goalSelector.addGoal(2, new CrowShoulderGoal(this));
         goalSelector.addGoal(3, new CrowFollowOwnerGoal(this, true));
@@ -210,6 +250,9 @@ public class CrowEntity extends ShoulderRidingEntity {
             if (!isOwnedBy(player)) {
                 return InteractionResult.PASS;
             }
+            if (isDelivering()) {
+                return level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.PASS;
+            }
             if (held.isEmpty()) {
                 if (level().isClientSide()) {
                     return InteractionResult.SUCCESS;
@@ -236,6 +279,15 @@ public class CrowEntity extends ShoulderRidingEntity {
 
             if (isBaby() && !isCrowEdible(held)) {
                 return InteractionResult.PASS;
+            }
+
+            if (!level().isClientSide() && isDeliveryBundle(held)) {
+                UUID target = resolveDeliveryTarget((ServerLevel) level(), held);
+                if (target != null) {
+                    insertHeldItem(held, null);
+                    startDelivery((ServerLevel) level(), target);
+                    return InteractionResult.SUCCESS;
+                }
             }
 
             if (level().isClientSide()) {
@@ -269,6 +321,343 @@ public class CrowEntity extends ShoulderRidingEntity {
         feederId = feeder;
     }
 
+    public boolean isDelivering() {
+        return deliveryState != DeliveryState.IDLE;
+    }
+
+    public boolean isFetching() {
+        return fetching;
+    }
+
+    private boolean isDeliveryBundle(ItemStack stack) {
+        if (stack.isEmpty() || !(stack.getItem() instanceof BundleItem)) {
+            return false;
+        }
+        var customName = stack.getCustomName();
+        return customName != null && !customName.getString().isBlank();
+    }
+
+    @Nullable
+    private UUID resolveDeliveryTarget(ServerLevel server, ItemStack stack) {
+        var customName = stack.getCustomName();
+        if (customName == null) {
+            return null;
+        }
+        String name = customName.getString().trim();
+        if (name.isEmpty()) {
+            return null;
+        }
+
+        UUID uuid = parseUuid(name);
+        if (uuid != null) {
+            Entity entity = server.getEntityInAnyDimension(uuid);
+            return entity != null && entity.isAlive() && !entity.isRemoved() ? uuid : null;
+        }
+
+        ServerPlayer player = server.getServer().getPlayerList().getPlayerByName(name);
+        if (player == null) {
+            for (ServerPlayer candidate : server.getServer().getPlayerList().getPlayers()) {
+                if (candidate.getScoreboardName().equalsIgnoreCase(name)) {
+                    player = candidate;
+                    break;
+                }
+            }
+        }
+        return player != null && player.isAlive() && !player.isRemoved() ? player.getUUID() : null;
+    }
+
+    @Nullable
+    private static UUID parseUuid(String value) {
+        try {
+            return UUID.fromString(value);
+        } catch (IllegalArgumentException ignored) {
+        }
+        if (value.length() == 32) {
+            String dashed = value.substring(0, 8) + "-" + value.substring(8, 12) + "-"
+                    + value.substring(12, 16) + "-" + value.substring(16, 20) + "-"
+                    + value.substring(20);
+            try {
+                return UUID.fromString(dashed);
+            } catch (IllegalArgumentException ignored) {
+            }
+        }
+        return null;
+    }
+
+    private void startDelivery(ServerLevel server, UUID target) {
+        setOrderedToSit(false);
+        if (isPassenger()) {
+            stopRiding();
+        }
+        resetLove();
+        setFlying(true);
+        getNavigation().stop();
+        setTarget(null);
+
+        deliveryState = DeliveryState.LEAVING;
+        deliveryTarget = target;
+        deliveryTicks = 0;
+        deliveryDeadline = server.getGameTime() + DELIVERY_MAX_TICKS;
+
+        UUID ownerId = getOwnerUuid();
+        Entity owner = ownerId != null ? server.getEntityInAnyDimension(ownerId) : null;
+        if (owner != null) {
+            deliveryHomeDimension = owner.level().dimension();
+            deliveryHomePos = owner.position();
+        } else {
+            deliveryHomeDimension = level().dimension();
+            deliveryHomePos = position();
+        }
+    }
+
+    private void tickDelivery() {
+        if (!(level() instanceof ServerLevel server)) {
+            clearDeliveryState();
+            return;
+        }
+        if (getMainHandItem().isEmpty()) {
+            clearDeliveryState();
+            return;
+        }
+        UUID ownerId = getOwnerUuid();
+        if (ownerId == null) {
+            clearDeliveryState();
+            return;
+        }
+
+        updateDeliveryHome(server, ownerId);
+        long now = server.getGameTime();
+
+        switch (deliveryState) {
+            case LEAVING -> {
+                moveAwayFrom(deliveryHomePos);
+                if (++deliveryTicks >= DELIVERY_LEAVE_TICKS) {
+                    deliveryState = DeliveryState.WAITING;
+                    deliveryTicks = 0;
+                    getNavigation().stop();
+                }
+            }
+            case WAITING -> {
+                hover();
+                deliveryTicks++;
+                if (deliveryTicks < DELIVERY_WAIT_TICKS) {
+                    return;
+                }
+                Entity target = findLoadedTarget(server);
+                if (target != null) {
+                    deliveryState = DeliveryState.DROPPING;
+                    deliveryTicks = 0;
+                    teleportToEntity(target);
+                    return;
+                }
+                if (now > deliveryDeadline
+                        || deliveryTicks > DELIVERY_WAIT_TICKS + DELIVERY_TARGET_WAIT_TICKS) {
+                    beginReturn();
+                }
+            }
+            case DROPPING -> {
+                hover();
+                if (++deliveryTicks >= DELIVERY_DROP_TICKS) {
+                    dropDeliveryBundle(server);
+                    deliveryState = DeliveryState.RETURN_LEAVING;
+                    deliveryTicks = 0;
+                }
+            }
+            case RETURN_LEAVING -> {
+                moveAwayFrom(position());
+                if (++deliveryTicks >= DELIVERY_RETURN_LEAVE_TICKS) {
+                    finishDelivery(server, ownerId);
+                }
+            }
+            case IDLE -> {
+            }
+        }
+    }
+
+    private void updateDeliveryHome(ServerLevel server, UUID ownerId) {
+        Entity owner = server.getEntityInAnyDimension(ownerId);
+        if (owner != null && owner.isAlive()) {
+            deliveryHomeDimension = owner.level().dimension();
+            deliveryHomePos = owner.position();
+        }
+    }
+
+    @Nullable
+    private Entity findLoadedTarget(ServerLevel server) {
+        if (deliveryTarget == null) {
+            return null;
+        }
+        Entity entity = server.getEntityInAnyDimension(deliveryTarget);
+        return entity != null && entity.isAlive() && !entity.isRemoved() ? entity : null;
+    }
+
+    private void teleportToEntity(Entity target) {
+        ServerLevel targetLevel = target.level() instanceof ServerLevel server ? server : null;
+        if (targetLevel == null) {
+            beginReturn();
+            return;
+        }
+        Vec3 destination = target.position().add(0.0D, 0.5D, 0.0D);
+        teleportToPosition(targetLevel, destination);
+    }
+
+    private void teleportToPosition(ServerLevel destinationLevel, Vec3 destination) {
+        ChunkPos chunk = ChunkPos.containing(BlockPos.containing(destination));
+        destinationLevel.getChunkSource().addTicketWithRadius(CROW_PRELOAD_TICKET, chunk, 1);
+
+        if (destinationLevel == level()) {
+            snapTo(destination.x, destination.y, destination.z, getYRot(), getXRot());
+            setDeltaMovement(Vec3.ZERO);
+            setFlying(true);
+            getNavigation().stop();
+            return;
+        }
+        teleport(new TeleportTransition(destinationLevel, destination, Vec3.ZERO, getYRot(), getXRot(),
+                Set.of(), TeleportTransition.DO_NOTHING));
+    }
+
+    private void beginReturn() {
+        deliveryState = DeliveryState.RETURN_LEAVING;
+        deliveryTicks = 0;
+        setFlying(true);
+        getNavigation().stop();
+    }
+
+    private void finishDelivery(ServerLevel server, UUID ownerId) {
+        Entity owner = server.getEntityInAnyDimension(ownerId);
+        ServerLevel destinationLevel = null;
+        Vec3 destination = null;
+
+        if (owner != null && owner.isAlive() && owner.level() instanceof ServerLevel ownerLevel) {
+            destinationLevel = ownerLevel;
+            destination = owner.position().add(0.0D, 0.5D, 0.0D);
+        } else if (deliveryHomeDimension != null) {
+            ServerLevel homeLevel = server.getServer().getLevel(deliveryHomeDimension);
+            if (homeLevel != null) {
+                destinationLevel = homeLevel;
+                destination = deliveryHomePos.add(0.0D, 0.5D, 0.0D);
+            }
+        }
+
+        clearDeliveryState();
+        if (destinationLevel != null && destination != null) {
+            teleportToPosition(destinationLevel, destination);
+        }
+    }
+
+    private void dropDeliveryBundle(ServerLevel server) {
+        ItemStack bundle = getMainHandItem().copy();
+        if (bundle.isEmpty()) {
+            return;
+        }
+        setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        heldItemTime = 0;
+        feederId = null;
+        spawnAtLocation(server, bundle, 0.5F);
+    }
+
+    private void moveAwayFrom(Vec3 from) {
+        Vec3 away = position().subtract(from);
+        Vec3 horizontal = new Vec3(away.x, 0.0D, away.z);
+        if (horizontal.lengthSqr() < 0.01D) {
+            double angle = getRandom().nextDouble() * Math.PI * 2.0D;
+            horizontal = new Vec3(Math.cos(angle), 0.0D, Math.sin(angle));
+        } else {
+            horizontal = horizontal.normalize();
+        }
+        Vec3 destination = position().add(horizontal.scale(8.0D)).add(0.0D, 3.0D, 0.0D);
+        setFlying(true);
+        getMoveControl().setWantedPosition(destination.x, destination.y, destination.z, 1.0F);
+    }
+
+    private void hover() {
+        setFlying(true);
+        getMoveControl().setWantedPosition(getX(), getY(), getZ(), 0.0F);
+    }
+
+    @Nullable
+    private UUID getOwnerUuid() {
+        EntityReference<LivingEntity> reference = getOwnerReference();
+        return reference != null ? reference.getUUID() : null;
+    }
+
+    private void clearDeliveryState() {
+        deliveryState = DeliveryState.IDLE;
+        deliveryTarget = null;
+        deliveryTicks = 0;
+        deliveryDeadline = 0L;
+        deliveryHomeDimension = null;
+        deliveryHomePos = Vec3.ZERO;
+    }
+
+    private void updateForceLoad() {
+        if (!(level() instanceof ServerLevel server)) {
+            releaseForceLoad();
+            return;
+        }
+        long chunk = chunkPosition().pack();
+        if (forcedLevel == server && forcedChunk == chunk) {
+            return;
+        }
+
+        ServerLevel oldLevel = forcedLevel;
+        long oldChunk = forcedChunk;
+
+        forcedLevel = server;
+        forcedChunk = chunk;
+        acquireForcedChunk(server, chunk);
+
+        if (oldLevel != null && oldChunk != Long.MIN_VALUE) {
+            releaseForcedChunk(oldLevel, oldChunk);
+        }
+    }
+
+    private void releaseForceLoad() {
+        if (forcedLevel != null && forcedChunk != Long.MIN_VALUE) {
+            releaseForcedChunk(forcedLevel, forcedChunk);
+        }
+        forcedLevel = null;
+        forcedChunk = Long.MIN_VALUE;
+    }
+
+    private static void acquireForcedChunk(ServerLevel level, long chunk) {
+        Map<Long, Integer> chunks = FORCED_CROW_CHUNKS.computeIfAbsent(level, key -> new HashMap<>());
+        int count = chunks.getOrDefault(chunk, 0);
+        chunks.put(chunk, count + 1);
+        if (count == 0) {
+            level.getChunkSource().addTicketWithRadius(CROW_CHUNK_TICKET, ChunkPos.unpack(chunk), 1);
+        }
+    }
+
+    private static void releaseForcedChunk(ServerLevel level, long chunk) {
+        Map<Long, Integer> chunks = FORCED_CROW_CHUNKS.get(level);
+        if (chunks == null) {
+            return;
+        }
+        int count = chunks.getOrDefault(chunk, 0);
+        if (count <= 1) {
+            chunks.remove(chunk);
+            if (chunks.isEmpty()) {
+                FORCED_CROW_CHUNKS.remove(level);
+            }
+            level.getChunkSource().removeTicketWithRadius(CROW_CHUNK_TICKET, ChunkPos.unpack(chunk), 1);
+        } else {
+            chunks.put(chunk, count - 1);
+        }
+    }
+
+    @Override
+    public void remove(Entity.RemovalReason reason) {
+        releaseForceLoad();
+        super.remove(reason);
+    }
+
+    @Override
+    protected void removeAfterChangingDimensions() {
+        releaseForceLoad();
+        super.removeAfterChangingDimensions();
+    }
+
     private void takeHeldItem(Player player) {
         if (!(level() instanceof ServerLevel server)) {
             return;
@@ -291,6 +680,7 @@ public class CrowEntity extends ShoulderRidingEntity {
 
     @Override
     public void tick() {
+        updateForceLoad();
         super.tick();
         prevAttackProgress = attackProgress;
         prevFlyProgress = flyProgress;
@@ -390,6 +780,18 @@ public class CrowEntity extends ShoulderRidingEntity {
     protected void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
         output.putBoolean("Flying", isFlying());
+        output.putString("DeliveryState", deliveryState.name());
+        output.putInt("DeliveryTicks", deliveryTicks);
+        output.putLong("DeliveryDeadline", deliveryDeadline);
+        if (deliveryTarget != null) {
+            output.putString("DeliveryTarget", deliveryTarget.toString());
+        }
+        if (deliveryHomeDimension != null) {
+            output.putString("DeliveryHomeDimension", deliveryHomeDimension.identifier().toString());
+        }
+        output.putDouble("DeliveryHomeX", deliveryHomePos.x);
+        output.putDouble("DeliveryHomeY", deliveryHomePos.y);
+        output.putDouble("DeliveryHomeZ", deliveryHomePos.z);
     }
 
     @Override
@@ -420,6 +822,29 @@ public class CrowEntity extends ShoulderRidingEntity {
             sitting = oldCommand.get() >= 2;
         }
         setOrderedToSit(sitting);
+
+        deliveryState = parseDeliveryState(input.getStringOr("DeliveryState", DeliveryState.IDLE.name()));
+        deliveryTicks = input.getIntOr("DeliveryTicks", 0);
+        deliveryDeadline = input.getLongOr("DeliveryDeadline", 0L);
+        deliveryTarget = parseUuid(input.getStringOr("DeliveryTarget", ""));
+        Identifier homeId = Identifier.tryParse(input.getStringOr("DeliveryHomeDimension", ""));
+        deliveryHomeDimension = homeId != null ? ResourceKey.create(Registries.DIMENSION, homeId) : null;
+        deliveryHomePos = new Vec3(
+                input.getDoubleOr("DeliveryHomeX", 0.0D),
+                input.getDoubleOr("DeliveryHomeY", 0.0D),
+                input.getDoubleOr("DeliveryHomeZ", 0.0D));
+
+        if (isDelivering() && (deliveryTarget == null || getMainHandItem().isEmpty())) {
+            clearDeliveryState();
+        }
+    }
+
+    private static DeliveryState parseDeliveryState(String name) {
+        try {
+            return DeliveryState.valueOf(name);
+        } catch (IllegalArgumentException ignored) {
+            return DeliveryState.IDLE;
+        }
     }
 
     public boolean isFlying() {
@@ -767,6 +1192,206 @@ public class CrowEntity extends ShoulderRidingEntity {
                 return Double.compare(self.distanceToSqr(a), self.distanceToSqr(b));
             }
         }
+    }
+
+    private final class DeliveryGoal extends Goal {
+        DeliveryGoal() {
+            setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK, Flag.JUMP));
+        }
+
+        @Override
+        public boolean canUse() {
+            return isDelivering();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return isDelivering();
+        }
+
+        @Override
+        public void tick() {
+            tickDelivery();
+        }
+
+        @Override
+        public void stop() {
+            getNavigation().stop();
+            getMoveControl().setWantedPosition(getX(), getY(), getZ(), 0.0F);
+            super.stop();
+        }
+    }
+
+    private final class FetchBundleGoal extends Goal {
+        private static final int SEARCH_RADIUS = 24;
+        private static final int SEARCH_HEIGHT = 8;
+        private static final int SCAN_INTERVAL = 10;
+        private static final int MAX_FETCH_TICKS = 300;
+        private static final int ABANDON_COOLDOWN = 1200;
+        private static final double PICKUP_DISTANCE_SQR = 2.25D;
+
+        @Nullable
+        private UUID fetchItemUuid;
+        @Nullable
+        private UUID ignoredItemUuid;
+        private long ignoredUntil;
+        private int scanCooldown;
+        private int repathCooldown;
+        private int fetchTicks;
+
+        FetchBundleGoal() {
+            setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (level().isClientSide() || !isTame() || isDelivering() || isVehicle()
+                    || isLeashed() || !getMainHandItem().isEmpty()) {
+                return false;
+            }
+            if (getTarget() != null && getTarget().isAlive()) {
+                return false;
+            }
+            if (ignoredItemUuid != null && level().getGameTime() >= ignoredUntil) {
+                ignoredItemUuid = null;
+            }
+            if (--scanCooldown > 0) {
+                return false;
+            }
+            scanCooldown = SCAN_INTERVAL;
+
+            ItemEntity item = findNearestOwnerBundle();
+            if (item == null) {
+                return false;
+            }
+            fetchItemUuid = item.getUUID();
+            return true;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            if (level().isClientSide() || !isTame() || isDelivering() || isVehicle()
+                    || isLeashed() || !getMainHandItem().isEmpty()
+                    || (getTarget() != null && getTarget().isAlive())) {
+                return false;
+            }
+            ItemEntity item = getFetchItem();
+            return item != null && isValidOwnerBundle(item, getOwnerUuid());
+        }
+
+        @Override
+        public void start() {
+            if (isPassenger()) {
+                stopRiding();
+            }
+            setOrderedToSit(false);
+            setFlying(true);
+            fetching = true;
+            repathCooldown = 0;
+            fetchTicks = 0;
+            getNavigation().stop();
+        }
+
+        @Override
+        public void stop() {
+            fetching = false;
+            fetchItemUuid = null;
+            getNavigation().stop();
+            getMoveControl().setWantedPosition(getX(), getY(), getZ(), 0.0F);
+            super.stop();
+        }
+
+        @Override
+        public void tick() {
+            ItemEntity item = getFetchItem();
+            if (item == null) {
+                stop();
+                return;
+            }
+            if (++fetchTicks > MAX_FETCH_TICKS) {
+                abandonFetch();
+                return;
+            }
+
+            if (distanceToSqr(item.position()) > PICKUP_DISTANCE_SQR) {
+                if (--repathCooldown <= 0) {
+                    repathCooldown = 5;
+                    setFlying(true);
+                    getMoveControl().setWantedPosition(
+                            item.getX(), item.getY() + item.getBbHeight() * 0.5D, item.getZ(), 1.0F);
+                }
+                return;
+            }
+
+            ItemStack bundle = item.getItem().copyWithCount(1);
+            item.getItem().shrink(1);
+            if (item.getItem().isEmpty()) {
+                item.discard();
+            }
+            setItemInHand(InteractionHand.MAIN_HAND, bundle);
+            heldItemTime = 0;
+            feederId = null;
+
+            if (level() instanceof ServerLevel server) {
+                UUID target = resolveDeliveryTarget(server, bundle);
+                if (target != null) {
+                    startDelivery(server, target);
+                }
+            }
+            stop();
+        }
+
+        private void abandonFetch() {
+            if (fetchItemUuid != null) {
+                ignoredItemUuid = fetchItemUuid;
+                ignoredUntil = level().getGameTime() + ABANDON_COOLDOWN;
+            }
+            stop();
+        }
+
+        @Nullable
+        private ItemEntity findNearestOwnerBundle() {
+            UUID ownerId = getOwnerUuid();
+            if (ownerId == null || !(level() instanceof ServerLevel server)) {
+                return null;
+            }
+            AABB area = getBoundingBox().inflate(SEARCH_RADIUS, SEARCH_HEIGHT, SEARCH_RADIUS);
+            List<ItemEntity> items = server.getEntitiesOfClass(ItemEntity.class, area,
+                    item -> isValidOwnerBundle(item, ownerId));
+            return items.stream()
+                    .min(Comparator.comparingDouble(CrowEntity.this::distanceToSqr))
+                    .orElse(null);
+        }
+
+        @Nullable
+        private ItemEntity getFetchItem() {
+            if (fetchItemUuid == null || !(level() instanceof ServerLevel server)) {
+                return null;
+            }
+            Entity entity = server.getEntity(fetchItemUuid);
+            return entity instanceof ItemEntity item ? item : null;
+        }
+
+        private boolean isValidOwnerBundle(ItemEntity item, @Nullable UUID ownerId) {
+            if (ownerId == null || item.isRemoved() || item.getItem().isEmpty() || item.isInLava()
+                    || !isDeliveryBundle(item.getItem())) {
+                return false;
+            }
+            if (ignoredItemUuid != null && item.getUUID().equals(ignoredItemUuid)
+                    && level().getGameTime() < ignoredUntil) {
+                return false;
+            }
+            Entity thrower = item.getOwner();
+            return thrower != null && thrower.getUUID().equals(ownerId);
+        }
+    }
+
+    private enum DeliveryState {
+        IDLE,
+        LEAVING,
+        WAITING,
+        DROPPING,
+        RETURN_LEAVING
     }
 
     private static final class AnimalCheck {

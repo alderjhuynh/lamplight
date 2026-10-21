@@ -1,0 +1,12 @@
+{
+  "values": [
+    "minecraft:protection",
+    "minecraft:blast_protection",
+    "minecraft:breach",
+    "minecraft:piercing",
+    "minecraft:thorns",
+    "lamplight:anchor",
+    "lamplight:sunder",
+    "lamplight:unbroken"
+  ]
+}

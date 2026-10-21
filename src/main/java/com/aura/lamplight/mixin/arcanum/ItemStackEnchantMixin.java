@@ -18,8 +18,8 @@ import net.minecraft.world.item.enchantment.ItemEnchantments;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
 
@@ -28,73 +28,62 @@ public class ItemStackEnchantMixin {
 
     @Inject(method = "enchant", at = @At("HEAD"), cancellable = true)
     private void arcanum$checkSlotBeforeEnchant(Holder<Enchantment> enchantment, int level, CallbackInfo ci) {
-
         if (RemovedEnchantments.isRemoved(enchantment)) {
             ci.cancel();
             return;
         }
+
         ItemStack self = (ItemStack) (Object) this;
         if (ArcanumEnchantmentHelper.getSlotsForItem(self).isEmpty()) return;
+
         Optional<SlotType> slotOpt = SlotType.forEnchantment(enchantment);
         if (slotOpt.isEmpty()) {
             ci.cancel();
             return;
         }
-        SlotType slot = slotOpt.get();
-        var existing = ArcanumEnchantmentHelper.getEnchantmentInSlot(self, slot);
-        if (existing.isPresent()) {
 
-            if (existing.get().equals(enchantment)) {
-
-                return;
-            } else {
-
-                ci.cancel();
-                return;
-            }
+        Optional<Holder<Enchantment>> existing =
+                ArcanumEnchantmentHelper.getEnchantmentInSlot(self, slotOpt.get());
+        if (existing.isPresent() && existing.get().equals(enchantment)) {
+            // re-apply same enchantment to raise level
+            return;
         }
 
-        if (!enchantment.value().isSupportedItem(self)) {
+        if (!ArcanumEnchantmentHelper.canApplyEnchantment(self, enchantment, level)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "set(Lnet/minecraft/core/component/DataComponentType;Ljava/lang/Object;)Ljava/lang/Object;", at = @At("RETURN"))
-    private <T> void arcanum$afterSet(net.minecraft.core.component.DataComponentType<T> type, T value, CallbackInfoReturnable<T> cir) {
+    private <T> void arcanum$afterSet(net.minecraft.core.component.DataComponentType<T> type, T value,
+                                      CallbackInfoReturnable<T> cir) {
         ItemStack self = (ItemStack) (Object) this;
-
         ArcanumEnchantmentHelper.stripRemovedEnchantments(self);
-        if (type == DataComponents.STORED_ENCHANTMENTS) {
-            if (self.is(Items.ENCHANTED_BOOK)) {
-                ArcanumEnchantmentHelper.enforceSingleEnchantment(self);
-
-                ArcanumEnchantmentHelper.stripRemovedEnchantments(self);
-            }
-        }
     }
 
     @Inject(method = "overrideStackedOnOther", at = @At("HEAD"), cancellable = true)
-    private void arcanum$onStackedOnOther(Slot slot, ClickAction clickAction, Player player, CallbackInfoReturnable<Boolean> cir) {
+    private void arcanum$onStackedOnOther(Slot slot, ClickAction clickAction, Player player,
+                                          CallbackInfoReturnable<Boolean> cir) {
         if (clickAction != ClickAction.SECONDARY) return;
         ItemStack carried = (ItemStack) (Object) this;
         ItemStack target = slot.getItem();
 
         if (!isBookOntoTarget(carried, target)) return;
-        boolean applied = tryApplyBookToTarget(carried, target, slot, player);
-        if (applied) {
+        if (tryApplyBookToTarget(carried, target, slot, player)) {
             cir.setReturnValue(true);
         }
     }
 
     @Inject(method = "overrideOtherStackedOnMe", at = @At("HEAD"), cancellable = true)
-    private void arcanum$onOtherStackedOnMe(ItemStack otherStack, Slot slot, ClickAction clickAction, Player player, SlotAccess slotAccess, CallbackInfoReturnable<Boolean> cir) {
+    private void arcanum$onOtherStackedOnMe(ItemStack otherStack, Slot slot, ClickAction clickAction,
+                                            Player player, SlotAccess slotAccess,
+                                            CallbackInfoReturnable<Boolean> cir) {
         if (clickAction != ClickAction.SECONDARY) return;
         ItemStack target = (ItemStack) (Object) this;
         ItemStack book = otherStack;
 
         if (!isBookOntoTarget(book, target)) return;
-        boolean applied = tryApplyBookToTargetWithAccess(book, target, slot, player, slotAccess);
-        if (applied) {
+        if (tryApplyBookToTargetWithAccess(book, target, slot, player, slotAccess)) {
             cir.setReturnValue(true);
         }
     }
@@ -104,61 +93,47 @@ public class ItemStackEnchantMixin {
         if (!book.is(Items.ENCHANTED_BOOK)) return false;
         if (target.is(Items.ENCHANTED_BOOK)) return false;
 
-        if (book.getOrDefault(DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY).size() != 1) {
-
-            ArcanumEnchantmentHelper.enforceSingleEnchantment(book);
-            if (book.getOrDefault(DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY).size() != 1) return false;
-        }
-
-        var storedOpt = ArcanumEnchantmentHelper.getSingleStoredEnchantment(book);
-        if (storedOpt.isPresent() && RemovedEnchantments.isRemoved(storedOpt.get())) return false;
+        ArcanumEnchantmentHelper.stripRemovedEnchantments(book);
+        if (!ArcanumEnchantmentHelper.hasStoredEnchantments(book)) return false;
 
         return !ArcanumEnchantmentHelper.getSlotsForItem(target).isEmpty();
     }
 
     private static boolean tryApplyBookToTarget(ItemStack book, ItemStack target, Slot slot, Player player) {
-        Optional<Holder<Enchantment>> enchOpt = ArcanumEnchantmentHelper.getSingleStoredEnchantment(book);
-        if (enchOpt.isEmpty()) return false;
-        Holder<Enchantment> holder = enchOpt.get();
-        int level = ArcanumEnchantmentHelper.getSingleStoredLevel(book);
-
-        if (!ArcanumEnchantmentHelper.canApplyEnchantment(target, holder, level)) {
-            return false;
-        }
-
-        boolean ok = ArcanumEnchantmentHelper.applyEnchantment(target, holder, level);
-        if (!ok) return false;
-
-        if (!player.getAbilities().instabuild) {
-            book.shrink(1);
-        }
-        player.level().playSound(null, player.blockPosition(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0f, 1.0f);
-
+        if (!applyBook(book, target, player)) return false;
         slot.setChanged();
-
         return true;
     }
 
-    private static boolean tryApplyBookToTargetWithAccess(ItemStack book, ItemStack target, Slot slot, Player player, SlotAccess access) {
-        Optional<Holder<Enchantment>> enchOpt = ArcanumEnchantmentHelper.getSingleStoredEnchantment(book);
-        if (enchOpt.isEmpty()) return false;
-        Holder<Enchantment> holder = enchOpt.get();
-        int level = ArcanumEnchantmentHelper.getSingleStoredLevel(book);
+    private static boolean tryApplyBookToTargetWithAccess(ItemStack book, ItemStack target, Slot slot,
+                                                          Player player, SlotAccess access) {
+        if (!applyBook(book, target, player)) return false;
+        access.set(book);
+        slot.setChanged();
+        return true;
+    }
 
-        if (!ArcanumEnchantmentHelper.canApplyEnchantment(target, holder, level)) {
+    private static boolean applyBook(ItemStack book, ItemStack target, Player player) {
+        ItemEnchantments stored = ArcanumEnchantmentHelper.getStoredEnchantments(book);
+        if (!ArcanumEnchantmentHelper.canApplyAll(target, stored)) {
             return false;
         }
 
-        boolean ok = ArcanumEnchantmentHelper.applyEnchantment(target, holder, level);
-        if (!ok) return false;
+        ItemEnchantments original = ArcanumEnchantmentHelper.getEnchantments(target);
+
+        for (Holder<Enchantment> holder : stored.keySet()) {
+            int level = stored.getLevel(holder);
+            if (!ArcanumEnchantmentHelper.applyEnchantment(target, holder, level)) {
+                target.set(DataComponents.ENCHANTMENTS, original);
+                return false;
+            }
+        }
 
         if (!player.getAbilities().instabuild) {
             book.shrink(1);
         }
-
-        access.set(book);
-        player.level().playSound(null, player.blockPosition(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0f, 1.0f);
-        slot.setChanged();
+        player.level().playSound(null, player.blockPosition(), SoundEvents.ENCHANTMENT_TABLE_USE,
+                SoundSource.PLAYERS, 1.0f, 1.0f);
         return true;
     }
 }

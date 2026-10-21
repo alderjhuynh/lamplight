@@ -1,0 +1,11 @@
+{
+  "values": [
+    "minecraft:fire_protection",
+    "minecraft:fire_aspect",
+    "minecraft:flame",
+    "lamplight:fire_shield",
+    "lamplight:flame_walker",
+    "lamplight:cinderheart",
+    "lamplight:emberforge"
+  ]
+}

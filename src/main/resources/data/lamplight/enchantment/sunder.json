@@ -1,0 +1,34 @@
+{
+  "anvil_cost": 8,
+  "description": {
+    "translate": "enchantment.lamplight.sunder"
+  },
+  "effects": {
+    "minecraft:armor_effectiveness": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": {
+            "type": "minecraft:linear",
+            "base": -0.2,
+            "per_level_above_first": -0.2
+          }
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 38,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 32,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#minecraft:melee_weapons/master",
+  "weight": 2
+}

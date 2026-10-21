@@ -1,0 +1,65 @@
+{
+  "anvil_cost": 8,
+  "description": {
+    "translate": "enchantment.lamplight.icebound"
+  },
+  "effects": {
+    "minecraft:post_attack": [
+      {
+        "enchanted": "victim",
+        "affected": "attacker",
+        "effect": {
+          "type": "minecraft:all_of",
+          "effects": [
+            {
+              "type": "minecraft:apply_mob_effect",
+              "to_apply": "minecraft:slowness",
+              "min_duration": 3,
+              "max_duration": 3,
+              "min_amplifier": 1,
+              "max_amplifier": 1
+            },
+            {
+              "type": "minecraft:damage_entity",
+              "damage_type": "minecraft:freeze",
+              "min_damage": 3.0,
+              "max_damage": 3.0
+            }
+          ]
+        },
+        "requirements": {
+          "condition": "minecraft:all_of",
+          "terms": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "attacker",
+              "predicate": {
+                "minecraft:effects": {
+                  "minecraft:slowness": {
+                    "amplifier": {
+                      "min": 3
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 36,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 30,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "armor"
+  ],
+  "supported_items": "#minecraft:armor/master",
+  "weight": 2
+}

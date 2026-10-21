@@ -32,7 +32,6 @@
       }
     ]
   },
-  "exclusive_set": "#minecraft:exclusive_set/armor",
   "max_cost": {
     "base": 9,
     "per_level_above_first": 6
@@ -45,6 +44,6 @@
   "slots": [
     "armor"
   ],
-  "supported_items": "#minecraft:armor/chest",
+  "supported_items": "#minecraft:armor/master",
   "weight": 5
 }

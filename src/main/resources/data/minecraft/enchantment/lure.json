@@ -42,6 +42,5 @@
     "mainhand"
   ],
   "supported_items": "#minecraft:enchantable/fishing",
-  "weight": 2,
-  "exclusive_set": "#minecraft:exclusive_set/tool"
+  "weight": 2
 }

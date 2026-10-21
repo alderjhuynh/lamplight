@@ -27,6 +27,24 @@ public final class ArcanumEnchantments {
     public static final ResourceKey<Enchantment> ANCHOR = key("anchor");
     public static final ResourceKey<Enchantment> WATER_BREATHING = key("water_breathing");
 
+    // capstones
+    public static final ResourceKey<Enchantment> CINDERHEART = key("cinderheart");
+    public static final ResourceKey<Enchantment> WINTERS_EDGE = key("winters_edge");
+    public static final ResourceKey<Enchantment> THUNDERSTEP = key("thunderstep");
+    public static final ResourceKey<Enchantment> SUNDER = key("sunder");
+    public static final ResourceKey<Enchantment> HEARTWOOD = key("heartwood");
+    public static final ResourceKey<Enchantment> WINDRUNNER = key("windrunner");
+    public static final ResourceKey<Enchantment> GRAVECALLER = key("gravecaller");
+    public static final ResourceKey<Enchantment> MAGNUM_OPUS = key("magnum_opus");
+    public static final ResourceKey<Enchantment> EMBERFORGE = key("emberforge");
+    public static final ResourceKey<Enchantment> ICEBOUND = key("icebound");
+    public static final ResourceKey<Enchantment> STORMWARD = key("stormward");
+    public static final ResourceKey<Enchantment> UNBROKEN = key("unbroken");
+    public static final ResourceKey<Enchantment> GROVEKEEPER = key("grovekeeper");
+    public static final ResourceKey<Enchantment> ZEPHYR = key("zephyr");
+    public static final ResourceKey<Enchantment> SHROUD = key("shroud");
+    public static final ResourceKey<Enchantment> PROVISIONER = key("provisioner");
+
     private static ResourceKey<Enchantment> key(String path) {
         return ResourceKey.create(Registries.ENCHANTMENT, Arcanum.id(path));
     }

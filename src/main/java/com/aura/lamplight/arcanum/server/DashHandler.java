@@ -35,6 +35,8 @@ public final class DashHandler {
                     ));
                     player.hurtMarked = true;
 
+                    CapstoneHandler.onDash(player);
+
                     ServerLevel level = (ServerLevel) player.level();
                     var random = player.getRandom();
                     for (int i = 0; i < 10; i++) {

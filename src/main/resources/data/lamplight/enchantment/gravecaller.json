@@ -1,0 +1,49 @@
+{
+  "anvil_cost": 8,
+  "description": {
+    "translate": "enchantment.lamplight.gravecaller"
+  },
+  "effects": {
+    "minecraft:post_attack": [
+      {
+        "enchanted": "attacker",
+        "affected": "victim",
+        "effect": {
+          "type": "minecraft:all_of",
+          "effects": [
+            {
+              "type": "minecraft:apply_mob_effect",
+              "to_apply": "minecraft:darkness",
+              "min_duration": 2,
+              "max_duration": 2,
+              "min_amplifier": 0,
+              "max_amplifier": 0
+            },
+            {
+              "type": "minecraft:apply_mob_effect",
+              "to_apply": "minecraft:wither",
+              "min_duration": 2,
+              "max_duration": 2,
+              "min_amplifier": 0,
+              "max_amplifier": 0
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 38,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 32,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#minecraft:melee_weapons/master",
+  "weight": 2
+}

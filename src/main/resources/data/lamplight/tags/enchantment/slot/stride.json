@@ -1,0 +1,12 @@
+{
+  "values": [
+    "minecraft:feather_falling",
+    "minecraft:soul_speed",
+    "minecraft:swift_sneak",
+    "lamplight:aerodynamics",
+    "lamplight:dash",
+    "lamplight:double_jump",
+    "lamplight:leaping",
+    "lamplight:zephyr"
+  ]
+}

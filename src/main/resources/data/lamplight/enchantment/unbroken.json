@@ -1,0 +1,57 @@
+{
+  "anvil_cost": 8,
+  "description": {
+    "translate": "enchantment.lamplight.unbroken"
+  },
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "attribute": "minecraft:knockback_resistance",
+        "id": "lamplight:enchantment.unbroken",
+        "operation": "add_value",
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 0.35,
+          "per_level_above_first": 0
+        }
+      }
+    ],
+    "minecraft:damage_protection": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": {
+            "type": "minecraft:linear",
+            "base": 1.25,
+            "per_level_above_first": 0
+          }
+        },
+        "requirements": {
+          "condition": "minecraft:damage_source_properties",
+          "predicate": {
+            "tags": [
+              {
+                "expected": false,
+                "id": "minecraft:bypasses_invulnerability"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 36,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 30,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "armor"
+  ],
+  "supported_items": "#minecraft:armor/master",
+  "weight": 2
+}

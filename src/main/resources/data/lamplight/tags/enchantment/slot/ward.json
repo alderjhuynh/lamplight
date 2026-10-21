@@ -1,0 +1,13 @@
+{
+  "values": [
+    "minecraft:protection",
+    "minecraft:fire_protection",
+    "minecraft:blast_protection",
+    "minecraft:projectile_protection",
+    "lamplight:anchor",
+    "lamplight:dragonheart",
+    "lamplight:emberforge",
+    "lamplight:icebound",
+    "lamplight:unbroken"
+  ]
+}

@@ -37,6 +37,5 @@
     "mainhand"
   ],
   "supported_items": "#minecraft:ranged_weapons/master",
-  "weight": 10,
-  "exclusive_set": "#minecraft:exclusive_set/main_effect"
+  "weight": 10
 }

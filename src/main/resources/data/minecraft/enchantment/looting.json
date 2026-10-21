@@ -4,18 +4,6 @@
     "text": "Scavenger"
   },
   "effects": {
-    "minecraft:damage": [
-      {
-        "effect": {
-          "type": "minecraft:add",
-          "value": {
-            "type": "minecraft:linear",
-            "base": 2.0,
-            "per_level_above_first": 1.0
-          }
-        }
-      }
-    ],
     "minecraft:equipment_drops": [
       {
         "effect": {
@@ -49,7 +37,6 @@
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#minecraft:melee_weapons/master",
-  "weight": 2,
-  "exclusive_set": "#minecraft:exclusive_set/main_damage"
+  "supported_items": "#lamplight:loot_weapons",
+  "weight": 2
 }

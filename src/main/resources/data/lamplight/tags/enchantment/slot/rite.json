@@ -1,0 +1,19 @@
+{
+  "values": [
+    "minecraft:aqua_affinity",
+    "minecraft:thorns",
+    "lamplight:cold_steel",
+    "lamplight:darkness_cloak",
+    "lamplight:fire_shield",
+    "lamplight:flame_walker",
+    "lamplight:ice_shield",
+    "lamplight:night_vision",
+    "lamplight:regrowth",
+    "lamplight:saturation",
+    "lamplight:water_breathing",
+    "lamplight:stormward",
+    "lamplight:grovekeeper",
+    "lamplight:shroud",
+    "lamplight:provisioner"
+  ]
+}

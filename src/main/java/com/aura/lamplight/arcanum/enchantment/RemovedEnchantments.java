@@ -25,7 +25,8 @@ public final class RemovedEnchantments {
             Enchantments.RESPIRATION,
             Enchantments.SHARPNESS,
             Enchantments.SWEEPING_EDGE,
-            Enchantments.UNBREAKING
+            Enchantments.UNBREAKING,
+            Enchantments.CHANNELING
     );
 
     public static boolean isRemoved(Holder<Enchantment> holder) {

@@ -139,6 +139,5 @@
     "mainhand"
   ],
   "supported_items": "#minecraft:melee_weapons/spears",
-  "weight": 2,
-  "exclusive_set": "#minecraft:exclusive_set/secondary_damage"
+  "weight": 2
 }

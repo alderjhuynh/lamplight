@@ -1,0 +1,13 @@
+{
+  "values": [
+    "minecraft:projectile_protection",
+    "minecraft:feather_falling",
+    "minecraft:soul_speed",
+    "minecraft:swift_sneak",
+    "minecraft:wind_burst",
+    "minecraft:power",
+    "lamplight:leaping",
+    "lamplight:windrunner",
+    "lamplight:zephyr"
+  ]
+}

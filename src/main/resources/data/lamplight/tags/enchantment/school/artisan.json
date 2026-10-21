@@ -1,0 +1,14 @@
+{
+  "values": [
+    "minecraft:aqua_affinity",
+    "minecraft:efficiency",
+    "minecraft:fortune",
+    "minecraft:silk_touch",
+    "minecraft:lure",
+    "minecraft:looting",
+    "minecraft:infinity",
+    "lamplight:night_vision",
+    "lamplight:magnum_opus",
+    "lamplight:provisioner"
+  ]
+}

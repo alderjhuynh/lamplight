@@ -1,0 +1,13 @@
+{
+  "item": "minecraft:resin_clump",
+  "setting_multiplier": 0.5,
+  "setting_cost": 8,
+  "inset_cost": 4,
+  "insets": [
+    {
+      "type": "lamplight:attribute",
+      "attribute": "minecraft:knockback_resistance",
+      "amount": 0.1
+    }
+  ]
+}

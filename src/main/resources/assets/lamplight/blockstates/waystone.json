@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "half=lower,facing=north,lit=false": { "model": "lamplight:block/waystone_lower" },
+    "half=lower,facing=north,lit=true":  { "model": "lamplight:block/waystone_lower_lit" },
+    "half=lower,facing=east,lit=false":  { "model": "lamplight:block/waystone_lower", "y": 90 },
+    "half=lower,facing=east,lit=true":   { "model": "lamplight:block/waystone_lower_lit", "y": 90 },
+    "half=lower,facing=south,lit=false": { "model": "lamplight:block/waystone_lower", "y": 180 },
+    "half=lower,facing=south,lit=true":  { "model": "lamplight:block/waystone_lower_lit", "y": 180 },
+    "half=lower,facing=west,lit=false":  { "model": "lamplight:block/waystone_lower", "y": 270 },
+    "half=lower,facing=west,lit=true":   { "model": "lamplight:block/waystone_lower_lit", "y": 270 },
+    "half=upper,facing=north,lit=false": { "model": "lamplight:block/waystone_upper" },
+    "half=upper,facing=north,lit=true":  { "model": "lamplight:block/waystone_upper_lit" },
+    "half=upper,facing=east,lit=false":  { "model": "lamplight:block/waystone_upper", "y": 90 },
+    "half=upper,facing=east,lit=true":   { "model": "lamplight:block/waystone_upper_lit", "y": 90 },
+    "half=upper,facing=south,lit=false": { "model": "lamplight:block/waystone_upper", "y": 180 },
+    "half=upper,facing=south,lit=true":  { "model": "lamplight:block/waystone_upper_lit", "y": 180 },
+    "half=upper,facing=west,lit=false":  { "model": "lamplight:block/waystone_upper", "y": 270 },
+    "half=upper,facing=west,lit=true":   { "model": "lamplight:block/waystone_upper_lit", "y": 270 }
+  }
+}

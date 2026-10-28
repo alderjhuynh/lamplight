@@ -39,7 +39,12 @@
     "panacea.ItemStackMixin",
     "panacea.LuckChanceMixin",
     "panacea.ShroudedDetectionMixin",
-    "panacea.VulnerabilityMixin"
+    "panacea.VulnerabilityMixin",
+    "tinkerer.CharmHurtServerMixin",
+    "tinkerer.CharmSlotClickMixin",
+    "tinkerer.InventoryMenuCharmSlotsMixin",
+    "tinkerer.PlayerCharmAttributesMixin",
+    "tinkerer.PlayerInventoryMenuAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -47,7 +47,7 @@ public final class WayfarerConfig {
     public boolean minimapEnabled = true;
     public int minimapSize = 128;
     public double minimapZoom = 1.0;
-    public double minimapCompassInset = 3.0;
+    public double minimapCompassInset = 0;
 
     private transient Path file;
 

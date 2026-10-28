@@ -1,0 +1,12 @@
+{
+  "item": "lamplight:sapphire",
+  "setting_multiplier": 1.75,
+  "setting_cost": 4,
+  "inset_cost": 2,
+  "insets": [
+    {
+      "type": "lamplight:dodge",
+      "chance": 0.05
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "R": "lamplight:rose_gold_ingot",
+    "I": "minecraft:iron_ingot"
+  },
+  "pattern": [
+    "RI",
+    "IR"
+  ],
+  "result": {
+    "id": "lamplight:template_twin_band",
+    "count": 1
+  },
+  "show_notification": false
+}

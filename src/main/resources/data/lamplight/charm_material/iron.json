@@ -1,0 +1,13 @@
+{
+  "item": "minecraft:iron_ingot",
+  "setting_multiplier": 1.0,
+  "setting_cost": 8,
+  "inset_cost": 4,
+  "insets": [
+    {
+      "type": "lamplight:attribute",
+      "attribute": "minecraft:armor",
+      "amount": 1.0
+    }
+  ]
+}

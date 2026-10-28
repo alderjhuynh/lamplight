@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:frozen_ocean",
+    "minecraft:deep_frozen_ocean",
+    "minecraft:frozen_river",
+    "lamplight:cold_river",
+    "lamplight:ice_marsh"
+  ]
+}

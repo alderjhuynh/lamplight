@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "R": "lamplight:rose_gold_ingot",
+    "N": "minecraft:netherite_scrap"
+  },
+  "pattern": [
+    "NN",
+    "RR"
+  ],
+  "result": {
+    "id": "lamplight:template_collar",
+    "count": 1
+  },
+  "show_notification": false
+}

@@ -1,0 +1,15 @@
+{
+  "slot_type": "cuff",
+  "order": 3,
+  "unlocked_by_default": false,
+  "unlock_cost": [
+    {
+      "item": "#lamplight:charms",
+      "count": 1
+    },
+    {
+      "item": "lamplight:rose_gold_ingot",
+      "count": 4
+    }
+  ]
+}

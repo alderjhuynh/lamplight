@@ -1,0 +1,13 @@
+{
+  "item": "minecraft:diamond",
+  "setting_multiplier": 2.0,
+  "setting_cost": 8,
+  "inset_cost": 4,
+  "insets": [
+    {
+      "type": "lamplight:attribute",
+      "attribute": "minecraft:armor_toughness",
+      "amount": 1.0
+    }
+  ]
+}

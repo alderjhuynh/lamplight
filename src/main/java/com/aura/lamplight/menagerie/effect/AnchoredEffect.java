@@ -1,6 +1,5 @@
 package com.aura.lamplight.menagerie.effect;
 
-import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffect;
@@ -9,11 +8,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 
-/**
- * A cold, clinging weight. Soul sand and soul soil grip a little harder while
- * this is active. The movement penalty itself is an attribute modifier so it
- * scales cleanly with the effect level.
- */
 public class AnchoredEffect extends MobEffect {
     private static final int SOUL_SLOWNESS_DURATION = 30;
 

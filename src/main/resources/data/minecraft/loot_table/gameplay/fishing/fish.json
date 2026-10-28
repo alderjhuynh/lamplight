@@ -1,0 +1,349 @@
+{
+  "type": "minecraft:fishing",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 70,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_cold" }
+            }
+          ],
+          "name": "minecraft:salmon"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 20,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_cold" }
+            }
+          ],
+          "name": "minecraft:cod"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_cold" }
+            }
+          ],
+          "name": "minecraft:pufferfish"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 45,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_warm" }
+            }
+          ],
+          "name": "minecraft:cod"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 30,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_warm" }
+            }
+          ],
+          "name": "minecraft:tropical_fish"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 20,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_warm" }
+            }
+          ],
+          "name": "minecraft:pufferfish"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_warm" }
+            }
+          ],
+          "name": "minecraft:salmon"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 55,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_tropical" }
+            }
+          ],
+          "name": "minecraft:tropical_fish"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 20,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_tropical" }
+            }
+          ],
+          "name": "minecraft:cod"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 20,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_tropical" }
+            }
+          ],
+          "name": "minecraft:pufferfish"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 50,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_kelp" }
+            }
+          ],
+          "name": "minecraft:cod"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 40,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_kelp" }
+            }
+          ],
+          "name": "minecraft:salmon"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_kelp" }
+            }
+          ],
+          "name": "minecraft:kelp"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 40,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_deep" }
+            }
+          ],
+          "name": "minecraft:salmon"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 40,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_deep" }
+            }
+          ],
+          "name": "minecraft:cod"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 6,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_deep" }
+            }
+          ],
+          "name": "minecraft:glow_ink_sac"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 35,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "lamplight:cave/underground_jungle" }
+            }
+          ],
+          "name": "minecraft:tropical_fish"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 25,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "lamplight:cave/underground_jungle" }
+            }
+          ],
+          "name": "minecraft:cod"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "lamplight:cave/underground_jungle" }
+            }
+          ],
+          "name": "minecraft:pufferfish"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 35,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_bog" }
+            }
+          ],
+          "name": "minecraft:salmon"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 30,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_bog" }
+            }
+          ],
+          "name": "minecraft:cod"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": { "biomes": "#lamplight:fishing_bog" }
+            }
+          ],
+          "name": "minecraft:tropical_fish"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 60,
+          "conditions": [
+            {
+              "condition": "minecraft:inverted",
+              "term": {
+                "condition": "minecraft:location_check",
+                "predicate": {
+                  "biomes": [
+                    "#lamplight:fishing_cold",
+                    "#lamplight:fishing_warm",
+                    "#lamplight:fishing_tropical",
+                    "#lamplight:fishing_kelp",
+                    "#lamplight:fishing_deep",
+                    "#lamplight:fishing_bog",
+                    "lamplight:cave/underground_jungle"
+                  ]
+                }
+              }
+            }
+          ],
+          "name": "minecraft:cod"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 25,
+          "conditions": [
+            {
+              "condition": "minecraft:inverted",
+              "term": {
+                "condition": "minecraft:location_check",
+                "predicate": {
+                  "biomes": [
+                    "#lamplight:fishing_cold",
+                    "#lamplight:fishing_warm",
+                    "#lamplight:fishing_tropical",
+                    "#lamplight:fishing_kelp",
+                    "#lamplight:fishing_deep",
+                    "#lamplight:fishing_bog",
+                    "lamplight:cave/underground_jungle"
+                  ]
+                }
+              }
+            }
+          ],
+          "name": "minecraft:salmon"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "conditions": [
+            {
+              "condition": "minecraft:inverted",
+              "term": {
+                "condition": "minecraft:location_check",
+                "predicate": {
+                  "biomes": [
+                    "#lamplight:fishing_cold",
+                    "#lamplight:fishing_warm",
+                    "#lamplight:fishing_tropical",
+                    "#lamplight:fishing_kelp",
+                    "#lamplight:fishing_deep",
+                    "#lamplight:fishing_bog",
+                    "lamplight:cave/underground_jungle"
+                  ]
+                }
+              }
+            }
+          ],
+          "name": "minecraft:tropical_fish"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 13,
+          "conditions": [
+            {
+              "condition": "minecraft:inverted",
+              "term": {
+                "condition": "minecraft:location_check",
+                "predicate": {
+                  "biomes": [
+                    "#lamplight:fishing_cold",
+                    "#lamplight:fishing_warm",
+                    "#lamplight:fishing_tropical",
+                    "#lamplight:fishing_kelp",
+                    "#lamplight:fishing_deep",
+                    "#lamplight:fishing_bog",
+                    "lamplight:cave/underground_jungle"
+                  ]
+                }
+              }
+            }
+          ],
+          "name": "minecraft:pufferfish"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "minecraft:gameplay/fishing/fish"
+}

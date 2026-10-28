@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "R": "lamplight:rose_gold_ingot",
+    "G": "minecraft:gold_ingot"
+  },
+  "pattern": [
+    "RG"
+  ],
+  "result": {
+    "id": "lamplight:template_signet",
+    "count": 1
+  },
+  "show_notification": false
+}

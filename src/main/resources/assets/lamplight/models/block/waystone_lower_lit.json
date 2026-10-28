@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "particle": "lamplight:block/waystone_lower_lit",
+    "side": "lamplight:block/waystone_lower_lit",
+    "end": "lamplight:block/waystone_lower_top"
+  }
+}

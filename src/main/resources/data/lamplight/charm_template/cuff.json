@@ -1,0 +1,7 @@
+{
+  "item": "lamplight:template_cuff",
+  "slot_type": "cuff",
+  "inset_count": 1,
+  "focus": 1.0,
+  "unlocked_by_default": true
+}

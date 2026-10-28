@@ -1,0 +1,19 @@
+{
+  "item": "lamplight:template_signet",
+  "slot_type": "ring",
+  "inset_count": 1,
+  "focus": 1.25,
+  "unlocked_by_default": false,
+  "overrides": [
+    {
+      "inset": "lamplight:ruby",
+      "effects": [
+        {
+          "type": "lamplight:attribute",
+          "attribute": "minecraft:attack_damage",
+          "amount": 1.0
+        }
+      ]
+    }
+  ]
+}

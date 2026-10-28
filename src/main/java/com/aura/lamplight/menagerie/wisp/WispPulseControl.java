@@ -6,12 +6,6 @@ import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-/**
- * The sky-jellyfish engine. Instead of walking, the wisp stores a target and
- * converts the 40-tick pulse cycle into a sharp squeeze of thrust followed by
- * a long, dragging bloom. The same phase drives the shader, so the animation
- * and the motion stay in step.
- */
 public class WispPulseControl extends MoveControl<WispEntity> {
     private boolean pulseSounded;
 
@@ -70,8 +64,6 @@ public class WispPulseControl extends MoveControl<WispEntity> {
             return;
         }
 
-        // Idle hover. Keep a little momentum and a slow, weightless bob, and
-        // drift up to the wisp's resting height above the floor.
         Vec3 velocity = wisp.getDeltaMovement();
         double bob = Math.sin((gameTime + wisp.getId()) * 0.055D) * 0.0025D;
         wisp.setDeltaMovement(new Vec3(

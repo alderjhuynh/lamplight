@@ -2,6 +2,7 @@ package com.aura.lamplight.menagerie.registry;
 
 import com.aura.lamplight.menagerie.Menagerie;
 import com.aura.lamplight.menagerie.crow.CrowEntity;
+import com.aura.lamplight.menagerie.raccoon.RaccoonEntity;
 // import com.aura.lamplight.menagerie.wisp.WispEntity; // Wisp disabled for now.
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.Registry;
@@ -22,6 +23,9 @@ public final class MenagerieEntities {
     public static final EntityType<CrowEntity> CROW = register("crow",
             EntityType.Builder.of(CrowEntity::new, MobCategory.CREATURE).sized(0.45F, 0.45F).clientTrackingRange(10));
     public static final Item CROW_SPAWN_EGG = registerEgg("crow_spawn_egg", CROW, 0x0D111C, 0x1C2030);
+    public static final EntityType<RaccoonEntity> RACCOON = register("raccoon",
+            EntityType.Builder.of(RaccoonEntity::new, MobCategory.CREATURE).sized(0.8F, 0.9F).clientTrackingRange(10));
+    public static final Item RACCOON_SPAWN_EGG = registerEgg("raccoon_spawn_egg", RACCOON, 0x5A4B3E, 0xD8CFC4);
     // Wisp disabled for now.
     // public static final EntityType<WispEntity> WISP = register("wisp",
     //         EntityType.Builder.of(WispEntity::new, MobCategory.AMBIENT).sized(0.7F, 0.9F).clientTrackingRange(10));
@@ -46,6 +50,10 @@ public final class MenagerieEntities {
     public static void init() {
         FabricDefaultAttributeRegistry.register(CROW, CrowEntity.bakeAttributes().build());
         SpawnPlacements.register(CROW, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrowEntity::canCrowSpawn);
+
+        FabricDefaultAttributeRegistry.register(RACCOON, RaccoonEntity.bakeAttributes().build());
+        SpawnPlacements.register(RACCOON, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type, level, reason, pos, random) -> level.getRawBrightness(pos, 0) > 8);
 
         // Wisp disabled for now.
         // FabricDefaultAttributeRegistry.register(WISP, WispEntity.bakeAttributes().build());

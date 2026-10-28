@@ -7,6 +7,8 @@ import com.aura.lamplight.wayfarer.client.input.MapKeybindings;
 import com.aura.lamplight.wayfarer.client.minimap.MinimapDataStore;
 import com.aura.lamplight.wayfarer.client.render.MinimapRenderer;
 import com.aura.lamplight.wayfarer.client.storage.RegionFileStorage;
+import com.aura.lamplight.wayfarer.client.waystone.WaystoneNamingScreen;
+import com.aura.lamplight.wayfarer.client.waystone.WaystoneTravelScreen;
 import com.aura.lamplight.wayfarer.client.waypoint.WaypointManager;
 import com.aura.lamplight.wayfarer.client.waypoint.gui.WaypointEditScreen;
 import com.aura.lamplight.wayfarer.client.waypoint.gui.WaypointsScreen;
@@ -14,9 +16,13 @@ import com.aura.lamplight.wayfarer.client.waypoint.render.WaypointWorldRenderer;
 import com.aura.lamplight.wayfarer.client.world.CaveModeTracker;
 import com.aura.lamplight.wayfarer.client.world.DimensionContext;
 import com.aura.lamplight.wayfarer.client.world.MapUpdateQueue;
+
+import com.aura.lamplight.wayfarer.waystone.WaystoneNamingPayload;
+import com.aura.lamplight.wayfarer.waystone.WaystoneTravelListPayload;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.minecraft.client.Minecraft;
@@ -40,6 +46,16 @@ public class WayfarerClient implements ClientModInitializer {
         HudElementRegistry.attachElementAfter(VanillaHudElements.CROSSHAIR, Wayfarer.id("minimap"),
                 MINIMAP_RENDERER);
         WaypointWorldRenderer.register();
+        ClientPlayNetworking.registerGlobalReceiver(WaystoneTravelListPayload.TYPE, (payload, context) -> {
+            context.client().execute(() -> {
+                Minecraft.getInstance().setScreenAndShow(new WaystoneTravelScreen(payload));
+            });
+        });
+        ClientPlayNetworking.registerGlobalReceiver(WaystoneNamingPayload.TYPE, (payload, context) -> {
+            context.client().execute(() -> {
+                Minecraft.getInstance().setScreenAndShow(new WaystoneNamingScreen(payload));
+            });
+        });
         UPDATE_QUEUE.setMinimapStore(MINIMAP_STORE);
         ClientTickEvents.END_CLIENT_TICK.register(this::onEndTick);
         Wayfarer.LOGGER.info("[wayfarer] client init");

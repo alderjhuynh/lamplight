@@ -45,7 +45,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
@@ -53,11 +52,6 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
-/**
- * A shy sky-jellyfish of soul light. It has no gravity and no pathfinding; a
- * pulse controller provides all of its movement. Tamed wisps are a small
- * portable hearth, wild ones are a cold, harmless nuisance.
- */
 public class WispEntity extends TamableAnimal {
     public static final int PULSE_CYCLE = 40;
     public static final int TAME_TRUST_REQUIRED = 3;

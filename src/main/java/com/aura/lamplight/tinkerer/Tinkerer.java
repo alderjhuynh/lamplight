@@ -1,5 +1,12 @@
 package com.aura.lamplight.tinkerer;
 
+import com.aura.lamplight.tinkerer.charm.CharmEffectTypes;
+import com.aura.lamplight.tinkerer.charm.CharmDataSyncer;
+import com.aura.lamplight.tinkerer.charm.CharmEvents;
+import com.aura.lamplight.tinkerer.charm.CharmMaterials;
+import com.aura.lamplight.tinkerer.charm.CharmSlotTypes;
+import com.aura.lamplight.tinkerer.charm.CharmTemplates;
+import com.aura.lamplight.tinkerer.charm.ModDataComponents;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.resources.Identifier;
@@ -14,9 +21,18 @@ public class Tinkerer implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		CharmEffectTypes.initialize();
+		ModDataComponents.initialize();
+		CharmMaterials.initialize();
+		CharmTemplates.initialize();
+		CharmSlotTypes.initialize();
 		ModBlocks.register();
 		ModMenus.register();
 		ModItems.register();
+		JewelingSetPatternPayload.initialize();
+		JewelingPatternAppliedPayload.initialize();
+		CharmEvents.initialize();
+		CharmDataSyncer.initialize();
 	}
 
 	public static Identifier id(String path) {

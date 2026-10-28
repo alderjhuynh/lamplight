@@ -1,0 +1,13 @@
+{
+  "item": "lamplight:ruby",
+  "setting_multiplier": 1.75,
+  "setting_cost": 4,
+  "inset_cost": 2,
+  "insets": [
+    {
+      "type": "lamplight:attribute",
+      "attribute": "minecraft:max_health",
+      "amount": 2.0
+    }
+  ]
+}

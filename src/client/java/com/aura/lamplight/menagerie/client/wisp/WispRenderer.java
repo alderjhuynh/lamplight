@@ -12,11 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
-/**
- * A deliberately plain cube, with a pixel face and a few chunky hanging
- * blocks. The shader supplies the pale blue wash, the face, the back rune and
- * the pale edge, so there is no model or texture asset behind it.
- */
 public class WispRenderer extends EntityRenderer<WispEntity, WispRenderState> {
     private static final float CUBE_CENTER_Y = 0.55F;
     private static final float BODY_HALF_X = 0.25F;
@@ -90,8 +85,6 @@ public class WispRenderer extends EntityRenderer<WispEntity, WispRenderState> {
             PoseStack.Pose pose, VertexConsumer buffer, float red, float green, float blue) {
         submitBody(pose, buffer, red, green, blue);
 
-        // Short, square hanging blocks: a blocky nod to the reference ghost's
-        // ragged hem and the baby happy ghast's stubby tentacles.
         submitHangingBlock(pose, buffer, -0.15F, 0.10F, 0.11F, 0.035F, 0.035F, red, green, blue);
         submitHangingBlock(pose, buffer, 0.00F, 0.19F, 0.14F, 0.040F, 0.030F, red, green, blue);
         submitHangingBlock(pose, buffer, 0.15F, 0.06F, 0.09F, 0.030F, 0.030F, red, green, blue);
@@ -107,8 +100,6 @@ public class WispRenderer extends EntityRenderer<WispEntity, WispRenderState> {
         float hy = BODY_HALF_Y;
         float hz = BODY_HALF_Z;
 
-        // Front (+Z) carries the face; back (-Z) carries the rune; top (+Y)
-        // carries a small mark. The face ID lives in the integer part of UV0.x.
         boxFace(pose, buffer, 0.0F, 0.0F, hz, hx, 0.0F, 0.0F, 0.0F, hy, 0.0F,
                 0.0F, 0.0F, 1.0F, 0, true, red, green, blue);
         boxFace(pose, buffer, 0.0F, 0.0F, -hz, -hx, 0.0F, 0.0F, 0.0F, hy, 0.0F,

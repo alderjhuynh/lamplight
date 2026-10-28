@@ -42,6 +42,7 @@ public class WispStartleGoal extends Goal {
         return true;
     }
 
+    @SuppressWarnings("deprecation") 
     private Entity findScatterer() {
         List<Entity> entities = this.wisp.level().getEntitiesOfClass(
                 Entity.class,

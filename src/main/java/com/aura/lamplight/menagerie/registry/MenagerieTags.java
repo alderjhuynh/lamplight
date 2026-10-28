@@ -23,6 +23,10 @@ public final class MenagerieTags {
     public static final TagKey<Block> WISP_LURES = blockTag("wisp_lures");
     public static final TagKey<Block> WISP_RECHARGE_BLOCKS = blockTag("wisp_recharge_blocks");
 
+    public static final TagKey<Item> RACCOON_FOODSTUFFS = itemTag("raccoon_foodstuffs");
+    public static final TagKey<Item> RACCOON_BREEDABLES = itemTag("raccoon_breedables");
+    public static final TagKey<Block> RACCOON_DIGGABLE = blockTag("raccoon_diggable");
+
     private MenagerieTags() {
     }
 

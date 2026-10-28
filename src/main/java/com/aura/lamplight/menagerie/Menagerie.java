@@ -3,6 +3,7 @@ package com.aura.lamplight.menagerie;
 // Wisp disabled for now.
 // import com.aura.lamplight.menagerie.effect.MenagerieEffects;
 import com.aura.lamplight.menagerie.registry.MenagerieEntities;
+import com.aura.lamplight.menagerie.registry.MenagerieItems;
 import com.aura.lamplight.menagerie.registry.MenagerieSounds;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -25,8 +26,10 @@ public class Menagerie implements ModInitializer {
 		MenagerieSounds.init();
 		// MenagerieEffects.init(); // Wisp disabled for now.
 		MenagerieEntities.init();
+		MenagerieItems.init();
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.SPAWN_EGGS).register(output -> {
 			output.accept(MenagerieEntities.CROW_SPAWN_EGG);
+			output.accept(MenagerieEntities.RACCOON_SPAWN_EGG);
 			// output.accept(MenagerieEntities.WISP_SPAWN_EGG); // Wisp disabled for now.
 		});
 
@@ -43,6 +46,16 @@ public class Menagerie implements ModInitializer {
 						biomeKey("minecraft", "meadow"),
 						biomeKey("minecraft", "cherry_grove")),
 				MobCategory.CREATURE, MenagerieEntities.CROW, 8, 1, 2);
+		BiomeModifications.addSpawn(
+				BiomeSelectors.tag(net.minecraft.tags.BiomeTags.IS_FOREST),
+				MobCategory.CREATURE, MenagerieEntities.RACCOON, 8, 1, 2);
+		BiomeModifications.addSpawn(
+				BiomeSelectors.includeByKey(
+						biomeKey("minecraft", "plains"),
+						biomeKey("minecraft", "sunflower_plains"),
+						biomeKey("minecraft", "cherry_grove"),
+						biomeKey("minecraft", "meadow")),
+				MobCategory.CREATURE, MenagerieEntities.RACCOON, 6, 1, 2);
 		// Wisp disabled for now.
 		// BiomeModifications.addSpawn(
 		// 		BiomeSelectors.includeByKey(biomeKey("minecraft", "pale_garden")),

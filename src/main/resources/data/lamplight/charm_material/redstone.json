@@ -1,0 +1,14 @@
+{
+  "item": "minecraft:redstone",
+  "setting_multiplier": 0.5,
+  "setting_cost": 8,
+  "inset_cost": 4,
+  "insets": [
+    {
+      "type": "lamplight:attribute",
+      "attribute": "minecraft:attack_speed",
+      "amount": 0.05,
+      "operation": "add_multiplied_total"
+    }
+  ]
+}

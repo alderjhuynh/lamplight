@@ -27,8 +27,28 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
+	// Force LWJGL past Minecraft's pinned version (see gradle.properties).
+	// Must run before the minecraft dependency resolves its libraries.
+	configurations.configureEach {
+		resolutionStrategy.eachDependency { details ->
+			if (details.requested.group == 'org.lwjgl' && details.requested.name.startsWith('lwjgl')) {
+				details.useVersion(project.lwjgl_version)
+				details.because('openal-soft 1.25.1 segfaults on exit on linux-arm64 (kcat/openal-soft#1248)')
+			}
+		}
+	}
+
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+	testImplementation platform("org.junit:junit-bom:5.13.4")
+	testImplementation "org.junit.jupiter:junit-jupiter"
+	testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+}
+
+test {
+	useJUnitPlatform()
+	systemProperty "lamplight.root", rootDir.absolutePath
 }
 
 processResources {

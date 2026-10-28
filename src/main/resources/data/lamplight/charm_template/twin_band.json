@@ -1,0 +1,7 @@
+{
+  "item": "lamplight:template_twin_band",
+  "slot_type": "ring",
+  "inset_count": 2,
+  "focus": 1.0,
+  "unlocked_by_default": false
+}

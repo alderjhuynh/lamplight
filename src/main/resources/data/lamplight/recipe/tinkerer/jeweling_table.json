@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "#": "#minecraft:logs",
-    "c": "copper_ingot"
+    "c": "minecraft:copper_ingot"
   },
   "pattern": [
     "cc",

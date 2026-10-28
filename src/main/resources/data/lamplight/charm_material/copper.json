@@ -1,0 +1,16 @@
+{
+  "item": "minecraft:copper_ingot",
+  "setting_multiplier": 0.5,
+  "setting_cost": 8,
+  "inset_cost": 4,
+  "insets": [
+    {
+      "type": "lamplight:cleanse",
+      "effects": [
+        "minecraft:poison",
+        "minecraft:nausea"
+      ],
+      "rate_per_potency": 0.4
+    }
+  ]
+}

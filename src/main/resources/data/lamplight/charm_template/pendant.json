@@ -1,0 +1,7 @@
+{
+  "item": "lamplight:template_pendant",
+  "slot_type": "necklace",
+  "inset_count": 2,
+  "focus": 1.0,
+  "unlocked_by_default": false
+}

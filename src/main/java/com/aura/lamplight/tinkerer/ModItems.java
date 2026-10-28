@@ -1,5 +1,8 @@
 package com.aura.lamplight.tinkerer;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -8,7 +11,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 
 public class ModItems {
-    private ModItems(){
+    private ModItems() {
 
     }
 
@@ -44,9 +47,50 @@ public class ModItems {
         RAW_ROSE_GOLD_KEY,
         new Item(new Item.Properties().fireResistant().setId(RAW_ROSE_GOLD_KEY)));
 
+    public static final ResourceKey<Item> RUBY_KEY =
+        ResourceKey.create(Registries.ITEM, Tinkerer.id("ruby"));
+
+    public static final Item RUBY = Registry.register(
+        BuiltInRegistries.ITEM,
+        RUBY_KEY,
+        new Item(new Item.Properties().setId(RUBY_KEY)));
+
+    public static final ResourceKey<Item> SAPPHIRE_KEY =
+        ResourceKey.create(Registries.ITEM, Tinkerer.id("sapphire"));
+
+    public static final Item SAPPHIRE = Registry.register(
+        BuiltInRegistries.ITEM,
+        SAPPHIRE_KEY,
+        new Item(new Item.Properties().setId(SAPPHIRE_KEY)));
+
+    public static final String[] CHARM_TYPE_NAMES = {"ring", "necklace", "cuff"};
+
+    public static final String[] TEMPLATE_NAMES = {
+            "band", "twin_band", "signet", "locket", "pendant", "collar", "cuff"};
+
+    public static final Map<String, TemplateItem> TEMPLATES = new LinkedHashMap<>();
+
+    public static final Map<String, CharmItem> CHARMS = new LinkedHashMap<>();
+
+    private static void registerTemplates() {
+        for (String name : TEMPLATE_NAMES) {
+            ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, Tinkerer.id("template_" + name));
+            TEMPLATES.put(name, Registry.register(BuiltInRegistries.ITEM, key,
+                    new TemplateItem(new Item.Properties().fireResistant().stacksTo(16).setId(key))));
+        }
+    }
+
+    private static void registerCharms() {
+        for (String family : CHARM_TYPE_NAMES) {
+            ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, Tinkerer.id("charm_" + family));
+            CHARMS.put(family, Registry.register(BuiltInRegistries.ITEM, key,
+                    new CharmItem(family, new Item.Properties().fireResistant().stacksTo(1).setId(key))));
+        }
+    }
+
     public static void register() {
-        // TODO: ADD CREATIVE TAB
-        // CreativeModeTabEvents.modifyOutputEvent(null)
+        registerTemplates();
+        registerCharms();
         Tinkerer.LOGGER.info("Registered tinkerer items");
     }
 }

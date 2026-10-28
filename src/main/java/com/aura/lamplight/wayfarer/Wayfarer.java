@@ -1,5 +1,11 @@
 package com.aura.lamplight.wayfarer;
 
+import com.aura.lamplight.wayfarer.waystone.ModBlocks;
+import com.aura.lamplight.wayfarer.waystone.WaystoneChanneling;
+import com.aura.lamplight.wayfarer.waystone.WaystoneNamePayload;
+import com.aura.lamplight.wayfarer.waystone.WaystoneNamingPayload;
+import com.aura.lamplight.wayfarer.waystone.WaystoneTravelListPayload;
+import com.aura.lamplight.wayfarer.waystone.WaystoneTravelPayload;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.resources.Identifier;
@@ -10,13 +16,16 @@ import org.slf4j.LoggerFactory;
 public class Wayfarer implements ModInitializer {
 	public static final String MOD_ID = "lamplight";
 
-	// This logger is used to write text to the console and the log file.
-	// It is considered best practice to use your mod id as the logger's name.
-	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	@Override
 	public void onInitialize() {
+		ModBlocks.register();
+		WaystoneTravelListPayload.initialize();
+		WaystoneTravelPayload.initialize();
+		WaystoneNamingPayload.initialize();
+		WaystoneNamePayload.initialize();
+		WaystoneChanneling.initialize();
 		LOGGER.info("[wayfarer] common init");
 	}
 

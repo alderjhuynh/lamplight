@@ -1,0 +1,14 @@
+{
+  "item": "minecraft:emerald",
+  "setting_multiplier": 1.5,
+  "setting_cost": 6,
+  "inset_cost": 3,
+  "insets": [
+    {
+      "type": "lamplight:attribute",
+      "attribute": "minecraft:movement_speed",
+      "amount": 0.1,
+      "operation": "add_multiplied_total"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "item": "lamplight:rose_gold_ingot",
+  "setting_multiplier": 1.5,
+  "setting_cost": 4,
+  "inset_cost": 2,
+  "insets": [
+    {
+      "type": "lamplight:alloy",
+      "bonus_per_potency": 0.1
+    }
+  ]
+}

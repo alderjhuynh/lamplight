@@ -1,0 +1,16 @@
+{
+  "item": "minecraft:lapis_lazuli",
+  "setting_multiplier": 0.75,
+  "setting_cost": 8,
+  "inset_cost": 4,
+  "insets": [
+    {
+      "type": "lamplight:resist_damage",
+      "types": [
+        "minecraft:magic",
+        "minecraft:indirect_magic"
+      ],
+      "fraction": 0.1
+    }
+  ]
+}

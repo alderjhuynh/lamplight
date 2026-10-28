@@ -1,0 +1,21 @@
+{
+  "item": "lamplight:template_collar",
+  "slot_type": "necklace",
+  "inset_count": 3,
+  "focus": 1.0,
+  "unlocked_by_default": false,
+  "overrides": [
+    {
+      "inset": "lamplight:sapphire",
+      "effects": [
+        {
+          "type": "lamplight:resist_damage",
+          "tags": [
+            "#minecraft:is_drowning"
+          ],
+          "fraction": 1.0
+        }
+      ]
+    }
+  ]
+}

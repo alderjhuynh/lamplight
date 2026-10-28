@@ -1,0 +1,15 @@
+{
+  "item": "minecraft:netherite_ingot",
+  "setting_multiplier": 2.5,
+  "setting_cost": 2,
+  "inset_cost": 1,
+  "insets": [
+    {
+      "type": "lamplight:resist_damage",
+      "tags": [
+        "#minecraft:is_fire"
+      ],
+      "fraction": 0.1
+    }
+  ]
+}

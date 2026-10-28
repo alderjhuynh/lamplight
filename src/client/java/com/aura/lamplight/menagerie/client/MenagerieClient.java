@@ -16,6 +16,8 @@ public class MenagerieClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		ModelLayerRegistry.registerModelLayer(CrowModelLayers.MODEL_LAYER, CrowModel::createBodyLayer);
 		EntityRendererRegistry.register(MenagerieEntities.CROW, CrowRenderer::new);
+		ModelLayerRegistry.registerModelLayer(RaccoonModelLayers.MODEL_LAYER, RaccoonModel::createBodyLayer);
+		EntityRendererRegistry.register(MenagerieEntities.RACCOON, RaccoonRenderer::new);
 		// Wisp disabled for now.
 		// WispRenderTypes.init();
 		// EntityRendererRegistry.register(MenagerieEntities.WISP, WispRenderer::new);

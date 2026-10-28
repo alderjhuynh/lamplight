@@ -4,11 +4,22 @@ plugins {
 }
 
 repositories {
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
+	// Force org.lwjgl to Maven Central. Minecraft only mirrors its pinned LWJGL
+	// version on libraries.minecraft.net, so the version forced in gradle.properties
+	// (and its extra variants like the "unsafe" jar Minecraft needs) cannot resolve
+	// there; Central hosts the full LWJGL 3.4.x artifact set. The repo name matches
+	// Fabric Loom's own pin (see forceLWJGLFromMavenCentral) so Loom won't add a second one.
+	exclusiveContent {
+		forRepository {
+			maven {
+				name = 'MavenCentralLWJGL'
+				url = 'https://repo.maven.apache.org/maven2/'
+			}
+		}
+		filter {
+			includeGroup('org.lwjgl')
+		}
+	}
 }
 
 loom {

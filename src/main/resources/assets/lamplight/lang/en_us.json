@@ -659,5 +659,11 @@
   "material.lamplight.sapphire": "Evasion",
   "material.lamplight.ruby": "Vitality",
   "material.lamplight.diamond": "Warding",
-  "material.lamplight.netherite": "Emberheart"
+  "material.lamplight.netherite": "Emberheart",
+  "block.lamplight.amethyst_brick_slab": "Amethyst Brick Slab",
+  "block.lamplight.amethyst_brick_stairs": "Amethyst Brick Stairs",
+  "block.lamplight.amethyst_brick_wall": "Amethyst Brick Wall",
+  "block.lamplight.amethyst_bricks": "Amethyst Bricks",
+  "block.lamplight.amethyst_pillar": "Amethyst Pillar",
+  "block.lamplight.chiseled_amethyst": "Chiseled Amethyst"
 }

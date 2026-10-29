@@ -56,13 +56,18 @@ public final class StoneBlocks {
     }
 
     private static void add(String name, Block base, boolean slab, boolean stairs, boolean wall) {
+        add(ITEMS, name, base, slab, stairs, wall);
+    }
+
+    static void add(
+            List<Item> items, String name, Block base, boolean slab, boolean stairs, boolean wall) {
         if (slab) {
             ResourceKey<Block> key = HearthwrightBlocks.blockKey(name + "_slab");
             Block block = Registry.register(
                     BuiltInRegistries.BLOCK,
                     key,
                     new SlabBlock(HearthwrightBlocks.derivativeProperties(base).setId(key)));
-            ITEMS.add(HearthwrightBlocks.registerBlockItem(name + "_slab", block));
+            items.add(HearthwrightBlocks.registerBlockItem(name + "_slab", block));
         }
 
         if (stairs) {
@@ -71,7 +76,7 @@ public final class StoneBlocks {
                     BuiltInRegistries.BLOCK,
                     key,
                     new StairBlock(base.defaultBlockState(), HearthwrightBlocks.derivativeProperties(base).setId(key)));
-            ITEMS.add(HearthwrightBlocks.registerBlockItem(name + "_stairs", block));
+            items.add(HearthwrightBlocks.registerBlockItem(name + "_stairs", block));
         }
 
         if (wall) {
@@ -80,7 +85,7 @@ public final class StoneBlocks {
                     BuiltInRegistries.BLOCK,
                     key,
                     new WallBlock(HearthwrightBlocks.derivativeProperties(base).forceSolidOn().setId(key)));
-            ITEMS.add(HearthwrightBlocks.registerBlockItem(name + "_wall", block));
+            items.add(HearthwrightBlocks.registerBlockItem(name + "_wall", block));
         }
     }
 }

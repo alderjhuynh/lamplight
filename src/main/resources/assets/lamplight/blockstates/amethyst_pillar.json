@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "lamplight:block/amethyst_pillar"
+    },
+    "axis=x": {
+      "model": "lamplight:block/amethyst_pillar",
+      "x": 90,
+      "y": 90
+    },
+    "axis=z": {
+      "model": "lamplight:block/amethyst_pillar",
+      "x": 90
+    }
+  }
+}

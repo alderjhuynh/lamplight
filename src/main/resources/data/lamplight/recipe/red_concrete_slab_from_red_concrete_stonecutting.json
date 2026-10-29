@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:red_concrete",
+  "result": {
+    "count": 2,
+    "id": "lamplight:red_concrete_slab"
+  }
+}

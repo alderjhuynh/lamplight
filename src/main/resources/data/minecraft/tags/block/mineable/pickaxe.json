@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
+    "lamplight:amethyst_bricks",
+    "lamplight:amethyst_pillar",
+    "lamplight:chiseled_amethyst",
     "lamplight:terracotta_slab",
     "lamplight:white_terracotta_slab",
     "lamplight:orange_terracotta_slab",
@@ -26,6 +29,7 @@
     "lamplight:polished_basalt_slab",
     "lamplight:smooth_basalt_slab",
     "lamplight:end_stone_slab",
+    "lamplight:amethyst_brick_slab",
     "lamplight:white_concrete_slab",
     "lamplight:orange_concrete_slab",
     "lamplight:magenta_concrete_slab",
@@ -70,6 +74,7 @@
     "lamplight:smooth_stone_stairs",
     "lamplight:smooth_basalt_stairs",
     "lamplight:end_stone_stairs",
+    "lamplight:amethyst_brick_stairs",
     "lamplight:white_concrete_stairs",
     "lamplight:orange_concrete_stairs",
     "lamplight:magenta_concrete_stairs",
@@ -106,6 +111,7 @@
     "lamplight:dark_prismarine_wall",
     "lamplight:smooth_red_sandstone_wall",
     "lamplight:smooth_sandstone_wall",
-    "lamplight:end_stone_wall"
+    "lamplight:end_stone_wall",
+    "lamplight:amethyst_brick_wall"
   ]
 }

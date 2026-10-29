@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "lamplight:amethyst_bricks",
+  "result": {
+    "count": 2,
+    "id": "lamplight:amethyst_brick_slab"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lamplight:chiseled_amethyst"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "lamplight:blocks/chiseled_amethyst"
+}

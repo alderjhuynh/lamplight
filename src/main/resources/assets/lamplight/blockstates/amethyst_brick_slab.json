@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "lamplight:block/amethyst_brick_slab"
+    },
+    "type=double": {
+      "model": "lamplight:block/amethyst_bricks"
+    },
+    "type=top": {
+      "model": "lamplight:block/amethyst_brick_slab_top"
+    }
+  }
+}

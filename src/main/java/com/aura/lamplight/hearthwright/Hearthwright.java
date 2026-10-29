@@ -1,5 +1,6 @@
 package com.aura.lamplight.hearthwright;
 
+import com.aura.lamplight.hearthwright.block.AmethystBlocks;
 import com.aura.lamplight.hearthwright.block.ConcreteBlocks;
 import com.aura.lamplight.hearthwright.block.StoneBlocks;
 import com.aura.lamplight.hearthwright.block.TerracottaBlocks;
@@ -23,9 +24,11 @@ public class Hearthwright implements ModInitializer {
 		TerracottaBlocks.register();
 		StoneBlocks.register();
 		ConcreteBlocks.register();
+		AmethystBlocks.register();
 		TerracottaBlocks.addCreativeTabEntries();
 		StoneBlocks.addCreativeTabEntries();
 		ConcreteBlocks.addCreativeTabEntries();
+		AmethystBlocks.addCreativeTabEntries();
 	}
 
 	public static Identifier id(String path) {

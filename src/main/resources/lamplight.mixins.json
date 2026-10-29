@@ -44,7 +44,8 @@
     "tinkerer.CharmSlotClickMixin",
     "tinkerer.InventoryMenuCharmSlotsMixin",
     "tinkerer.PlayerCharmAttributesMixin",
-    "tinkerer.PlayerInventoryMenuAccessor"
+    "tinkerer.PlayerInventoryMenuAccessor",
+    "tinkerer.ServerPlayerInitMenuInvoker"
   ],
   "injectors": {
     "defaultRequire": 1

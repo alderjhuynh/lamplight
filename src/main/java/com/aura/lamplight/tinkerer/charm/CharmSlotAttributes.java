@@ -12,14 +12,45 @@ public final class CharmSlotAttributes {
 
 	public static void ensureBases(final Player player) {
 		for (CharmSlotKinds.Kind kind : CharmSlotKinds.all()) {
+			int defined = CharmSlotTypes.definedCount(kind.slug());
 			AttributeInstance max = player.getAttribute(kind.max());
-			if (max != null) {
-				max.setBaseValue(CharmSlotTypes.definedCount(kind.slug()));
+			if (max != null && max.getBaseValue() < defined) {
+				max.setBaseValue(defined);
 			}
 			AttributeInstance current = player.getAttribute(kind.current());
-			if (current != null) {
-				current.setBaseValue(unlockedCount(player, kind.slug()));
+			int bootstrap = bootstrapCount(player, kind.slug());
+			if (current != null && current.getBaseValue() < bootstrap) {
+				current.setBaseValue(bootstrap);
 			}
+		}
+	}
+
+	private static int bootstrapCount(final Player player, final String slug) {
+		int highest = 0;
+		Map<String, Boolean> explicit = player.getAttached(CharmAttachments.UNLOCKED_SLOT_TYPES);
+		for (CharmSlotTypes.CharmSlotType slot : CharmSlotTypes.all()) {
+			if (!slot.def().slotType().equals(slug)) {
+				continue;
+			}
+			if (!slot.def().unlockedByDefault()) {
+				if (explicit == null || !Boolean.TRUE.equals(explicit.get(slot.id().toString()))) {
+					continue;
+				}
+			}
+			highest = Math.max(highest, CharmSlotTypes.rankOf(slot));
+		}
+		return highest;
+	}
+
+	public static void ensureUnlock(final Player player, final CharmSlotTypes.CharmSlotType slot) {
+		int rank = CharmSlotTypes.rankOf(slot);
+		CharmSlotKinds.Kind kind = CharmSlotKinds.bySlug(slot.def().slotType());
+		if (rank <= 0 || kind == null) {
+			return;
+		}
+		AttributeInstance current = player.getAttribute(kind.current());
+		if (current != null && current.getBaseValue() < rank) {
+			current.setBaseValue(rank);
 		}
 	}
 
@@ -45,13 +76,15 @@ public final class CharmSlotAttributes {
 		return acquired;
 	}
 
-	public static int unlockedCount(final Player player, final String slug) {
-		int unlocked = 0;
-		for (CharmSlotTypes.CharmSlotType slot : CharmSlotTypes.all()) {
-			if (slot.def().slotType().equals(slug) && CharmAttachments.isUnlocked(player, slot)) {
-				unlocked++;
-			}
+	public static int acquiredValue(final Player player, final String slug) {
+		CharmSlotKinds.Kind kind = CharmSlotKinds.bySlug(slug);
+		if (kind == null) {
+			return 0;
 		}
-		return unlocked;
+		AttributeInstance instance = player.getAttribute(kind.current());
+		if (instance == null) {
+			return 0;
+		}
+		return Math.max(0, (int) Math.round(instance.getValue()));
 	}
 }

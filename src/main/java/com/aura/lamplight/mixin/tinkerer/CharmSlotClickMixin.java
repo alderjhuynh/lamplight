@@ -18,7 +18,7 @@ public abstract class CharmSlotClickMixin {
 	@Inject(method = "doClick", at = @At("HEAD"), cancellable = true)
 	private void lamplight$charmSlotUnlock(final int slotIndex, final int buttonNum, final ContainerInput input,
 	                                       final Player player, final CallbackInfo ci) {
-		if (input != ContainerInput.PICKUP || player.level().isClientSide()) {
+		if (input != ContainerInput.PICKUP) {
 			return;
 		}
 		List<Slot> slots = ((AbstractContainerMenu) (Object) this).slots;
@@ -29,7 +29,7 @@ public abstract class CharmSlotClickMixin {
 			return;
 		}
 		if (!charmSlot.isLocked()) {
-			return; 
+			return;
 		}
 		charmSlot.tryUnlock();
 		ci.cancel();

@@ -79,6 +79,20 @@ public class CharmSlotTypes extends SimpleJsonResourceReloadListener<CharmSlotDe
 		return null;
 	}
 
+	public static int rankOf(final CharmSlotType slot) {
+		int rank = 0;
+		for (CharmSlotType other : LOADED.get()) {
+			if (!other.def().slotType().equals(slot.def().slotType())) {
+				continue;
+			}
+			rank++;
+			if (other.id().equals(slot.id())) {
+				return rank;
+			}
+		}
+		return 0;
+	}
+
 	public static Map<Identifier, CharmSlotDefinition> snapshots() {
 		Map<Identifier, CharmSlotDefinition> snapshot = new java.util.HashMap<>();
 		for (CharmSlotType slot : LOADED.get()) {

@@ -1,6 +1,7 @@
 package com.aura.lamplight.tinkerer.charm;
 
 import com.aura.lamplight.mixin.tinkerer.PlayerInventoryMenuAccessor;
+import com.aura.lamplight.mixin.tinkerer.ServerPlayerInitMenuInvoker;
 import com.aura.lamplight.tinkerer.Tinkerer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -98,16 +99,17 @@ public final class CharmDataSyncer implements SimpleSynchronousResourceReloadLis
 	}
 
 	private static void rebuildInventoryMenu(final ServerPlayer player) {
-		AbstractContainerMenu open = player.containerMenu;
-		if (open == player.inventoryMenu) {
-			player.closeContainer();
-		}
+		AbstractContainerMenu previous = player.containerMenu;
+		boolean deckInUse = previous == player.inventoryMenu;
 		InventoryMenu rebuilt = new InventoryMenu(player.getInventory(), true, player);
 		((PlayerInventoryMenuAccessor) player).setInventoryMenu(rebuilt);
-		if (open == player.inventoryMenu) {
+		if (deckInUse) {
+			rebuilt.transferState(previous);
+			rebuilt.setCarried(previous.getCarried());
 			player.containerMenu = rebuilt;
 		}
-		player.initInventoryMenu();
+		((ServerPlayerInitMenuInvoker) player).lamplight$invokeInitMenu(rebuilt);
+		rebuilt.broadcastFullState();
 	}
 
 	@Override

@@ -154,7 +154,7 @@ public final class CharmEvents {
 		}
 		slot.def().pay(player.getInventory());
 		CharmAttachments.setUnlocked(player, slot.id(), true);
-		CharmSlotAttributes.ensureBases(player);
+		CharmSlotAttributes.ensureUnlock(player, slot);
 		player.containerMenu.broadcastChanges();
 		player.level().playSound(null, player.blockPosition(),
 				SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 0.7F, 1.1F);

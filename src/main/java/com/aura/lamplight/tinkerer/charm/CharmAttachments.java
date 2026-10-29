@@ -5,7 +5,9 @@ import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -21,11 +23,14 @@ public final class CharmAttachments {
 	private static final Codec<Map<String, ItemStack>> WORN_CODEC =
 			Codec.unboundedMap(Codec.STRING, ItemStack.OPTIONAL_CODEC);
 
+	private static final StreamCodec<RegistryFriendlyByteBuf, Map<String, ItemStack>> WORN_STREAM_CODEC =
+			ByteBufCodecs.map(HashMap::new, ByteBufCodecs.STRING_UTF8, ItemStack.OPTIONAL_STREAM_CODEC);
+
 	public static final AttachmentType<Map<String, ItemStack>> WORN_CHARMS = AttachmentRegistry
 			.<Map<String, ItemStack>>builder()
 			.persistent(WORN_CODEC)
 			.copyOnDeath()
-			.syncWith(ByteBufCodecs.fromCodec(WORN_CODEC), AttachmentSyncPredicate.all())
+			.syncWith(WORN_STREAM_CODEC, AttachmentSyncPredicate.all())
 			.initializer(HashMap::new)
 			.buildAndRegister(Tinkerer.id("worn_charms"));
 
@@ -60,14 +65,15 @@ public final class CharmAttachments {
 	}
 
 	public static boolean isUnlocked(final Player player, final CharmSlotTypes.CharmSlotType slot) {
-		Map<String, Boolean> unlocked = player.getAttached(UNLOCKED_SLOT_TYPES);
-		if (unlocked != null) {
-			Boolean state = unlocked.get(slot.id().toString());
+		Map<String, Boolean> explicit = player.getAttached(UNLOCKED_SLOT_TYPES);
+		if (explicit != null) {
+			Boolean state = explicit.get(slot.id().toString());
 			if (state != null) {
 				return state;
 			}
 		}
-		return slot.def().unlockedByDefault();
+		int rank = CharmSlotTypes.rankOf(slot);
+		return rank > 0 && rank <= CharmSlotAttributes.acquiredValue(player, slot.def().slotType());
 	}
 
 	public static void setUnlocked(final Player player, final Identifier slotId, final boolean unlocked) {

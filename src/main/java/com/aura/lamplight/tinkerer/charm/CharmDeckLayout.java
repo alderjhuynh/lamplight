@@ -146,7 +146,7 @@ public final class CharmDeckLayout {
 		if (acquired != null && acquired.containsKey(slug)) {
 			return Math.min(definedCount, Math.max(0, acquired.get(slug)));
 		}
-		return Math.min(definedCount, CharmSlotAttributes.unlockedCount(player, slug));
+		return Math.min(definedCount, CharmSlotAttributes.acquiredValue(player, slug));
 	}
 
 	public static int wellY(final int index) {

@@ -63,6 +63,9 @@ public class CharmItem extends Item {
 			if (!well.slug().equals(this.slotType)) {
 				continue;
 			}
+			if (well.def() != null && !CharmAttachments.isUnlocked(player, well.def())) {
+				continue;
+			}
 			if (CharmAttachments.charmIn(player, well.id()).isEmpty()) {
 				return well.id();
 			}

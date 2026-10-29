@@ -16,7 +16,6 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.InventoryMenu;
 
@@ -73,16 +72,17 @@ public class TinkererClient implements ClientModInitializer {
 		if (client.player == null) {
 			return;
 		}
-		InventoryMenu oldMenu = client.player.inventoryMenu;
-		Inventory inventory = client.player.getInventory();
-		InventoryMenu rebuilt = new InventoryMenu(inventory, true, client.player);
+		AbstractContainerMenu previous = client.player.containerMenu;
+		boolean deckInUse = previous != null && previous == client.player.inventoryMenu;
+		InventoryMenu rebuilt = new InventoryMenu(client.player.getInventory(), true, client.player);
 		PlayerInventoryMenuAccessor accessor = (PlayerInventoryMenuAccessor) client.player;
-		AbstractContainerMenu current = client.player.containerMenu;
 		accessor.setInventoryMenu(rebuilt);
-		if (current == null || current == oldMenu) {
+		if (deckInUse) {
+			rebuilt.transferState(previous);
+			rebuilt.setCarried(previous.getCarried());
 			client.player.containerMenu = rebuilt;
-			if (current != null && client.gui.screen() != null) {
-				client.gui.setScreen(null);
+			if (client.gui.screen() instanceof CharmDeckScreen) {
+				client.gui.setScreen(new CharmDeckScreen(client.player));
 			}
 		}
 	}

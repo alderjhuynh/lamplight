@@ -24,6 +24,7 @@
     "tinkerer.EffectsInInventoryPlacementMixin",
     "tinkerer.InventoryScreenReplacementMixin",
     "tinkerer.MenuContentBoundsMixin",
+    "tinkerer.RecipeBookScreenAccessor",
     "picturesque.FogColorMixin",
     "picturesque.LightmapMixin",
     "picturesque.SkyColorMixin",

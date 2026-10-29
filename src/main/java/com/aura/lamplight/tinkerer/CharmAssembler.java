@@ -17,6 +17,35 @@ import java.util.List;
 public final class CharmAssembler {
 	private CharmAssembler() {}
 
+	/**
+	 * Builds the charm produced by combining a template with a setting material and the inset
+	 * materials, one charm inset per provided material. Cost checking is the caller's concern.
+	 */
+	public static ItemStack buildResult(final CharmTemplate template, final CharmMaterial setting,
+	                                    final List<CharmMaterial> insetMaterials) {
+		ItemStack charmItem = charmItemFor(template.slotType());
+		if (charmItem.isEmpty()) {
+			return ItemStack.EMPTY;
+		}
+		Identifier templateId = CharmTemplates.idOf(template);
+		Identifier settingId = CharmMaterials.idOf(setting);
+		if (templateId == null || settingId == null) {
+			return ItemStack.EMPTY;
+		}
+		List<CharmComponent.Inset> insets = new ArrayList<>();
+		for (CharmMaterial material : insetMaterials) {
+			Identifier materialId = CharmMaterials.idOf(material);
+			if (materialId == null) {
+				return ItemStack.EMPTY;
+			}
+			insets.add(new CharmComponent.Inset(materialId, material.insetCost()));
+		}
+		ItemStack result = charmItem.copyWithCount(1);
+		result.set(ModDataComponents.CHARM, new CharmComponent(templateId, settingId,
+				setting.settingCost(), List.copyOf(insets)));
+		return result;
+	}
+
 	public static ItemStack assemble(final JewelingSlots crafting, final @Nullable CharmTemplate template) {
 		if (template == null) {
 			return ItemStack.EMPTY;
@@ -27,7 +56,7 @@ public final class CharmAssembler {
 		if (setting == null || settingStack.getCount() < setting.settingCost()) {
 			return ItemStack.EMPTY;
 		}
-		List<CharmComponent.Inset> insets = new ArrayList<>();
+		List<CharmMaterial> insetMaterials = new ArrayList<>();
 		for (int i = 0; i < insetCells; i++) {
 			ItemStack stack = crafting.stackIn(JewelingTableMenu.INSET_START + i);
 			CharmMaterial material = CharmMaterials.byItem(stack);
@@ -35,21 +64,9 @@ public final class CharmAssembler {
 			if (material == null || materialId == null || stack.getCount() < material.insetCost()) {
 				return ItemStack.EMPTY;
 			}
-			insets.add(new CharmComponent.Inset(materialId, material.insetCost()));
+			insetMaterials.add(material);
 		}
-		ItemStack charmItem = charmItemFor(template.slotType());
-		if (charmItem.isEmpty()) {
-			return ItemStack.EMPTY;
-		}
-		ItemStack result = charmItem.copyWithCount(1);
-		Identifier templateId = CharmTemplates.idOf(template);
-		Identifier settingId = CharmMaterials.idOf(setting);
-		if (templateId == null || settingId == null) {
-			return ItemStack.EMPTY;
-		}
-		result.set(ModDataComponents.CHARM, new CharmComponent(templateId, settingId,
-				setting.settingCost(), List.copyOf(insets)));
-		return result;
+		return buildResult(template, setting, insetMaterials);
 	}
 
 	public static void consume(final JewelingSlots crafting, final @Nullable CharmTemplate template) {

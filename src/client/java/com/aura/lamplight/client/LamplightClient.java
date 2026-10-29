@@ -33,6 +33,7 @@ public class LamplightClient implements ClientModInitializer {
 		new ArmoryClient().onInitializeClient();
 		new FolioClient().onInitializeClient();
 		new WayfarerClient().onInitializeClient();
+		new com.aura.lamplight.wayfarer.atlas.AtlasClient().onInitializeClient();
 		new PuppeteerClient().onInitializeClient();
 		new PicturesqueClient().onInitializeClient();
 	}

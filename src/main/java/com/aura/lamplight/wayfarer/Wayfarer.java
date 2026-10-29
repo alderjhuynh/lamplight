@@ -1,5 +1,6 @@
 package com.aura.lamplight.wayfarer;
 
+import com.aura.lamplight.wayfarer.atlas.AtlasSyncPayload;
 import com.aura.lamplight.wayfarer.waystone.ModBlocks;
 import com.aura.lamplight.wayfarer.waystone.WaystoneChanneling;
 import com.aura.lamplight.wayfarer.waystone.WaystoneNamePayload;
@@ -26,6 +27,7 @@ public class Wayfarer implements ModInitializer {
 		WaystoneNamingPayload.initialize();
 		WaystoneNamePayload.initialize();
 		WaystoneChanneling.initialize();
+		AtlasSyncPayload.initialize();
 		LOGGER.info("[wayfarer] common init");
 	}
 

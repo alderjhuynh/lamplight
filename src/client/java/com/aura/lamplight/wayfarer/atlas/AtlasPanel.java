@@ -47,7 +47,6 @@ public final class AtlasPanel {
 
 	private static WeakReference<Object> attachOwner = new WeakReference<>(null);
 	private static boolean refreshData;
-	private static boolean wantsFocus;
 
 	@Nullable
 	private static EditBox searchBox;
@@ -75,7 +74,6 @@ public final class AtlasPanel {
 	public static void attach(final Object screen) {
 		if (attachOwner.get() != screen) {
 			refreshData = true;
-			wantsFocus = true;
 			attachOwner = new WeakReference<>(screen);
 		}
 	}
@@ -247,10 +245,11 @@ public final class AtlasPanel {
 		boolean shown = !screen.isBookOpen();
 		box.setVisible(shown);
 		if (!shown) {
-			if (box.isFocused()) {
+			if (screen.getFocused() == box) {
+				screen.setFocused(null);
+			} else if (box.isFocused()) {
 				box.setFocused(false);
 			}
-			wantsFocus = false;
 			return;
 		}
 		int[] b = bounds(screen);
@@ -260,10 +259,6 @@ public final class AtlasPanel {
 		box.setX(searchX);
 		box.setY(searchY);
 		box.setWidth(Math.max(40, width - MARGIN * 4));
-		if (wantsFocus) {
-			box.setFocused(true);
-			wantsFocus = false;
-		}
 	}
 
 	private static List<Item> filteredItems(final AtlasIndex index, final @Nullable String filter) {

@@ -189,7 +189,8 @@ public class CharmDeckScreen extends InventoryScreen {
 	@Override
 	public boolean keyPressed(KeyEvent event) {
 		if (this.atlasSearchBox != null && this.atlasSearchBox.isVisible()
-				&& this.atlasSearchBox.isFocused() && !event.isEscape()) {
+				&& this.atlasSearchBox.isFocused()
+				&& this.atlasSearchBox.keyPressed(event)) {
 			return true;
 		}
 		return super.keyPressed(event);

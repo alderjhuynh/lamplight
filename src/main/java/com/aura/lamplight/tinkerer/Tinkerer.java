@@ -29,6 +29,7 @@ public class Tinkerer implements ModInitializer {
 		ModBlocks.register();
 		ModMenus.register();
 		ModItems.register();
+		TinkererSounds.register();
 		JewelingSetPatternPayload.initialize();
 		JewelingPatternAppliedPayload.initialize();
 		CharmEvents.initialize();

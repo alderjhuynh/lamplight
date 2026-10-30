@@ -26,6 +26,7 @@
     "arcanum.LivingEntityFallMixin",
     "arcanum.NoDurabilityMixin",
     "arcanum.PlayerProjectileMixin",
+    "arcanum.PlayerSpinRailDataMixin",
     "arcanum.RiptideDepthStriderMixin",
     "arcanum.SpinAttackInfernoMixin",
     "arcanum.SaturationMixin",

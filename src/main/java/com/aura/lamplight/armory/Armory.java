@@ -39,7 +39,7 @@ public class Armory implements ModInitializer {
 			});
 		});
 
-		LOGGER.info("Arsenal loaded.");
+		LOGGER.info("Armory loaded.");
 	}
 
 	public static Identifier id(String path) {

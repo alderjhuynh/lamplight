@@ -9,6 +9,7 @@
     "ambrosia.appleskin.FoodDataAccessor",
     "ambrosia.appleskin.HudMixin",
     "ambrosia.appleskin.ItemStackTooltipMixin",
+    "arcanum.AvatarRendererSpinRailMixin",
     "arcanum.DashHudMixin",
     "arcanum.DoubleJumpElytraHudMixin",
     "arcanum.DoubleJumpHudMixin",

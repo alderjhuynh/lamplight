@@ -52,6 +52,36 @@
       }
     ]
   },
+  "item.charm.equip": {
+    "sounds": [
+      {
+        "name": "lamplight:item/charm/equip1"
+      },
+      {
+        "name": "lamplight:item/charm/equip2"
+      },
+      {
+        "name": "lamplight:item/charm/equip3"
+      },
+      {
+        "name": "lamplight:item/charm/equip4"
+      },
+      {
+        "name": "lamplight:item/charm/equip5"
+      },
+      {
+        "name": "lamplight:item/charm/equip6"
+      }
+    ],
+    "subtitle": "minecraft:subtitles.item.armor.equip"
+  },
+  "inferno_launch": {
+    "sounds": [
+      {
+        "name": "lamplight:inferno"
+      }
+    ]
+  },
   "wavedash_activates": {
     "sounds": [
       {

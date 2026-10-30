@@ -98,7 +98,7 @@ public class ItemStackTooltipMixin {
             Component description = arcanum$descriptionFor(holder).copy()
                     .withStyle(ChatFormatting.DARK_GRAY);
             boolean hasIcons = !sprites.isEmpty();
-
+            Component slotLine = arcanum$slotLine(slotOpt.get());
             int idx = -1;
             for (int i = 0; i < modified.size(); i++) {
                 if (modified.get(i).getString().equals(fullname)) {
@@ -111,11 +111,13 @@ public class ItemStackTooltipMixin {
                     modified.set(idx, modified.get(idx).copy().withStyle(ChatFormatting.GOLD));
                 }
                 modified.add(idx + 1, description);
+                modified.add(idx + 2, slotLine);
                 if (hasIcons) {
-                    modified.add(idx + 2, arcanum$appliesLine(sprites));
+                    modified.add(idx + 3, arcanum$appliesLine(sprites));
                 }
             } else {
                 modified.add(description);
+                modified.add(slotLine);
                 if (hasIcons) {
                     modified.add(arcanum$appliesLine(sprites));
                 }
@@ -138,6 +140,12 @@ public class ItemStackTooltipMixin {
             line.append(arcanum$spriteGlyph(sprite));
         }
         return line;
+    }
+
+    private static Component arcanum$slotLine(SlotType slot) {
+        return Component.translatable("tooltip.lamplight.book_slot",
+                        slot.displayName().copy().withStyle(ChatFormatting.BLUE))
+                .withStyle(ChatFormatting.GRAY);
     }
 
     private static Component arcanum$spriteGlyph(Identifier sprite) {

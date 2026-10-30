@@ -1,9 +1,11 @@
 package com.aura.lamplight.client.mixin.arcanum;
 
+import com.aura.lamplight.arcanum.client.SpinRailRenderState;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.fabricmc.fabric.api.client.rendering.v1.FabricRenderState;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.layers.SpinAttackEffectLayer;
@@ -31,10 +33,8 @@ public class SpinAttackInfernoTextureMixin {
                                         ModelFeatureRenderer.CrumblingOverlay crumbling,
                                         Operation<Void> op,
                                         @Local(ordinal = 0) AvatarRenderState state) {
-        Identifier chosen = texture;
-        if (state.displayFireAnimation) {
-            chosen = INFERNO_TEXTURE;
-        }
+        Boolean infernoRail = ((FabricRenderState) (Object) state).getData(SpinRailRenderState.INFERNO_SPIN_RAIL);
+        Identifier chosen = Boolean.TRUE.equals(infernoRail) ? INFERNO_TEXTURE : texture;
         op.call(collector, model, modelState, poseStack, chosen, light, overlay, outlineColor, crumbling);
     }
 }

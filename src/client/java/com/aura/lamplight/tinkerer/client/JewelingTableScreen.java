@@ -2,7 +2,6 @@ package com.aura.lamplight.tinkerer.client;
 
 import com.aura.lamplight.tinkerer.JewelingTableMenu;
 import com.aura.lamplight.tinkerer.JewelingSetPatternPayload;
-import com.aura.lamplight.tinkerer.ModItems;
 import com.aura.lamplight.tinkerer.Tinkerer;
 import com.aura.lamplight.tinkerer.charm.CharmMaterial;
 import com.aura.lamplight.tinkerer.charm.CharmMaterials;
@@ -269,8 +268,8 @@ public class JewelingTableScreen extends AbstractContainerScreen<JewelingTableMe
 	}
 
 	private static ItemStack shapeIcon(CharmTemplate template) {
-		Item charm = ModItems.CHARMS.get(template.slotType());
-		return charm == null ? ItemStack.EMPTY : new ItemStack(charm);
+		Item mold = BuiltInRegistries.ITEM.getOptional(template.item()).orElse(null);
+		return mold == null ? ItemStack.EMPTY : new ItemStack(mold);
 	}
 
 	private void renderPreview(GuiGraphicsExtractor gfx) {

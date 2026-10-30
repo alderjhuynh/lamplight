@@ -5,6 +5,7 @@ import com.aura.lamplight.tinkerer.charm.CharmDeckLayout;
 import com.aura.lamplight.tinkerer.charm.CharmSlotAttributes;
 import com.aura.lamplight.tinkerer.charm.ModDataComponents;
 import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -46,6 +47,8 @@ public class CharmItem extends Item {
 			player.addItem(worn);
 		}
 		stack.shrink(1);
+		level.playSound(null, player.blockPosition(), TinkererSounds.CHARM_EQUIP,
+				SoundSource.PLAYERS, 1.0F, 1.0F);
 		player.containerMenu.broadcastChanges();
 		return InteractionResult.CONSUME;
 	}

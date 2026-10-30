@@ -616,6 +616,7 @@
   "attribute.name.max_charm_slots_cuff": "Max Charm Cuff Slots",
   "tooltip.lamplight.template_unloaded": "Unloaded Template Definition",
   "tooltip.lamplight.template_slot": "Fits: %s",
+  "tooltip.lamplight.book_slot": "Fits: %s",
   "tooltip.lamplight.template_insets": "Inset Slots: %d",
   "tooltip.lamplight.template_focus": "Focus: ×%s",
   "tooltip.lamplight.charm_unloaded": "Charm (definition not loaded)",

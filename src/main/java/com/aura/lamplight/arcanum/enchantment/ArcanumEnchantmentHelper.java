@@ -456,7 +456,7 @@ public final class ArcanumEnchantmentHelper {
     private static final Identifier MACE = Identifier.withDefaultNamespace("item/mace");
     private static final Identifier TRIDENT = Identifier.withDefaultNamespace("item/trident");
     private static final Identifier BOW = Identifier.withDefaultNamespace("item/bow");
-    private static final Identifier CROSSBOW = Identifier.withDefaultNamespace("item/crossbow");
+    private static final Identifier CROSSBOW = Identifier.withDefaultNamespace("item/crossbow_standby");
     private static final Identifier NETHERITE_PICKAXE = Identifier.withDefaultNamespace("item/netherite_pickaxe");
     private static final Identifier NETHERITE_SHOVEL = Identifier.withDefaultNamespace("item/netherite_shovel");
     private static final Identifier NETHERITE_HOE = Identifier.withDefaultNamespace("item/netherite_hoe");

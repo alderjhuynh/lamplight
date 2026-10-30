@@ -680,5 +680,11 @@
   "block.lamplight.amethyst_brick_wall": "Amethyst Brick Wall",
   "block.lamplight.amethyst_bricks": "Amethyst Bricks",
   "block.lamplight.amethyst_pillar": "Amethyst Pillar",
-  "block.lamplight.chiseled_amethyst": "Chiseled Amethyst"
+  "block.lamplight.chiseled_amethyst": "Chiseled Amethyst",
+  "enchantment.lamplight.reeling": "Reeling",
+  "enchantment.lamplight.leech": "Leech",
+  "enchantment.lamplight.inferno": "Inferno",
+  "enchantment.lamplight.reeling.desc": "Thrown tridents will deal true damage, reel in hit entities, and have a cooldown.",
+  "enchantment.lamplight.leech.desc": "Thrown tridents latch onto hit entities, healing you and dealing damage over time.",
+  "enchantment.lamplight.inferno.desc": "Using the trident propels yourself when on fire."
 }

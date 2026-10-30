@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "s": "minecraft:prismarine_shard",
+    "p": "minecraft:prismarine"
+  },
+  "pattern": [
+    " ss",
+    " ps",
+    "p"
+  ],
+  "result": {
+    "id": "minecraft:trident"
+  },
+  "show_notification": false
+}

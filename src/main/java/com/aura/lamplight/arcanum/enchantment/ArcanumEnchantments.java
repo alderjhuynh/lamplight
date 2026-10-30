@@ -26,6 +26,9 @@ public final class ArcanumEnchantments {
     public static final ResourceKey<Enchantment> SATURATION = key("saturation");
     public static final ResourceKey<Enchantment> ANCHOR = key("anchor");
     public static final ResourceKey<Enchantment> WATER_BREATHING = key("water_breathing");
+    public static final ResourceKey<Enchantment> REELING = key("reeling");
+    public static final ResourceKey<Enchantment> LEECH = key("leech");
+    public static final ResourceKey<Enchantment> INFERNO = key("inferno");
 
     // capstones
     public static final ResourceKey<Enchantment> CINDERHEART = key("cinderheart");

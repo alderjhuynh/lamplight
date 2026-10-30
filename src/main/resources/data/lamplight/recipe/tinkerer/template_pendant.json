@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "R": "lamplight:rose_gold_ingot",
-    "I": "minecraft:iron_ingot",
-    "G": "minecraft:gold_ingot"
+    "#": "lamplight:rose_gold_ingot",
+    "C": "minecraft:gold_ingot",
+    "S": "lamplight:template_pendant"
   },
   "pattern": [
-    "RI",
-    "GG"
+    "#S#",
+    "#C#",
+    "###"
   ],
   "result": {
-    "id": "lamplight:template_pendant",
-    "count": 1
-  },
-  "show_notification": false
+    "count": 2,
+    "id": "lamplight:template_pendant"
+  }
 }

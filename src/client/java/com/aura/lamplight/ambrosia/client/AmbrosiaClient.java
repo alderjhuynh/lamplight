@@ -3,7 +3,6 @@ package com.aura.lamplight.ambrosia.client;
 import com.aura.lamplight.ambrosia.client.appleskin.AppleSkin;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.minecraft.client.gui.screens.MenuScreens;
 
 public class AmbrosiaClient implements ClientModInitializer {
 	@Override

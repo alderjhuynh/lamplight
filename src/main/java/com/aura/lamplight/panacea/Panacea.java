@@ -1,5 +1,6 @@
 package com.aura.lamplight.panacea;
 
+import com.aura.lamplight.panacea.registry.ModAttachments;
 import com.aura.lamplight.panacea.registry.ModBlockEntities;
 import com.aura.lamplight.panacea.registry.ModBlocks;
 import com.aura.lamplight.panacea.registry.ModComponents;
@@ -28,6 +29,7 @@ public class Panacea implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
+		ModAttachments.register();
 		ModEffects.register();
 		ModComponents.register();
 		ModPotions.register();

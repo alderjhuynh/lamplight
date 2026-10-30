@@ -46,6 +46,8 @@
     "panacea.ItemStackMixin",
     "panacea.LuckChanceMixin",
     "panacea.ShroudedDetectionMixin",
+    "panacea.SinkingMixin",
+    "panacea.UndyingMixin",
     "panacea.VulnerabilityMixin",
     "tinkerer.CharmHurtServerMixin",
     "tinkerer.CharmSlotClickMixin",

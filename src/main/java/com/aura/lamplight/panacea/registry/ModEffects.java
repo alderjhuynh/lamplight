@@ -1,6 +1,9 @@
 package com.aura.lamplight.panacea.registry;
 
 import com.aura.lamplight.panacea.effects.FrostResistance;
+import com.aura.lamplight.panacea.effects.Fuse;
+import com.aura.lamplight.panacea.effects.Sinking;
+import com.aura.lamplight.panacea.effects.Undying;
 import com.aura.lamplight.panacea.effects.Vulnerability;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -20,6 +23,21 @@ public class ModEffects {
     public static final Holder<MobEffect> FROST_RESISTANCE = registerEffect(
             "frost_resistance_effect",
             new FrostResistance(MobEffectCategory.BENEFICIAL, 0x87CEEB)
+    );
+
+    public static final Holder<MobEffect> FUSE = registerEffect(
+            "fuse_effect",
+            new Fuse(MobEffectCategory.HARMFUL, 0xC0392B)
+    );
+
+    public static final Holder<MobEffect> SINKING = registerEffect(
+            "sinking_effect",
+            new Sinking(MobEffectCategory.HARMFUL, 0x3A7A8C)
+    );
+
+    public static final Holder<MobEffect> UNDYING = registerEffect(
+            "undying_effect",
+            new Undying(MobEffectCategory.BENEFICIAL, 0x36C55F)
     );
 
     private static Holder<MobEffect> registerEffect(String path, MobEffect effect) {

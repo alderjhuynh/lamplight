@@ -15,6 +15,16 @@ public class ModPotionRecipes {
             builder.addMix(Potions.FIRE_RESISTANCE, Items.FERMENTED_SPIDER_EYE, ModPotions.FROST_RESISTANCE);
             builder.addMix(Potions.LONG_FIRE_RESISTANCE, Items.FERMENTED_SPIDER_EYE, ModPotions.LONG_FROST_RESISTANCE);
 
+            builder.addStartMix(Items.TNT, ModPotions.FUSE);
+            builder.addMix(ModPotions.FUSE, Items.REDSTONE, ModPotions.LONG_FUSE);
+            builder.addMix(ModPotions.FUSE, Items.GLOWSTONE_DUST, ModPotions.STRONG_FUSE);
+
+            builder.addStartMix(Items.SPONGE, ModPotions.SINKING);
+            builder.addMix(ModPotions.SINKING, Items.REDSTONE, ModPotions.LONG_SINKING);
+
+            builder.addStartMix(Items.TOTEM_OF_UNDYING, ModPotions.UNDYING);
+            builder.addMix(ModPotions.UNDYING, Items.REDSTONE, ModPotions.LONG_UNDYING);
+
             builder.addStartMix(Items.AZURE_BLUET, ModPotions.BLINDNESS);
             builder.addMix(ModPotions.BLINDNESS, Items.REDSTONE, ModPotions.LONG_BLINDNESS);
 

@@ -48,6 +48,41 @@ public class ModPotions {
             new Potion("frost_resistance", new MobEffectInstance(ModEffects.FROST_RESISTANCE, 9600))
     );
 
+    public static final Holder<Potion> FUSE = register(
+            "fuse_potion",
+            new Potion("fuse", new MobEffectInstance(ModEffects.FUSE, 900))
+    );
+
+    public static final Holder<Potion> LONG_FUSE = register(
+            "long_fuse_potion",
+            new Potion("fuse", new MobEffectInstance(ModEffects.FUSE, 1800))
+    );
+
+    public static final Holder<Potion> STRONG_FUSE = register(
+            "strong_fuse_potion",
+            new Potion("fuse", new MobEffectInstance(ModEffects.FUSE, 450, 1))
+    );
+
+    public static final Holder<Potion> SINKING = register(
+            "sinking_potion",
+            new Potion("sinking", new MobEffectInstance(ModEffects.SINKING, 1800))
+    );
+
+    public static final Holder<Potion> LONG_SINKING = register(
+            "long_sinking_potion",
+            new Potion("sinking", new MobEffectInstance(ModEffects.SINKING, 4800))
+    );
+
+    public static final Holder<Potion> UNDYING = register(
+            "undying_potion",
+            new Potion("undying", new MobEffectInstance(ModEffects.UNDYING, 900))
+    );
+
+    public static final Holder<Potion> LONG_UNDYING = register(
+            "long_undying_potion",
+            new Potion("undying", new MobEffectInstance(ModEffects.UNDYING, 1800))
+    );
+
     public static final Holder<Potion> BLINDNESS = register(
             "blindness_potion",
             new Potion("blindness", new MobEffectInstance(MobEffects.BLINDNESS, 1800))

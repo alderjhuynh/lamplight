@@ -1,7 +1,6 @@
 package com.aura.lamplight.ambrosia.block;
 
 import com.aura.lamplight.ambrosia.Ambrosia;
-import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.registry.TillableBlockRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -26,11 +25,7 @@ public final class ModBlocks {
     public static final ResourceKey<Block> COFFEE_CROP_KEY = blockKey("coffee_crop");
     public static final ResourceKey<Block> LETTUCE_CROP_KEY = blockKey("lettuce_crop");
     public static final ResourceKey<Block> GRAPE_CROP_KEY = blockKey("grape_crop");
-    public static final ResourceKey<Block> COOKING_POT_KEY = blockKey("cooking_pot");
     public static final ResourceKey<Block> WINE_RACK_KEY = blockKey("wine_rack");
-    public static final ResourceKey<Block> CUTTING_BOARD_KEY = blockKey("cutting_board");
-    public static final ResourceKey<Block> MIXING_BOWL_KEY = blockKey("mixing_bowl");
-    public static final ResourceKey<Block> PLATE_KEY = blockKey("plate");
     public static final ResourceKey<Block> CORN_TOP_KEY = blockKey("corn_top");
     public static final ResourceKey<Block> RICE_TOP_KEY = blockKey("rice_top");
     public static final ResourceKey<Block> TOMATO_TOP_KEY = blockKey("tomato_top");
@@ -63,50 +58,12 @@ public final class ModBlocks {
     public static final Block LETTUCE_CROP = register("lettuce_crop", new LettuceCropBlock(cropProperties(LETTUCE_CROP_KEY)));
     public static final Block GRAPE_CROP = register("grape_crop", new GrapeCropBlock(cropProperties(GRAPE_CROP_KEY)));
 
-    public static final Block COOKING_POT = register("cooking_pot", new CookingPotBlock(
-            BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.METAL)
-                    .strength(2.0F, 6.0F)
-                    .sound(SoundType.METAL)
-                    .setId(COOKING_POT_KEY)));
-
     public static final Block WINE_RACK = register("wine_rack", new WineRackBlock(
             BlockBehaviour.Properties.of()
                     .mapColor(MapColor.WOOD)
                     .strength(2.0F, 3.0F)
                     .sound(SoundType.WOOD)
                     .setId(WINE_RACK_KEY)));
-
-    public static final Block CUTTING_BOARD = register("cutting_board", new CuttingBoardBlock(
-            BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.WOOD)
-                    .strength(1.0F, 2.0F)
-                    .sound(SoundType.WOOD)
-                    .setId(CUTTING_BOARD_KEY)));
-
-    public static final Block MIXING_BOWL = register("mixing_bowl", new Block(
-            BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.WOOD)
-                    .strength(1.0F, 2.0F)
-                    .sound(SoundType.WOOD)
-                    .setId(MIXING_BOWL_KEY)) {
-        @Override
-        public MapCodec<? extends Block> codec() {
-            return BlockBehaviour.simpleCodec(properties -> ModBlocks.MIXING_BOWL);
-        }
-    });
-
-    public static final Block PLATE = register("plate", new Block(
-            BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.STONE)
-                    .strength(0.8F, 2.0F)
-                    .sound(SoundType.STONE)
-                    .setId(PLATE_KEY)) {
-        @Override
-        public MapCodec<? extends Block> codec() {
-            return BlockBehaviour.simpleCodec(properties -> ModBlocks.PLATE);
-        }
-    });
 
     public static final Block CORN_TOP = register("corn_top", new CornTopBlock(topCropProperties(CORN_TOP_KEY)));
     public static final Block RICE_TOP = register("rice_top", new RiceTopBlock(topCropProperties(RICE_TOP_KEY)));
@@ -144,6 +101,6 @@ public final class ModBlocks {
 
     public static void register() {
         TillableBlockRegistry.register(Blocks.SOUL_SOIL, HoeItem::onlyIfAirAbove, SOUL_FARMLAND.defaultBlockState());
-        Ambrosia.LOGGER.info("Registering {} blocks for {}", 17, Ambrosia.MOD_ID);
+        Ambrosia.LOGGER.info("Registering {} blocks for {}", 13, Ambrosia.MOD_ID);
     }
 }

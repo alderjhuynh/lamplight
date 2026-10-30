@@ -52,7 +52,7 @@ public final class ModLoot {
                         .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(items,
                                 ModItems.WOODEN_KNIFE, ModItems.STONE_KNIFE, ModItems.COPPER_KNIFE,
                                 ModItems.IRON_KNIFE, ModItems.GOLDEN_KNIFE, ModItems.DIAMOND_KNIFE,
-                                ModItems.NETHERITE_KNIFE, ModItems.RITUAL_DAGGER)))
+                                ModItems.NETHERITE_KNIFE)))
                         .when(LootItemRandomChanceCondition.randomChance(chance)));
     }
 
@@ -69,7 +69,6 @@ public final class ModLoot {
                 tableBuilder.withPool(knifeDrop(ModItems.GRAPE_SEEDS, 0.06F, items));
                 tableBuilder.withPool(chanceDrop(ModItems.GINGER, 0.02F));
             } else if (id.equals(vanilla("chests/village/village_plains_house"))) {
-                tableBuilder.withPool(chanceDrop(ModItems.TEA, 0.25F));
                 tableBuilder.withPool(chanceDrop(ModItems.LETTUCE, 0.35F));
                 tableBuilder.withPool(chanceDrop(ModItems.TOMATO, 0.35F));
             } else if (id.equals(vanilla("chests/village/village_savanna_house"))) {

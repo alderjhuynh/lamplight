@@ -4,13 +4,10 @@ import com.aura.lamplight.ambrosia.block.ModBlockEntities;
 import com.aura.lamplight.ambrosia.block.ModBlocks;
 import com.aura.lamplight.ambrosia.effect.ModEffects;
 import com.aura.lamplight.ambrosia.food.ModFoods;
-import com.aura.lamplight.ambrosia.food.ModRecipes;
 import com.aura.lamplight.ambrosia.food.VanillaFoodEffects;
 import com.aura.lamplight.ambrosia.item.ModCreativeTab;
 import com.aura.lamplight.ambrosia.item.ModItems;
 import com.aura.lamplight.ambrosia.item.ModLoot;
-import com.aura.lamplight.ambrosia.menu.ModMenus;
-import com.aura.lamplight.ambrosia.sound.ModSounds;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.resources.Identifier;
@@ -29,9 +26,6 @@ public class Ambrosia implements ModInitializer {
 		VanillaFoodEffects.register();
 		ModBlocks.register();
 		ModBlockEntities.register();
-		ModMenus.register();
-		ModRecipes.register();
-		ModSounds.register();
 		ModItems.initialize();
 		ModCreativeTab.register();
 		ModFoods.register();

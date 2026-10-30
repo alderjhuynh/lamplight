@@ -1,27 +1,4 @@
 {
-  "block.cooking_pot.boil_soup": {
-    "sounds": [
-      {
-        "name": "lamplight:block/cooking_pot/boil_soup1"
-      },
-      {
-        "name": "lamplight:block/cooking_pot/boil_soup2"
-      },
-      {
-        "name": "lamplight:block/cooking_pot/boil_soup3"
-      }
-    ]
-  },
-  "block.cooking_pot.boil_water": {
-    "sounds": [
-      {
-        "name": "lamplight:block/cooking_pot/boil_water1"
-      },
-      {
-        "name": "lamplight:block/cooking_pot/boil_water2"
-      }
-    ]
-  },
   "entity_glides": {
     "sounds": [
       {

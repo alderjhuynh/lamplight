@@ -13,13 +13,12 @@ public final class ModCreativeTab {
     private ModCreativeTab() {}
 
     private static final net.minecraft.world.item.Item[] STATIONS = {
-            ModItems.COOKING_POT, ModItems.WINE_RACK, ModItems.CUTTING_BOARD,
-            ModItems.MIXING_BOWL, ModItems.MIXING_BOWL_SPOON, ModItems.PLATE,
+            ModItems.WINE_RACK,
     };
 
     private static final net.minecraft.world.item.Item[] KNIVES = {
             ModItems.WOODEN_KNIFE, ModItems.STONE_KNIFE, ModItems.COPPER_KNIFE, ModItems.IRON_KNIFE,
-            ModItems.GOLDEN_KNIFE, ModItems.DIAMOND_KNIFE, ModItems.NETHERITE_KNIFE, ModItems.RITUAL_DAGGER,
+            ModItems.GOLDEN_KNIFE, ModItems.DIAMOND_KNIFE, ModItems.NETHERITE_KNIFE,
     };
 
     public static final CreativeModeTab AMBROSIA_TAB = FabricCreativeModeTab.builder()

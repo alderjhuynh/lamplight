@@ -1,42 +1,5 @@
 {
-    "elements": [
-        {
-            "element": {
-                "element_type": "minecraft:single_pool_element",
-                "location": "lamplight:mage/house",
-                "processors": "lamplight:mage/ground",
-                "projection": "rigid"
-            },
-            "weight": 1
-        },
-        {
-            "element": {
-                "element_type": "minecraft:single_pool_element",
-                "location": "lamplight:mage/house2",
-                "processors": "lamplight:mage/ground",
-                "projection": "rigid"
-            },
-            "weight": 1
-        },
-        {
-            "element": {
-                "element_type": "minecraft:single_pool_element",
-                "location": "lamplight:mage/house3",
-                "processors": "lamplight:mage/ground",
-                "projection": "rigid"
-            },
-            "weight": 1
-        },
-        {
-            "element": {
-                "element_type": "minecraft:single_pool_element",
-                "location": "lamplight:mage/barracks",
-                "processors": "lamplight:mage/ground",
-                "projection": "rigid"
-            },
-            "weight": 1
-        }
-    ],
+    "elements": [],
     "fallback": "minecraft:empty",
-    "name": "mage_hice"
+    "name": "lamplight:mage/houses"
 }

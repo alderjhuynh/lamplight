@@ -1,15 +1,5 @@
 {
-    "elements": [
-        {
-            "element": {
-                "element_type": "minecraft:single_pool_element",
-                "location": "lamplight:regular/witchhut",
-                "processors": "minecraft:empty",
-                "projection": "rigid"
-            },
-            "weight": 1
-        }
-    ],
+    "elements": [],
     "fallback": "minecraft:empty",
-    "name": "bad_luck"
+    "name": "lamplight:regular/witch_hut"
 }

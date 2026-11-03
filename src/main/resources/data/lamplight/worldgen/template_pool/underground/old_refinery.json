@@ -1,15 +1,5 @@
 {
-  "elements": [
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "lamplight:underground/old_refinery",
-        "processors": "minecraft:empty",
-        "projection": "rigid"
-      },
-      "weight": 1
-    }
-  ],
+  "elements": [],
   "fallback": "minecraft:empty",
-  "name": "death_potion"
+  "name": "lamplight:underground/old_refinery"
 }

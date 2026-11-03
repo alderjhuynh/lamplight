@@ -1,15 +1,5 @@
 {
-    "elements": [
-        {
-            "element": {
-                "element_type": "minecraft:single_pool_element",
-                "location": "lamplight:mage/complex",
-                "processors": "lamplight:mage/ground",
-                "projection": "rigid"
-            },
-            "weight": 1
-        }
-    ],
+    "elements": [],
     "fallback": "minecraft:empty",
     "name": "mage_complex"
 }

@@ -1,24 +1,5 @@
 {
-  "elements": [
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "lamplight:underground/large_ruined_oak_cabin",
-        "processors": "minecraft:empty",
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "lamplight:underground/small_ruined_oak_cabin",
-        "processors": "minecraft:empty",
-        "projection": "rigid"
-      },
-      "weight": 7
-    }
-  ],
+  "elements": [],
   "fallback": "minecraft:empty",
-  "name": "lmao_stop_reading_me"
+  "name": "lamplight:underground/oak_cabin"
 }

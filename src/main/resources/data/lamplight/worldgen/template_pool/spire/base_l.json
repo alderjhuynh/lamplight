@@ -1,15 +1,5 @@
 {
-  "elements": [
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "lamplight:spire/base_l",
-        "processors": "minecraft:empty",
-        "projection": "rigid"
-      },
-      "weight": 1
-    }
-  ],
+  "elements": [],
   "fallback": "minecraft:empty",
   "name": "lamplight:spire/base_l"
 }

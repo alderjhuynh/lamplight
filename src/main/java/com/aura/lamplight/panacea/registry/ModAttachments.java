@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.minecraft.world.entity.LivingEntity;
 
+@SuppressWarnings ("all")
 public class ModAttachments {
 	public static final AttachmentType<Float> UNDYING_DAMAGE = AttachmentRegistry.<Float>builder()
 			.persistent(Codec.FLOAT)

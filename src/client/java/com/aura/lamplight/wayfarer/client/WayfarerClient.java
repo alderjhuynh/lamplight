@@ -8,7 +8,9 @@ import com.aura.lamplight.wayfarer.client.minimap.MinimapDataStore;
 import com.aura.lamplight.wayfarer.client.render.MinimapRenderer;
 import com.aura.lamplight.wayfarer.client.storage.RegionFileStorage;
 import com.aura.lamplight.wayfarer.client.waystone.WaystoneNamingScreen;
+import com.aura.lamplight.wayfarer.client.waystone.WaystoneSigilRenderer;
 import com.aura.lamplight.wayfarer.client.waystone.WaystoneTravelScreen;
+import com.aura.lamplight.wayfarer.client.waystone.WaystoneTeleportSequence;
 import com.aura.lamplight.wayfarer.client.waypoint.WaypointManager;
 import com.aura.lamplight.wayfarer.client.waypoint.gui.WaypointEditScreen;
 import com.aura.lamplight.wayfarer.client.waypoint.gui.WaypointsScreen;
@@ -17,14 +19,22 @@ import com.aura.lamplight.wayfarer.client.world.CaveModeTracker;
 import com.aura.lamplight.wayfarer.client.world.DimensionContext;
 import com.aura.lamplight.wayfarer.client.world.MapUpdateQueue;
 
+import com.aura.lamplight.wayfarer.waystone.ModBlockEntities;
+import com.aura.lamplight.wayfarer.waystone.ModParticles;
+import com.aura.lamplight.wayfarer.waystone.WaystoneChannelBeginPayload;
+import com.aura.lamplight.wayfarer.waystone.WaystoneChannelEndPayload;
 import com.aura.lamplight.wayfarer.waystone.WaystoneNamingPayload;
 import com.aura.lamplight.wayfarer.waystone.WaystoneTravelListPayload;
+import com.aura.lamplight.wayfarer.client.waystone.WaystoneTeleportParticle;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
+import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
 import net.minecraft.client.Minecraft;
 
 public class WayfarerClient implements ClientModInitializer {
@@ -35,8 +45,10 @@ public class WayfarerClient implements ClientModInitializer {
     private static RegionFileStorage currentCaveStorage;
     private static final MinimapDataStore MINIMAP_STORE = new MinimapDataStore();
     private static final MinimapRenderer MINIMAP_RENDERER = new MinimapRenderer();
+    private final WaystoneTeleportSequence teleportSequence = new WaystoneTeleportSequence();
     private int sampleCursor = 0;
 
+    @SuppressWarnings ("deprecation")
     @Override
     public void onInitializeClient() {
         CONFIG = WayfarerConfig.load();
@@ -46,6 +58,22 @@ public class WayfarerClient implements ClientModInitializer {
         HudElementRegistry.attachElementAfter(VanillaHudElements.CROSSHAIR, Wayfarer.id("minimap"),
                 MINIMAP_RENDERER);
         WaypointWorldRenderer.register();
+        BlockEntityRendererRegistry.register(ModBlockEntities.WAYSTONE, context -> new WaystoneSigilRenderer());
+        ParticleProviderRegistry.getInstance().register(ModParticles.WAYSTONE_TELEPORT, WaystoneTeleportParticle.Provider::new);
+        HudElementRegistry.attachElementAfter(VanillaHudElements.CROSSHAIR, Wayfarer.id("teleport_fade"), teleportSequence);
+        LevelRenderEvents.COLLECT_SUBMITS.register(teleportSequence::collect);
+        ClientPlayNetworking.registerGlobalReceiver(WaystoneChannelBeginPayload.TYPE, (payload, context) -> {
+            context.client().execute(() -> teleportSequence.begin(payload.totalTicks()));
+        });
+        ClientPlayNetworking.registerGlobalReceiver(WaystoneChannelEndPayload.TYPE, (payload, context) -> {
+            context.client().execute(() -> {
+                if (payload.succeeded()) {
+                    teleportSequence.succeed();
+                } else {
+                    teleportSequence.abort();
+                }
+            });
+        });
         ClientPlayNetworking.registerGlobalReceiver(WaystoneTravelListPayload.TYPE, (payload, context) -> {
             context.client().execute(() -> {
                 Minecraft.getInstance().setScreenAndShow(new WaystoneTravelScreen(payload));
@@ -62,6 +90,7 @@ public class WayfarerClient implements ClientModInitializer {
     }
 
     private void onEndTick(Minecraft mc) {
+        teleportSequence.warm(mc);
         if (mc.player == null || mc.level == null) {
             if (currentStorage != null) {
                 UPDATE_QUEUE.flushAsyncForced();

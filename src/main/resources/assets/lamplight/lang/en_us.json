@@ -202,6 +202,8 @@
   "item.lamplight.netherite_scythe": "Netherite Scythe",
   "item.lamplight.blank_scroll": "Blank Scroll",
   "item.lamplight.rolled_scroll": "Rolled Scroll",
+  "tooltip.lamplight.rolled_scroll": "Unlocks an extra %s when used",
+  "tooltip.lamplight.rolled_scroll.blank": "No slot attuned",
   "item.lamplight.ice_scroll": "Ice Scroll",
   "item.lamplight.ice_scroll.blank": "Unattuned",
   "item.lamplight.apprentices_spellbook": "Apprentice's Spellbook",

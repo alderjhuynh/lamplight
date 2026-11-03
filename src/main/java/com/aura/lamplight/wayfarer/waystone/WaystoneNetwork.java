@@ -139,7 +139,7 @@ public final class WaystoneNetwork extends SavedData {
         if (known != null && !known.isEmpty()) {
             for (Long packed : new ArrayList<>(known)) {
                 BlockPos base = BlockPos.of(packed);
-                if (!WaystoneBlock.isLitLower(level.getBlockState(base))) {
+                if (!WaystoneBlock.isLit(level.getBlockState(base))) {
                     this.remove(within, base);
                     continue;
                 }

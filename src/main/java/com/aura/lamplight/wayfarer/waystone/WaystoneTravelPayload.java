@@ -54,7 +54,7 @@ public record WaystoneTravelPayload(ResourceKey<Level> destination, BlockPos pos
 		}
 		ServerLevel destinationLevel = server.getLevel(payload.destination());
 		if (destinationLevel == null
-				|| !WaystoneBlock.isLitLower(destinationLevel.getBlockState(payload.pos()))) {
+				|| !WaystoneBlock.isLit(destinationLevel.getBlockState(payload.pos()))) {
 			return;
 		}
 		WaystoneNetwork network = WaystoneNetwork.get(level);

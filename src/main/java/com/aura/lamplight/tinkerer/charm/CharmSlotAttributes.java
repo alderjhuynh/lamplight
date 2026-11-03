@@ -2,6 +2,7 @@ package com.aura.lamplight.tinkerer.charm;
 
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,13 +10,17 @@ import java.util.Map;
 @SuppressWarnings ("all")
 public final class CharmSlotAttributes {
 	private CharmSlotAttributes() {}
+	
+	private static final Map<String, Integer> DEFAULT_MAX_SLOTS = Map.of(
+			"ring", 3, "necklace", 2, "cuff", 1);
 
 	public static void ensureBases(final Player player) {
 		for (CharmSlotKinds.Kind kind : CharmSlotKinds.all()) {
 			int defined = CharmSlotTypes.definedCount(kind.slug());
 			AttributeInstance max = player.getAttribute(kind.max());
-			if (max != null && max.getBaseValue() < defined) {
-				max.setBaseValue(defined);
+			int capacity = Math.max(defined, DEFAULT_MAX_SLOTS.getOrDefault(kind.slug(), defined));
+			if (max != null && max.getBaseValue() < capacity) {
+				max.setBaseValue(capacity);
 			}
 			AttributeInstance current = player.getAttribute(kind.current());
 			int bootstrap = bootstrapCount(player, kind.slug());
@@ -23,6 +28,23 @@ public final class CharmSlotAttributes {
 				current.setBaseValue(bootstrap);
 			}
 		}
+	}
+
+	public static boolean grantSlot(final ServerPlayer player, final String slug) {
+		CharmSlotKinds.Kind kind = CharmSlotKinds.bySlug(slug);
+		if (kind == null) {
+			return false;
+		}
+		AttributeInstance current = player.getAttribute(kind.current());
+		AttributeInstance max = player.getAttribute(kind.max());
+		if (current == null || max == null) {
+			return false;
+		}
+		if (current.getBaseValue() >= max.getValue()) {
+			return false;
+		}
+		current.setBaseValue(Math.floor(current.getBaseValue()) + 1.0D);
+		return true;
 	}
 
 	private static int bootstrapCount(final Player player, final String slug) {

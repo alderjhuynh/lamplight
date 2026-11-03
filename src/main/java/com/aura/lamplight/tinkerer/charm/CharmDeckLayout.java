@@ -123,7 +123,13 @@ public final class CharmDeckLayout {
 			int grantBudget = capacities == null || !capacities.containsKey(slug)
 					? 0
 					: Math.max(0, capacities.get(slug) - definedCount);
-			grantsPerSlug.put(slug, Math.max(occupiedGrants.getOrDefault(slug, 0), grantBudget));
+			// Grants beyond the defined slots exist only once they have actually been
+			// acquired (e.g. via rolled scrolls), up to the kind's max-slot attribute.
+			int rawAcquired = acquired != null && acquired.containsKey(slug)
+					? Math.max(0, acquired.get(slug))
+					: CharmSlotAttributes.acquiredValue(player, slug);
+			int acquiredGrants = Math.min(grantBudget, Math.max(0, rawAcquired - definedCount));
+			grantsPerSlug.put(slug, Math.max(occupiedGrants.getOrDefault(slug, 0), acquiredGrants));
 		}
 		final List<Well> wells = new ArrayList<>();
 		final Map<String, Integer> emittedSoFar = new HashMap<>();

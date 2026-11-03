@@ -3,6 +3,8 @@ package com.aura.lamplight.tinkerer;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.aura.lamplight.tinkerer.charm.ModDataComponents;
+
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -62,6 +64,15 @@ public class ModItems {
         BuiltInRegistries.ITEM,
         SAPPHIRE_KEY,
         new Item(new Item.Properties().setId(SAPPHIRE_KEY)));
+
+    public static final ResourceKey<Item> ROLLED_SCROLL_KEY =
+        ResourceKey.create(Registries.ITEM, Tinkerer.id("rolled_scroll"));
+
+    public static final Item ROLLED_SCROLL = Registry.register(
+        BuiltInRegistries.ITEM,
+        ROLLED_SCROLL_KEY,
+        new RolledScrollItem(new Item.Properties().stacksTo(16).setId(ROLLED_SCROLL_KEY)
+            .component(ModDataComponents.SLOT_GRANT, "ring")));
 
     public static final String[] CHARM_TYPE_NAMES = {"ring", "necklace", "cuff"};
 

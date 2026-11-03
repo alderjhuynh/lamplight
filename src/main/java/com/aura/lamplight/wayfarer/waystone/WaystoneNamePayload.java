@@ -49,7 +49,7 @@ public record WaystoneNamePayload(BlockPos stone, String name)
 		if (dx * dx + dy * dy + dz * dz > MAX_NAMING_DISTANCE_SQ) {
 			return;
 		}
-		if (!WaystoneBlock.isLitLower(level.getBlockState(stone))) {
+		if (!WaystoneBlock.isLit(level.getBlockState(stone))) {
 			return;
 		}
 		WaystoneNetwork network = WaystoneNetwork.get(level);

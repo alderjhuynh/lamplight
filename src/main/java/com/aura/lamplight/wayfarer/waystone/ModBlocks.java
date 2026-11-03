@@ -23,10 +23,11 @@ public class ModBlocks {
         WAYSTONE_KEY,
         new WaystoneBlock(BlockBehaviour.Properties.of()
             .mapColor(MapColor.STONE)
+            .noOcclusion()
             .strength(-1.0F, 3600000.0F)
             .pushReaction(PushReaction.BLOCK)
             .sound(SoundType.STONE)
-            .lightLevel(state -> state.getValue(WaystoneBlock.LIT) ? 12 : 0)
+            .lightLevel(state -> state.getValue(WaystoneBlock.LIT) ? 15 : 0)
             .setId(WAYSTONE_KEY)));
 
     public static void register() {

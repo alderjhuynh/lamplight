@@ -1,24 +1,8 @@
 {
   "values": [
-    "lamplight:dragonheart",
+    "#lamplight:arcanum_capstone",
     "minecraft:looting",
     "minecraft:infinity",
-    "minecraft:thorns",
-    "lamplight:cinderheart",
-    "lamplight:winters_edge",
-    "lamplight:thunderstep",
-    "lamplight:sunder",
-    "lamplight:heartwood",
-    "lamplight:windrunner",
-    "lamplight:gravecaller",
-    "lamplight:magnum_opus",
-    "lamplight:emberforge",
-    "lamplight:icebound",
-    "lamplight:stormward",
-    "lamplight:unbroken",
-    "lamplight:grovekeeper",
-    "lamplight:zephyr",
-    "lamplight:shroud",
-    "lamplight:provisioner"
+    "minecraft:thorns"
   ]
 }

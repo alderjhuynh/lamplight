@@ -112,6 +112,7 @@
     "lamplight:smooth_red_sandstone_wall",
     "lamplight:smooth_sandstone_wall",
     "lamplight:end_stone_wall",
-    "lamplight:amethyst_brick_wall"
+    "lamplight:amethyst_brick_wall",
+    "lamplight:potion_cauldron"
   ]
 }

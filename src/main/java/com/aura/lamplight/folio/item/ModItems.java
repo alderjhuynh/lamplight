@@ -12,11 +12,9 @@ import net.minecraft.world.item.Item;
 public final class ModItems {
     private ModItems() {}
 
-    /** Ice scrolls stack to 16, but only with other scrolls carrying the exact same spell. */
     public static final int ICE_SCROLL_MAX_STACK_SIZE = 16;
 
     public static final Item BLANK_SCROLL = register("blank_scroll", Item::new, new Item.Properties());
-    public static final Item ROLLED_SCROLL = register("rolled_scroll", Item::new, new Item.Properties());
     public static final Item ICE_SCROLL = register("ice_scroll", IceScrollItem::new, new Item.Properties().stacksTo(ICE_SCROLL_MAX_STACK_SIZE));
     public static final Item APPRENTICES_SPELLBOOK = register("apprentices_spellbook", Item::new, new Item.Properties().stacksTo(1));
 
@@ -26,6 +24,6 @@ public final class ModItems {
     }
 
     public static void initialize() {
-        Folio.LOGGER.info("Registering {} items for {}", 4, Folio.MOD_ID);
+        Folio.LOGGER.info("Registering {} items for {}", 3, Folio.MOD_ID);
     }
 }

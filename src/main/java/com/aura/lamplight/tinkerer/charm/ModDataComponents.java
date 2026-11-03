@@ -22,6 +22,14 @@ public class ModDataComponents {
 			.build()
 	);
 
+	public static final DataComponentType<String> SLOT_GRANT = register(
+		"slot_grant",
+		DataComponentType.<String>builder()
+			.persistent(CharmSlotKinds.SLUG_CODEC)
+			.networkSynchronized(ByteBufCodecs.STRING_UTF8)
+			.build()
+	);
+
 	private static <T> DataComponentType<T> register(final String name, final DataComponentType<T> type) {
 		Identifier id = Tinkerer.id(name);
 		return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, id, type);

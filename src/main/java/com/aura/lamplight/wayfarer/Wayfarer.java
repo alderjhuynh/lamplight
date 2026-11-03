@@ -1,8 +1,12 @@
 package com.aura.lamplight.wayfarer;
 
 import com.aura.lamplight.wayfarer.atlas.AtlasSyncPayload;
+import com.aura.lamplight.wayfarer.waystone.ModBlockEntities;
 import com.aura.lamplight.wayfarer.waystone.ModBlocks;
+import com.aura.lamplight.wayfarer.waystone.ModParticles;
 import com.aura.lamplight.wayfarer.waystone.WaystoneChanneling;
+import com.aura.lamplight.wayfarer.waystone.WaystoneChannelBeginPayload;
+import com.aura.lamplight.wayfarer.waystone.WaystoneChannelEndPayload;
 import com.aura.lamplight.wayfarer.waystone.WaystoneNamePayload;
 import com.aura.lamplight.wayfarer.waystone.WaystoneNamingPayload;
 import com.aura.lamplight.wayfarer.waystone.WaystoneTravelListPayload;
@@ -22,10 +26,14 @@ public class Wayfarer implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModBlocks.register();
+		ModBlockEntities.register();
+		ModParticles.register();
 		WaystoneTravelListPayload.initialize();
 		WaystoneTravelPayload.initialize();
 		WaystoneNamingPayload.initialize();
 		WaystoneNamePayload.initialize();
+		WaystoneChannelBeginPayload.initialize();
+		WaystoneChannelEndPayload.initialize();
 		WaystoneChanneling.initialize();
 		AtlasSyncPayload.initialize();
 		LOGGER.info("[wayfarer] common init");

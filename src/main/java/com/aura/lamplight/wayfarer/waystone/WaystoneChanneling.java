@@ -1,5 +1,6 @@
 package com.aura.lamplight.wayfarer.waystone;
 
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,6 +44,7 @@ public final class WaystoneChanneling {
 	public static void begin(ServerPlayer player, ResourceKey<Level> destination, BlockPos pillar) {
 		Channel channel = new Channel(destination, pillar, player.getX(), player.getY(), player.getZ(), CHANNEL_TICKS);
 		CHANNELING.put(player.getUUID(), channel);
+		ServerPlayNetworking.send(player, new WaystoneChannelBeginPayload(pillar, CHANNEL_TICKS));
 	}
 
 	private static void tick(MinecraftServer server) {
@@ -54,8 +56,13 @@ public final class WaystoneChanneling {
 			Map.Entry<UUID, Channel> entry = iterator.next();
 			ServerPlayer player = server.getPlayerList().getPlayer(entry.getKey());
 			Channel channel = entry.getValue();
-			if (player == null || !stillGathered(player, channel, server)) {
+			if (player == null) {
 				iterator.remove();
+				continue;
+			}
+			if (!stillGathered(player, channel, server)) {
+				iterator.remove();
+				ServerPlayNetworking.send(player, new WaystoneChannelEndPayload(false));
 				continue;
 			}
 			if (channel.ticksLeft() <= 0) {
@@ -63,7 +70,6 @@ public final class WaystoneChanneling {
 				arrive(player, channel);
 				continue;
 			}
-			gatherParticles(player);
 			entry.setValue(new Channel(channel.destination(), channel.pillar(),
 					channel.anchorX(), channel.anchorY(), channel.anchorZ(), channel.ticksLeft() - 1));
 		}
@@ -82,20 +88,6 @@ public final class WaystoneChanneling {
 		return true;
 	}
 
-	private static void gatherParticles(ServerPlayer player) {
-		if (!(player.level() instanceof ServerLevel level)) {
-			return;
-		}
-		level.sendParticles(ParticleTypes.REVERSE_PORTAL,
-				player.getX(), player.getY() + 1.0, player.getZ(),
-				2, 0.6, 1.0, 0.6, 0.06);
-		if (player.tickCount % 5 == 0) {
-			level.sendParticles(ParticleTypes.END_ROD,
-					player.getX(), player.getY() + 0.2, player.getZ(),
-					1, 0.3, 0.1, 0.3, 0.01);
-		}
-	}
-
 	private static void arrive(ServerPlayer player, Channel channel) {
 		ServerLevel destination = player.level().getServer().getLevel(channel.destination());
 		if (destination == null) {
@@ -103,28 +95,32 @@ public final class WaystoneChanneling {
 		}
 		BlockPos pillar = channel.pillar();
 		BlockState base = destination.getBlockState(pillar);
-		if (!WaystoneBlock.isLitLower(base)) {
+		if (!WaystoneBlock.isLit(base)) {
+			ServerPlayNetworking.send(player, new WaystoneChannelEndPayload(false));
 			lightWentOut(destination, pillar);
 			return;
 		}
 		BlockPos stand = standSpot(destination, pillar, WaystoneBlock.facing(destination, pillar));
 		if (stand == null) {
+			ServerPlayNetworking.send(player, new WaystoneChannelEndPayload(false));
 			lightWentOut(destination, pillar);
 			return;
 		}
 
 		ServerLevel origin = player.level();
-		origin.sendParticles(ParticleTypes.PORTAL,
-				player.getX(), player.getY() + 1.0, player.getZ(),
-				30, 0.3, 0.8, 0.3, 0.15);
+		origin.sendParticles(ModParticles.WAYSTONE_TELEPORT,
+				player.getX(), player.getY() + 0.3, player.getZ(),
+				40, 0.6, 1.0, 0.6, 0.06);
+
+		ServerPlayNetworking.send(player, new WaystoneChannelEndPayload(true));
 
 		float yaw = WaystoneBlock.facing(destination, pillar).getOpposite().toYRot();
 		player.teleportTo(destination, stand.getX() + 0.5, stand.getY(), stand.getZ() + 0.5,
 				java.util.Set.of(), yaw, player.getXRot(), false);
 
-		destination.sendParticles(ParticleTypes.END_ROD,
+		destination.sendParticles(ModParticles.WAYSTONE_TELEPORT,
 				stand.getX() + 0.5, stand.getY() + 1.2, stand.getZ() + 0.5,
-				14, 0.3, 0.7, 0.3, 0.02);
+				24, 0.5, 0.8, 0.5, 0.04);
 		destination.playSound(null, stand, SoundEvents.PLAYER_TELEPORT, SoundSource.PLAYERS, 1.0F, 1.0F);
 	}
 

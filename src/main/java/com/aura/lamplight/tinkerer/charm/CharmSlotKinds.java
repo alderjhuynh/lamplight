@@ -1,6 +1,8 @@
 package com.aura.lamplight.tinkerer.charm;
 
 import com.aura.lamplight.tinkerer.Tinkerer;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -16,6 +18,12 @@ import java.util.Locale;
 @SuppressWarnings ("all")
 public final class CharmSlotKinds {
 	private CharmSlotKinds() {}
+
+	public static final Codec<String> SLUG_CODEC = Codec.STRING.comapFlatMap(
+			slug -> bySlug(slug) == null
+					? DataResult.error(() -> "Unknown charm slot kind: " + slug)
+					: DataResult.success(slug),
+			slug -> slug);
 
 	public record Kind(String slug, Holder<Attribute> current, Holder<Attribute> max) {}
 

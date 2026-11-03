@@ -10,39 +10,41 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class WaystoneBlock extends Block {
+public class WaystoneBlock extends BaseEntityBlock {
 
     public static final MapCodec<WaystoneBlock> CODEC = BlockBehaviour.simpleCodec(WaystoneBlock::new);
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
+
+    private static final VoxelShape SHAPE = net.minecraft.world.phys.shapes.Shapes.box(
+            6 / 16.0, 0.0, 6 / 16.0, 10 / 16.0, 7 / 16.0, 10 / 16.0);
 
     public WaystoneBlock(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
-                .setValue(HALF, DoubleBlockHalf.LOWER)
                 .setValue(LIT, Boolean.FALSE));
     }
 
@@ -57,26 +59,7 @@ public class WaystoneBlock extends Block {
     }
 
     @Override
-    public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-        if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
-            placeAt(level, state, pos, Block.UPDATE_ALL);
-        } else {
-            super.setPlacedBy(level, pos, state, placer, stack);
-        }
-    }
-
-    public static void placeAt(LevelAccessor level, BlockState state, BlockPos pos, int flags) {
-        BlockState lower = state.setValue(HALF, DoubleBlockHalf.LOWER);
-        level.setBlock(pos, lower, flags);
-        level.setBlock(pos.above(), lower.setValue(HALF, DoubleBlockHalf.UPPER), flags);
-    }
-
-    @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
-            BlockState below = level.getBlockState(pos.below());
-            return below.is(this) && below.getValue(HALF) == DoubleBlockHalf.LOWER;
-        }
         BlockState below = level.getBlockState(pos.below());
         return below.isFaceSturdy(level, pos.below(), Direction.UP);
     }
@@ -85,87 +68,84 @@ public class WaystoneBlock extends Block {
     protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess access,
                                      BlockPos pos, Direction direction, BlockPos neighborPos,
                                      BlockState neighborState, RandomSource random) {
-        if (isTouchingOtherHalf(state, direction) && (!neighborState.is(this) || neighborState.getValue(HALF) == state.getValue(HALF))) {
-            return Blocks.AIR.defaultBlockState();
-        }
-        if (state.getValue(HALF) == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canSurvive(level, pos)) {
+        if (direction == Direction.DOWN && !state.canSurvive(level, pos)) {
             return Blocks.AIR.defaultBlockState();
         }
         return super.updateShape(state, level, access, pos, direction, neighborPos, neighborState, random);
     }
 
-    private static boolean isTouchingOtherHalf(BlockState state, Direction direction) {
-        return state.getValue(HALF) == DoubleBlockHalf.LOWER ? direction == Direction.UP : direction == Direction.DOWN;
-    }
-
-    @Override
-    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (!level.isClientSide() && player.isCreative()) {
-            BlockPos otherPos = state.getValue(HALF) == DoubleBlockHalf.LOWER ? pos.above() : pos.below();
-            BlockState other = level.getBlockState(otherPos);
-            if (other.is(this) && other.getValue(HALF) != state.getValue(HALF)) {
-                level.setBlock(otherPos, Blocks.AIR.defaultBlockState(),
-                        Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS);
-            }
-        }
-        return super.playerWillDestroy(level, pos, state, player);
-    }
-
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, HALF, LIT);
+        builder.add(FACING, LIT);
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SHAPE;
+    }
+
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new WaystoneBlockEntity(pos, state);
     }
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (!level.isClientSide() && player instanceof ServerPlayer traveler && level instanceof ServerLevel serverLevel) {
-            BlockPos base = base(state, pos);
-            BlockState baseState = serverLevel.getBlockState(base);
-            if (baseState.is(ModBlocks.WAYSTONE)) {
+            BlockState stoneState = serverLevel.getBlockState(pos);
+            if (stoneState.is(ModBlocks.WAYSTONE)) {
                 ResourceKey<Level> dimension = serverLevel.dimension();
                 WaystoneNetwork network = WaystoneNetwork.get(serverLevel);
-                if (!baseState.getValue(LIT)) {
-                    kindle(serverLevel, base, baseState);
-                    network.add(dimension, base);
-                    ServerPlayNetworking.send(traveler, new WaystoneNamingPayload(base, ""));
+                if (!stoneState.getValue(LIT)) {
+                    kindle(serverLevel, pos, stoneState);
+                    network.add(dimension, pos);
+                    ServerPlayNetworking.send(traveler, new WaystoneNamingPayload(pos, ""));
                     return InteractionResult.CONSUME;
                 }
-                network.rememberIfMissing(dimension, base);
+                network.rememberIfMissing(dimension, pos);
                 if (player.isShiftKeyDown()) {
                     ServerPlayNetworking.send(traveler, new WaystoneNamingPayload(
-                            base, network.name(dimension, base)));
+                            pos, network.name(dimension, pos)));
                 } else if (!WaystoneChanneling.isChanneling(traveler)) {
                     ServerPlayNetworking.send(traveler, new WaystoneTravelListPayload(
-                            base, network.travelStones(traveler, base, dimension)));
+                            pos, network.travelStones(traveler, pos, dimension)));
                 }
             }
         }
         return InteractionResult.CONSUME;
     }
 
-    private static void kindle(ServerLevel level, BlockPos base, BlockState baseState) {
-        level.setBlock(base, baseState.setValue(LIT, Boolean.TRUE), Block.UPDATE_ALL);
-        BlockState upper = level.getBlockState(base.above());
-        if (upper.is(ModBlocks.WAYSTONE) && upper.getValue(HALF) == DoubleBlockHalf.UPPER) {
-            level.setBlock(base.above(), upper.setValue(LIT, Boolean.TRUE), Block.UPDATE_ALL);
+    private static void kindle(ServerLevel level, BlockPos pos, BlockState state) {
+        level.setBlock(pos, state.setValue(LIT, Boolean.TRUE), Block.UPDATE_ALL);
+        level.playSound(null, pos, SoundEvents.BEACON_ACTIVATE, SoundSource.BLOCKS, 0.8F, 1.0F);
+        level.sendParticles(ModParticles.WAYSTONE_TELEPORT,
+                pos.getX() + 0.5, pos.getY() + 0.6, pos.getZ() + 0.5,
+                10, 0.25, 0.3, 0.25, 0.01);
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (!state.getValue(LIT)) {
+            return;
         }
-        level.playSound(null, base, SoundEvents.BEACON_ACTIVATE, SoundSource.BLOCKS, 0.8F, 1.0F);
-        level.sendParticles(ParticleTypes.END_ROD,
-                base.getX() + 0.5, base.getY() + 2.1, base.getZ() + 0.5,
-                10, 0.25, 0.5, 0.25, 0.01);
+        double particleX = pos.getX() + 0.5;
+        double particleY = pos.getY() + 0.6;
+        double particleZ = pos.getZ() + 0.5;
+        if (random.nextDouble() < 0.5) {
+            level.addParticle(ParticleTypes.SMOKE,
+                    particleX + (random.nextDouble() - 0.5) * 0.06, particleY,
+                    particleZ + (random.nextDouble() - 0.5) * 0.06,
+                    0.0, 0.0, 0.0);
+        }
+        level.addParticle(ParticleTypes.FLAME, particleX, particleY, particleZ, 0.0, 0.0, 0.0);
     }
 
-    public static BlockPos base(BlockState state, BlockPos pos) {
-        return state.getValue(HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos;
-    }
-
-    public static boolean isLitLower(BlockState state) {
+    public static boolean isLit(BlockState state) {
         return state.is(ModBlocks.WAYSTONE)
-                && state.getValue(HALF) == DoubleBlockHalf.LOWER
                 && state.getValue(LIT);
     }
 
-    public static Direction facing(ServerLevel level, BlockPos base) {
-        return level.getBlockState(base).getValue(FACING);
+    public static Direction facing(ServerLevel level, BlockPos pos) {
+        return level.getBlockState(pos).getValue(FACING);
     }
 }

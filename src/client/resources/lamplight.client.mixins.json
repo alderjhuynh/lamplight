@@ -24,6 +24,7 @@
     "menagerie.AvatarRendererMixin",    
     "panacea.LivingEntityRenderStateMixin",
     "panacea.LivingEntityRendererMixin",
+    "tinkerer.CreativeModeInventoryScreenMixin",
     "tinkerer.EffectsInInventoryPlacementMixin",
     "tinkerer.InventoryScreenReplacementMixin",
     "tinkerer.MenuContentBoundsMixin",

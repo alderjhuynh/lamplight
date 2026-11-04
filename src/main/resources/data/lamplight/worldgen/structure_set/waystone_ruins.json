@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 941021647,
+    "separation": 15,
+    "spacing": 38
+  },
+  "structures": [
+    {
+      "structure": "lamplight:waystone_ruin_small",
+      "weight": 1
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "lamplight:sandstone_bricks",
+  "result": {
+    "id": "lamplight:sandstone_brick_stairs"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "lamplight:mossy_sandstone_bricks",
+  "result": {
+    "id": "lamplight:mossy_sandstone_brick_stairs"
+  }
+}

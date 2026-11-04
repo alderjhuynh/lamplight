@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "lamplight:block/mossy_cobbled_sandstone"
+  }
+}

@@ -1,8 +1,12 @@
 package com.aura.lamplight.hearthwright;
 
 import com.aura.lamplight.hearthwright.block.AmethystBlocks;
+import com.aura.lamplight.hearthwright.block.CalciteBlocks;
 import com.aura.lamplight.hearthwright.block.ConcreteBlocks;
+import com.aura.lamplight.hearthwright.block.LodestoneBlocks;
+import com.aura.lamplight.hearthwright.block.SandstoneBlocks;
 import com.aura.lamplight.hearthwright.block.StoneBlocks;
+import com.aura.lamplight.hearthwright.block.SnowBlocks;
 import com.aura.lamplight.hearthwright.block.TerracottaBlocks;
 import net.fabricmc.api.ModInitializer;
 
@@ -25,10 +29,18 @@ public class Hearthwright implements ModInitializer {
 		StoneBlocks.register();
 		ConcreteBlocks.register();
 		AmethystBlocks.register();
+		SandstoneBlocks.register();
+		SnowBlocks.register();
+		CalciteBlocks.register();
 		TerracottaBlocks.addCreativeTabEntries();
 		StoneBlocks.addCreativeTabEntries();
 		ConcreteBlocks.addCreativeTabEntries();
 		AmethystBlocks.addCreativeTabEntries();
+		SandstoneBlocks.addCreativeTabEntries();
+		SnowBlocks.addCreativeTabEntries();
+		CalciteBlocks.addCreativeTabEntries();
+		LodestoneBlocks.register();
+		LodestoneBlocks.addCreativeTabEntries();
 	}
 
 	public static Identifier id(String path) {

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "lamplight:snow_bricks",
+  "result": {
+    "count": 2,
+    "id": "lamplight:snow_brick_slab"
+  }
+}

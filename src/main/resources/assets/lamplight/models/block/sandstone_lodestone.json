@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "lamplight:block/sandstone_lodestone_top",
+    "side": "lamplight:block/sandstone_lodestone_side"
+  }
+}

@@ -24,6 +24,8 @@
     "arcanum.ItemStackTooltipMixin",
     "arcanum.ThrownTridentLoyaltyAccessor",
     "arcanum.LivingEntityFallMixin",
+    "hearthwright.CompassItemMixin",
+    "hearthwright.PoiTypesAccessor",
     "arcanum.NoDurabilityMixin",
     "arcanum.PlayerProjectileMixin",
     "arcanum.PlayerSpinRailDataMixin",

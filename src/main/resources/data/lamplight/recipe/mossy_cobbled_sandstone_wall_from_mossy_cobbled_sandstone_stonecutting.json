@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "lamplight:mossy_cobbled_sandstone",
+  "result": {
+    "id": "lamplight:mossy_cobbled_sandstone_wall"
+  }
+}

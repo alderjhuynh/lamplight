@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "lamplight:block/mossy_sandstone_bricks",
+    "side": "lamplight:block/mossy_sandstone_bricks",
+    "top": "lamplight:block/mossy_sandstone_bricks"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "lamplight:block/polished_calcite_bricks",
+    "side": "lamplight:block/polished_calcite_bricks",
+    "top": "lamplight:block/polished_calcite_bricks"
+  }
+}

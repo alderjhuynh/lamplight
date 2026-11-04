@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "lamplight:block/snow_bricks",
+    "side": "lamplight:block/snow_bricks",
+    "top": "lamplight:block/snow_bricks"
+  }
+}

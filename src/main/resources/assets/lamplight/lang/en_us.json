@@ -588,6 +588,7 @@
   "tooltip.lamplight.charm_unknown": "Unknown inset: %s",
   "tooltip.lamplight.charm_alloy": "Amplifies Other Insets by %s",
   "tooltip.lamplight.charm_other": "Custom Charm Effect",
+  "tooltip.lamplight.charm_totals": "Charm Totals",
   "template.lamplight.band": "Ring Band",
   "template.lamplight.twin_band": "Twin Band",
   "template.lamplight.signet": "Signet",

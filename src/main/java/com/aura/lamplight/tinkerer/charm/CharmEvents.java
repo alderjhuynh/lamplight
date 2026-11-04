@@ -57,6 +57,7 @@ public final class CharmEvents {
 		ServerLivingEntityEvents.AFTER_DAMAGE.register(CharmEvents::afterDamage);
 		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
 			CharmSlotAttributes.ensureBases(newPlayer);
+			SIGNATURES.remove(newPlayer.getUUID());
 			CharmDataSyncer.forget(newPlayer.getUUID());
 		});
 		ServerTickEvents.END_SERVER_TICK.register(server -> {
@@ -75,10 +76,8 @@ public final class CharmEvents {
 				.toList()
 				.toString();
 		String previous = SIGNATURES.put(player.getUUID(), signature);
-		if (signature.equals(previous)) {
-			if (player.tickCount % 20 == 0) {
-				tickCleanse(player);
-			}
+		boolean selfHeal = player.tickCount % 20 == 0;
+		if (signature.equals(previous) && !selfHeal) {
 			return;
 		}
 		CharmAggregate.stripAttributes(player);

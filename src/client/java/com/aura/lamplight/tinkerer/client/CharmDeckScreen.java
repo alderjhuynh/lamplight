@@ -4,6 +4,7 @@ import com.aura.lamplight.client.mixin.tinkerer.RecipeBookScreenAccessor;
 import com.aura.lamplight.tinkerer.CharmEquipSlot;
 import com.aura.lamplight.tinkerer.Tinkerer;
 import com.aura.lamplight.tinkerer.charm.CharmDeckLayout;
+import com.aura.lamplight.tinkerer.client.CharmTooltips;
 import com.aura.lamplight.wayfarer.atlas.AtlasPanel;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -205,8 +206,31 @@ public class CharmDeckScreen extends InventoryScreen {
 			}
 			return;
 		}
+		if (this.mouseOnDeckPanel(mouseX, mouseY) && this.wornTotalsTooltip(gfx, mouseX, mouseY)) {
+			return;
+		}
 		this.extractEffectTooltip(gfx, mouseX, mouseY);
 		super.extractTooltip(gfx, mouseX, mouseY);
+	}
+
+	private boolean wornTotalsTooltip(final GuiGraphicsExtractor gfx, final int mouseX, final int mouseY) {
+		List<Component> totals = CharmTooltips.wornTotals(this.player);
+		if (totals.isEmpty()) {
+			return false;
+		}
+		gfx.setTooltipForNextFrame(this.font, totals, Optional.empty(), mouseX, mouseY);
+		return true;
+	}
+
+	private boolean mouseOnDeckPanel(final int mouseX, final int mouseY) {
+		if (!this.isDeckOpen() || this.hoveredSlot != null) {
+			return false;
+		}
+		int panelX = this.leftPos + CharmEquipSlot.DECK_ORIGIN_X;
+		int panelY = this.topPos + CharmEquipSlot.DECK_ORIGIN_Y;
+		int panelHeight = CharmDeckLayout.panelHeight(this.wells().size());
+		return mouseX >= panelX && mouseX < panelX + CharmDeckLayout.PANEL_WIDTH
+				&& mouseY >= panelY && mouseY < panelY + panelHeight;
 	}
 
 	@Override

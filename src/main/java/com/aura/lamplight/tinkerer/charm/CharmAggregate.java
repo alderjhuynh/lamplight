@@ -28,6 +28,22 @@ public final class CharmAggregate {
 
 	public record Entry(Identifier slotId, ItemStack stack) {}
 
+	private static final class Clamped {
+		private double sum;
+		private double cap = 1.0;
+
+		private void add(final double value, final double limit) {
+			if (limit < this.cap) {
+				this.cap = limit;
+			}
+			this.sum += value;
+		}
+
+		private double value() {
+			return Math.min(this.cap, this.sum);
+		}
+	}
+
 	private static final class ResistBucket {
 		private double fraction;
 		private double cap = 1.0;
@@ -48,15 +64,19 @@ public final class CharmAggregate {
 		}
 	}
 
+	private static final class CleanseRate {
+		private final Clamped rate = new Clamped();
+	}
+
 	private final Object2ObjectMap<Holder<Attribute>, Object2DoubleMap<AttributeModifier.Operation>> attributes = new Object2ObjectArrayMap<>();
-	private double dodgeChance;
-	private List<TagKey<DamageType>> cannotDodge = List.of();
-	private double igniteChance;
-	private double igniteSeconds;
-	private double critChance;
-	private double critBonus;
+	private final Clamped dodgeChance = new Clamped();
+	private final List<TagKey<DamageType>> cannotDodge = new ArrayList<>();
+	private final Clamped igniteChance = new Clamped();
+	private final Clamped igniteSeconds = new Clamped();
+	private final Clamped critChance = new Clamped();
+	private final Clamped critBonus = new Clamped();
 	private final List<ResistBucket> resistBuckets = new ArrayList<>();
-	private final Object2DoubleMap< Holder<MobEffect>> cleanseRates = new Object2DoubleArrayMap<>();
+	private final Object2ObjectMap<Holder<MobEffect>, CleanseRate> cleanseRates = new Object2ObjectArrayMap<>();
 
 	public static CharmAggregate of(final List<Entry> worn) {
 		CharmAggregate aggregate = new CharmAggregate();
@@ -77,19 +97,24 @@ public final class CharmAggregate {
 			this.attributes.computeIfAbsent(attr.attribute(), k -> new Object2DoubleArrayMap<>())
 					.merge(attr.operation(), attr.amount() * potency, Double::sum);
 		} else if (effect instanceof DodgeCharmEffect dodge) {
-			this.cannotDodge = dodge.cannotDodge();
-			this.dodgeChance = Math.min(dodge.cap(), this.dodgeChance + dodge.chance() * potency);
+			this.dodgeChance.add(dodge.chance() * potency, dodge.cap());
+			for (TagKey<DamageType> tag : dodge.cannotDodge()) {
+				if (!this.cannotDodge.contains(tag)) {
+					this.cannotDodge.add(tag);
+				}
+			}
 		} else if (effect instanceof IgniteCharmEffect ignite) {
-			this.igniteChance = Math.min(ignite.capChance(), this.igniteChance + ignite.chance() * potency);
-			this.igniteSeconds = Math.min(ignite.capSeconds(), this.igniteSeconds + ignite.seconds() * potency);
+			this.igniteChance.add(ignite.chance() * potency, ignite.capChance());
+			this.igniteSeconds.add(ignite.seconds() * potency, ignite.capSeconds());
 		} else if (effect instanceof CritCharmEffect crit) {
-			this.critChance = Math.min(crit.capChance(), this.critChance + crit.chance() * potency);
-			this.critBonus = Math.min(crit.capBonus(), this.critBonus + crit.bonus() * potency);
+			this.critChance.add(crit.chance() * potency, crit.capChance());
+			this.critBonus.add(crit.bonus() * potency, crit.capBonus());
 		} else if (effect instanceof ResistCharmEffect resist) {
 			mergeResistance(resist, potency);
 		} else if (effect instanceof CleanseCharmEffect cleanse) {
 			for (Holder<MobEffect> matched : cleanse.effects()) {
-				this.cleanseRates.mergeDouble(matched, Math.min(cleanse.cap(), cleanse.ratePerPotency() * potency), Double::sum);
+				CleanseRate bucket = this.cleanseRates.computeIfAbsent(matched, key -> new CleanseRate());
+				bucket.rate.add(cleanse.ratePerPotency() * potency, cleanse.cap());
 			}
 		}
 	}
@@ -108,7 +133,15 @@ public final class CharmAggregate {
 	}
 
 	public double dodgeChance() {
-		return this.dodgeChance;
+		return this.dodgeChance.value();
+	}
+
+	public double dodgeChanceUncapped() {
+		return this.dodgeChance.sum;
+	}
+
+	public double dodgeCap() {
+		return this.dodgeChance.cap;
 	}
 
 	public List<TagKey<DamageType>> cannotDodge() {
@@ -116,23 +149,39 @@ public final class CharmAggregate {
 	}
 
 	public double igniteChance() {
-		return this.igniteChance;
+		return this.igniteChance.value();
+	}
+
+	public double igniteChanceUncapped() {
+		return this.igniteChance.sum;
 	}
 
 	public double igniteSeconds() {
-		return this.igniteSeconds;
+		return this.igniteSeconds.value();
 	}
 
 	public double critChance() {
-		return this.critChance;
+		return this.critChance.value();
+	}
+
+	public double critChanceUncapped() {
+		return this.critChance.sum;
 	}
 
 	public double critBonus() {
-		return this.critBonus;
+		return this.critBonus.value();
+	}
+
+	public double critBonusUncapped() {
+		return this.critBonus.sum;
 	}
 
 	public Object2DoubleMap<Holder<MobEffect>> cleanseRates() {
-		return this.cleanseRates;
+		Object2DoubleMap<Holder<MobEffect>> clamped = new Object2DoubleArrayMap<>();
+		for (Object2ObjectMap.Entry<Holder<MobEffect>, CleanseRate> entry : this.cleanseRates.object2ObjectEntrySet()) {
+			clamped.put(entry.getKey(), entry.getValue().rate.value());
+		}
+		return clamped;
 	}
 
 	public double resist(final Holder<DamageType> type) {
@@ -141,6 +190,31 @@ public final class CharmAggregate {
 			total += bucket.reduce(type);
 		}
 		return Math.min(total, 1.0);
+	}
+
+	public record ResistGroup(List<Identifier> types, List<TagKey<DamageType>> tags, double fraction) {}
+
+	public record AttributeGroup(Holder<Attribute> attribute, AttributeModifier.Operation operation, double amount) {}
+
+	public List<AttributeGroup> attributeGroups() {
+		List<AttributeGroup> groups = new ArrayList<>();
+		for (Map.Entry<Holder<Attribute>, Object2DoubleMap<AttributeModifier.Operation>> entry : this.attributes.entrySet()) {
+			for (Object2DoubleMap.Entry<AttributeModifier.Operation> mod : entry.getValue().object2DoubleEntrySet()) {
+				if (mod.getDoubleValue() != 0.0) {
+					groups.add(new AttributeGroup(entry.getKey(), mod.getKey(), mod.getDoubleValue()));
+				}
+			}
+		}
+		return groups;
+	}
+
+	public List<ResistGroup> resistGroups() {
+		List<ResistGroup> groups = new ArrayList<>();
+		for (ResistBucket bucket : this.resistBuckets) {
+			ResistCharmEffect first = bucket.effects.get(0);
+			groups.add(new ResistGroup(first.types(), first.tags(), Math.min(bucket.cap, bucket.fraction)));
+		}
+		return groups;
 	}
 
 	public static Identifier modifierId(final Holder<Attribute> attribute, final AttributeModifier.Operation operation) {
@@ -189,9 +263,10 @@ public final class CharmAggregate {
 
 	public boolean isEmpty() {
 		return this.attributes.isEmpty()
-				&& this.dodgeChance == 0.0
-				&& this.igniteChance == 0.0
-				&& this.critChance == 0.0
+				&& this.dodgeChance.sum == 0.0
+				&& this.igniteChance.sum == 0.0
+				&& this.igniteSeconds.sum == 0.0
+				&& this.critChance.sum == 0.0
 				&& this.resistBuckets.isEmpty()
 				&& this.cleanseRates.isEmpty();
 	}

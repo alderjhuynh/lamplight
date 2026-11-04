@@ -2,6 +2,7 @@ package com.aura.lamplight.tinkerer;
 
 import com.aura.lamplight.tinkerer.charm.CharmEffectTypes;
 import com.aura.lamplight.tinkerer.charm.CharmDataSyncer;
+import com.aura.lamplight.tinkerer.charm.CharmDiagnostics;
 import com.aura.lamplight.tinkerer.charm.CharmEvents;
 import com.aura.lamplight.tinkerer.charm.CharmMaterials;
 import com.aura.lamplight.tinkerer.charm.CharmSlotTypes;
@@ -33,6 +34,7 @@ public class Tinkerer implements ModInitializer {
 		JewelingSetPatternPayload.initialize();
 		JewelingPatternAppliedPayload.initialize();
 		CharmEvents.initialize();
+		CharmDiagnostics.initialize();
 		CharmDataSyncer.initialize();
 	}
 

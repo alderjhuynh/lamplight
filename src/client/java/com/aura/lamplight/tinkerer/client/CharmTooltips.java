@@ -4,6 +4,8 @@ import com.aura.lamplight.tinkerer.CharmItem;
 import com.aura.lamplight.tinkerer.TemplateItem;
 import com.aura.lamplight.tinkerer.charm.AlloyCharmEffect;
 import com.aura.lamplight.tinkerer.charm.AttributeCharmEffect;
+import com.aura.lamplight.tinkerer.charm.CharmAggregate;
+import com.aura.lamplight.tinkerer.charm.CharmAttachments;
 import com.aura.lamplight.tinkerer.charm.CharmEffect;
 import com.aura.lamplight.tinkerer.charm.CharmMaterial;
 import com.aura.lamplight.tinkerer.charm.CharmTemplate;
@@ -18,20 +20,27 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Environment(EnvType.CLIENT)
+@SuppressWarnings ("all")
 public final class CharmTooltips {
 	private CharmTooltips() {}
 
@@ -86,6 +95,7 @@ public final class CharmTooltips {
 		addInsetsRow(insets, lines);
 		lines.add(Component.empty());
 		lines.add(Component.translatable("tooltip.lamplight.charm_when_worn").withStyle(ChatFormatting.GRAY));
+		boolean capped = false;
 		for (int i = 0; i < insets.size(); i++) {
 			ResolvedCharm.InsetApplication inset = insets.get(i);
 			if (inset.material() == null) {
@@ -100,6 +110,8 @@ public final class CharmTooltips {
 							.withStyle(ChatFormatting.BLUE));
 					continue;
 				}
+				capped |= effect instanceof DodgeCharmEffect || effect instanceof IgniteCharmEffect
+						|| effect instanceof CritCharmEffect || effect instanceof CleanseCharmEffect;
 				lines.add(effectLine(effect, inset.potency()).withStyle(ChatFormatting.BLUE));
 			}
 		}
@@ -127,7 +139,14 @@ public final class CharmTooltips {
 
 	private static MutableComponent effectLine(final CharmEffect effect, final double potency) {
 		if (effect instanceof AttributeCharmEffect attr) {
-			return Component.literal(signedPercent(attr.amount() * potency) + " " + attributeName(attr));
+			double value = attr.amount() * potency;
+			// Attribute charms grant flat points under ADD_VALUE; only the multiplied
+			// operations are true percentages of the attribute's base/total. Report the
+			// units the engine actually uses instead of always writing "%".
+			String amount = attr.operation() == AttributeModifier.Operation.ADD_VALUE
+					? signedPoints(value)
+					: signedPercent(value);
+			return Component.literal(amount + " " + attributeName(attr));
 		}
 		if (effect instanceof DodgeCharmEffect dodge) {
 			return Component.literal(plainPercent(dodge.chance() * potency) + " Dodge Chance");
@@ -142,7 +161,7 @@ public final class CharmTooltips {
 		}
 		if (effect instanceof ResistCharmEffect resist) {
 			return Component.literal("-" + plainPercent(resist.fraction() * potency)
-					+ " " + damageScope(resist));
+					+ " " + damageScope(resist.types(), resist.tags()));
 		}
 		if (effect instanceof CleanseCharmEffect cleanse) {
 			return Component.literal(plainPercent(cleanse.ratePerPotency() * potency) + "/s Debuff Cleanse");
@@ -152,20 +171,29 @@ public final class CharmTooltips {
 
 	private static String attributeName(final AttributeCharmEffect attr) {
 		Identifier id = BuiltInRegistries.ATTRIBUTE.getKey(attr.attribute().value());
+		return attributeName(id);
+	}
+
+	private static String attributeName(final Holder<Attribute> attribute) {
+		Identifier id = BuiltInRegistries.ATTRIBUTE.getKey(attribute.value());
+		return attributeName(id);
+	}
+
+	private static String attributeName(final Identifier id) {
 		return Component.translatableWithFallback("attribute.name." + id.getPath(),
 				titleCase(id.getPath())).getString();
 	}
 
-	private static String damageScope(final ResistCharmEffect resist) {
+	private static String damageScope(final List<Identifier> types, final List<TagKey<DamageType>> tags) {
 		List<String> names = new ArrayList<>();
-		for (TagKey<DamageType> tag : resist.tags()) {
+		for (TagKey<DamageType> tag : tags) {
 			String path = tag.location().getPath();
 			if (path.startsWith("is_")) {
 				path = path.substring(3);
 			}
 			names.add(titleCase(path));
 		}
-		for (Identifier type : resist.types()) {
+		for (Identifier type : types) {
 			names.add(titleCase(type.getPath()));
 		}
 		if (names.isEmpty()) {
@@ -198,6 +226,13 @@ public final class CharmTooltips {
 		return String.format("%+.0f%%", value * 100.0);
 	}
 
+	private static String signedPoints(final double value) {
+		if (Math.abs(value - Math.rint(value)) < 1e-9) {
+			return String.format("%+.0f", value);
+		}
+		return String.format("%+.2f", value);
+	}
+
 	private static String focusPercent(final double value) {
 		return String.format("%.2f", value);
 	}
@@ -209,8 +244,86 @@ public final class CharmTooltips {
 		return String.format("%.1fs", value);
 	}
 
-	private static Component materialName(final CharmMaterial material) {
-		Identifier itemId = material.item();
+	public static List<Component> wornTotals(final Player player) {
+		CharmAggregate aggregate = CharmAggregate.of(CharmAttachments.wornEntries(player));
+		if (aggregate.isEmpty()) {
+			return List.of();
+		}
+		List<Component> lines = new ArrayList<>();
+		lines.add(Component.translatable("tooltip.lamplight.charm_totals")
+				.withStyle(ChatFormatting.WHITE));
+		for (CharmAggregate.AttributeGroup group : aggregate.attributeGroups()) {
+			double amount = group.amount();
+			boolean percentage = group.operation() != AttributeModifier.Operation.ADD_VALUE;
+			String styled = percentage ? signedPercent(amount) : signedPoints(amount);
+			lines.add(Component.literal(styled + " " + attributeName(group.attribute()))
+					.withStyle(ChatFormatting.BLUE));
+		}
+		double dodgeRaw = aggregate.dodgeChanceUncapped();
+		if (dodgeRaw > 0.0) {
+			double dodgeApplied = aggregate.dodgeChance();
+			lines.add(Component.literal(plainPercent(dodgeApplied) + " Dodge Chance"
+					+ capNote(dodgeRaw, dodgeApplied)).withStyle(ChatFormatting.BLUE));
+		}
+		double igniteRawChance = aggregate.igniteChanceUncapped();
+		if (igniteRawChance > 0.0 || aggregate.igniteSeconds() > 0.0) {
+			lines.add(Component.literal(plainPercent(aggregate.igniteChance()) + " Ignite Chance ("
+					+ seconds(aggregate.igniteSeconds()) + ")"
+					+ capNote(igniteRawChance, aggregate.igniteChance())).withStyle(ChatFormatting.BLUE));
+		}
+		double critRawChance = aggregate.critChanceUncapped();
+		double critRawBonus = aggregate.critBonusUncapped();
+		if (critRawChance > 0.0 || critRawBonus > 0.0) {
+			lines.add(Component.literal(plainPercent(aggregate.critChance()) + " Crit Chance, +"
+					+ plainPercent(aggregate.critBonus()) + " Damage"
+					+ critCapNote(critRawChance, aggregate.critChance(), critRawBonus, aggregate.critBonus()))
+					.withStyle(ChatFormatting.BLUE));
+		}
+		for (CharmAggregate.ResistGroup group : aggregate.resistGroups()) {
+			lines.add(Component.literal("-" + plainPercent(group.fraction())
+					+ " " + damageScope(group.types(), group.tags())).withStyle(ChatFormatting.BLUE));
+		}
+		for (Map.Entry<Holder<MobEffect>, Double> entry : aggregate.cleanseRates().object2DoubleEntrySet()) {
+			entry.getKey().unwrapKey().ifPresent(key -> lines.add(Component.literal(
+					plainPercent(Math.min(1.0, entry.getValue())) + "/s "
+					+ titleCase(key.identifier().getPath()) + " Cleanse")
+					.withStyle(ChatFormatting.BLUE)));
+		}
+		if (!aggregate.cannotDodge().isEmpty()) {
+			List<String> scopes = new ArrayList<>();
+			for (TagKey<DamageType> tag : aggregate.cannotDodge()) {
+				scopes.add(titleCase(tag.location().getPath()).toLowerCase());
+			}
+		}
+		return lines;
+	}
+
+	private static String capNote(final double raw, final double applied) {
+		if (applied >= raw - 1e-9) {
+			return "";
+		}
+		return " (" + plainPercent(raw) + " before cap)";
+	}
+
+	private static String critCapNote(final double rawChance, final double appliedChance,
+	                                  final double rawBonus, final double appliedBonus) {
+		StringBuilder note = new StringBuilder();
+		if (appliedChance < rawChance - 1e-9) {
+			note.append("capped at ").append(plainPercent(appliedChance)).append(" chance");
+		}
+		if (appliedBonus < rawBonus - 1e-9) {
+			if (note.length() > 0) {
+				note.append(", ");
+			}
+			note.append(plainPercent(appliedBonus)).append(" bonus");
+		}
+		if (note.length() == 0) {
+			return "";
+		}
+		return " (" + note + ")";
+	}
+
+	private static Component materialName(final CharmMaterial material) {		Identifier itemId = material.item();
 		Item item = BuiltInRegistries.ITEM.getOptional(itemId).orElse(null);
 		if (item == null) {
 			return literalItem(itemId);

@@ -2,6 +2,7 @@
     "values": [
         "#melee_weapons/axes",
         "#melee_weapons/swords",
+        "#melee_weapons/scythes",
         "#melee_weapons/spears",
         "#melee_weapons/special"
     ]

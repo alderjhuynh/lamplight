@@ -13,8 +13,8 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 
 public class ArmoryClient implements ClientModInitializer {
-	// master switch for transform editor. off now that tuning is baked in
 	private static final boolean ENABLE_TRANSFORM_EDITOR = false;
+	private static final boolean ENABLE_SCYTHE_POSE_EDITOR = false;
 
 	@Override
 	public void onInitializeClient() {
@@ -33,6 +33,8 @@ public class ArmoryClient implements ClientModInitializer {
 			});
 		}
 
+		// registerScythePoseEditor(category); // TEMP scythe pose editor 
+
 		KeyMapping drawSheathKey = KeyMappingHelper.registerKeyMapping(
 				new KeyMapping("key.lamplight.draw_sheath", InputConstants.Type.KEYSYM, InputConstants.KEY_G, category));
 
@@ -41,6 +43,24 @@ public class ArmoryClient implements ClientModInitializer {
 		LivingEntityRenderLayerRegistrationCallback.EVENT.register((entityType, renderer, helper, context) -> {
 			if (renderer instanceof AvatarRenderer<?> avatarRenderer) {
 				helper.register(new BackSlotLayer(avatarRenderer));
+			}
+		});
+	}
+
+	// temporary: registers the scythe pose editor keybind/screen.
+	private static void registerScythePoseEditor(KeyMapping.Category category) {
+		if (!ENABLE_SCYTHE_POSE_EDITOR) {
+			return;
+		}
+		KeyMapping scythePoseKey = KeyMappingHelper.registerKeyMapping(
+				new KeyMapping("key.lamplight.scythe_pose_editor", InputConstants.Type.KEYSYM, InputConstants.KEY_K, category));
+
+		ScythePoseEditorStore editorStore = ScythePoseEditorStore.load();
+		editorStore.applyToLive();
+
+		ClientTickEvents.END_CLIENT_TICK.register(client -> {
+			if (scythePoseKey.consumeClick() && client.gui.screen() == null && client.player != null) {
+				client.gui.setScreen(new ScythePoseEditorScreen(editorStore));
 			}
 		});
 	}

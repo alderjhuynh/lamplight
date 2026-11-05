@@ -8,10 +8,18 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Set;
 
 @SuppressWarnings("all")
-// items that render on the back with the in-hand model instead of the fixed model. 
+// items that render on the back with the in-hand model instead of the fixed model.
 public final class BackSlotHandItems {
 	private static final Set<Identifier> EXTRA_HAND_MODEL_IDS = Set.of(
-			Identifier.fromNamespaceAndPath("lamplight", "iron_katana"));
+			Identifier.fromNamespaceAndPath("lamplight", "iron_katana"),
+			Identifier.fromNamespaceAndPath("lamplight", "wooden_scythe"),
+			Identifier.fromNamespaceAndPath("lamplight", "stone_scythe"),
+			Identifier.fromNamespaceAndPath("lamplight", "copper_scythe"),
+			Identifier.fromNamespaceAndPath("lamplight", "iron_scythe"),
+			Identifier.fromNamespaceAndPath("lamplight", "golden_scythe"),
+			Identifier.fromNamespaceAndPath("lamplight", "diamond_scythe"),
+			Identifier.fromNamespaceAndPath("lamplight", "netherite_scythe")
+	);
 
 	private BackSlotHandItems() {
 	}

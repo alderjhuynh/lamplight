@@ -191,6 +191,7 @@
   "enchantment.lamplight.water_breathing.desc": "Grants Water Breathing while worn.",
   "category.lamplight": "Armory",
   "key.lamplight.backslot_edit": "Edit Back-Slot Transform",
+  "key.lamplight.scythe_pose_editor": "Scythe Pose Editor (dev)",
   "key.lamplight.draw_sheath": "Use Back Item",
   "item.lamplight.iron_katana": "Iron Katana",
   "item.lamplight.wooden_scythe": "Wooden Scythe",

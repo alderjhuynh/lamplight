@@ -1,5 +1,6 @@
 package com.aura.lamplight.arcanum.enchantment;
 
+import com.aura.lamplight.armory.ModItems;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -434,6 +435,7 @@ public final class ArcanumEnchantmentHelper {
         if (ench.isSupportedItem(new ItemStack(Items.DIAMOND_SWORD))) sprites.add(NETHERITE_SWORD);
         if (ench.isSupportedItem(new ItemStack(Items.DIAMOND_AXE))) sprites.add(NETHERITE_AXE);
         if (ench.isSupportedItem(new ItemStack(Items.DIAMOND_SPEAR))) sprites.add(NETHERITE_SPEAR);
+        if (ench.isSupportedItem(new ItemStack(ModItems.NETHERITE_SCYTHE))) sprites.add(NETHERITE_SCYTHE);
         if (ench.isSupportedItem(new ItemStack(Items.MACE))) sprites.add(MACE);
         if (ench.isSupportedItem(new ItemStack(Items.TRIDENT))) sprites.add(TRIDENT);
         if (ench.isSupportedItem(new ItemStack(Items.BOW))) sprites.add(BOW);
@@ -453,6 +455,7 @@ public final class ArcanumEnchantmentHelper {
     private static final Identifier NETHERITE_SWORD = Identifier.withDefaultNamespace("item/netherite_sword");
     private static final Identifier NETHERITE_AXE = Identifier.withDefaultNamespace("item/netherite_axe");
     private static final Identifier NETHERITE_SPEAR = Identifier.withDefaultNamespace("item/netherite_spear");
+    private static final Identifier NETHERITE_SCYTHE = Identifier.fromNamespaceAndPath("lamplight", "item/netherite_scythe");
     private static final Identifier MACE = Identifier.withDefaultNamespace("item/mace");
     private static final Identifier TRIDENT = Identifier.withDefaultNamespace("item/trident");
     private static final Identifier BOW = Identifier.withDefaultNamespace("item/bow");

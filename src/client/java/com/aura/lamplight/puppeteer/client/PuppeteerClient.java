@@ -6,5 +6,6 @@ public class PuppeteerClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         AnimationClientState.initialize();
+        LocalActionDetector.initialize();
     }
 }

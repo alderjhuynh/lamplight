@@ -6,14 +6,18 @@ import com.aura.lamplight.puppeteer.animation.AnimationDefinitions;
 import com.aura.lamplight.puppeteer.animation.BodyPart;
 import com.aura.lamplight.puppeteer.animation.Vector3;
 import com.aura.lamplight.puppeteer.client.AnimationClientState;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import net.fabricmc.fabric.api.client.rendering.v1.FabricRenderState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -34,63 +38,145 @@ public abstract class HumanoidModelAnimationMixin<T extends HumanoidRenderState>
     @Shadow
     public ModelPart leftLeg;
 
+    @Unique
+    private static final Map<ModelPart, Vector3> BASE_SCALES = new HashMap<>();
+
     @Inject(method = "setupAnim", at = @At("TAIL"))
     private void puppeteer$applyAnimation(final T state, final CallbackInfo ci) {
-        AnimationClientState.Active active = ((FabricRenderState) state).getData(AnimationClientState.ANIMATION_RENDER_DATA);
-        if (active == null) {
+        AnimationClientState.Captured captured = ((FabricRenderState) state).getData(AnimationClientState.ANIMATION_RENDER_DATA);
+        if (captured == null) {
             return;
         }
-
-        AnimationDefinition definition = AnimationDefinitions.byId(active.animationId());
-        if (definition == null) {
+        AnimationClientState.ActiveSet activeSet = captured.set();
+        float clock = captured.clock();
+        if (activeSet == null) {
+            puppeteer$restoreBaseScales();
             return;
         }
+        if (activeSet.layers().isEmpty()) {
+            puppeteer$restoreBaseScales();
+        } else {
+            for (ModelPart part : new ModelPart[] {body, head, rightArm, leftArm, rightLeg, leftLeg}) {
+                BASE_SCALES.computeIfAbsent(part, key -> new Vector3(key.xScale, key.yScale, key.zScale));
+            }
+        }
 
-        float tick = computeTick(definition, active);
+        Map<Identifier, AnimationClientState.Seen> seen = AnimationClientState.trackSeen(activeSet, clock);
+        List<AnimationClientState.Layer> layers = activeSet.layers();
 
-        for (AnimationChannel channel : definition.channels()) {
-            ModelPart part = partFor(channel.part());
-            if (part == null) {
+        boolean willAnimate = !layers.isEmpty() || !seen.isEmpty();
+        if (!willAnimate) {
+            AnimationClientState.pruneSeen(activeSet, clock);
+            return;
+        }
+        body.resetPose();
+        rightArm.resetPose();
+        leftArm.resetPose();
+        rightLeg.resetPose();
+        leftLeg.resetPose();
+
+        for (AnimationClientState.Layer layer : layers) {
+            AnimationClientState.Seen entry = seen.get(layer.animationId());
+            float weight = Math.min(1.0F, (clock - entry.firstSeen()) / AnimationClientState.FADE_TICKS);
+            if (weight > 0.0F) {
+                puppeteer$applyLayer(layer, weight, AnimationClientState.phaseOf(activeSet, layer.animationId()));
+            }
+        }
+
+        for (Map.Entry<Identifier, AnimationClientState.Seen> ghost : seen.entrySet()) {
+            boolean present = false;
+            for (AnimationClientState.Layer layer : layers) {
+                present |= layer.animationId().equals(ghost.getKey());
+            }
+            if (present) {
                 continue;
             }
-            Vector3[] sample = channel.sample(tick);
-            Vector3 rotation = sample[0];
-            Vector3 translation = sample[1];
+            float since = clock - ghost.getValue().lastPresent();
+            if (since < 0.0F || since > AnimationClientState.FADE_TICKS) {
+                continue;
+            }
+            float weight = 1.0F - since / AnimationClientState.FADE_TICKS;
+            if (weight > 0.0F) {
+                puppeteer$applyLayer(new AnimationClientState.Layer(ghost.getKey(), 0L), weight,
+                    AnimationClientState.phaseOf(activeSet, ghost.getKey()));
+            }
+        }
 
-            part.xRot += (float) Math.toRadians(rotation.x());
-            part.yRot += (float) Math.toRadians(rotation.y());
-            part.zRot += (float) Math.toRadians(rotation.z());
-            part.x += translation.x();
-            part.y += translation.y();
-            part.z += translation.z();
+        AnimationClientState.pruneSeen(activeSet, clock);
+    }
+
+    @Unique
+    private void puppeteer$restoreBaseScales() {
+        for (Map.Entry<ModelPart, Vector3> entry : BASE_SCALES.entrySet()) {
+            entry.getKey().xScale = entry.getValue().x();
+            entry.getKey().yScale = entry.getValue().y();
+            entry.getKey().zScale = entry.getValue().z();
         }
     }
 
-    private static float computeTick(final AnimationDefinition definition, final AnimationClientState.Active active) {
-        Minecraft client = Minecraft.getInstance();
-        if (client.level == null) {
-            return 0.0F;
+    @Unique
+    private void puppeteer$applyLayer(
+        final AnimationClientState.Layer layer,
+        final float weight,
+        final float phase
+    ) {
+        AnimationDefinition definition = AnimationDefinitions.byId(layer.animationId());
+        if (definition == null || weight <= 0.0F) {
+            return;
         }
 
-        long elapsed = client.level.getGameTime() - active.startGameTime();
-        if (elapsed <= 0) {
-            return 0.0F;
+        float tick = phase;
+        float length = definition.lengthTicks();
+        if (definition.loop() && !definition.holdLastFrame()) {
+            if (length > 0.0F) {
+                tick = phase % length;
+            }
+        } else {
+            tick = Math.min(phase, length);
         }
 
-        if (definition.loop() && definition.lengthTicks() > 0) {
-            elapsed = elapsed % definition.lengthTicks();
+        for (AnimationChannel channel : definition.channels()) {
+            Vector3[] sampled = channel.sample(tick,
+                definition.loop() && !definition.holdLastFrame() ? definition.lengthTicks() : 0.0F);
+            for (ModelPart part : puppeteer$partsFor(channel.part())) {
+                if (part == null) {
+                    continue;
+                }
+                Vector3 rotation = sampled[0];
+                Vector3 translation = sampled[1];
+
+                if (!channel.scaleKeyframes().isEmpty()) {
+                    part.xScale *= lerp(1.0F, sampled[2].x(), weight);
+                    part.yScale *= lerp(1.0F, sampled[2].y(), weight);
+                    part.zScale *= lerp(1.0F, sampled[2].z(), weight);
+                }
+
+                part.xRot += (float) Math.toRadians(rotation.x() * weight);
+                part.yRot += (float) Math.toRadians(rotation.y() * weight);
+                part.zRot += (float) Math.toRadians(rotation.z() * weight);
+                part.x += translation.x() * weight;
+                part.y += translation.y() * weight;
+                part.z += translation.z() * weight;
+            }
         }
-        return (float) elapsed;
     }
 
-    private @Nullable ModelPart partFor(final BodyPart part) {
+    @Unique
+    private static float lerp(final float a, final float b, final float t) {
+        return a + (b - a) * t;
+    }
+
+    @Unique
+    private ModelPart @Nullable [] puppeteer$partsFor(final BodyPart part) {
         return switch (part) {
-            case HEAD -> head;
-            case BODY -> body;
-            case RIGHT_ARM -> rightArm;
-            case LEFT_ARM -> leftArm;
-            case RIGHT_LEG -> rightLeg;
-            case LEFT_LEG -> leftLeg;
+            case HEAD -> new ModelPart[] {head};
+            case BODY -> new ModelPart[] {body};
+            case RIGHT_ARM -> new ModelPart[] {rightArm};
+            case LEFT_ARM -> new ModelPart[] {leftArm};
+            case RIGHT_LEG -> new ModelPart[] {rightLeg};
+            case LEFT_LEG -> new ModelPart[] {leftLeg};
+            case WAIST -> new ModelPart[] {body, head, rightArm, leftArm};
+            case ROOT -> new ModelPart[] {body, head, rightArm, leftArm, rightLeg, leftLeg};
         };
     }
 }

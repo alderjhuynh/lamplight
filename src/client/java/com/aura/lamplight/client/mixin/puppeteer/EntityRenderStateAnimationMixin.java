@@ -15,7 +15,9 @@ public abstract class EntityRenderStateAnimationMixin<T extends LivingEntity, S 
 
     @Inject(method = "extractRenderState", at = @At("TAIL"))
     private void puppeteer$captureAnimationState(final T entity, final S state, final float partialTicks, final CallbackInfo ci) {
-        AnimationClientState.Active active = AnimationClientState.get(entity.getId());
-        ((FabricRenderState) state).setData(AnimationClientState.ANIMATION_RENDER_DATA, active);
+        AnimationClientState.ActiveSet activeSet = AnimationClientState.get(entity.getId());
+        float clock = entity.level().getGameTime() + partialTicks;
+        ((FabricRenderState) state).setData(AnimationClientState.ANIMATION_RENDER_DATA,
+            new AnimationClientState.Captured(activeSet, clock));
     }
 }

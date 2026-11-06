@@ -5,6 +5,7 @@ import com.aura.lamplight.puppeteer.trigger.TriggerConditionTypes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
+import java.util.Optional;
 import net.minecraft.resources.Identifier;
 
 public record AnimationDefinition(
@@ -13,7 +14,17 @@ public record AnimationDefinition(
     boolean loop,
     int priority,
     TriggerCondition trigger,
-    List<AnimationChannel> channels
+    List<AnimationChannel> channels,
+    /** Layer mode: additive layers sum their deltas on top of the base layer's pose. */
+    boolean additive,
+    /** Non-looping defs keep their final pose while the trigger still matches. */
+    boolean holdLastFrame,
+    /** Server-tracked event that plays this def once (null = continuously triggered). */
+    Optional<EventKind> eventKind,
+    /** Ambient defs are played randomly while ambience conditions hold, waiting min..max interval. */
+    Optional<Ambience> ambience,
+    /** Playback rate scales by movement speed when present. */
+    Optional<PlaybackRate> playbackRate
 ) {
     public static final Codec<AnimationDefinition> CODEC = RecordCodecBuilder.create(
         instance -> instance.group(
@@ -22,7 +33,63 @@ public record AnimationDefinition(
             Codec.BOOL.optionalFieldOf("loop", false).forGetter(AnimationDefinition::loop),
             Codec.INT.optionalFieldOf("priority", 0).forGetter(AnimationDefinition::priority),
             TriggerConditionTypes.CODEC.fieldOf("trigger").forGetter(AnimationDefinition::trigger),
-            AnimationChannel.CODEC.listOf().fieldOf("channels").forGetter(AnimationDefinition::channels)
+            AnimationChannel.CODEC.listOf().fieldOf("channels").forGetter(AnimationDefinition::channels),
+            Codec.BOOL.optionalFieldOf("additive", false).forGetter(AnimationDefinition::additive),
+            Codec.BOOL.optionalFieldOf("hold_last_frame", false).forGetter(AnimationDefinition::holdLastFrame),
+            EventKind.CODEC.optionalFieldOf("event").forGetter(AnimationDefinition::eventKind),
+            Ambience.CODEC.optionalFieldOf("ambience").forGetter(AnimationDefinition::ambience),
+            PlaybackRate.CODEC.optionalFieldOf("playback_rate").forGetter(AnimationDefinition::playbackRate)
         ).apply(instance, AnimationDefinition::new)
     );
+
+    public enum EventKind {
+        JUMP,
+        LAND,
+        HURT,
+        ATTACK,
+        ENTER_WATER,
+        AMBIENT,
+        /** Only playable explicitly (e.g. command, other mods). */
+        MANUAL;
+
+        public static final Codec<EventKind> CODEC = Codec.STRING.comapFlatMap(
+            name -> {
+                for (EventKind kind : values()) {
+                    if (kind.name().toLowerCase().equals(name)) {
+                        return com.mojang.serialization.DataResult.success(kind);
+                    }
+                }
+                return com.mojang.serialization.DataResult.error(() -> "Unknown event kind: " + name);
+            },
+            kind -> kind.name().toLowerCase()
+        );
+    }
+
+    public record Ambience(int minIntervalTicks, int maxIntervalTicks) {
+        public static final Codec<Ambience> CODEC = RecordCodecBuilder.create(
+            instance -> instance.group(
+                Codec.INT.fieldOf("min_interval_ticks").forGetter(Ambience::minIntervalTicks),
+                Codec.INT.fieldOf("max_interval_ticks").forGetter(Ambience::maxIntervalTicks)
+            ).apply(instance, Ambience::new)
+        );
+    }
+
+    /**
+     * Scales the def's playback to actual movement speed: {@code rate = speed / reference_speed},
+     * clamped to {@code [min, max]}. Speeds in blocks per tick.
+     */
+    public record PlaybackRate(float referenceSpeed, float min, float max) {
+        public static final Codec<PlaybackRate> CODEC = RecordCodecBuilder.create(
+            instance -> instance.group(
+                Codec.FLOAT.fieldOf("reference_speed").forGetter(PlaybackRate::referenceSpeed),
+                Codec.FLOAT.optionalFieldOf("min", 0.4F).forGetter(PlaybackRate::min),
+                Codec.FLOAT.optionalFieldOf("max", 1.4F).forGetter(PlaybackRate::max)
+            ).apply(instance, PlaybackRate::new)
+        );
+
+        public float clamp(final float speed) {
+            float rate = speed / Math.max(0.0001F, referenceSpeed);
+            return Math.max(min, Math.min(max, rate));
+        }
+    }
 }

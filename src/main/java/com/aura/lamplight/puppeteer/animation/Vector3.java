@@ -6,6 +6,7 @@ import java.util.List;
 public record Vector3(float x, float y, float z) {
 
     public static final Vector3 ZERO = new Vector3(0.0F, 0.0F, 0.0F);
+    public static final Vector3 ONE = new Vector3(1.0F, 1.0F, 1.0F);
 
     public static final Codec<Vector3> CODEC = Codec.FLOAT.listOf().comapFlatMap(
         list -> {
@@ -19,6 +20,14 @@ public record Vector3(float x, float y, float z) {
 
     public Vector3 plus(final Vector3 other) {
         return new Vector3(x + other.x, y + other.y, z + other.z);
+    }
+
+    public Vector3 minus(final Vector3 other) {
+        return new Vector3(x - other.x, y - other.y, z - other.z);
+    }
+
+    public Vector3 scale(final float factor) {
+        return new Vector3(x * factor, y * factor, z * factor);
     }
 
     public Vector3 lerp(final Vector3 target, final float t) {

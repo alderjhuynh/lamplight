@@ -5,15 +5,19 @@ import com.aura.lamplight.puppeteer.animation.AnimationDefinitions;
 import com.aura.lamplight.puppeteer.animation.AnimationDefinition.EventKind;
 import com.aura.lamplight.puppeteer.network.AnimationStatePayload;
 import com.aura.lamplight.puppeteer.network.PlayerActionPayload;
+import com.aura.lamplight.puppeteer.trigger.HeldItemGroupCondition;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -25,14 +29,22 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jspecify.annotations.Nullable;
 
 public final class PlayerAnimationTracker {
     private PlayerAnimationTracker() {}
 
     public record Layer(Identifier animationId, long startGameTime) {}
+
+    private record EquipSnapshot(Item main, Item off, Item helmet, Item chest, Item legs, Item feet) {}
 
     private record State(
         List<Layer> continuous,
@@ -50,6 +62,15 @@ public final class PlayerAnimationTracker {
 
     private static final ConcurrentHashMap<UUID, State> STATES = new ConcurrentHashMap<>();
     private static final ConcurrentHashMap<UUID, Map<String, Long>> LAST_EVENT_AT = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<UUID, Boolean> WAS_IN_WATER = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<UUID, EquipSnapshot> EQUIP_SNAPSHOTS = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<UUID, Identifier> SIT_ROLL = new ConcurrentHashMap<>();
+
+    private static final ConcurrentHashMap<UUID, Identifier> LAST_CRAWL = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<UUID, Boolean> CRAWL_HOLDING = new ConcurrentHashMap<>();
+
+    private static final Set<Identifier> SIT_FAMILY = Set.of(
+        Puppeteer.id("sit"), Puppeteer.id("sit2"), Puppeteer.id("sit3"));
     private static final Random RANDOM = new Random();
 
     private static final float SPEED_SMOOTHING = 0.35F;
@@ -68,8 +89,15 @@ public final class PlayerAnimationTracker {
             (handler, server) -> {
                 STATES.remove(handler.getPlayer().getUUID());
                 LAST_EVENT_AT.remove(handler.getPlayer().getUUID());
+                WAS_IN_WATER.remove(handler.getPlayer().getUUID());
+                EQUIP_SNAPSHOTS.remove(handler.getPlayer().getUUID());
+                SIT_ROLL.remove(handler.getPlayer().getUUID());
+                LAST_CRAWL.remove(handler.getPlayer().getUUID());
+                CRAWL_HOLDING.remove(handler.getPlayer().getUUID());
             }
         );
+        UseBlockCallback.EVENT.register(PlayerAnimationTracker::onUseBlock);
+        UseItemCallback.EVENT.register(PlayerAnimationTracker::onUseItem);
         ServerLivingEntityEvents.AFTER_DAMAGE.register(PlayerAnimationTracker::onDamaged);
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
             AnimationCommand.register(dispatcher)
@@ -81,6 +109,9 @@ public final class PlayerAnimationTracker {
             case "jump" -> playEvent(player, EventKind.JUMP);
             case "land" -> playEvent(player, EventKind.LAND);
             case "attack" -> playEvent(player, EventKind.ATTACK);
+            case "swap_offhand" -> {
+                playEvent(player, EventKind.SWAP, Puppeteer.id("item_switch"));
+            }
             default -> { }
         }
     }
@@ -185,6 +216,16 @@ public final class PlayerAnimationTracker {
     private static void tickPlayer(final ServerPlayer player) {
         UUID uuid = player.getUUID();
         long gameTime = player.level().getGameTime();
+
+        boolean inWater = player.isInWater();
+        boolean wasInWater = WAS_IN_WATER.getOrDefault(uuid, inWater);
+        if (inWater && !wasInWater) {
+            playEvent(player, EventKind.ENTER_WATER);
+        }
+        WAS_IN_WATER.put(uuid, inWater);
+
+        puppeteer$detectEquips(player, uuid);
+        final Identifier sitRoll = puppeteer$refreshSitRoll(player, uuid);
         State state = STATES.get(uuid);
 
         double x = player.getX();
@@ -211,6 +252,9 @@ public final class PlayerAnimationTracker {
             if (definition.eventKind().isPresent() || !definition.trigger().test(player)) {
                 continue;
             }
+            if (SIT_FAMILY.contains(definition.id()) && sitRoll != null && !sitRoll.equals(definition.id())) {
+                continue;
+            }
             if (definition.additive()) {
                 additiveDefs.add(definition);
             } else if (baseDef == null || definition.priority() > baseDef.priority()) {
@@ -219,6 +263,18 @@ public final class PlayerAnimationTracker {
         }
         additiveDefs.sort(java.util.Comparator.comparingInt(AnimationDefinition::priority).reversed());
 
+        boolean crawlingPose = player.isVisuallySwimming() && !player.isInWater();
+        boolean holding = false;
+        if (baseDef != null && baseDef.id().getPath().startsWith("crawling")) {
+            LAST_CRAWL.put(uuid, baseDef.id());
+        } else if (baseDef == null && crawlingPose && LAST_CRAWL.get(uuid) != null) {
+            AnimationDefinition held = AnimationDefinitions.byId(LAST_CRAWL.get(uuid));
+            if (held != null) {
+                baseDef = held;
+                holding = true;
+            }
+        }
+        CRAWL_HOLDING.put(uuid, holding);
         List<Identifier> desired = new ArrayList<>();
         if (baseDef != null) {
             desired.add(baseDef.id());
@@ -238,6 +294,9 @@ public final class PlayerAnimationTracker {
         for (Layer layer : previousOverlays) {
             AnimationDefinition definition = AnimationDefinitions.byId(layer.animationId());
             if (definition == null) {
+                continue;
+            }
+            if (puppeteer$isStaleHold(layer.animationId(), player)) {
                 continue;
             }
             long elapsed = gameTime - layer.startGameTime();
@@ -349,6 +408,121 @@ public final class PlayerAnimationTracker {
     public static float measuredSpeed(final ServerPlayer player) {
         State state = STATES.get(player.getUUID());
         return state == null ? 0.0F : state.gateSpeed();
+    }
+
+    public static double lastDeltaX(final ServerPlayer player) {
+        State state = STATES.get(player.getUUID());
+        return state == null ? 0.0D : player.getX() - state.lastX();
+    }
+
+    public static double lastDeltaZ(final ServerPlayer player) {
+        State state = STATES.get(player.getUUID());
+        return state == null ? 0.0D : player.getZ() - state.lastZ();
+    }
+
+    private static boolean puppeteer$isStaleHold(final Identifier id, final ServerPlayer player) {
+        String path = id.getPath();
+        if (!path.startsWith("torch_item_in")) {
+            return false;
+        }
+        boolean holds = path.endsWith("_right")
+            ? HeldItemGroupCondition.Group.TORCH.matches(player.getMainHandItem())
+            : HeldItemGroupCondition.Group.TORCH.matches(player.getOffhandItem());
+        return !holds;
+    }
+
+    private static void puppeteer$detectEquips(final ServerPlayer player, final UUID uuid) {
+        Item main = player.getMainHandItem().getItem();
+        Item off = player.getOffhandItem().getItem();
+        Item helmet = player.getItemBySlot(EquipmentSlot.HEAD).getItem();
+        Item chest = player.getItemBySlot(EquipmentSlot.CHEST).getItem();
+        Item legs = player.getItemBySlot(EquipmentSlot.LEGS).getItem();
+        Item feet = player.getItemBySlot(EquipmentSlot.FEET).getItem();
+
+        EquipSnapshot previous = EQUIP_SNAPSHOTS.get(uuid);
+        if (previous == null) {
+            EQUIP_SNAPSHOTS.put(uuid, new EquipSnapshot(main, off, helmet, chest, legs, feet));
+            return;
+        }
+
+        Identifier preferred = null;
+        if (helmet != previous.helmet()) {
+            preferred = Puppeteer.id("armor_in_helmet");
+        } else if (chest != previous.chest() || legs != previous.legs() || feet != previous.feet()) {
+            preferred = Puppeteer.id("armor_in");
+        } else if (main != previous.main()) {
+            if (HeldItemGroupCondition.Group.TORCH.matches(player.getMainHandItem())) {
+                preferred = Puppeteer.id("torch_item_in_right");
+            }
+        } else if (off != previous.off()
+            && HeldItemGroupCondition.Group.TORCH.matches(player.getOffhandItem())) {
+            preferred = Puppeteer.id("torch_item_in_left");
+        }
+
+        EQUIP_SNAPSHOTS.put(uuid, new EquipSnapshot(main, off, helmet, chest, legs, feet));
+        if (preferred != null) {
+            playEvent(player, EventKind.EQUIP, preferred);
+        }
+    }
+
+    private static final int SIT_ROLL_WEIGHTS = 10;
+
+    private static @Nullable Identifier puppeteer$refreshSitRoll(final ServerPlayer player, final UUID uuid) {
+        if (!player.isPassenger()) {
+            SIT_ROLL.remove(uuid);
+            return null;
+        }
+        Identifier existing = SIT_ROLL.get(uuid);
+        if (existing != null) {
+            return existing;
+        }
+        int roll = RANDOM.nextInt(SIT_ROLL_WEIGHTS);
+        Identifier chosen;
+        if (roll < 6) {
+            chosen = Puppeteer.id("sit");
+        } else if (roll < 8) {
+            chosen = Puppeteer.id("sit2");
+        } else {
+            chosen = Puppeteer.id("sit3");
+        }
+        SIT_ROLL.put(uuid, chosen);
+        return chosen;
+    }
+
+    private static InteractionResult onUseItem(
+        final net.minecraft.world.entity.player.Player player,
+        final Level level,
+        final InteractionHand hand
+    ) {
+        if (player instanceof ServerPlayer serverPlayer && !serverPlayer.isSpectator()
+            && HeldItemGroupCondition.Group.FLINT.matches(serverPlayer.getItemInHand(hand))) {
+            puppeteer$fireFlintUse(serverPlayer, hand);
+        }
+        return InteractionResult.PASS;
+    }
+
+    private static InteractionResult onUseBlock(
+        final net.minecraft.world.entity.player.Player player,
+        final Level level,
+        final InteractionHand hand,
+        final BlockHitResult hitResult
+    ) {
+        if (player instanceof ServerPlayer serverPlayer && !serverPlayer.isSpectator()
+            && HeldItemGroupCondition.Group.FLINT.matches(serverPlayer.getItemInHand(hand))) {
+            puppeteer$fireFlintUse(serverPlayer, hand);
+        }
+        return InteractionResult.PASS;
+    }
+
+    private static void puppeteer$fireFlintUse(final ServerPlayer serverPlayer, final InteractionHand hand) {
+        String side = hand == InteractionHand.OFF_HAND ? "left" : "right";
+        Identifier primary = Puppeteer.id(
+            serverPlayer.isShiftKeyDown() ? "flint_use_" + side + "_alt" : "flint_use_" + side);
+        playEvent(serverPlayer, EventKind.USE_ITEM, primary);
+        AnimationDefinition head = AnimationDefinitions.byId(Puppeteer.id("flint_use_head_" + side));
+        if (head != null) {
+            startOverlay(serverPlayer, head, serverPlayer.level().getGameTime());
+        }
     }
 
     private static final class AnimationCommand {

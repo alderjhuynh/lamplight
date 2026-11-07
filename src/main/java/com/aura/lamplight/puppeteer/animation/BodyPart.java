@@ -10,15 +10,7 @@ public enum BodyPart {
     LEFT_ARM("left_arm"),
     RIGHT_LEG("right_leg"),
     LEFT_LEG("left_leg"),
-    /**
-     * Virtual bone mirroring punchy-moves' rig: fans onto every part (the
-     * whole-body pivots). Applied additively on top of direct part tracks.
-     */
     ROOT("root"),
-    /**
-     * Virtual bone mirroring punchy-moves' rig: fans onto the torso, head and
-     * both arms. Applied additively on top of direct part tracks.
-     */
     WAIST("waist");
 
     public static final Codec<BodyPart> CODEC = Codec.STRING.comapFlatMap(

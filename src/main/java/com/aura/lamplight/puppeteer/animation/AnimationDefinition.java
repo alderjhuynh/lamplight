@@ -15,15 +15,10 @@ public record AnimationDefinition(
     int priority,
     TriggerCondition trigger,
     List<AnimationChannel> channels,
-    /** Layer mode: additive layers sum their deltas on top of the base layer's pose. */
     boolean additive,
-    /** Non-looping defs keep their final pose while the trigger still matches. */
     boolean holdLastFrame,
-    /** Server-tracked event that plays this def once (null = continuously triggered). */
     Optional<EventKind> eventKind,
-    /** Ambient defs are played randomly while ambience conditions hold, waiting min..max interval. */
     Optional<Ambience> ambience,
-    /** Playback rate scales by movement speed when present. */
     Optional<PlaybackRate> playbackRate
 ) {
     public static final Codec<AnimationDefinition> CODEC = RecordCodecBuilder.create(
@@ -49,7 +44,9 @@ public record AnimationDefinition(
         ATTACK,
         ENTER_WATER,
         AMBIENT,
-        /** Only playable explicitly (e.g. command, other mods). */
+        EQUIP,
+        USE_ITEM,
+        SWAP,
         MANUAL;
 
         public static final Codec<EventKind> CODEC = Codec.STRING.comapFlatMap(
@@ -74,10 +71,6 @@ public record AnimationDefinition(
         );
     }
 
-    /**
-     * Scales the def's playback to actual movement speed: {@code rate = speed / reference_speed},
-     * clamped to {@code [min, max]}. Speeds in blocks per tick.
-     */
     public record PlaybackRate(float referenceSpeed, float min, float max) {
         public static final Codec<PlaybackRate> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(

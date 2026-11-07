@@ -46,7 +46,6 @@ public enum Easing {
         this.curve = curve::apply;
     }
 
-    /** Applies this curve to a normalized 0..1 progress value. */
     public float apply(final float t) {
         return curve.apply(Math.max(0.0F, Math.min(1.0F, t)));
     }

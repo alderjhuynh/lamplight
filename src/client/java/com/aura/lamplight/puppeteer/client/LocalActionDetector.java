@@ -8,9 +8,18 @@ import net.minecraft.client.Minecraft;
 public final class LocalActionDetector {
     private LocalActionDetector() {}
 
-    private static Boolean lastJumpDown = null;
+    private static final int HOLD_REFRESH_TICKS = 8;
+
+    private static boolean lastJumpDown = false;
+    private static boolean jumpSent = false;
+    private static int jumpRefreshCounter = 0;
+
+    private static boolean lastAttackDown = false;
+    private static int attackRefreshCounter = 0;
+
+    private static boolean lastSwapOffhandDown = false;
+
     private static int airborneTicks = 0;
-    private static Boolean lastAttackDown = null;
 
     public static void initialize() {
         ClientTickEvents.END_CLIENT_TICK.register(LocalActionDetector::onClientTick);
@@ -19,22 +28,41 @@ public final class LocalActionDetector {
     private static void onClientTick(final Minecraft client) {
         if (client.player == null || client.player.isDeadOrDying()) {
             airborneTicks = 0;
-            lastJumpDown = null;
-            lastAttackDown = null;
+            lastJumpDown = false;
+            jumpSent = false;
+            jumpRefreshCounter = 0;
+            lastAttackDown = false;
+            attackRefreshCounter = 0;
+            lastSwapOffhandDown = false;
             return;
         }
 
         var options = client.options;
-        boolean jumping = options.keyJump.isDown() && client.player.onGround();
+        boolean jumpDown = options.keyJump.isDown();
+        boolean onGround = client.player.onGround();
+        boolean attacking = options.keyAttack.isDown();
+        boolean swappingOffhand = options.keySwapOffhand.isDown();
 
-        if (lastJumpDown == null || lastJumpDown != jumping) {
-            lastJumpDown = jumping;
-            if (jumping) {
+        if (swappingOffhand && !lastSwapOffhandDown) {
+            send("swap_offhand");
+        }
+        lastSwapOffhandDown = swappingOffhand;
+
+        if (jumpDown && !lastJumpDown) {
+            jumpRefreshCounter = 0;
+        }
+        lastJumpDown = jumpDown;
+        if (jumpDown && !onGround) {
+            if (!jumpSent || jumpRefreshCounter == 0) {
                 send("jump");
             }
+            jumpSent = true;
+            jumpRefreshCounter = (jumpRefreshCounter + 1) % HOLD_REFRESH_TICKS;
+        } else {
+            jumpSent = false;
+            jumpRefreshCounter = 0;
         }
 
-        boolean onGround = client.player.onGround();
         if (onGround) {
             if (airborneTicks >= 3) {
                 send("land");
@@ -44,12 +72,21 @@ public final class LocalActionDetector {
             airborneTicks++;
         }
 
-        boolean attacking = options.keyAttack.isDown() && client.hitResult != null;
-        if (lastAttackDown == null || lastAttackDown != attacking) {
-            lastAttackDown = attacking;
-            if (attacking) {
+        if (attacking) {
+            if (!lastAttackDown) {
+                lastAttackDown = true;
+                attackRefreshCounter = 0;
                 send("attack");
+            } else {
+                attackRefreshCounter++;
+                if (attackRefreshCounter >= HOLD_REFRESH_TICKS) {
+                    attackRefreshCounter = 0;
+                    send("attack");
+                }
             }
+        } else {
+            lastAttackDown = false;
+            attackRefreshCounter = 0;
         }
     }
 

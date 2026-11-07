@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import net.fabricmc.fabric.api.client.rendering.v1.FabricRenderState;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.resources.Identifier;
@@ -74,6 +75,7 @@ public abstract class HumanoidModelAnimationMixin<T extends HumanoidRenderState>
         leftArm.resetPose();
         rightLeg.resetPose();
         leftLeg.resetPose();
+        ((Model<?>) (Object) this).root().resetPose();
 
         for (AnimationClientState.Layer layer : layers) {
             AnimationClientState.Seen entry = seen.get(layer.animationId());
@@ -176,7 +178,7 @@ public abstract class HumanoidModelAnimationMixin<T extends HumanoidRenderState>
             case RIGHT_LEG -> new ModelPart[] {rightLeg};
             case LEFT_LEG -> new ModelPart[] {leftLeg};
             case WAIST -> new ModelPart[] {body, head, rightArm, leftArm};
-            case ROOT -> new ModelPart[] {body, head, rightArm, leftArm, rightLeg, leftLeg};
+            case ROOT -> new ModelPart[] {((Model<?>) (Object) this).root()};
         };
     }
 }

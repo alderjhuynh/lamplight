@@ -4,13 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 
-/**
- * A track for a single (meta) bone: rotation/translation keyframes plus,
- * optionally, a separate scale track (Bedrock clips animate scale in a distinct
- * channel).
- *
- * <p>Scale values are multipliers around 1.0, e.g. {@code [1.2, 0.8, 1.2]}.</p>
- */
 public record AnimationChannel(BodyPart part, List<Keyframe> keyframes, List<Keyframe> scaleKeyframes) {
 
     public AnimationChannel(final BodyPart part, final List<Keyframe> keyframes) {
@@ -25,10 +18,6 @@ public record AnimationChannel(BodyPart part, List<Keyframe> keyframes, List<Key
         ).apply(instance, AnimationChannel::new)
     );
 
-    /**
-     * Samples the track at {@code tick}, returning {@code [rotation, translation, scale]}.
-     * Beyond the last keyframe the pose is held (auto-holds one-shots and poses).
-     */
     public Vector3[] sample(final float tick) {
         Vector3[] pair = samplePair(keyframes, tick, 0.0F);
         return new Vector3[] {
@@ -38,10 +27,6 @@ public record AnimationChannel(BodyPart part, List<Keyframe> keyframes, List<Key
         };
     }
 
-    /**
-     * Looping variant: when {@code loopLength} is positive, the short tail after the
-     * final keyframe blends into the first keyframe so a wrapped loop doesn't pop.
-     */
     public Vector3[] sample(final float tick, final float loopLength) {
         Vector3[] pair = samplePair(keyframes, tick, loopLength);
         return new Vector3[] {
@@ -51,7 +36,6 @@ public record AnimationChannel(BodyPart part, List<Keyframe> keyframes, List<Key
         };
     }
 
-    /** Catmull-rom-aware interpolation of the combined rotation/translation keyframes. */
     private static Vector3[] samplePair(final List<Keyframe> keys, final float tick, final float loopLength) {
         if (keys.isEmpty()) {
             return new Vector3[] {Vector3.ZERO, Vector3.ZERO};
@@ -60,8 +44,6 @@ public record AnimationChannel(BodyPart part, List<Keyframe> keyframes, List<Key
         Keyframe first = keys.get(0);
         if (tick <= first.time()) {
             if (tick < first.time() && loopLength > 0.0F) {
-                // the wrapped tail before key 0 isn't reachable (tick stays in [0, loopLength))
-                // but keep the blend correct if an anchor drifts just past the end
                 float wrap = lastKey(keys).time();
                 if (wrap < loopLength && tick > wrap) {
                     return wrapBlend(keys, tick, loopLength);
@@ -101,7 +83,6 @@ public record AnimationChannel(BodyPart part, List<Keyframe> keyframes, List<Key
         return new Vector3[] {last.rotation(), last.translation()};
     }
 
-    /** Linear segment between the final keyframe and keyframe 0 across the loop wrap. */
     private static Vector3[] wrapBlend(final List<Keyframe> keys, final float tick, final float loopLength) {
         Keyframe last = keys.get(keys.size() - 1);
         float span = loopLength - last.time();
@@ -116,7 +97,6 @@ public record AnimationChannel(BodyPart part, List<Keyframe> keyframes, List<Key
         return keys.get(keys.size() - 1);
     }
 
-    /** Catmull-rom-aware interpolation of the scalar-track keyframes (values in {@link Keyframe#rotation()}). */
     private static Vector3 sampleVector(final List<Keyframe> keys, final float tick, final float loopLength) {
         if (keys.isEmpty()) {
             return Vector3.ONE;
@@ -160,7 +140,6 @@ public record AnimationChannel(BodyPart part, List<Keyframe> keyframes, List<Key
         return to.easing().apply(t);
     }
 
-    /** Spline control point before {@link Keyframe} {@code index}, linearly extrapolated if it does not exist. */
     private static Vector3 neighborBefore(final List<Keyframe> keys, final int index) {
         if (index > 0) {
             return keys.get(index - 1).rotation();
@@ -170,7 +149,6 @@ public record AnimationChannel(BodyPart part, List<Keyframe> keyframes, List<Key
         return k0.rotation().scale(2.0F).minus(k1.rotation());
     }
 
-    /** Spline control point after {@link Keyframe} {@code index}, linearly extrapolated if it does not exist. */
     private static Vector3 neighborAfter(final List<Keyframe> keys, final int index) {
         if (index + 1 < keys.size()) {
             return keys.get(index + 1).rotation();
@@ -180,7 +158,6 @@ public record AnimationChannel(BodyPart part, List<Keyframe> keyframes, List<Key
         return kn.rotation().scale(2.0F).minus(kn1.rotation());
     }
 
-    /** Uniform (tension 0.5) catmull-rom spline segment between {@code p1} and {@code p2}. */
     private static Vector3 catmullrom(final Vector3 p0, final Vector3 p1, final Vector3 p2, final Vector3 p3, final float t) {
         float t2 = t * t;
         float t3 = t2 * t;

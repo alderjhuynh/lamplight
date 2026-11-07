@@ -42,9 +42,6 @@ public class AnimationDefinitions extends SimpleJsonResourceReloadListener<Anima
     }
 
     public static void initialize() {
-        // Server data packs are the source of truth; the same definitions are also
-        // shipped as client resources (assets/lamplight/animation) so the renderer
-        // can resolve them on dedicated servers with vanilla clients.
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new AnimationDefinitions());
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new AnimationDefinitions());
     }

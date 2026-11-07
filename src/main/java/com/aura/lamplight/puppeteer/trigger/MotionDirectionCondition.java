@@ -1,5 +1,6 @@
 package com.aura.lamplight.puppeteer.trigger;
 
+import com.aura.lamplight.puppeteer.PlayerAnimationTracker;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
@@ -16,8 +17,8 @@ public record MotionDirectionCondition(Direction direction) implements TriggerCo
 
     @Override
     public boolean test(final ServerPlayer player) {
-        double dx = player.getX() - player.xo;
-        double dz = player.getZ() - player.zo;
+        double dx = PlayerAnimationTracker.lastDeltaX(player);
+        double dz = PlayerAnimationTracker.lastDeltaZ(player);
         if (dx * dx + dz * dz < 0.0001D) {
             return false;
         }

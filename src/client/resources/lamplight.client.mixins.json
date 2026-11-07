@@ -49,6 +49,7 @@
     "picturesque.raytrace.RaytraceWaterMixin",
     "puppeteer.EntityRenderStateAnimationMixin",
     "puppeteer.HumanoidModelAnimationMixin",
+    "puppeteer.AvatarRendererAnimationMixin",
     "wayfarer.LevelChunkHookMixin"
   ],
   "injectors": {

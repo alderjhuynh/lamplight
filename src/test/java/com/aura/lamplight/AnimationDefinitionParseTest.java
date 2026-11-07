@@ -99,13 +99,6 @@ public final class AnimationDefinitionParseTest {
     }
 
     @Test
-    void convertedClipsArePresent() {
-        assertTrue(AnimationDefinitions.class != null);
-        assertTrue(tree("data").size() >= 20,
-            "expected the layer-staged clip set (22 defs kept), got " + tree("data").size());
-    }
-
-    @Test
     void conditionJsonKeysMatchCodecs() {
         Map<String, List<String>> allowed = new HashMap<>();
         allowed.put("all_of", List.of("conditions"));

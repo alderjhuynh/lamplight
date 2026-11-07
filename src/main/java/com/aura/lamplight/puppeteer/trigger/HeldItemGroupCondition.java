@@ -100,6 +100,10 @@ public record HeldItemGroupCondition(Group group, InteractionHand hand) implemen
             return test.test(stack);
         }
 
+        public boolean matches(final ItemStack stack) {
+            return test.test(stack);
+        }
+
         private static boolean heldBlockId(final ItemStack stack, final String substring) {
             return stack.getItem() instanceof net.minecraft.world.item.BlockItem blockItem
                 && BuiltInRegistries.BLOCK.getKey(blockItem.getBlock()).getPath().contains(substring);

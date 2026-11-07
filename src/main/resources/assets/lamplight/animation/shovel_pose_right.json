@@ -1,0 +1,172 @@
+{
+  "id": "lamplight:shovel_pose_right",
+  "length_ticks": 1,
+  "loop": true,
+  "priority": 302,
+  "trigger": {
+    "type": "lamplight:all_of",
+    "conditions": [
+      {
+        "type": "lamplight:held_item_group",
+        "group": "shovel",
+        "hand": "main_hand"
+      },
+      {
+        "type": "lamplight:flag",
+        "flag": "on_ground"
+      },
+      {
+        "type": "lamplight:speed",
+        "max": 0.02
+      },
+      {
+        "type": "lamplight:flag",
+        "flag": "using_item",
+        "match": false
+      },
+      {
+        "type": "lamplight:flag",
+        "flag": "in_water",
+        "match": false
+      },
+      {
+        "type": "lamplight:flag",
+        "flag": "fall_flying",
+        "match": false
+      },
+      {
+        "type": "lamplight:flag",
+        "flag": "crawling",
+        "match": false
+      },
+      {
+        "type": "lamplight:flag",
+        "flag": "climbing",
+        "match": false
+      },
+      {
+        "type": "lamplight:flag",
+        "flag": "passenger",
+        "match": false
+      }
+    ]
+  },
+  "channels": [
+    {
+      "part": "left_arm",
+      "keyframes": [
+        {
+          "time": 0.0,
+          "smooth": false,
+          "rotation": [
+            -20.1223,
+            27.7368,
+            27.7903
+          ],
+          "translation": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "part": "left_arm",
+      "keyframes": [
+        {
+          "time": 0.0,
+          "smooth": false,
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "translation": [
+            -1.0,
+            -0.0,
+            -3.0
+          ]
+        }
+      ]
+    },
+    {
+      "part": "right_arm",
+      "keyframes": [
+        {
+          "time": 0.0,
+          "smooth": false,
+          "rotation": [
+            -33.1564,
+            -3.98,
+            -6.2555
+          ],
+          "translation": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "part": "right_arm",
+      "keyframes": [
+        {
+          "time": 0.0,
+          "smooth": false,
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "translation": [
+            0.0,
+            -0.0,
+            -1.0
+          ]
+        }
+      ]
+    },
+    {
+      "part": "waist",
+      "keyframes": [
+        {
+          "time": 0.0,
+          "smooth": false,
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "translation": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "part": "waist",
+      "keyframes": [
+        {
+          "time": 0.0,
+          "smooth": false,
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "translation": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      ]
+    }
+  ],
+  "additive": false,
+  "hold_last_frame": false
+}

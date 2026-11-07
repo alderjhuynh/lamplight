@@ -1,0 +1,153 @@
+{
+  "id": "lamplight:spear_pose",
+  "length_ticks": 1,
+  "loop": true,
+  "priority": 303,
+  "trigger": {
+    "type": "lamplight:all_of",
+    "conditions": [
+      {
+        "type": "lamplight:held_item_group",
+        "group": "trident",
+        "hand": "main_hand"
+      },
+      {
+        "type": "lamplight:flag",
+        "flag": "on_ground"
+      },
+      {
+        "type": "lamplight:speed",
+        "max": 0.02
+      },
+      {
+        "type": "lamplight:flag",
+        "flag": "using_item",
+        "match": false
+      },
+      {
+        "type": "lamplight:flag",
+        "flag": "in_water",
+        "match": false
+      },
+      {
+        "type": "lamplight:flag",
+        "flag": "fall_flying",
+        "match": false
+      },
+      {
+        "type": "lamplight:flag",
+        "flag": "crawling",
+        "match": false
+      },
+      {
+        "type": "lamplight:flag",
+        "flag": "climbing",
+        "match": false
+      },
+      {
+        "type": "lamplight:flag",
+        "flag": "passenger",
+        "match": false
+      }
+    ]
+  },
+  "channels": [
+    {
+      "part": "body",
+      "keyframes": [
+        {
+          "time": 0.0,
+          "smooth": false,
+          "rotation": [
+            0.0,
+            18.04,
+            0.0
+          ],
+          "translation": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "part": "left_arm",
+      "keyframes": [
+        {
+          "time": 0.0,
+          "smooth": false,
+          "rotation": [
+            -43.68,
+            18.04,
+            -21.43
+          ],
+          "translation": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "part": "left_arm",
+      "keyframes": [
+        {
+          "time": 0.0,
+          "smooth": false,
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "translation": [
+            0.0,
+            -0.0,
+            -2.0
+          ]
+        }
+      ]
+    },
+    {
+      "part": "right_arm",
+      "keyframes": [
+        {
+          "time": 0.0,
+          "smooth": false,
+          "rotation": [
+            15.64,
+            21.75,
+            15.92
+          ],
+          "translation": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "part": "right_arm",
+      "keyframes": [
+        {
+          "time": 0.0,
+          "smooth": false,
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "translation": [
+            0.0,
+            -0.0,
+            2.0
+          ]
+        }
+      ]
+    }
+  ],
+  "additive": false,
+  "hold_last_frame": false
+}

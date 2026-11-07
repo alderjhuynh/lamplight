@@ -1,0 +1,12 @@
+{
+  "id": "lamplight:shield_pose",
+  "length_ticks": 1,
+  "loop": true,
+  "priority": 0,
+  "trigger": {
+    "type": "lamplight:manual"
+  },
+  "channels": [],
+  "additive": false,
+  "hold_last_frame": false
+}

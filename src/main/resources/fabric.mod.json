@@ -16,7 +16,8 @@
       "com.aura.lamplight.Lamplight"
     ],
     "client": [
-      "com.aura.lamplight.client.LamplightClient"
+      "com.aura.lamplight.client.LamplightClient",
+      "com.aura.lamplight.puppeteer.fpanims.FpAnimsClient"
     ]
   },
   "mixins": [

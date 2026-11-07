@@ -48,6 +48,11 @@
     "picturesque.raytrace.RaytraceSkyMixin",
     "picturesque.raytrace.RaytraceWaterMixin",
     "puppeteer.EntityRenderStateAnimationMixin",
+    "puppeteer.fpanims.HeldItemsMixin",
+    "puppeteer.fpanims.LivingEntityMixin",
+    "puppeteer.fpanims.KeyMappingAccessor",
+    "puppeteer.fpanims.AxolotlModelAccessor",
+    "puppeteer.fpanims.EntityRenderDispatcherAccessor",
     "puppeteer.HumanoidModelAnimationMixin",
     "puppeteer.AvatarRendererAnimationMixin",
     "wayfarer.LevelChunkHookMixin"

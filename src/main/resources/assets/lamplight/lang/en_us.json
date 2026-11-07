@@ -687,5 +687,7 @@
   "block.lamplight.packed_ice_brick_stairs": "Packed Ice Brick Stairs",
   "block.lamplight.packed_ice_brick_wall": "Packed Ice Brick Wall",
   "block.lamplight.chiseled_packed_ice": "Chiseled Packed Ice",
-  "block.lamplight.calcite_pillar": "Calcite Pillar"
+  "block.lamplight.calcite_pillar": "Calcite Pillar",
+  "key.lamplight.inspect": "Inspect Held Item",
+  "key.category.lamplight.fp_anims": "First-Person Animations"
 }

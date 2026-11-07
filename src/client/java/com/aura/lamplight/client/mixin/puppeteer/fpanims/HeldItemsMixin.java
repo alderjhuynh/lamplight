@@ -85,6 +85,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ItemInHandRenderer.class)
 public abstract class HeldItemsMixin {
     @Unique
+    private static boolean fpanims$isOffsetHeldItem(ItemStack stack, Identifier id) {
+        if (stack.is(ItemTags.SPEARS)) return true;
+        return id != null && id.getPath().contains("scythe");
+        // DUDE I SWEAR TO GOD I MADE A SCYTHE ITEM TAG WHERE IS IT
+    }
+
+    @Unique
     private static final Identifier fpanims$CAVE_MAP = Identifier.fromNamespaceAndPath("alexscaves", "cave_map");
 
     private float pistonCount = 0.0F;
@@ -1073,6 +1080,11 @@ public abstract class HeldItemsMixin {
                                 }
 
                                 poseStack.translate(-0.3 * (double) l, 0.65, -0.1);
+
+                                if (fpanims$isOffsetHeldItem(stack, itemId)) {
+                                    poseStack.translate(0.14 * (double) l, 0.0, 0.0); // tune this
+                                }
+
                                 poseStack.mulPose(Axis.YP.rotationDegrees((float) (-65 * l)));
                                 poseStack.mulPose(Axis.XP.rotationDegrees(10.0F));
                                 if (stack.is(ItemTags.WOOL_CARPETS)) {

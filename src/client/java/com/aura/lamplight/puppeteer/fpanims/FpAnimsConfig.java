@@ -6,7 +6,7 @@ public class FpAnimsConfig {
     public static final double ANIMATION_SPEED = 1.0;
     public static final double SWITCH_SPEED = 0.018;
     public static final boolean ENABLE_SWIMMING_ANIM = true;
-    public static final int SWING_SPEED = 9;
+    public static final int SWING_SPEED = 2;
     public static final boolean ENABLE_CLIMB_AND_CRAWL = true;
     public static final boolean ENABLE_PUNCHING = true;
     public static final double VIEWMODEL_X_OFFSET = 0.0;

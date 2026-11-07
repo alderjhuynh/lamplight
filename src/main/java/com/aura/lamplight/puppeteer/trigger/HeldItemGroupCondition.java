@@ -7,8 +7,13 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.function.Predicate;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public record HeldItemGroupCondition(Group group, InteractionHand hand) implements TriggerCondition {
@@ -57,6 +62,8 @@ public record HeldItemGroupCondition(Group group, InteractionHand hand) implemen
         CROSSBOW("crossbow", stack -> stack.getItem() instanceof net.minecraft.world.item.CrossbowItem),
         TRIDENT("trident", stack -> stack.getItem() instanceof net.minecraft.world.item.TridentItem),
         MACE("mace", stack -> stack.getItem() instanceof net.minecraft.world.item.MaceItem),
+        SPEAR("spear", stack -> stack.is(ItemTags.SPEARS)),
+        SCYTHE("scythe", stack -> heldScythe(stack)),
         SHIELD("shield", stack -> stack.getItem() instanceof net.minecraft.world.item.ShieldItem),
         FISHING_ROD("fishing_rod", stack -> stack.getItem() instanceof net.minecraft.world.item.FishingRodItem),
         SPYGLASS("spyglass", stack -> stack.getItem() instanceof net.minecraft.world.item.SpyglassItem),
@@ -102,6 +109,13 @@ public record HeldItemGroupCondition(Group group, InteractionHand hand) implemen
 
         public boolean matches(final ItemStack stack) {
             return test.test(stack);
+        }
+
+        private static final TagKey<Item> SCYTHES =
+            TagKey.create(Registries.ITEM, Identifier.withDefaultNamespace("melee_weapons/scythes"));
+
+        private static boolean heldScythe(final ItemStack stack) {
+            return stack.is(SCYTHES);
         }
 
         private static boolean heldBlockId(final ItemStack stack, final String substring) {

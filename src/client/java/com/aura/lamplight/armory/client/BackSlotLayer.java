@@ -3,6 +3,7 @@ package com.aura.lamplight.armory.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.fabric.api.client.rendering.v1.FabricRenderState;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.model.player.PlayerModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
@@ -27,6 +28,7 @@ public class BackSlotLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
 			return;
 		}
 		poseStack.pushPose();
+		((Model<?>) (Object) getParentModel()).root().translateAndRotate(poseStack);
 		getParentModel().body.translateAndRotate(poseStack);
 		// fixed path uses the tuned fixed defaults; hand-model items use the 
 		// baked hand profile.

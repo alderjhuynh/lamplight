@@ -1,1 +1,103 @@
-{"id":"lamplight:sprint_add","length_ticks":1,"loop":true,"priority":110,"trigger":{"type":"lamplight:all_of","conditions":[{"type":"lamplight:flag","flag":"on_ground"},{"type":"lamplight:speed","min":0.15},{"type":"lamplight:flag","flag":"sprinting"}]},"channels":[{"part":"left_arm","keyframes":[{"time":0.0,"smooth":false,"rotation":[0.0,5.0,0.0],"translation":[0.0,0.0,0.0]}]},{"part":"right_arm","keyframes":[{"time":0.0,"smooth":false,"rotation":[0.0,-5.0,0.0],"translation":[0.0,0.0,0.0]}]},{"part":"waist","keyframes":[{"time":0.0,"smooth":false,"rotation":[8.0,0.0,0.0],"translation":[0.0,0.0,0.0]}]},{"part":"waist","keyframes":[{"time":0.0,"smooth":false,"rotation":[0.0,0.0,0.0],"translation":[0.0,0.5,-1.6]}]}],"additive":true,"hold_last_frame":false}
+{
+  "id": "lamplight:sprint_add",
+  "length_ticks": 1,
+  "loop": true,
+  "priority": 110,
+  "trigger": {
+    "type": "lamplight:all_of",
+    "conditions": [
+      {
+        "type": "lamplight:flag",
+        "flag": "on_ground"
+      },
+      {
+        "type": "lamplight:speed",
+        "min": 0.15
+      },
+      {
+        "type": "lamplight:flag",
+        "flag": "sprinting"
+      }
+    ]
+  },
+  "channels": [
+    {
+      "part": "left_arm",
+      "keyframes": [
+        {
+          "time": 0.0,
+          "smooth": false,
+          "rotation": [
+            0.0,
+            5.0,
+            0.0
+          ],
+          "translation": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "part": "right_arm",
+      "keyframes": [
+        {
+          "time": 0.0,
+          "smooth": false,
+          "rotation": [
+            0.0,
+            -5.0,
+            0.0
+          ],
+          "translation": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "part": "waist",
+      "keyframes": [
+        {
+          "time": 0.0,
+          "smooth": false,
+          "rotation": [
+            8.0,
+            0.0,
+            0.0
+          ],
+          "translation": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "part": "waist",
+      "keyframes": [
+        {
+          "time": 0.0,
+          "smooth": false,
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "translation": [
+            0.0,
+            0.5,
+            -1.6
+          ]
+        }
+      ]
+    }
+  ],
+  "additive": true,
+  "hold_last_frame": false
+}

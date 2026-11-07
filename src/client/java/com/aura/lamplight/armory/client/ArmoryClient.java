@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityRenderLayerRegist
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 
+@SuppressWarnings ("all")
 public class ArmoryClient implements ClientModInitializer {
 	private static final boolean ENABLE_TRANSFORM_EDITOR = false;
 	private static final boolean ENABLE_SCYTHE_POSE_EDITOR = false;

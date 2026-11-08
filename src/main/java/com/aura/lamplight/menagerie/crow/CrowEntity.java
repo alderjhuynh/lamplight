@@ -98,6 +98,13 @@ public class CrowEntity extends ShoulderRidingEntity {
     private static final int DELIVERY_WAIT_TICKS = 100;
     private static final int DELIVERY_TARGET_WAIT_TICKS = 20 * 30;
     private static final int DELIVERY_DROP_TICKS = 20;
+    private static final int DELIVERY_APPROACH_RADIUS = 24;
+    private static final double DELIVERY_APPROACH_HEIGHT = 8.0D;
+    private static final int DELIVERY_APPROACH_ATTEMPTS = 8;
+    private static final int DELIVERY_APPROACH_TIMEOUT_TICKS = 20 * 20;
+    private static final double DELIVERY_APPROACH_SPEED = 2.0D;
+    private static final double DELIVERY_NO_TELEPORT_DISTANCE_SQR = 32.0D * 32.0D;
+    private static final double DELIVERY_ARRIVE_DISTANCE_SQR = 4.0D;
     private static final int DELIVERY_RETURN_LEAVE_TICKS = 60;
     private static final long DELIVERY_MAX_TICKS = 20L * 60L * 5L;
     private static final TicketType CROW_CHUNK_TICKET = new TicketType(TicketType.NO_TIMEOUT,
@@ -445,9 +452,7 @@ public class CrowEntity extends ShoulderRidingEntity {
                 }
                 Entity target = findLoadedTarget(server);
                 if (target != null) {
-                    deliveryState = DeliveryState.DROPPING;
-                    deliveryTicks = 0;
-                    teleportToEntity(target);
+                    beginApproach(server, target);
                     return;
                 }
                 if (now > deliveryDeadline
@@ -455,8 +460,34 @@ public class CrowEntity extends ShoulderRidingEntity {
                     beginReturn();
                 }
             }
+            case APPROACHING -> {
+                Entity target = findLoadedTarget(server);
+                if (target == null || now > deliveryDeadline) {
+                    beginReturn();
+                    return;
+                }
+                if (target.level() != level()) {
+                    beginApproach(server, target);
+                    return;
+                }
+                Vec3 goal = deliveryGoalAbove(target);
+                flyTowardDeliveryGoal(goal);
+                if (distanceToSqr(goal) <= DELIVERY_ARRIVE_DISTANCE_SQR) {
+                    deliveryState = DeliveryState.DROPPING;
+                    deliveryTicks = 0;
+                } else if (++deliveryTicks > DELIVERY_APPROACH_TIMEOUT_TICKS) {
+                    deliveryState = DeliveryState.DROPPING;
+                    deliveryTicks = 0;
+                    teleportToEntity(target);
+                }
+            }
             case DROPPING -> {
-                hover();
+                Entity target = findLoadedTarget(server);
+                if (target != null && target.level() == level()) {
+                    flyTowardDeliveryGoal(deliveryGoalAbove(target));
+                } else {
+                    hover();
+                }
                 if (++deliveryTicks >= DELIVERY_DROP_TICKS) {
                     dropDeliveryBundle(server);
                     deliveryState = DeliveryState.RETURN_LEAVING;
@@ -489,6 +520,55 @@ public class CrowEntity extends ShoulderRidingEntity {
         }
         Entity entity = server.getEntityInAnyDimension(deliveryTarget);
         return entity != null && entity.isAlive() && !entity.isRemoved() ? entity : null;
+    }
+
+    private void beginApproach(ServerLevel server, Entity target) {
+        if (!(target.level() instanceof ServerLevel targetLevel)) {
+            beginReturn();
+            return;
+        }
+        deliveryState = DeliveryState.APPROACHING;
+        deliveryTicks = 0;
+        setFlying(true);
+        getNavigation().stop();
+
+        if (targetLevel == level() && distanceToSqr(target) <= DELIVERY_NO_TELEPORT_DISTANCE_SQR) {
+            return;
+        }
+        teleportToPosition(targetLevel, findApproachPoint(targetLevel, target));
+    }
+
+    private Vec3 findApproachPoint(ServerLevel targetLevel, Entity target) {
+        Vec3 eye = target.getEyePosition();
+        for (int attempt = 0; attempt < DELIVERY_APPROACH_ATTEMPTS; attempt++) {
+            double angle = getRandom().nextDouble() * Math.PI * 2.0D;
+            double radius = DELIVERY_APPROACH_RADIUS * (0.6D + getRandom().nextDouble() * 0.4D);
+            Vec3 candidate = target.position().add(
+                    Math.cos(angle) * radius, DELIVERY_APPROACH_HEIGHT, Math.sin(angle) * radius);
+            BlockPos pos = BlockPos.containing(candidate);
+            if (!targetLevel.isInWorldBounds(pos) || !targetLevel.hasChunkAt(pos)) {
+                continue;
+            }
+            BlockState state = targetLevel.getBlockState(pos);
+            if (!state.getCollisionShape(targetLevel, pos).isEmpty() || !state.getFluidState().isEmpty()) {
+                continue;
+            }
+            boolean clear = targetLevel.clip(new ClipContext(candidate, eye,
+                    ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, target)).getType() == HitResult.Type.MISS;
+            if (clear) {
+                return candidate;
+            }
+        }
+        return target.position().add(0.0D, target.getBbHeight() + 1.0D, 0.0D);
+    }
+
+    private Vec3 deliveryGoalAbove(Entity target) {
+        return target.position().add(0.0D, target.getBbHeight() + 1.0D, 0.0D);
+    }
+
+    private void flyTowardDeliveryGoal(Vec3 goal) {
+        setFlying(true);
+        getMoveControl().setWantedPosition(goal.x, goal.y, goal.z, DELIVERY_APPROACH_SPEED);
     }
 
     private void teleportToEntity(Entity target) {
@@ -1390,6 +1470,7 @@ public class CrowEntity extends ShoulderRidingEntity {
         IDLE,
         LEAVING,
         WAITING,
+        APPROACHING,
         DROPPING,
         RETURN_LEAVING
     }

@@ -65,6 +65,7 @@ public final class PlayerAnimationTracker {
     private static final ConcurrentHashMap<UUID, Boolean> WAS_IN_WATER = new ConcurrentHashMap<>();
     private static final ConcurrentHashMap<UUID, EquipSnapshot> EQUIP_SNAPSHOTS = new ConcurrentHashMap<>();
     private static final ConcurrentHashMap<UUID, Identifier> SIT_ROLL = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<UUID, Boolean> ATTACK_PARITY = new ConcurrentHashMap<>();
 
     private static final ConcurrentHashMap<UUID, Identifier> LAST_CRAWL = new ConcurrentHashMap<>();
     private static final ConcurrentHashMap<UUID, Boolean> CRAWL_HOLDING = new ConcurrentHashMap<>();
@@ -94,6 +95,7 @@ public final class PlayerAnimationTracker {
                 SIT_ROLL.remove(handler.getPlayer().getUUID());
                 LAST_CRAWL.remove(handler.getPlayer().getUUID());
                 CRAWL_HOLDING.remove(handler.getPlayer().getUUID());
+                ATTACK_PARITY.remove(handler.getPlayer().getUUID());
             }
         );
         UseBlockCallback.EVENT.register(PlayerAnimationTracker::onUseBlock);
@@ -108,12 +110,20 @@ public final class PlayerAnimationTracker {
         switch (action) {
             case "jump" -> playEvent(player, EventKind.JUMP);
             case "land" -> playEvent(player, EventKind.LAND);
-            case "attack" -> playEvent(player, EventKind.ATTACK);
+            case "attack" -> {
+                ATTACK_PARITY.put(player.getUUID(), !attackParity(player));
+                playEvent(player, EventKind.ATTACK);
+            }
+            case "attack_hold" -> playEvent(player, EventKind.ATTACK_HOLD);
             case "swap_offhand" -> {
                 playEvent(player, EventKind.SWAP, Puppeteer.id("item_switch"));
             }
             default -> { }
         }
+    }
+
+    public static boolean attackParity(final ServerPlayer player) {
+        return ATTACK_PARITY.getOrDefault(player.getUUID(), true);
     }
 
     private static void onDamaged(final LivingEntity entity, final DamageSource source, final float amount, final float newHealth, final boolean cancelled) {
@@ -167,6 +177,28 @@ public final class PlayerAnimationTracker {
 
         cooldowns.put(kind.name(), gameTime);
         startOverlay(player, best, gameTime);
+        puppeteer$startCompanions(player, best, gameTime);
+    }
+
+    private static void puppeteer$startCompanions(final ServerPlayer player, final AnimationDefinition definition, final long gameTime) {
+        String path = definition.id().getPath();
+        String suffixSide = null;
+        if (path.endsWith("_left")) {
+            suffixSide = "left";
+        } else if (path.endsWith("_right")) {
+            suffixSide = "right";
+        }
+        if (suffixSide == null) {
+            return;
+        }
+
+        String base = path.substring(0, path.length() - suffixSide.length() - 1);
+        for (String companion : new String[] {"_add_", "_effect_"}) {
+            Identifier id = Puppeteer.id(base + companion + suffixSide);
+            if (AnimationDefinitions.byId(id) != null) {
+                startOverlay(player, AnimationDefinitions.byId(id), gameTime);
+            }
+        }
     }
 
     public static void playOnce(final ServerPlayer player, final Identifier animationId) {
@@ -182,13 +214,13 @@ public final class PlayerAnimationTracker {
         UUID uuid = player.getUUID();
         State state = STATES.get(uuid);
         List<Layer> overlays = state == null ? List.of() : state.overlays();
+
+        List<Layer> updated = new ArrayList<>();
         for (Layer layer : overlays) {
-            if (layer.animationId().equals(definition.id())) {
-                return;
+            if (!layer.animationId().equals(definition.id())) {
+                updated.add(layer);
             }
         }
-
-        List<Layer> updated = new ArrayList<>(overlays);
         updated.add(new Layer(definition.id(), gameTime));
         if (state == null) {
             STATES.put(uuid, new State(List.of(), updated, List.of(), 1.0F, 0.0F, 0.0F, 0.0F, 0.0F,
@@ -263,6 +295,16 @@ public final class PlayerAnimationTracker {
         }
         additiveDefs.sort(java.util.Comparator.comparingInt(AnimationDefinition::priority).reversed());
 
+        boolean suppressBase = false;
+        List<Layer> previousOverlaysForSuppression = state == null ? List.of() : state.overlays();
+        for (Layer layer : previousOverlaysForSuppression) {
+            AnimationDefinition od = AnimationDefinitions.byId(layer.animationId());
+            if (od != null && od.overridesBase()) {
+                suppressBase = true;
+                break;
+            }
+        }
+
         boolean crawlingPose = player.isVisuallySwimming() && !player.isInWater();
         boolean holding = false;
         if (baseDef != null && baseDef.id().getPath().startsWith("crawling")) {
@@ -276,7 +318,7 @@ public final class PlayerAnimationTracker {
         }
         CRAWL_HOLDING.put(uuid, holding);
         List<Identifier> desired = new ArrayList<>();
-        if (baseDef != null) {
+        if (baseDef != null && !suppressBase) {
             desired.add(baseDef.id());
         }
         for (AnimationDefinition definition : additiveDefs) {

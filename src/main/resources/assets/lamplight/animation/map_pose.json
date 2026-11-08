@@ -1,14 +1,14 @@
 {
-  "id": "lamplight:crossbow_idle_right",
+  "id": "lamplight:map_pose",
   "length_ticks": 1,
   "loop": true,
-  "priority": 308,
+  "priority": 320,
   "trigger": {
     "type": "lamplight:all_of",
     "conditions": [
       {
         "type": "lamplight:held_item_group",
-        "group": "crossbow",
+        "group": "map",
         "hand": "main_hand"
       },
       {
@@ -59,9 +59,9 @@
           "time": 0.0,
           "smooth": false,
           "rotation": [
-            -52.84,
-            2.43,
-            1.76
+            -80.0,
+            17.5,
+            20.0
           ],
           "translation": [
             0.0,
@@ -84,8 +84,8 @@
           ],
           "translation": [
             0.0,
-            -0.0,
-            0.0
+            1.9,
+            -1.5
           ]
         }
       ]
@@ -97,9 +97,9 @@
           "time": 0.0,
           "smooth": false,
           "rotation": [
-            -59.8,
-            -57.59,
-            -3.54
+            -80.0,
+            -17.5,
+            -20.0
           ],
           "translation": [
             0.0,
@@ -122,8 +122,8 @@
           ],
           "translation": [
             0.0,
-            -0.0,
-            -2.0
+            1.9,
+            -1.5
           ]
         }
       ]

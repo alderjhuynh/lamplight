@@ -26,6 +26,7 @@ public final class TriggerConditionTypes {
     public static final MapCodec<ViewPitchCondition> VIEW_PITCH = register("view_pitch", ViewPitchCondition.MAP_CODEC);
     public static final MapCodec<MotionDirectionCondition> MOTION_DIRECTION = register("motion_direction", MotionDirectionCondition.MAP_CODEC);
     public static final MapCodec<HeldItemGroupCondition> HELD_ITEM_GROUP = register("held_item_group", HeldItemGroupCondition.MAP_CODEC);
+    public static final MapCodec<AttackParityCondition> ATTACK_PARITY = register("attack_parity", AttackParityCondition.MAP_CODEC);
     public static final MapCodec<PassengerCondition> PASSENGER = register("passenger", PassengerCondition.MAP_CODEC);
     public static final MapCodec<BiomeTemperatureCondition> BIOME_TEMPERATURE = register("biome_temperature", BiomeTemperatureCondition.MAP_CODEC);
     public static final MapCodec<EntityPoseCondition> POSE = register("entity_pose", EntityPoseCondition.MAP_CODEC);

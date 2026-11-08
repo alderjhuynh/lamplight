@@ -81,7 +81,7 @@ public final class LocalActionDetector {
                 attackRefreshCounter++;
                 if (attackRefreshCounter >= HOLD_REFRESH_TICKS) {
                     attackRefreshCounter = 0;
-                    send("attack");
+                    send("attack_hold");
                 }
             }
         } else {

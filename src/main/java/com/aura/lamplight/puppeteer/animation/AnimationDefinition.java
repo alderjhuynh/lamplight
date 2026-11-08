@@ -19,7 +19,8 @@ public record AnimationDefinition(
     boolean holdLastFrame,
     Optional<EventKind> eventKind,
     Optional<Ambience> ambience,
-    Optional<PlaybackRate> playbackRate
+    Optional<PlaybackRate> playbackRate,
+    boolean overridesBase
 ) {
     public static final Codec<AnimationDefinition> CODEC = RecordCodecBuilder.create(
         instance -> instance.group(
@@ -33,7 +34,8 @@ public record AnimationDefinition(
             Codec.BOOL.optionalFieldOf("hold_last_frame", false).forGetter(AnimationDefinition::holdLastFrame),
             EventKind.CODEC.optionalFieldOf("event").forGetter(AnimationDefinition::eventKind),
             Ambience.CODEC.optionalFieldOf("ambience").forGetter(AnimationDefinition::ambience),
-            PlaybackRate.CODEC.optionalFieldOf("playback_rate").forGetter(AnimationDefinition::playbackRate)
+            PlaybackRate.CODEC.optionalFieldOf("playback_rate").forGetter(AnimationDefinition::playbackRate),
+            Codec.BOOL.optionalFieldOf("overrides_base", false).forGetter(AnimationDefinition::overridesBase)
         ).apply(instance, AnimationDefinition::new)
     );
 
@@ -42,6 +44,7 @@ public record AnimationDefinition(
         LAND,
         HURT,
         ATTACK,
+        ATTACK_HOLD,
         ENTER_WATER,
         AMBIENT,
         EQUIP,

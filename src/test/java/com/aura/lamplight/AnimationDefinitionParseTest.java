@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.aura.lamplight.puppeteer.animation.AnimationDefinition;
-import com.aura.lamplight.puppeteer.animation.AnimationDefinitions;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -116,6 +115,7 @@ public final class AnimationDefinitionParseTest {
         allowed.put("passenger", List.of("entity", "match"));
         allowed.put("attribute_compare", List.of("attribute", "operator", "value"));
         allowed.put("has_item_component", List.of("hand", "component", "value"));
+        allowed.put("attack_parity", List.of("side", "match"));
         allowed.put("manual", List.of());
 
         List<String> failures = new ArrayList<>();

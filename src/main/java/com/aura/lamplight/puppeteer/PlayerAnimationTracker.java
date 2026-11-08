@@ -143,7 +143,17 @@ public final class PlayerAnimationTracker {
             }
         }
 
-        Identifier id = Puppeteer.id(backward ? "hurt_backward" : "hurt_forward");
+        boolean blocking = player.isBlocking()
+            && (HeldItemGroupCondition.Group.SHIELD.matches(player.getMainHandItem())
+                || HeldItemGroupCondition.Group.SHIELD.matches(player.getOffhandItem()));
+        Identifier id;
+        if (blocking) {
+            String side = HeldItemGroupCondition.Group.SHIELD.matches(player.getMainHandItem())
+                ? "right" : "left";
+            id = Puppeteer.id("shield_impact_" + side);
+        } else {
+            id = Puppeteer.id(backward ? "hurt_backward" : "hurt_forward");
+        }
         playEvent(player, EventKind.HURT, id);
     }
 
@@ -488,6 +498,13 @@ public final class PlayerAnimationTracker {
         }
 
         Identifier preferred = null;
+        // Shield snapped: its slot went from holding a shield to empty. Play the
+        // break one-shot for that hand plus the add companion.
+        if (previous.main() instanceof net.minecraft.world.item.ShieldItem && main == net.minecraft.world.item.Items.AIR) {
+            puppeteer$playShieldBreak(player, "right");
+        } else if (previous.off() instanceof net.minecraft.world.item.ShieldItem && off == net.minecraft.world.item.Items.AIR) {
+            puppeteer$playShieldBreak(player, "left");
+        }
         if (helmet != previous.helmet()) {
             preferred = Puppeteer.id("armor_in_helmet");
         } else if (chest != previous.chest() || legs != previous.legs() || feet != previous.feet()) {
@@ -554,6 +571,15 @@ public final class PlayerAnimationTracker {
             puppeteer$fireFlintUse(serverPlayer, hand);
         }
         return InteractionResult.PASS;
+    }
+
+    private static void puppeteer$playShieldBreak(final ServerPlayer player, final String side) {
+        final long gameTime = player.level().getGameTime();
+        AnimationDefinition definition = AnimationDefinitions.byId(Puppeteer.id("shield_break_" + side));
+        if (definition != null) {
+            startOverlay(player, definition, gameTime);
+            puppeteer$startCompanions(player, definition, gameTime);
+        }
     }
 
     private static void puppeteer$fireFlintUse(final ServerPlayer serverPlayer, final InteractionHand hand) {

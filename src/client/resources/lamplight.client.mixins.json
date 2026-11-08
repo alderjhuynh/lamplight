@@ -55,6 +55,7 @@
     "puppeteer.fpanims.EntityRenderDispatcherAccessor",
     "puppeteer.HumanoidModelAnimationMixin",
     "puppeteer.AvatarRendererAnimationMixin",
+    "puppeteer.ShieldItemModelMixin",
     "wayfarer.LevelChunkHookMixin"
   ],
   "injectors": {

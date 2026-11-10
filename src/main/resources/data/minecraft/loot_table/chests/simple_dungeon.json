@@ -337,6 +337,50 @@
           ]
         }
       ]
+    },
+    {
+      "rolls": {
+        "type": "minecraft:binomial",
+        "n": 1,
+        "p": 0.25
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lamplight:template_band",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "lamplight:template_collar",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "lamplight:template_cuff",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "lamplight:template_locket",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "lamplight:template_pendant",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "lamplight:template_signet",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "lamplight:template_twin_band",
+          "weight": 1
+        }
+      ]
     }
   ],
   "random_sequence": "minecraft:chests/simple_dungeon"

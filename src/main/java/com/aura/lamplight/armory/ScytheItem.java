@@ -69,7 +69,7 @@ public class ScytheItem extends Item {
 				Weapon.AXE_DISABLES_BLOCKING_FOR_SECONDS));
 	}
 
-	private static final float CRIT_DRAG_FORCE = 0.45f;
+	private static final float CRIT_DRAG_FORCE = 1.2f;
 
 	// yes i know this is exactly the same as the reeling enchant but no im not making a general drag helper and im also not making that method public
 	private static void dragHitEntity(LivingEntity victim, Entity owner, float force) {

@@ -69,16 +69,24 @@ public class ScytheItem extends Item {
 				Weapon.AXE_DISABLES_BLOCKING_FOR_SECONDS));
 	}
 
-	private static final float CRIT_DRAG_FORCE = 1.2f;
+	private static final float CRIT_DRAG_FORCE = 1.0f;
 
 	// yes i know this is exactly the same as the reeling enchant but no im not making a general drag helper and im also not making that method public
 	private static void dragHitEntity(LivingEntity victim, Entity owner, float force) {
-		Vec3 dir = owner.position().add(0.0D, owner.getBbHeight() * 0.5D, 0.0D)
-				.subtract(victim.position().add(0.0D, victim.getBbHeight() * 0.5D, 0.0D));
+		Vec3 dir = owner.position().subtract(victim.position());
+
+		dir = new Vec3(dir.x, 0.0, dir.z );
+
 		if (dir.lengthSqr() < 1.0E-4D) {
 			return;
 		}
-		victim.setDeltaMovement(victim.getDeltaMovement().add(dir.normalize().scale(force)));
+
+		Vec3 movement = dir.normalize().scale(force);
+
+		victim.setDeltaMovement(
+				victim.getDeltaMovement().add(movement.x, 0.12, movement.z)
+		);
+
 		victim.hurtMarked = true;
 	}
 

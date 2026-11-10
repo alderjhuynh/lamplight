@@ -51,42 +51,42 @@ public final class ModItems {
 	public static final Item WOODEN_SCYTHE = Registry.register(
 			BuiltInRegistries.ITEM,
 			WOODEN_SCYTHE_KEY,
-			new ScytheItem(ToolMaterial.WOOD, 6.0F, -3.0F, new Item.Properties().setId(WOODEN_SCYTHE_KEY)));
+			new ScytheItem(ToolMaterial.WOOD, 4.0F, -3.0F, new Item.Properties().setId(WOODEN_SCYTHE_KEY)));
 
 	public static final ResourceKey<Item> STONE_SCYTHE_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("stone_scythe"));
 	public static final Item STONE_SCYTHE = Registry.register(
 			BuiltInRegistries.ITEM,
 			STONE_SCYTHE_KEY,
-			new ScytheItem(ToolMaterial.STONE, 7.0F, -3.0F, new Item.Properties().setId(STONE_SCYTHE_KEY)));
+			new ScytheItem(ToolMaterial.STONE, 4.0F, -3.0F, new Item.Properties().setId(STONE_SCYTHE_KEY)));
 
 	public static final ResourceKey<Item> COPPER_SCYTHE_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("copper_scythe"));
 	public static final Item COPPER_SCYTHE = Registry.register(
 			BuiltInRegistries.ITEM,
 			COPPER_SCYTHE_KEY,
-			new ScytheItem(ToolMaterial.COPPER, 7.0F, -3.0F, new Item.Properties().setId(COPPER_SCYTHE_KEY)));
+			new ScytheItem(ToolMaterial.COPPER, 4.0F, -3.0F, new Item.Properties().setId(COPPER_SCYTHE_KEY)));
 
 	public static final ResourceKey<Item> IRON_SCYTHE_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("iron_scythe"));
 	public static final Item IRON_SCYTHE = Registry.register(
 			BuiltInRegistries.ITEM,
 			IRON_SCYTHE_KEY,
-			new ScytheItem(ToolMaterial.IRON, 6.0F, -3.0F, new Item.Properties().setId(IRON_SCYTHE_KEY)));
+			new ScytheItem(ToolMaterial.IRON, 4.0F, -3.0F, new Item.Properties().setId(IRON_SCYTHE_KEY)));
 
 	public static final ResourceKey<Item> GOLDEN_SCYTHE_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("golden_scythe"));
 	public static final Item GOLDEN_SCYTHE = Registry.register(
 			BuiltInRegistries.ITEM,
 			GOLDEN_SCYTHE_KEY,
-			new ScytheItem(ToolMaterial.GOLD, 6.0F, -3.0F, new Item.Properties().setId(GOLDEN_SCYTHE_KEY)));
+			new ScytheItem(ToolMaterial.GOLD, 4.0F, -3.0F, new Item.Properties().setId(GOLDEN_SCYTHE_KEY)));
 
 	public static final ResourceKey<Item> DIAMOND_SCYTHE_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("diamond_scythe"));
 	public static final Item DIAMOND_SCYTHE = Registry.register(
 			BuiltInRegistries.ITEM,
 			DIAMOND_SCYTHE_KEY,
-			new ScytheItem(ToolMaterial.DIAMOND, 5.0F, -3.0F, new Item.Properties().setId(DIAMOND_SCYTHE_KEY)));
+			new ScytheItem(ToolMaterial.DIAMOND, 4.0F, -3.0F, new Item.Properties().setId(DIAMOND_SCYTHE_KEY)));
 
 	public static final ResourceKey<Item> NETHERITE_SCYTHE_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("netherite_scythe"));

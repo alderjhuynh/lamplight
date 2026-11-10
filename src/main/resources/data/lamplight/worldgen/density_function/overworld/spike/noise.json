@@ -39,6 +39,5 @@
       }
     }
   },
-  "argument2": 1,
-  "_comment": "Vantage original terrain math for noise.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  "argument2": 1
 }

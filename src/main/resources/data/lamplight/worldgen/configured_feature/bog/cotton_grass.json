@@ -1,5 +1,4 @@
 {
-  "_comment": "Vantage original: cotton grass tufts — valid simple_block.",
   "type": "minecraft:simple_block",
   "config": {
     "to_place": {

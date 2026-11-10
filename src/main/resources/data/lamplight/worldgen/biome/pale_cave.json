@@ -165,6 +165,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.7,
-  "_comment": "Vantage rewrite pale_grotto \u2014 family wet, distinct from Terralith/Clifftree source"
+  "temperature": 0.7
 }

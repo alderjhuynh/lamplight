@@ -84,7 +84,6 @@
       "minecraft:disk_clay"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -188,6 +187,5 @@
   "spawn_costs": {},
   "has_precipitation": true,
   "temperature": 0.95,
-  "downfall": 0.9,
-  "_comment": "Vantage rewrite tropical_river \u2014 family wet, distinct from Terralith/Clifftree source"
+  "downfall": 0.9
 }

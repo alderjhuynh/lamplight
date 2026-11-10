@@ -26,6 +26,5 @@
         }
       }
     }
-  },
-  "_comment": "Vantage original terrain math for thickness.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

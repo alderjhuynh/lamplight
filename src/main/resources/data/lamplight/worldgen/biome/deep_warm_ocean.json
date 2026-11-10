@@ -209,6 +209,5 @@
       }
     ]
   },
-  "temperature": 0.5,
-  "_comment": "Vantage rewrite deep_warm_ocean \u2014 family ocean, distinct from Terralith/Clifftree source"
+  "temperature": 0.5
 }

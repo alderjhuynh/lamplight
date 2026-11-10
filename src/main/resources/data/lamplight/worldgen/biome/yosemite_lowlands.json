@@ -194,6 +194,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.25,
-  "_comment": "Vantage rewrite yosemite_lowlands \u2014 family default, distinct from Terralith/Clifftree source"
+  "temperature": 0.25
 }

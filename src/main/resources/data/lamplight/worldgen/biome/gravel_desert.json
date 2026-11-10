@@ -179,6 +179,5 @@
     "water_creature": []
   },
   "temperature": 0.14,
-  "temperature_modifier": "frozen",
-  "_comment": "Vantage rewrite gravel_desert \u2014 family default, distinct from Terralith/Clifftree source"
+  "temperature_modifier": "frozen"
 }

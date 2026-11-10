@@ -209,6 +209,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.8,
-  "_comment": "Vantage rewrite orchid_swamp \u2014 family wet, distinct from Terralith/Clifftree source"
+  "temperature": 0.8
 }

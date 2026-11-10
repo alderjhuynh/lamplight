@@ -80,7 +80,6 @@
       "minecraft:underwater_magma"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -197,6 +196,5 @@
     "water_creature": []
   },
   "temperature": 2.0,
-  "creature_spawn_probability": 0.07,
-  "_comment": "Vantage original vanilla override for desert \u2014 distinct verticality, not Clifftree copy"
+  "creature_spawn_probability": 0.07
 }

@@ -12,6 +12,5 @@
       "xz_scale": 0.25644,
       "y_scale": 0.05
     }
-  },
-  "_comment": "Vantage original terrain math for modified_continents.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

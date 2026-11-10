@@ -76,7 +76,6 @@
       "minecraft:underwater_magma"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -212,6 +211,5 @@
     "water_creature": []
   },
   "temperature": 0.0,
-  "creature_spawn_probability": 0.15,
-  "_comment": "Vantage rewrite snowy_old_growth_taiga \u2014 family highlands, distinct from Terralith/Clifftree source"
+  "creature_spawn_probability": 0.15
 }

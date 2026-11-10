@@ -4,6 +4,5 @@
     "type": "minecraft:add",
     "argument1": 0.0075,
     "argument2": "minecraft:overworld/continents"
-  },
-  "_comment": "Vantage original terrain math for modified_continents.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

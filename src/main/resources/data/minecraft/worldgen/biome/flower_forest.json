@@ -68,7 +68,6 @@
       "minecraft:underwater_magma"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -195,6 +194,5 @@
     "water_creature": []
   },
   "temperature": 0.7,
-  "creature_spawn_probability": 0.15,
-  "_comment": "Vantage original vanilla override for flower_forest \u2014 distinct verticality, not Clifftree copy"
+  "creature_spawn_probability": 0.15
 }

@@ -1,5 +1,4 @@
 {
-  "_comment": "Vantage original: sparse pinyon pine \u2014 simplified to valid vanilla pine reference.",
   "type": "minecraft:tree",
   "config": {
     "dirt_provider": {

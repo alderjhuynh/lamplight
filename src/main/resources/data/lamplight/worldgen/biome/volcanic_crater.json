@@ -171,6 +171,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 1,
-  "_comment": "Vantage rewrite volcanic_crater \u2014 family canyon, distinct from Terralith/Clifftree source"
+  "temperature": 1
 }

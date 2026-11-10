@@ -28,6 +28,5 @@
       }
     }
   },
-  "argument2": "minecraft:overworld/base_3d_noise",
-  "_comment": "Vantage original terrain math for sloped_cheese.json \u2014 distinct"
+  "argument2": "minecraft:overworld/base_3d_noise"
 }

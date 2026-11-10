@@ -39,6 +39,5 @@
         }
       }
     }
-  },
-  "_comment": "Vantage original terrain math for dune_height.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

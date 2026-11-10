@@ -87,7 +87,6 @@
       "lamplight:shore_gravel"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -214,6 +213,5 @@
   },
   "temperature": 0.0,
   "temperature_modifier": "frozen",
-  "creature_spawn_probability": 0.07,
-  "_comment": "Vantage original vanilla override for frozen_ocean \u2014 distinct verticality, not Clifftree copy"
+  "creature_spawn_probability": 0.07
 }

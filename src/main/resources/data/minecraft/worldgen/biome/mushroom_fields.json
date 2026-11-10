@@ -86,7 +86,6 @@
       "lamplight:ore_coal_lush"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -138,6 +137,5 @@
     "water_creature": []
   },
   "temperature": 0.9,
-  "creature_spawn_probability": 0.15,
-  "_comment": "Vantage original vanilla override for mushroom_fields \u2014 distinct verticality, not Clifftree copy"
+  "creature_spawn_probability": 0.15
 }

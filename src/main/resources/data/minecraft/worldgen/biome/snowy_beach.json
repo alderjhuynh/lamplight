@@ -65,7 +65,6 @@
       "lamplight:ice_blobs"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -158,6 +157,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.05,
-  "_comment": "Vantage original vanilla override for snowy_beach \u2014 distinct verticality, not Clifftree copy"
+  "temperature": 0.05
 }

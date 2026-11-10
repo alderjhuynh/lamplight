@@ -162,6 +162,5 @@
         }
       }
     }
-  },
-  "_comment": "Vantage original terrain math for pillars.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

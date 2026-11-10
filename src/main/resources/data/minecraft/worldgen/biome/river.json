@@ -77,7 +77,6 @@
       "minecraft:underwater_magma"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -196,6 +195,5 @@
       }
     ]
   },
-  "temperature": 0.7,
-  "_comment": "Vantage original vanilla override for river \u2014 distinct verticality, not Clifftree copy"
+  "temperature": 0.7
 }

@@ -9,6 +9,5 @@
       "y_scale": 0.05
     },
     "argument2": 1.0
-  },
-  "_comment": "Vantage original terrain math for amount.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

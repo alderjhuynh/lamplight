@@ -45,6 +45,5 @@
         }
       }
     }
-  },
-  "_comment": "Vantage original terrain math for cliff_depth.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

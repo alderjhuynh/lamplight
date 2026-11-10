@@ -75,7 +75,6 @@
       "minecraft:disk_clay"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -198,6 +197,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.7,
-  "_comment": "Vantage original vanilla override for dark_forest \u2014 distinct verticality, not Clifftree copy"
+  "temperature": 0.7
 }

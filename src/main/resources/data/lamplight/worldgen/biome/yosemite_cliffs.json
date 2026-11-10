@@ -199,6 +199,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.375,
-  "_comment": "Vantage rewrite yosemite_cliffs \u2014 family canyon, distinct from Terralith/Clifftree source"
+  "temperature": 0.375
 }

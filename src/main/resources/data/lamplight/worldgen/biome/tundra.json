@@ -65,7 +65,6 @@
       "minecraft:underwater_magma"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -188,6 +187,5 @@
     "water_creature": []
   },
   "temperature": 0.25,
-  "temperature_modifier": "frozen",
-  "_comment": "Vantage rewrite tundra \u2014 family highlands, distinct from Terralith/Clifftree source"
+  "temperature_modifier": "frozen"
 }

@@ -8,6 +8,5 @@
       "argument1": "lamplight:overworld/dune/total",
       "argument2": "lamplight:overworld/spikes/tendrils"
     }
-  },
-  "_comment": "Vantage original terrain math for extra_terrain_base.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

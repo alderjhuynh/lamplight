@@ -2038,6 +2038,5 @@
         }
       }
     }
-  },
-  "_comment": "Vantage original terrain math for modified_offset.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

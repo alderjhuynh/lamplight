@@ -158,6 +158,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 2,
-  "_comment": "Vantage rewrite mantle_caves \u2014 family caves, distinct from Terralith/Clifftree source"
+  "temperature": 2
 }

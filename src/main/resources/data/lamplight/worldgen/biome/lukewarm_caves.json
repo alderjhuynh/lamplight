@@ -162,6 +162,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.95,
-  "_comment": "Vantage rewrite lukewarm_caves \u2014 family caves, distinct from Terralith/Clifftree source"
+  "temperature": 0.95
 }

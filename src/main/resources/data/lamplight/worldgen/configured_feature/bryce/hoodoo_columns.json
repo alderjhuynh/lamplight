@@ -1,5 +1,4 @@
 {
-  "_comment": "Vantage original: hoodoo columns — vertical sandstone pillars. Authored pillar logic, not terralith:spires copy.",
   "type": "minecraft:block_column",
   "config": {
     "direction": "up",

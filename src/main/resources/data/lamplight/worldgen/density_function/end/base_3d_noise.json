@@ -4,6 +4,5 @@
   "y_scale": 1.02571,
   "xz_factor": 96.0,
   "y_factor": 128.0,
-  "smear_scale_multiplier": 8.0,
-  "_comment": "Vantage original terrain math for base_3d_noise.json \u2014 distinct"
+  "smear_scale_multiplier": 8.0
 }

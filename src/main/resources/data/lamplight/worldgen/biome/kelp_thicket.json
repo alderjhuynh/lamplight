@@ -82,7 +82,6 @@
       "lamplight:shore_gravel"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -205,6 +204,5 @@
       }
     ]
   },
-  "temperature": 0.5,
-  "_comment": "Vantage rewrite kelp_forest \u2014 family wet, distinct from Terralith/Clifftree source"
+  "temperature": 0.5
 }

@@ -31,6 +31,5 @@
     }
   },
   "max": 1,
-  "min": -1,
-  "_comment": "Vantage original terrain math for cave_cheese.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  "min": -1
 }

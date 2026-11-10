@@ -47,6 +47,5 @@
         "when_out_of_range": 64
       }
     }
-  },
-  "_comment": "Vantage original terrain math for carve.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

@@ -211,6 +211,5 @@
     "water_creature": []
   },
   "temperature": 0.14,
-  "temperature_modifier": "frozen",
-  "_comment": "Vantage rewrite ice_marsh \u2014 family wet, distinct from Terralith/Clifftree source"
+  "temperature_modifier": "frozen"
 }

@@ -4,6 +4,5 @@
   "min_inclusive": -1000000,
   "max_exclusive": 0.04751,
   "when_in_range": -1000000,
-  "when_out_of_range": "minecraft:overworld/caves/pillars",
-  "_comment": "Vantage original terrain math for pillars.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  "when_out_of_range": "minecraft:overworld/caves/pillars"
 }

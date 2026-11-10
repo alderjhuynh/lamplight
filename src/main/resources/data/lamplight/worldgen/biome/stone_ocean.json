@@ -79,7 +79,6 @@
       "minecraft:underwater_magma"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -180,6 +179,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.5,
-  "_comment": "Vantage rewrite stone_ocean \u2014 family ocean, distinct from Terralith/Clifftree source"
+  "temperature": 0.5
 }

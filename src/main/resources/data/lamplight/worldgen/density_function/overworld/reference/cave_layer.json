@@ -16,6 +16,5 @@
       }
     }
   },
-  "when_out_of_range": 4.0,
-  "_comment": "Vantage original terrain math for cave_layer.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  "when_out_of_range": 4.0
 }

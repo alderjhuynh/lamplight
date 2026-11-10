@@ -87,7 +87,6 @@
       "lamplight:shore_gravel"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -213,6 +212,5 @@
     ]
   },
   "temperature": 0.5,
-  "temperature_modifier": "frozen",
-  "_comment": "Vantage original vanilla override for deep_frozen_ocean \u2014 distinct verticality, not Clifftree copy"
+  "temperature_modifier": "frozen"
 }

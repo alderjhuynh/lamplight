@@ -139,6 +139,5 @@
       }
     }
   },
-  "argument2": "minecraft:overworld/caves/noodle",
-  "_comment": "Vantage original terrain math for final_density.json \u2014 distinct"
+  "argument2": "minecraft:overworld/caves/noodle"
 }

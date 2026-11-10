@@ -147,6 +147,5 @@
       }
     },
     "argument2": 0.5
-  },
-  "_comment": "Vantage original terrain math for cave_rivers.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

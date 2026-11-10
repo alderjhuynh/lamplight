@@ -192,6 +192,5 @@
     ],
     "water_creature": []
   },
-  "temperature": 0.5,
-  "_comment": "Vantage original vanilla override for lush_caves \u2014 distinct verticality, not Clifftree copy"
+  "temperature": 0.5
 }

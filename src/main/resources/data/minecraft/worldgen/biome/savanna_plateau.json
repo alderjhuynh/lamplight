@@ -62,7 +62,6 @@
       "minecraft:underwater_magma"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -210,6 +209,5 @@
   "has_precipitation": false,
   "temperature": 2.0,
   "downfall": 0.0,
-  "creature_spawn_probability": 0.15,
-  "_comment": "Vantage original vanilla override for savanna_plateau \u2014 distinct verticality, not Clifftree copy"
+  "creature_spawn_probability": 0.15
 }

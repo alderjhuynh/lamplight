@@ -76,7 +76,6 @@
       "minecraft:underwater_magma"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -180,6 +179,5 @@
   "spawn_costs": {},
   "has_precipitation": true,
   "temperature": 0.25,
-  "downfall": 0.8,
-  "_comment": "Vantage rewrite cold_river \u2014 family wet, distinct from Terralith/Clifftree source"
+  "downfall": 0.8
 }

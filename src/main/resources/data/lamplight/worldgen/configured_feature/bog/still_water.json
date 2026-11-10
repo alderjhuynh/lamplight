@@ -1,5 +1,4 @@
 {
-  "_comment": "Vantage original: still water — shallow vegetated pools, distinct from clifftree:bog_water params.",
   "type": "minecraft:waterlogged_vegetation_patch",
   "config": {
     "depth": 2,

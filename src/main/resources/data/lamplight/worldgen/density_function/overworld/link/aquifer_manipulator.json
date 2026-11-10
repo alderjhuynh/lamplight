@@ -38,6 +38,5 @@
         "value": -1.0
       }
     ]
-  },
-  "_comment": "Vantage original terrain math for aquifer_manipulator.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

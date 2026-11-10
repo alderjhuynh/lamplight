@@ -13,6 +13,5 @@
         "y_scale": 0.05
       }
     }
-  },
-  "_comment": "Vantage original terrain math for noise_multiply.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

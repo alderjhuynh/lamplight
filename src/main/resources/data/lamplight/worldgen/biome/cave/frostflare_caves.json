@@ -130,6 +130,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.8,
-  "_comment": "Vantage rewrite frostfire_caves \u2014 family caves, distinct from Terralith/Clifftree source"
+  "temperature": 0.8
 }

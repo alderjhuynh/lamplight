@@ -187,6 +187,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.2,
-  "_comment": "Vantage rewrite windswept_spires \u2014 family canyon, distinct from Terralith/Clifftree source"
+  "temperature": 0.2
 }

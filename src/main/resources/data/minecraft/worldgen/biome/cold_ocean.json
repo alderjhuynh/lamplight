@@ -79,7 +79,6 @@
       "lamplight:shore_gravel"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -214,6 +213,5 @@
       }
     ]
   },
-  "temperature": 0.5,
-  "_comment": "Vantage original vanilla override for cold_ocean \u2014 distinct verticality, not Clifftree copy"
+  "temperature": 0.5
 }

@@ -180,6 +180,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 2,
-  "_comment": "Vantage rewrite red_oasis \u2014 family default, distinct from Terralith/Clifftree source"
+  "temperature": 2
 }

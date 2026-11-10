@@ -209,6 +209,5 @@
     "water_creature": []
   },
   "temperature": 2.0,
-  "creature_spawn_probability": 0.15,
-  "_comment": "Vantage original vanilla override for windswept_savanna \u2014 distinct verticality, not Clifftree copy"
+  "creature_spawn_probability": 0.15
 }

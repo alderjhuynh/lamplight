@@ -75,7 +75,6 @@
       "lamplight:disk_snowy_grass"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -221,6 +220,5 @@
     "water_creature": []
   },
   "temperature": -0.5,
-  "creature_spawn_probability": 0.15,
-  "_comment": "Vantage original vanilla override for snowy_taiga \u2014 distinct verticality, not Clifftree copy"
+  "creature_spawn_probability": 0.15
 }

@@ -1,5 +1,4 @@
 {
-  "_comment": "Vantage original: sage bush — simplified to valid simple_block to avoid registry deps.",
   "type": "minecraft:simple_block",
   "config": {
     "to_place": {

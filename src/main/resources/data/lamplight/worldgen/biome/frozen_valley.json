@@ -77,7 +77,6 @@
       "lamplight:ore_lapis_extra"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -132,6 +131,5 @@
       }
     ]
   },
-  "temperature": 0.0,
-  "_comment": "Vantage rewrite glacier_valley \u2014 family wet, distinct from Terralith/Clifftree source"
+  "temperature": 0.0
 }

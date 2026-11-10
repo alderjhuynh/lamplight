@@ -68,7 +68,6 @@
       "minecraft:underwater_magma"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -207,6 +206,5 @@
     "water_creature": []
   },
   "temperature": 0.375,
-  "creature_spawn_probability": 0.15,
-  "_comment": "Vantage original vanilla override for taiga \u2014 distinct verticality, not Clifftree copy"
+  "creature_spawn_probability": 0.15
 }

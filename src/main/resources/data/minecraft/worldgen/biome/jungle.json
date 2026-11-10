@@ -77,7 +77,6 @@
       "lamplight:disk_sand_tropic"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -224,6 +223,5 @@
     "water_creature": []
   },
   "temperature": 0.95,
-  "creature_spawn_probability": 0.3,
-  "_comment": "Vantage original vanilla override for jungle \u2014 distinct verticality, not Clifftree copy"
+  "creature_spawn_probability": 0.3
 }

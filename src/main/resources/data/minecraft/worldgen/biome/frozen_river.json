@@ -82,7 +82,6 @@
       "lamplight:ice_blobs"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -195,6 +194,5 @@
       }
     ]
   },
-  "temperature": 0.0,
-  "_comment": "Vantage original vanilla override for frozen_river \u2014 distinct verticality, not Clifftree copy"
+  "temperature": 0.0
 }

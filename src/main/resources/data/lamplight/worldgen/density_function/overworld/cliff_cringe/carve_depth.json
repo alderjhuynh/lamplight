@@ -19,6 +19,5 @@
       }
     },
     "argument2": "lamplight:overworld/cliff/cliff_depth"
-  },
-  "_comment": "Vantage original terrain math for carve_depth.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

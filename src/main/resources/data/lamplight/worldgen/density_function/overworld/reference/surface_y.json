@@ -5,6 +5,5 @@
     "type": "minecraft:mul",
     "argument1": "minecraft:overworld/depth",
     "argument2": 128
-  },
-  "_comment": "Vantage original terrain math for surface_y.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

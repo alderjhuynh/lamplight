@@ -23,6 +23,5 @@
     "from_y": -7,
     "to_value": 0.33775,
     "to_y": -54
-  },
-  "_comment": "Vantage original terrain math for sky.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

@@ -77,6 +77,5 @@
         ]
       }
     }
-  },
-  "_comment": "Vantage original terrain math for spline.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

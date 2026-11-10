@@ -70,7 +70,6 @@
       "minecraft:underwater_magma"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -174,6 +173,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 2.0,
-  "_comment": "Vantage rewrite desert_cliff \u2014 family canyon, distinct from Terralith/Clifftree source"
+  "temperature": 2.0
 }

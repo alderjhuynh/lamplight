@@ -210,6 +210,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.95,
-  "_comment": "Vantage rewrite rocky_jungle \u2014 family wet, distinct from Terralith/Clifftree source"
+  "temperature": 0.95
 }

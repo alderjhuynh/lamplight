@@ -177,6 +177,5 @@
     ],
     "water_creature": []
   },
-  "temperature": 0.5,
-  "_comment": "Vantage rewrite underground_jungle \u2014 family caves, distinct from Terralith/Clifftree source"
+  "temperature": 0.5
 }

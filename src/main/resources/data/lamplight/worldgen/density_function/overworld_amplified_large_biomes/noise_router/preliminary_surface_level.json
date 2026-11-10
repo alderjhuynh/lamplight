@@ -108,6 +108,5 @@
     "max": 320
   },
   "lower_bound": -64,
-  "cell_height": 8,
-  "_comment": "Vantage original terrain math for preliminary_surface_level.json \u2014 distinct"
+  "cell_height": 8
 }

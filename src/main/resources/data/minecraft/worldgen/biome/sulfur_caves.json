@@ -154,6 +154,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.8,
-  "_comment": "Vantage original vanilla override for sulfur_caves \u2014 distinct verticality, not Clifftree copy"
+  "temperature": 0.8
 }

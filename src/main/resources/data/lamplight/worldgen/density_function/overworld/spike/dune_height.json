@@ -12,6 +12,5 @@
         "y_scale": 2.02141
       }
     }
-  },
-  "_comment": "Vantage original terrain math for dune_height.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

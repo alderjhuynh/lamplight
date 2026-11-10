@@ -180,6 +180,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 1,
-  "_comment": "Vantage rewrite fungal_caves \u2014 family caves, distinct from Terralith/Clifftree source"
+  "temperature": 1
 }

@@ -71,7 +71,6 @@
       "minecraft:disk_clay"
     ],
     [
-      "#lamplight:extra_gold_remove"
     ],
     [
       "minecraft:spring_water",
@@ -194,6 +193,5 @@
     "water_creature": []
   },
   "temperature": 0.7,
-  "creature_spawn_probability": 0.15,
-  "_comment": "Vantage rewrite sparse_forest \u2014 family highlands, distinct from Terralith/Clifftree source"
+  "creature_spawn_probability": 0.15
 }

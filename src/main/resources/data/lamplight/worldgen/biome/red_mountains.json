@@ -158,6 +158,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.1,
-  "_comment": "Vantage rewrite scarlet_mountains \u2014 family canyon, distinct from Terralith/Clifftree source"
+  "temperature": 0.1
 }

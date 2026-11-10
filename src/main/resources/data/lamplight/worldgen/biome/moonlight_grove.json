@@ -193,6 +193,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.7,
-  "_comment": "Vantage rewrite moonlight_grove \u2014 family highlands, distinct from Terralith/Clifftree source"
+  "temperature": 0.7
 }

@@ -58,6 +58,5 @@
         ]
       }
     }
-  },
-  "_comment": "Vantage original terrain math for disabled.json \u2014 distinct from Terralith/Clifftree, verticality tuned"
+  }
 }

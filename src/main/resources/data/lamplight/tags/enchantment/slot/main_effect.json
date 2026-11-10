@@ -4,6 +4,14 @@
     "minecraft:multishot",
     "minecraft:quick_charge",
     "lamplight:propulsion",
-    "lamplight:windrunner"
+    "lamplight:windrunner",
+    "lamplight:steady_aim",
+    "lamplight:heavy_draw",
+    "lamplight:tailwind",
+    "lamplight:deadeye",
+    "lamplight:scavenger",
+    "lamplight:ricochet",
+    "lamplight:chain_load",
+    "lamplight:kiting"
   ]
 }

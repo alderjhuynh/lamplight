@@ -15,6 +15,9 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.HoneycombItem;
 import net.minecraft.world.item.Item;
@@ -31,6 +34,7 @@ import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
 public class ScytheItem extends Item {
@@ -63,6 +67,35 @@ public class ScytheItem extends Item {
 	public ScytheItem(ToolMaterial material, float attackDamageBaseline, float attackSpeedBaseline, Properties properties) {
 		super(properties.tool(material, BlockTags.MINEABLE_WITH_HOE, attackDamageBaseline, attackSpeedBaseline,
 				Weapon.AXE_DISABLES_BLOCKING_FOR_SECONDS));
+	}
+
+	private static final float CRIT_DRAG_FORCE = 0.45f;
+
+	// yes i know this is exactly the same as the reeling enchant but no im not making a general drag helper and im also not making that method public
+	private static void dragHitEntity(LivingEntity victim, Entity owner, float force) {
+		Vec3 dir = owner.position().add(0.0D, owner.getBbHeight() * 0.5D, 0.0D)
+				.subtract(victim.position().add(0.0D, victim.getBbHeight() * 0.5D, 0.0D));
+		if (dir.lengthSqr() < 1.0E-4D) {
+			return;
+		}
+		victim.setDeltaMovement(victim.getDeltaMovement().add(dir.normalize().scale(force)));
+		victim.hurtMarked = true;
+	}
+
+	@Override
+	public void postHurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+		super.postHurtEnemy(stack, target, attacker);
+		if (attacker instanceof Player player
+				&& !player.level().isClientSide()
+				&& isCrit(player)) {
+			dragHitEntity(target, player, CRIT_DRAG_FORCE);
+		}
+	}
+
+	private static boolean isCrit(Player p) {
+		return p.fallDistance > 0.0F && !p.onGround() && !p.onClimbable()
+				&& !p.isInWater() && !p.hasEffect(MobEffects.BLINDNESS)
+				&& !p.isPassenger();
 	}
 
 	@Override

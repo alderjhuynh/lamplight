@@ -1,0 +1,47 @@
+{
+  "anvil_cost": 6,
+  "description": {
+    "translate": "enchantment.lamplight.updraft"
+  },
+  "effects": {
+    "minecraft:post_attack": [
+      {
+        "enchanted": "attacker",
+        "affected": "victim",
+        "effect": {
+          "type": "minecraft:apply_mob_effect",
+          "to_apply": "minecraft:levitation",
+          "min_duration": 20,
+          "max_duration": 20,
+          "min_amplifier": 0,
+          "max_amplifier": 0
+        },
+        "requirements": {
+          "condition": "minecraft:random_chance",
+          "chance": {
+            "type": "minecraft:enchantment_level",
+            "amount": {
+              "type": "minecraft:linear",
+              "base": 0.05,
+              "per_level_above_first": 0.0
+            }
+          }
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 11,
+    "per_level_above_first": 4
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 4,
+    "per_level_above_first": 4
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#minecraft:ranged_weapons/master",
+  "weight": 3
+}

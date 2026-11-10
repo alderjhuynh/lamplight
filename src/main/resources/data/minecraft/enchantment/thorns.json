@@ -1,7 +1,7 @@
 {
   "anvil_cost": 8,
   "description": {
-    "text": "Thorns"
+    "translate": "enchantment.minecraft.thorns"
   },
   "effects": {
     "minecraft:post_attack": [

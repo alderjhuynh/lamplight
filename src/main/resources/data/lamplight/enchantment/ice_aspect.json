@@ -1,7 +1,7 @@
 {
   "anvil_cost": 4,
   "description": {
-    "text": "Ice Aspect"
+    "translate": "enchantment.lamplight.ice_aspect"
   },
   "effects": {},
   "max_cost": {

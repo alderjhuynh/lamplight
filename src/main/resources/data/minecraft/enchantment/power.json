@@ -1,7 +1,7 @@
 {
   "anvil_cost": 1,
   "description": {
-    "text": "Might"
+    "translate": "enchantment.minecraft.power"
   },
   "effects": {
     "minecraft:damage": [

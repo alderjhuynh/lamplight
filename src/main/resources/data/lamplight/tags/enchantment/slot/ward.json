@@ -1,6 +1,5 @@
 {
   "values": [
-    "minecraft:protection",
     "minecraft:fire_protection",
     "minecraft:blast_protection",
     "minecraft:projectile_protection",
@@ -8,6 +7,12 @@
     "lamplight:dragonheart",
     "lamplight:emberforge",
     "lamplight:icebound",
-    "lamplight:unbroken"
+    "lamplight:unbroken",
+    "lamplight:warding_sigil",
+    "lamplight:storm_coil",
+    "lamplight:spines",
+    "lamplight:kiln",
+    "lamplight:rampart",
+    "lamplight:last_stand"
   ]
 }

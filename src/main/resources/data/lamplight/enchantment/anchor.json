@@ -8,37 +8,27 @@
       {
         "amount": {
           "type": "minecraft:linear",
-          "base": 0.1,
-          "per_level_above_first": 0.1
-        },
-        "attribute": "minecraft:knockback_resistance",
-        "id": "minecraft:enchantment.anchor",
-        "operation": "add_value"
-      },
-      {
-        "amount": {
-          "type": "minecraft:linear",
-          "base": 0.1,
-          "per_level_above_first": 0.1
+          "base": 0.5,
+          "per_level_above_first": 0.5
         },
         "attribute": "minecraft:explosion_knockback_resistance",
-        "id": "minecraft:enchantment.anchor.explosion",
+        "id": "lamplight:enchantment.anchor.explosion",
         "operation": "add_value"
       }
     ]
   },
   "max_cost": {
-    "base": 35,
-    "per_level_above_first": 10
+    "base": 18,
+    "per_level_above_first": 8
   },
-  "max_level": 3,
+  "max_level": 2,
   "min_cost": {
-    "base": 10,
-    "per_level_above_first": 10
+    "base": 8,
+    "per_level_above_first": 8
   },
   "slots": [
     "armor"
   ],
   "supported_items": "#minecraft:armor/master",
-  "weight": 2
+  "weight": 3
 }

@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.lamplight.bulwark"
+  },
+  "effects": {},
+  "max_cost": {
+    "base": 20,
+    "per_level_above_first": 7
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 8,
+    "per_level_above_first": 8
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#lamplight:kill_wieldable",
+  "weight": 5
+}

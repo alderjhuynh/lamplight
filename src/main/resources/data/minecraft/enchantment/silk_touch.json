@@ -1,7 +1,7 @@
 {
   "anvil_cost": 8,
   "description": {
-    "text": "Silk Touch"
+    "translate": "enchantment.minecraft.silk_touch"
   },
   "effects": {
     "minecraft:block_experience": [

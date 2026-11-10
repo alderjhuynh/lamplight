@@ -7,6 +7,17 @@
     "lamplight:dash",
     "lamplight:double_jump",
     "lamplight:leaping",
-    "lamplight:zephyr"
+    "lamplight:zephyr",
+    "lamplight:current",
+    "lamplight:sure_footed",
+    "lamplight:coyote",
+    "lamplight:sticky_landing",
+    "lamplight:miser",
+    "lamplight:wall_kick",
+    "lamplight:ember_tread",
+    "lamplight:pilgrim",
+    "lamplight:jockey",
+    "lamplight:web_walker",
+    "lamplight:grip_spikes"
   ]
 }

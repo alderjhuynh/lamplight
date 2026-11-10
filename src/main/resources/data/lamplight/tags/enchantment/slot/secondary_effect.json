@@ -2,6 +2,13 @@
   "values": [
     "minecraft:flame",
     "minecraft:infinity",
-    "lamplight:frost"
+    "lamplight:frost",
+    "lamplight:venom",
+    "lamplight:knockshot",
+    "lamplight:updraft",
+    "lamplight:wounding",
+    "lamplight:marked_quarry",
+    "lamplight:smoke_veil",
+    "lamplight:singe"
   ]
 }

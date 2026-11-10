@@ -1,7 +1,7 @@
 {
   "anvil_cost": 4,
   "description": {
-    "text": "Scattershot"
+    "translate": "enchantment.minecraft.multishot"
   },
   "effects": {
     "minecraft:projectile_count": [

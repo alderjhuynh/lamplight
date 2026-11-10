@@ -3,6 +3,12 @@
     "minecraft:efficiency",
     "minecraft:fortune",
     "minecraft:silk_touch",
-    "minecraft:lure"
+    "minecraft:lure",
+    "lamplight:feller",
+    "lamplight:trencher",
+    "lamplight:replanter",
+    "lamplight:magnetism",
+    "lamplight:tiller",
+    "lamplight:gleaner"
   ]
 }

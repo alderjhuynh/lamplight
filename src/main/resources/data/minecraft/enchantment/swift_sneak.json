@@ -1,7 +1,7 @@
 {
   "anvil_cost": 8,
   "description": {
-    "text": "Swift Sneak"
+    "translate": "enchantment.minecraft.swift_sneak"
   },
   "effects": {
     "minecraft:attributes": [

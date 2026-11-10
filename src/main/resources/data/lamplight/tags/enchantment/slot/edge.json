@@ -2,12 +2,25 @@
   "values": [
     "minecraft:breach",
     "minecraft:riptide",
-    "minecraft:piercing",
     "lamplight:inferno",
     "lamplight:cinderheart",
     "lamplight:winters_edge",
     "lamplight:sunder",
     "lamplight:heartwood",
-    "lamplight:gravecaller"
+    "lamplight:gravecaller",
+    "lamplight:severing",
+    "lamplight:whirlwind",
+    "lamplight:rhythm",
+    "lamplight:rend",
+    "lamplight:vulture",
+    "lamplight:static_charge",
+    "lamplight:undertow",
+    "lamplight:spite",
+    "lamplight:bane_of_illagers",
+    "lamplight:reap",
+    "lamplight:splinter",
+    "lamplight:stormbrand",
+    "lamplight:cometfall",
+    "lamplight:phalanx"
   ]
 }

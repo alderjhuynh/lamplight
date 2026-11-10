@@ -1,0 +1,34 @@
+{
+  "anvil_cost": 2,
+  "description": {
+    "translate": "enchantment.lamplight.severing"
+  },
+  "effects": {
+    "minecraft:armor_effectiveness": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": {
+            "type": "minecraft:linear",
+            "base": -0.1,
+            "per_level_above_first": -0.1
+          }
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 12,
+    "per_level_above_first": 6
+  },
+  "max_level": 2,
+  "min_cost": {
+    "base": 4,
+    "per_level_above_first": 4
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#minecraft:melee_weapons/master",
+  "weight": 10
+}

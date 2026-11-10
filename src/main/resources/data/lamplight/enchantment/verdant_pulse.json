@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.lamplight.verdant_pulse"
+  },
+  "effects": {},
+  "max_cost": {
+    "base": 15,
+    "per_level_above_first": 5
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 6,
+    "per_level_above_first": 6
+  },
+  "slots": [
+    "armor"
+  ],
+  "supported_items": "#lamplight:rite_armor",
+  "weight": 5
+}

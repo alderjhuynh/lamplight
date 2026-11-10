@@ -1,7 +1,7 @@
 {
   "anvil_cost": 4,
   "description": {
-    "text": "Fortune"
+    "translate": "enchantment.minecraft.fortune"
   },
   "max_cost": {
     "base": 65,

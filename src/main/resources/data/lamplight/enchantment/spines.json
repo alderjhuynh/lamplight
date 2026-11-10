@@ -1,0 +1,45 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.lamplight.spines"
+  },
+  "effects": {
+    "minecraft:post_attack": [
+      {
+        "affected": "attacker",
+        "enchanted": "victim",
+        "effect": {
+          "type": "minecraft:damage_entity",
+          "damage_type": "minecraft:thorns",
+          "min_damage": 1.0,
+          "max_damage": 2.0
+        },
+        "requirements": {
+          "condition": "minecraft:random_chance",
+          "chance": {
+            "type": "minecraft:enchantment_level",
+            "amount": {
+              "type": "minecraft:linear",
+              "base": 0.25,
+              "per_level_above_first": 0.25
+            }
+          }
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 15,
+    "per_level_above_first": 10
+  },
+  "max_level": 2,
+  "min_cost": {
+    "base": 5,
+    "per_level_above_first": 5
+  },
+  "slots": [
+    "armor"
+  ],
+  "supported_items": "#minecraft:armor/master",
+  "weight": 5
+}

@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 6,
+  "description": {
+    "translate": "enchantment.lamplight.stormbrand"
+  },
+  "effects": {},
+  "max_cost": {
+    "base": 19,
+    "per_level_above_first": 7
+  },
+  "max_level": 2,
+  "min_cost": {
+    "base": 7,
+    "per_level_above_first": 7
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "minecraft:trident",
+  "weight": 3
+}

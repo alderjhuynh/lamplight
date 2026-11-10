@@ -1,5 +1,6 @@
 {
   "values": [
-    "#minecraft:non_treasure"
+    "#minecraft:non_treasure",
+    "#lamplight:arcanum_capstone"
   ]
 }

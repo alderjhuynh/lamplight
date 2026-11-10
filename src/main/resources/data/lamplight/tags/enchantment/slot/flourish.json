@@ -1,6 +1,13 @@
 {
   "values": [
     "minecraft:looting",
-    "lamplight:leech"
+    "lamplight:leech",
+    "lamplight:plunder",
+    "lamplight:siphon",
+    "lamplight:fanfare",
+    "lamplight:bulwark",
+    "lamplight:finale",
+    "lamplight:gravedigger",
+    "lamplight:tuition"
   ]
 }

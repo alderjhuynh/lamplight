@@ -1,7 +1,7 @@
 {
   "anvil_cost": 2,
   "description": {
-    "text": "Smite"
+    "translate": "enchantment.minecraft.smite"
   },
   "effects": {
     "minecraft:damage": [

@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 6,
+  "description": {
+    "translate": "enchantment.lamplight.adrenaline"
+  },
+  "effects": {},
+  "max_cost": {
+    "base": 20,
+    "per_level_above_first": 8
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 8,
+    "per_level_above_first": 8
+  },
+  "slots": [
+    "armor"
+  ],
+  "supported_items": "#minecraft:armor/chest",
+  "weight": 3
+}

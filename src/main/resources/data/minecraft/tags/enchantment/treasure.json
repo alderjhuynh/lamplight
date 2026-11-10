@@ -2,6 +2,7 @@
   "values": [
     "minecraft:swift_sneak",
     "minecraft:soul_speed",
-    "minecraft:wind_burst"
+    "minecraft:wind_burst",
+    "#lamplight:arcanum_capstone"
   ]
 }

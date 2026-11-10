@@ -42,12 +42,12 @@
   },
   "max_level": 4,
   "min_cost": {
-    "base": 1,
+    "base": 11,
     "per_level_above_first": 11
   },
   "slots": [
     "armor"
   ],
   "supported_items": "#minecraft:armor/master",
-  "weight": 5
+  "weight": 2
 }

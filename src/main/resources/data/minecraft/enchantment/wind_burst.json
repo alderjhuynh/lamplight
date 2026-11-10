@@ -1,7 +1,7 @@
 {
   "anvil_cost": 4,
   "description": {
-    "text": "Wind Burst"
+    "translate": "enchantment.minecraft.wind_burst"
   },
   "effects": {
     "minecraft:post_attack": [

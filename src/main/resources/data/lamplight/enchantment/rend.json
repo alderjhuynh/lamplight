@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 6,
+  "description": {
+    "translate": "enchantment.lamplight.rend"
+  },
+  "effects": {},
+  "max_cost": {
+    "base": 20,
+    "per_level_above_first": 8
+  },
+  "max_level": 2,
+  "min_cost": {
+    "base": 7,
+    "per_level_above_first": 7
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#minecraft:melee_weapons/master",
+  "weight": 3
+}

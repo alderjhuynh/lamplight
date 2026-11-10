@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:armor/head",
+    "#minecraft:armor/chest",
+    "#minecraft:armor/feet"
+  ]
+}

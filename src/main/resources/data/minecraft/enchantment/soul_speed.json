@@ -1,7 +1,7 @@
 {
   "anvil_cost": 8,
   "description": {
-    "text": "Soul Speed"
+    "translate": "enchantment.minecraft.soul_speed"
   },
   "effects": {
     "minecraft:location_changed": [

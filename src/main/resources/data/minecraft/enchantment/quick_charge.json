@@ -1,7 +1,7 @@
 {
   "anvil_cost": 2,
   "description": {
-    "text": "Quick Charge"
+    "translate": "enchantment.minecraft.quick_charge"
   },
   "effects": {
     "minecraft:crossbow_charge_time": {

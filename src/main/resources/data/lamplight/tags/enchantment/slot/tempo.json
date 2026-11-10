@@ -7,6 +7,14 @@
     "minecraft:wind_burst",
     "lamplight:ice_aspect",
     "lamplight:reeling",
-    "lamplight:thunderstep"
+    "lamplight:thunderstep",
+    "lamplight:flurry",
+    "lamplight:first_blood",
+    "lamplight:momentum",
+    "lamplight:echo",
+    "lamplight:feint",
+    "lamplight:heavy",
+    "lamplight:viper",
+    "lamplight:riposte"
   ]
 }

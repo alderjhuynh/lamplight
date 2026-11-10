@@ -1,7 +1,7 @@
 {
   "anvil_cost": 2,
   "description": {
-    "text": "Bane of Arthropods"
+    "translate": "enchantment.minecraft.bane_of_arthropods"
   },
   "effects": {
     "minecraft:damage": [

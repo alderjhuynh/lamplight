@@ -1,7 +1,7 @@
 {
   "anvil_cost": 4,
   "description": {
-    "text": "Frost"
+    "translate": "enchantment.lamplight.frost"
   },
   "effects": {},
   "max_cost": {

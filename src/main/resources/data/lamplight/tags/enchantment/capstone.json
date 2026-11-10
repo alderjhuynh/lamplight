@@ -1,8 +1,5 @@
 {
   "values": [
-    "#lamplight:arcanum_capstone",
-    "minecraft:looting",
-    "minecraft:infinity",
-    "minecraft:thorns"
+    "#lamplight:arcanum_capstone"
   ]
 }

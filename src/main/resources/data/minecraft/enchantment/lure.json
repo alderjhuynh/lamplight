@@ -1,7 +1,7 @@
 {
   "anvil_cost": 4,
   "description": {
-    "text": "Lure"
+    "translate": "enchantment.minecraft.lure"
   },
   "effects": {
     "minecraft:fishing_luck_bonus": [

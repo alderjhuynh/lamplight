@@ -1,0 +1,6 @@
+{
+  "parent": "lamplight:item/greatsword_in_hand",
+  "textures": {
+    "layer0": "lamplight:item/iron_greatsword_in_hand"
+  }
+}

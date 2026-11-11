@@ -4,6 +4,7 @@
         "#melee_weapons/swords",
         "#melee_weapons/scythes",
         "#melee_weapons/spears",
+        "#melee_weapons/greatswords",
         "#melee_weapons/special"
     ]
 }

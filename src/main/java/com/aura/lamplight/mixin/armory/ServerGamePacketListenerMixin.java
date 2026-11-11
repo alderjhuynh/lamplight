@@ -1,6 +1,7 @@
 package com.aura.lamplight.mixin.armory;
 
 import com.aura.lamplight.armory.BackSlotAttachments;
+import com.aura.lamplight.armory.TwoHanded;
 import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -18,10 +19,16 @@ public abstract class ServerGamePacketListenerMixin {
 	@Shadow
 	public ServerPlayer player;
 
-	@Inject(method = "handlePlayerAction", at = @At("HEAD"))
+	@Inject(method = "handlePlayerAction", at = @At("HEAD"), cancellable = true)
 	private void armory$disarmBeforeOffhandSwap(ServerboundPlayerActionPacket packet, CallbackInfo ci) {
 		if (packet.getAction() == ServerboundPlayerActionPacket.Action.SWAP_ITEM_WITH_OFFHAND) {
+			// a two handed item can never move into the offhand: refuse the swap entirely.
+			// resolved before disarming so a wielded back-slot item is checked too.
+			boolean blocked = TwoHanded.isTwoHanded(this.player.getMainHandItem());
 			BackSlotAttachments.setHolding(this.player, false);
+			if (blocked) {
+				ci.cancel();
+			}
 		}
 	}
 }

@@ -20,6 +20,8 @@ public class Armory implements ModInitializer {
 		// force attachment registration
 		Object ignored = BackSlotAttachments.BACK_STACK;
 
+		ModDataComponents.initialize();
+		TwoHanded.register();
 		ModItems.register();
 		PayloadTypeRegistry.serverboundPlay().register(DrawSheathPayload.TYPE, DrawSheathPayload.CODEC);
 		ServerPlayNetworking.registerGlobalReceiver(DrawSheathPayload.TYPE, (payload, context) -> {

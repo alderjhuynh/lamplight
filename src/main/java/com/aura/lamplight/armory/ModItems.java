@@ -13,6 +13,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 
@@ -38,6 +39,13 @@ public final class ModItems {
 		});
 	}
 
+	private static void addTwoHanded(DefaultItemComponentEvents.ModifyContext context, Item item) {
+		context.modify(item, builder -> {
+			builder.set(ModDataComponents.TWO_HANDED, true);
+			Armory.LOGGER.info("[twohanded-debug] default component bound to {}", item);
+		});
+	}
+
 	public static final ResourceKey<Item> IRON_KATANA_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("iron_katana"));
 
@@ -52,6 +60,48 @@ public final class ModItems {
 			BuiltInRegistries.ITEM,
 			NETHERITE_GREATSWORD_KEY, 
 			new Item(new Item.Properties().sword(ToolMaterial.NETHERITE, 5.0F, -3.3F).setId(NETHERITE_GREATSWORD_KEY)));
+
+	public static final ResourceKey<Item> WOODEN_GREATSWORD_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("wooden_greatsword"));
+	public static final Item WOODEN_GREATSWORD = Registry.register(
+			BuiltInRegistries.ITEM,
+			WOODEN_GREATSWORD_KEY,
+			new Item(new Item.Properties().sword(ToolMaterial.WOOD, 4.0F, -3.3F).setId(WOODEN_GREATSWORD_KEY)));
+
+	public static final ResourceKey<Item> STONE_GREATSWORD_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("stone_greatsword"));
+	public static final Item STONE_GREATSWORD = Registry.register(
+			BuiltInRegistries.ITEM,
+			STONE_GREATSWORD_KEY,
+			new Item(new Item.Properties().sword(ToolMaterial.STONE, 4.0F, -3.3F).setId(STONE_GREATSWORD_KEY)));
+
+	public static final ResourceKey<Item> COPPER_GREATSWORD_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("copper_greatsword"));
+	public static final Item COPPER_GREATSWORD = Registry.register(
+			BuiltInRegistries.ITEM,
+			COPPER_GREATSWORD_KEY,
+			new Item(new Item.Properties().sword(ToolMaterial.COPPER, 4.0F, -3.3F).setId(COPPER_GREATSWORD_KEY)));
+
+	public static final ResourceKey<Item> IRON_GREATSWORD_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("iron_greatsword"));
+	public static final Item IRON_GREATSWORD = Registry.register(
+			BuiltInRegistries.ITEM,
+			IRON_GREATSWORD_KEY,
+			new Item(new Item.Properties().sword(ToolMaterial.IRON, 5.0F, -3.3F).setId(IRON_GREATSWORD_KEY)));
+
+	public static final ResourceKey<Item> GOLDEN_GREATSWORD_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("golden_greatsword"));
+	public static final Item GOLDEN_GREATSWORD = Registry.register(
+			BuiltInRegistries.ITEM,
+			GOLDEN_GREATSWORD_KEY,
+			new Item(new Item.Properties().sword(ToolMaterial.GOLD, 4.0F, -3.3F).setId(GOLDEN_GREATSWORD_KEY)));
+
+	public static final ResourceKey<Item> DIAMOND_GREATSWORD_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("diamond_greatsword"));
+	public static final Item DIAMOND_GREATSWORD = Registry.register(
+			BuiltInRegistries.ITEM,
+			DIAMOND_GREATSWORD_KEY,
+			new Item(new Item.Properties().sword(ToolMaterial.DIAMOND, 5.0F, -3.3F).setId(DIAMOND_GREATSWORD_KEY)));
 
 	public static final ResourceKey<Item> WOODEN_SCYTHE_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("wooden_scythe"));
@@ -113,9 +163,22 @@ public final class ModItems {
 					GOLDEN_SCYTHE, DIAMOND_SCYTHE, NETHERITE_SCYTHE }) {
 				addScytheAttributes(context, scythe);
 			}
+			for (Item item : new Item[] {
+					WOODEN_GREATSWORD, STONE_GREATSWORD, COPPER_GREATSWORD, IRON_GREATSWORD,
+					GOLDEN_GREATSWORD, DIAMOND_GREATSWORD, NETHERITE_GREATSWORD,
+					Items.BOW, Items.CROSSBOW, Items.MACE }) {
+				addTwoHanded(context, item);
+			}
 		});
 		CreativeModeTabEvents.modifyOutputEvent(COMBAT_TAB).register((output) -> {
 			output.accept(IRON_KATANA);
+			output.accept(WOODEN_GREATSWORD);
+			output.accept(STONE_GREATSWORD);
+			output.accept(COPPER_GREATSWORD);
+			output.accept(IRON_GREATSWORD);
+			output.accept(GOLDEN_GREATSWORD);
+			output.accept(DIAMOND_GREATSWORD);
+			output.accept(NETHERITE_GREATSWORD);
 			output.accept(WOODEN_SCYTHE);
 			output.accept(STONE_SCYTHE);
 			output.accept(COPPER_SCYTHE);

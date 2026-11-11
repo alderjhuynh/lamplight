@@ -647,6 +647,7 @@
   "item.lamplight.ice_scroll": "Ice Scroll",
   "item.lamplight.ice_scroll.blank": "Unattuned",
   "item.lamplight.iron_katana": "Iron Katana",
+  "item.lamplight.iron_greatsword": "Iron Greatsword",
   "item.lamplight.iron_knife": "Iron Knife",
   "item.lamplight.iron_scythe": "Iron Scythe",
   "item.lamplight.jeweling_table": "Jeweling Table",
@@ -661,6 +662,10 @@
   "item.lamplight.mulled_wine": "Mulled Wine",
   "item.lamplight.mushroom_risotto": "Mushroom Risotto",
   "item.lamplight.mutton_cutlets": "Mutton Cutlets",
+  "item.lamplight.copper_greatsword": "Copper Greatsword",
+  "item.lamplight.diamond_greatsword": "Diamond Greatsword",
+  "item.lamplight.golden_greatsword": "Golden Greatsword",
+  "item.lamplight.iron_greatsword": "Iron Greatsword",
   "item.lamplight.netherite_greatsword": "Netherite Greatsword",
   "item.lamplight.netherite_knife": "Netherite Knife",
   "item.lamplight.netherite_scythe": "Netherite Scythe",
@@ -689,6 +694,7 @@
   "item.lamplight.spaghetti": "Spaghetti",
   "item.lamplight.stew": "Stew",
   "item.lamplight.stone_knife": "Stone Knife",
+  "item.lamplight.stone_greatsword": "Stone Greatsword",
   "item.lamplight.stone_scythe": "Stone Scythe",
   "item.lamplight.surf_n_turf": "Surf 'n' Turf",
   "item.lamplight.sweet_berry_wine": "Sweet Berry Wine",
@@ -709,6 +715,7 @@
   "item.lamplight.wine_rack": "Wine Rack",
   "item.lamplight.wisp_spawn_egg": "Wisp Spawn Egg",
   "item.lamplight.wooden_knife": "Wooden Knife",
+  "item.lamplight.wooden_greatsword": "Wooden Greatsword",
   "item.lamplight.wooden_scythe": "Wooden Scythe",
   "item.minecraft.lingering_potion.effect.blindness": "Lingering Potion of Blindness",
   "item.minecraft.lingering_potion.effect.darkness": "Lingering Potion of Darkness",
@@ -839,5 +846,6 @@
   "tooltip.lamplight.template_focus": "Focus: ×%s",
   "tooltip.lamplight.template_insets": "Inset Slots: %d",
   "tooltip.lamplight.template_slot": "Fits: %s",
-  "tooltip.lamplight.template_unloaded": "Unloaded Template Definition"
+  "tooltip.lamplight.template_unloaded": "Unloaded Template Definition",
+  "tooltip.lamplight.two_handed": "Two Handed"
 }

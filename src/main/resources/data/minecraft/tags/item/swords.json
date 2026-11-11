@@ -7,6 +7,13 @@
     "lamplight:iron_scythe",
     "lamplight:golden_scythe",
     "lamplight:diamond_scythe",
-    "lamplight:netherite_scythe"
+    "lamplight:netherite_scythe",
+    "lamplight:wooden_greatsword",
+    "lamplight:stone_greatsword",
+    "lamplight:copper_greatsword",
+    "lamplight:iron_greatsword",
+    "lamplight:golden_greatsword",
+    "lamplight:diamond_greatsword",
+    "lamplight:netherite_greatsword"
   ]
 }

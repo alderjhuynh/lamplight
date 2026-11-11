@@ -46,6 +46,13 @@ public final class ModItems {
 			IRON_KATANA_KEY,
 			new Item(new Item.Properties().sword(ToolMaterial.IRON, 3.0F, -3.0F).setId(IRON_KATANA_KEY)));
 
+	public static final ResourceKey<Item> NETHERITE_GREATSWORD_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("netherite_greatsword"));
+	public static final Item NETHERITE_GREATSWORD = Registry.register(
+			BuiltInRegistries.ITEM,
+			NETHERITE_GREATSWORD_KEY, 
+			new Item(new Item.Properties().sword(ToolMaterial.NETHERITE, 5.0F, -3.3F).setId(NETHERITE_GREATSWORD_KEY)));
+
 	public static final ResourceKey<Item> WOODEN_SCYTHE_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("wooden_scythe"));
 	public static final Item WOODEN_SCYTHE = Registry.register(

@@ -39,6 +39,12 @@ public class BackSlotLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
 		poseStack.mulPose(Axis.XP.rotationDegrees(transform.rotX));
 		poseStack.mulPose(Axis.ZP.rotationDegrees(transform.rotZ));
 		poseStack.scale(transform.scale, transform.scale, transform.scale);
+		BackSlotHandItems.HandAdjust adjust = handModel
+				? ((FabricRenderState) (Object) state).getData(BackSlotRenderState.HAND_ADJUST_KEY)
+				: null;
+		if (adjust != null && !adjust.isZero()) {
+			poseStack.translate(adjust.unitsRight(), adjust.unitsUp(), 0.0F);
+		}
 		itemState.submit(poseStack, collector, light, OverlayTexture.NO_OVERLAY, state.outlineColor);
 		poseStack.popPose();
 	}

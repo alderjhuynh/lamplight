@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.item.ItemStackRenderState;
 public final class BackSlotRenderState {
 	public static final RenderStateDataKey<ItemStackRenderState> BACK_ITEM_KEY = RenderStateDataKey.create();
 	public static final RenderStateDataKey<Boolean> HAND_MODEL_KEY = RenderStateDataKey.create();
+	public static final RenderStateDataKey<BackSlotHandItems.HandAdjust> HAND_ADJUST_KEY = RenderStateDataKey.create();
 
 	private BackSlotRenderState() {
 	}

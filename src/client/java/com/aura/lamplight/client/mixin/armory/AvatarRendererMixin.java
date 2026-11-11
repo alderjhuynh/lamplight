@@ -52,6 +52,8 @@ public class AvatarRendererMixin {
 		// in-hand model with the baked hand profile.
 		boolean handModel = BackSlotHandItems.usesHandModel(back);
 		fabricState.setData(BackSlotRenderState.HAND_MODEL_KEY, handModel);
+		fabricState.setData(BackSlotRenderState.HAND_ADJUST_KEY,
+				handModel ? BackSlotHandItems.adjustFor(back) : BackSlotHandItems.HandAdjust.NONE);
 		ItemDisplayContext context = handModel
 				? ItemDisplayContext.THIRD_PERSON_RIGHT_HAND
 				: ItemDisplayContext.FIXED;

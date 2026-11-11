@@ -1,0 +1,336 @@
+{
+  "name": "lamplight:village/swamp/houses",
+  "fallback": "lamplight:village/swamp/terminators",
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/armorer_house_1",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/animal_pen_1",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/animal_pen_2",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/animal_pen_3",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/big_house_1",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/big_house_2",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/butcher_shop_1",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/butcher_shop_2",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/cartographer_1",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/fisher_cottage_1",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/fletcher_house_1",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 8
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/large_farm_1",
+        "processors": "lamplight:farm_swamp",
+        "projection": "rigid"
+      },
+      "weight": 8
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/library_1",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/library_2",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/masons_house_1",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/medium_house_1",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/medium_house_2",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/meeting_point_4",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 5
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/meeting_point_5",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/shepherds_house_1",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/small_farm_1",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/small_house_1",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/small_house_2",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/small_house_3",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/small_house_4",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/small_house_5",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/small_house_6",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/small_house_7",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/small_house_8",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/stable_1",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/stable_2",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/tannery_1",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/temple_3",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/temple_4",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/tool_smith_1",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 5
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/houses/weaponsmith_1",
+        "processors": "lamplight:animal_pen_swamp",
+        "projection": "rigid"
+      },
+      "weight": 5
+    },
+    {
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      },
+      "weight": 1
+    }
+  ]
+}

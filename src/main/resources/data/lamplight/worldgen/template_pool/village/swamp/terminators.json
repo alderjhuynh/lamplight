@@ -1,0 +1,60 @@
+{
+  "name": "lamplight:village/swamp/terminators",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/terminators/terminator_01",
+        "processors": "lamplight:street_swamp",
+        "projection": "terrain_matching"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/terminators/terminator_02",
+        "processors": "lamplight:street_swamp",
+        "projection": "terrain_matching"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/terminators/terminator_03",
+        "processors": "lamplight:street_swamp",
+        "projection": "terrain_matching"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/terminators/terminator_04",
+        "processors": "lamplight:street_swamp",
+        "projection": "terrain_matching"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/terminators/terminator_05",
+        "processors": "lamplight:street_swamp",
+        "projection": "terrain_matching"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/terminators/terminator_06",
+        "processors": "lamplight:street_swamp",
+        "projection": "terrain_matching"
+      },
+      "weight": 1
+    }
+  ]
+}

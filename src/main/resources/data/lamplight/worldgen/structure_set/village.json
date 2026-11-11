@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 361757362,
+    "spacing": 34,
+    "separation": 8
+  },
+  "structures": [
+    {
+      "structure": "lamplight:village_swamp",
+      "weight": 1
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "lamplight:village/swamp/well_bottoms",
+  "fallback": "lamplight:village/swamp/well_bottoms",
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/decor/well_bottom",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      },
+      "weight": 1
+    }
+  ]
+}

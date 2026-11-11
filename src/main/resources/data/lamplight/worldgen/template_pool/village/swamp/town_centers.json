@@ -1,0 +1,51 @@
+{
+  "name": "lamplight:village/swamp/town_centers",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/town_centers/meeting_point_1",
+        "processors": "lamplight:street_swamp",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/town_centers/meeting_point_2",
+        "processors": "lamplight:street_swamp",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/town_centers/meeting_point_3",
+        "processors": "lamplight:street_swamp",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/town_centers/meeting_point_4",
+        "processors": "lamplight:street_swamp",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "lamplight:village/swamp/town_centers/meeting_point_5",
+        "processors": "lamplight:street_swamp",
+        "projection": "rigid"
+      },
+      "weight": 1
+    }
+  ]
+}

@@ -3,7 +3,20 @@
   "description": {
     "translate": "enchantment.lamplight.sure_footed"
   },
-  "effects": {},
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 0.5,
+          "per_level_above_first": 0.5
+        },
+        "attribute": "minecraft:step_height",
+        "id": "lamplight:enchantment.sure_footed",
+        "operation": "add_value"
+      }
+    ]
+  },
   "max_cost": {
     "base": 11,
     "per_level_above_first": 4

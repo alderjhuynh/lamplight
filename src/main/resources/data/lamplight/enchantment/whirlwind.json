@@ -3,7 +3,20 @@
   "description": {
     "translate": "enchantment.lamplight.whirlwind"
   },
-  "effects": {},
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 0.3,
+          "per_level_above_first": 0.0
+        },
+        "attribute": "minecraft:entity_interaction_range",
+        "id": "lamplight:enchantment.whirlwind",
+        "operation": "add_value"
+      }
+    ]
+  },
   "max_cost": {
     "base": 16,
     "per_level_above_first": 6

@@ -1,7 +1,7 @@
 {
   "anvil_cost": 2,
-  "description": {
-    "translate": "enchantment.minecraft.bane_of_arthropods"
+    "description": {
+    "translate": "enchantment.lamplight.bane_of_illagers"
   },
   "effects": {
     "minecraft:damage": [
@@ -18,7 +18,7 @@
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "minecraft:entity_type": "#minecraft:sensitive_to_bane_of_arthropods"
+            "minecraft:entity_type": "#minecraft:illager"
           }
         }
       }

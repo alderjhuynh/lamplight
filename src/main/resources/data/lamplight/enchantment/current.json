@@ -3,7 +3,20 @@
   "description": {
     "translate": "enchantment.lamplight.current"
   },
-  "effects": {},
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 0.3,
+          "per_level_above_first": 0.3
+        },
+        "attribute": "minecraft:water_movement_efficiency",
+        "id": "lamplight:enchantment.current",
+        "operation": "add_value"
+      }
+    ]
+  },
   "max_cost": {
     "base": 14,
     "per_level_above_first": 5

@@ -5,10 +5,9 @@
   "name": "Lamplight",
   "description": "A cozy, vanilla-plus world: worldgen, seasons, building, cooking, magic, creatures, and exploration, all in one mod.",
   "authors": [
-    "Me!"
+    "Auraea"
   ],
   "contact": {},
-  "license": "CC0-1.0",
   "icon": "assets/lamplight/icon.png",
   "environment": "*",
   "entrypoints": {

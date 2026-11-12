@@ -16,6 +16,6 @@
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#minecraft:tools/master",
+  "supported_items": "#minecraft:shovels",
   "weight": 5
 }

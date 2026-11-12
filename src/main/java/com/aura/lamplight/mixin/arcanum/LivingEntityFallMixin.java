@@ -2,6 +2,7 @@ package com.aura.lamplight.mixin.arcanum;
 
 import com.aura.lamplight.arcanum.server.FlowGlideHandler;
 import com.aura.lamplight.arcanum.server.JetServerHandler;
+import com.aura.lamplight.arcanum.server.RebuildHandler;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,5 +22,10 @@ public class LivingEntityFallMixin {
                 cir.setReturnValue(false);
             }
         }
+    }
+
+    @Inject(method = "causeFallDamage", at = @At("RETURN"))
+    private void arcanum$stickyLandingBounce(double fallDistance, float damageMultiplier, DamageSource source, CallbackInfoReturnable<Boolean> cir) {
+        RebuildHandler.onFallLanded((LivingEntity) (Object) this, (float) fallDistance);
     }
 }

@@ -16,6 +16,7 @@
     "arcanum.FlowGlideHudMixin",
     "arcanum.GlideHudMixin",
     "arcanum.SpinAttackInfernoTextureMixin",
+    "arcanum.DeepGazeOverlayMixin",
     "arcanum.WavedashHudMixin",
     "armory.AvatarRendererMixin",
     "armory.CreativeModeInventoryScreenMixin",

@@ -17,7 +17,6 @@
     "lamplight:ember_tread",
     "lamplight:pilgrim",
     "lamplight:jockey",
-    "lamplight:web_walker",
-    "lamplight:grip_spikes"
+    "lamplight:web_walker"
   ]
 }

@@ -6,6 +6,7 @@ import com.aura.lamplight.arcanum.server.DashHandler;
 import com.aura.lamplight.arcanum.server.DoubleJumpHandler;
 import com.aura.lamplight.arcanum.server.CapstoneHandler;
 import com.aura.lamplight.arcanum.server.FlowGlideHandler;
+import com.aura.lamplight.arcanum.server.RebuildHandler;
 import com.aura.lamplight.arcanum.server.JetServerHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -39,6 +40,7 @@ public class Arcanum implements ModInitializer {
 		DoubleJumpHandler.register();
 		FlowGlideHandler.register();
 		CapstoneHandler.register();
+		RebuildHandler.register();
 
 		ServerTickEvents.END_SERVER_TICK.register(JetServerHandler::tick);
 		ServerTickEvents.END_SERVER_TICK.register(FlowGlideHandler::tick);

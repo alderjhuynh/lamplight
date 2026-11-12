@@ -6,9 +6,8 @@
     "X": "#minecraft:copper_tool_materials"
   },
   "pattern": [
-    "  X",
     " XX",
-    "#X "
+    "## "
   ],
   "result": {
     "id": "lamplight:copper_greatsword"

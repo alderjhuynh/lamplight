@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#minecraft:netherite_tool_materials",
+  "base": "lamplight:diamond_dagger",
+  "result": {
+    "id": "lamplight:netherite_dagger"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

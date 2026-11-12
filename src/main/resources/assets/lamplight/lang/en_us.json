@@ -841,5 +841,6 @@
   "tooltip.lamplight.template_insets": "Inset Slots: %d",
   "tooltip.lamplight.template_slot": "Fits: %s",
   "tooltip.lamplight.template_unloaded": "Unloaded Template Definition",
+  "tooltip.lamplight.dual_wielded": "Dual Wielded",
   "tooltip.lamplight.two_handed": "Two Handed"
 }

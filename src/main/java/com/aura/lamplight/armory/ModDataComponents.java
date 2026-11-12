@@ -18,6 +18,22 @@ public final class ModDataComponents {
 			.build()
 	);
 
+	public static final DataComponentType<Boolean> DUAL_WIELDED = register(
+		"dual_wielded",
+		DataComponentType.<Boolean>builder()
+			.persistent(Codec.BOOL)
+			.networkSynchronized(ByteBufCodecs.BOOL)
+			.build()
+	);
+
+	public static final DataComponentType<Boolean> DUAL_WIELD_GHOST = register(
+		"dual_wield_ghost",
+		DataComponentType.<Boolean>builder()
+			.persistent(Codec.BOOL)
+			.networkSynchronized(ByteBufCodecs.BOOL)
+			.build()
+	);
+
 	private static <T> DataComponentType<T> register(final String name, final DataComponentType<T> type) {
 		Identifier id = Armory.id(name);
 		return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, id, type);

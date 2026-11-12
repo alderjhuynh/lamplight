@@ -46,6 +46,10 @@ public final class ModItems {
 		});
 	}
 
+	private static void addDualWielded(DefaultItemComponentEvents.ModifyContext context, Item item) {
+		context.modify(item, builder -> builder.set(ModDataComponents.DUAL_WIELDED, true));
+	}
+
 	public static final ResourceKey<Item> IRON_KATANA_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("iron_katana"));
 
@@ -158,6 +162,7 @@ public final class ModItems {
 
 	public static void register() {
 		DefaultItemComponentEvents.MODIFY.register(context -> {
+			addDualWielded(context, IRON_KATANA);
 			for (Item scythe : new Item[] {
 					WOODEN_SCYTHE, STONE_SCYTHE, COPPER_SCYTHE, IRON_SCYTHE,
 					GOLDEN_SCYTHE, DIAMOND_SCYTHE, NETHERITE_SCYTHE }) {

@@ -22,6 +22,7 @@
     "armory.CreativeModeInventoryScreenMixin",
     "armory.HudMixin",
     "armory.HumanoidModelScythePoseMixin",
+    "armory.LocalPlayerDualWieldMixin",
     "armory.ScytheHeldItemDeltaMixin",
     "armory.ScytheInHandDeltaMixin",
     "menagerie.AvatarRenderStateMixin",

@@ -65,6 +65,7 @@ public record HeldItemGroupCondition(Group group, InteractionHand hand) implemen
         SPEAR("spear", stack -> stack.is(ItemTags.SPEARS)),
         SCYTHE("scythe", stack -> heldScythe(stack)),
         GREATSWORD("greatsword", stack -> heldGreatsword(stack)),
+        DAGGER("dagger", stack -> heldDagger(stack)),
         SHIELD("shield", stack -> stack.getItem() instanceof net.minecraft.world.item.ShieldItem),
         FISHING_ROD("fishing_rod", stack -> stack.getItem() instanceof net.minecraft.world.item.FishingRodItem),
         SPYGLASS("spyglass", stack -> stack.getItem() instanceof net.minecraft.world.item.SpyglassItem),
@@ -117,6 +118,13 @@ public record HeldItemGroupCondition(Group group, InteractionHand hand) implemen
 
         private static final TagKey<Item> GREATSWORDS = 
             TagKey.create(Registries.ITEM, Identifier.withDefaultNamespace("melee_weapons/greatswords"));
+
+        private static final TagKey<Item> DAGGERS =
+            TagKey.create(Registries.ITEM, Identifier.withDefaultNamespace("melee_weapons/daggers"));
+
+        private static boolean heldDagger(final ItemStack stack) {
+            return stack.is(DAGGERS);
+        }
 
         private static boolean heldScythe(final ItemStack stack) {
             return stack.is(SCYTHES);

@@ -1,6 +1,8 @@
 package com.aura.lamplight.client.mixin.armory;
 
-import com.aura.lamplight.armory.DualWieldedPlayer;
+import com.aura.lamplight.armory.DualWielded;
+import com.aura.lamplight.puppeteer.client.LocalActionDetector;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.InteractionHand;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,13 +14,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class LocalPlayerDualWieldMixin {
 	@Inject(method = "swing", at = @At("HEAD"), cancellable = true)
 	private void armory$swingDualWieldHand(InteractionHand hand, CallbackInfo ci) {
-		if (hand != InteractionHand.MAIN_HAND || !((Object) this instanceof DualWieldedPlayer dual)) {
+		if (hand != InteractionHand.MAIN_HAND) {
 			return;
 		}
-		if (!dual.armory$consumeOffhandSwing()) {
+		LocalPlayer self = (LocalPlayer) (Object) this;
+		if (!LocalActionDetector.isOffhandAttackTurn()
+				|| !Minecraft.getInstance().options.keyAttack.isDown()
+				|| !DualWielded.isActive(self)
+				|| !DualWielded.hasGhost(self)) {
 			return;
 		}
 		ci.cancel();
-		((LocalPlayer) (Object) this).swing(InteractionHand.OFF_HAND);
+		self.swing(InteractionHand.OFF_HAND);
 	}
 }

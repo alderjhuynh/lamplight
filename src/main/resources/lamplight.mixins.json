@@ -57,6 +57,8 @@
     "arcanum.TridentLeechMixin",
     "arcanum.TridentLoyaltyMixin",
     "armory.AbstractContainerMenuInvoker",
+    "armory.LivingEntityDaggerMixin",
+    "armory.PlayerDaggerMixin",
     "armory.InventoryMenuMixin",
     "armory.InventoryMixin",
     "armory.ItemStackDualWieldedTooltipMixin",

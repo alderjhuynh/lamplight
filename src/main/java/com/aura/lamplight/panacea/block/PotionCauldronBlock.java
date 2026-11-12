@@ -1,5 +1,6 @@
 package com.aura.lamplight.panacea.block;
 
+import com.aura.lamplight.armory.DaggerItem;
 import com.aura.lamplight.panacea.blockentity.PotionCauldronBlockEntity;
 import com.aura.lamplight.panacea.item.TippedWeapon;
 import com.aura.lamplight.panacea.registry.ModComponents;
@@ -97,7 +98,7 @@ public class PotionCauldronBlock extends BaseEntityBlock {
         if (stack.is(Items.ARROW)) {
             return this.tipArrows(stack, state, level, pos, player, hand, cauldron);
         }
-        if (stack.is(ItemTags.SWORDS)) {
+        if (stack.is(ItemTags.SWORDS) || stack.is(DaggerItem.DAGGERS)) {
             return this.tipSword(stack, state, level, pos, player, hand, cauldron);
         }
         return InteractionResult.PASS;

@@ -1,0 +1,6 @@
+{
+  "parent": "lamplight:item/dagger",
+  "textures": {
+    "layer0": "lamplight:item/iron_dagger"
+  }
+}

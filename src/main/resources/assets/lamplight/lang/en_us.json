@@ -842,5 +842,12 @@
   "tooltip.lamplight.template_slot": "Fits: %s",
   "tooltip.lamplight.template_unloaded": "Unloaded Template Definition",
   "tooltip.lamplight.dual_wielded": "Dual Wielded",
-  "tooltip.lamplight.two_handed": "Two Handed"
+  "tooltip.lamplight.two_handed": "Two Handed",
+  "item.lamplight.copper_dagger": "Copper Dagger",
+  "item.lamplight.diamond_dagger": "Diamond Dagger",
+  "item.lamplight.golden_dagger": "Golden Dagger",
+  "item.lamplight.iron_dagger": "Iron Dagger",
+  "item.lamplight.netherite_dagger": "Netherite Dagger",
+  "item.lamplight.stone_dagger": "Stone Dagger",
+  "item.lamplight.wooden_dagger": "Wooden Dagger"
 }

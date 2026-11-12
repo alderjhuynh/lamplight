@@ -17,12 +17,37 @@ public final class LocalActionDetector {
     private static boolean lastAttackDown = false;
     private static int attackRefreshCounter = 0;
 
+   private static boolean attackParityLeft = true;
+    private static boolean parityAttackDown = false;
+
+    public static boolean isOffhandAttackTurn() {
+        return attackParityLeft;
+    }
+
     private static boolean lastSwapOffhandDown = false;
 
     private static int airborneTicks = 0;
 
     public static void initialize() {
+        ClientTickEvents.START_CLIENT_TICK.register(LocalActionDetector::onClientTickStart);
         ClientTickEvents.END_CLIENT_TICK.register(LocalActionDetector::onClientTick);
+    }
+
+    private static void onClientTickStart(final Minecraft client) {
+        if (client.player == null) {
+            attackParityLeft = true;
+            parityAttackDown = false;
+            return;
+        }
+        if (client.player.isDeadOrDying()) {
+            parityAttackDown = false;
+            return;
+        }
+        boolean down = client.options.keyAttack.isDown();
+        if (down && !parityAttackDown) {
+            attackParityLeft = !attackParityLeft;
+        }
+        parityAttackDown = down;
     }
 
     private static void onClientTick(final Minecraft client) {

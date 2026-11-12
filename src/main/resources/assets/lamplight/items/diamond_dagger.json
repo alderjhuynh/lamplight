@@ -1,0 +1,41 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:display_context",
+    "cases": [
+      {
+        "when": [
+          "thirdperson_righthand",
+          "thirdperson_lefthand",
+          "firstperson_righthand",
+          "firstperson_lefthand"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "lamplight:item/diamond_dagger_in_hand"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:condition",
+      "property": "minecraft:selected",
+      "on_true": {
+        "type": "minecraft:model",
+        "model": "lamplight:item/diamond_dagger_in_hand"
+      },
+      "on_false": {
+        "type": "minecraft:condition",
+        "property": "minecraft:has_component",
+        "component": "lamplight:dual_wield_ghost",
+        "on_true": {
+          "type": "minecraft:model",
+          "model": "lamplight:item/diamond_dagger_in_hand"
+        },
+        "on_false": {
+          "type": "minecraft:model",
+          "model": "lamplight:item/diamond_dagger"
+        }
+      }
+    }
+  }
+}

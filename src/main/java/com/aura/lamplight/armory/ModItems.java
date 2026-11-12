@@ -42,13 +42,75 @@ public final class ModItems {
 	private static void addTwoHanded(DefaultItemComponentEvents.ModifyContext context, Item item) {
 		context.modify(item, builder -> {
 			builder.set(ModDataComponents.TWO_HANDED, true);
-			Armory.LOGGER.info("[twohanded-debug] default component bound to {}", item);
 		});
 	}
 
 	private static void addDualWielded(DefaultItemComponentEvents.ModifyContext context, Item item) {
 		context.modify(item, builder -> builder.set(ModDataComponents.DUAL_WIELDED, true));
 	}
+
+	public static final ResourceKey<Item> NETHERITE_DAGGER_KEY =
+        ResourceKey.create(Registries.ITEM, Armory.id("netherite_dagger"));
+
+	public static final Item NETHERITE_DAGGER = Registry.register(
+			BuiltInRegistries.ITEM,
+			NETHERITE_DAGGER_KEY,
+			new DaggerItem(ToolMaterial.NETHERITE, 1.0F, -2.0F, new Item.Properties().setId(NETHERITE_DAGGER_KEY))
+	);
+
+	public static final ResourceKey<Item> DIAMOND_DAGGER_KEY =
+            ResourceKey.create(Registries.ITEM, Armory.id("diamond_dagger"));
+
+	public static final Item DIAMOND_DAGGER = Registry.register(
+			BuiltInRegistries.ITEM,
+			DIAMOND_DAGGER_KEY,
+			new DaggerItem(ToolMaterial.DIAMOND, 1.0F, -2.0F, new Item.Properties().setId(DIAMOND_DAGGER_KEY))
+	);
+
+	public static final ResourceKey<Item> IRON_DAGGER_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("iron_dagger"));
+
+	public static final Item IRON_DAGGER = Registry.register(
+			BuiltInRegistries.ITEM,
+			IRON_DAGGER_KEY,
+			new DaggerItem(ToolMaterial.IRON, 1.0F, -2.0F, new Item.Properties().setId(IRON_DAGGER_KEY))
+	);
+
+	public static final ResourceKey<Item> GOLDEN_DAGGER_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("golden_dagger"));
+
+	public static final Item GOLDEN_DAGGER = Registry.register(
+			BuiltInRegistries.ITEM,
+			GOLDEN_DAGGER_KEY,
+			new DaggerItem(ToolMaterial.GOLD, 1.0F, -2.0F, new Item.Properties().setId(GOLDEN_DAGGER_KEY))
+	);
+
+	public static final ResourceKey<Item> COPPER_DAGGER_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("copper_dagger"));
+
+	public static final Item COPPER_DAGGER = Registry.register(
+			BuiltInRegistries.ITEM,
+			COPPER_DAGGER_KEY,
+			new DaggerItem(ToolMaterial.COPPER, 1.0F, -2.0F, new Item.Properties().setId(COPPER_DAGGER_KEY))
+	);
+
+	public static final ResourceKey<Item> STONE_DAGGER_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("stone_dagger"));
+
+	public static final Item STONE_DAGGER = Registry.register(
+			BuiltInRegistries.ITEM,
+			STONE_DAGGER_KEY,
+			new DaggerItem(ToolMaterial.STONE, 1.0F, -2.0F, new Item.Properties().setId(STONE_DAGGER_KEY))
+	);
+
+	public static final ResourceKey<Item> WOODEN_DAGGER_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("wooden_dagger"));
+
+	public static final Item WOODEN_DAGGER = Registry.register(
+			BuiltInRegistries.ITEM,
+			WOODEN_DAGGER_KEY,
+			new DaggerItem(ToolMaterial.WOOD, 1.0F, -2.0F, new Item.Properties().setId(WOODEN_DAGGER_KEY))
+	);
 
 	public static final ResourceKey<Item> IRON_KATANA_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("iron_katana"));
@@ -64,6 +126,7 @@ public final class ModItems {
 			BuiltInRegistries.ITEM,
 			NETHERITE_GREATSWORD_KEY, 
 			new Item(new Item.Properties().sword(ToolMaterial.NETHERITE, 5.0F, -3.3F).setId(NETHERITE_GREATSWORD_KEY)));
+	
 
 	public static final ResourceKey<Item> WOODEN_GREATSWORD_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("wooden_greatsword"));
@@ -162,7 +225,11 @@ public final class ModItems {
 
 	public static void register() {
 		DefaultItemComponentEvents.MODIFY.register(context -> {
-			addDualWielded(context, IRON_KATANA);
+			for (Item dagger : new Item[] {
+					WOODEN_DAGGER, STONE_DAGGER, COPPER_DAGGER, IRON_DAGGER,
+					GOLDEN_DAGGER, DIAMOND_DAGGER, NETHERITE_DAGGER }) {
+				addDualWielded(context, dagger);
+			}
 			for (Item scythe : new Item[] {
 					WOODEN_SCYTHE, STONE_SCYTHE, COPPER_SCYTHE, IRON_SCYTHE,
 					GOLDEN_SCYTHE, DIAMOND_SCYTHE, NETHERITE_SCYTHE }) {
@@ -191,6 +258,13 @@ public final class ModItems {
 			output.accept(GOLDEN_SCYTHE);
 			output.accept(DIAMOND_SCYTHE);
 			output.accept(NETHERITE_SCYTHE);
+			output.accept(WOODEN_DAGGER);
+			output.accept(STONE_DAGGER);
+			output.accept(COPPER_DAGGER);
+			output.accept(IRON_DAGGER);
+			output.accept(GOLDEN_DAGGER);
+			output.accept(DIAMOND_DAGGER);
+			output.accept(NETHERITE_DAGGER);
 		});
 		Armory.LOGGER.info("Registered armory items");
 	}

@@ -3,6 +3,8 @@ package com.aura.lamplight.client.mixin.puppeteer.fpanims;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.aura.lamplight.armory.GreatswordItem;
+import com.aura.lamplight.armory.RapierCombat;
+import com.aura.lamplight.armory.RapierItem;
 import com.aura.lamplight.puppeteer.fpanims.FpAnimsClient;
 import com.aura.lamplight.puppeteer.fpanims.FpAnimsConfig;
 import com.aura.lamplight.puppeteer.fpanims.BlockEmissionRenderer;
@@ -92,9 +94,14 @@ public abstract class HeldItemsMixin {
         // DUDE I SWEAR TO GOD I MADE A SCYTHE ITEM TAG WHERE IS IT
     }
 
+    // whether the current rapier swing is a thrust, latched when the swing starts so it can't flip mid-swing
+    @Unique
+    private boolean fpanims$rapierThrustSwing;
+
     @Unique
     private static boolean fpanims$isGreatswordBlock(AbstractClientPlayer player, ItemStack stack, InteractionHand hand) {
-        return stack.getItem() instanceof GreatswordItem
+        // greatswords block, and the rapier's parry window reuses the same raised guard pose
+        return (stack.getItem() instanceof GreatswordItem || stack.getItem() instanceof RapierItem)
             && player.isUsingItem()
             && player.getUseItemRemainingTicks() > 0
             && player.getUsedItemHand() == hand;
@@ -461,7 +468,13 @@ public abstract class HeldItemsMixin {
                             }
 
                             float ll = bl ? 1.0F : -1.0F;
-                            if ((this.left || stack.getItem() instanceof AxeItem || stack.getUseAnimation() == ItemUseAnimation.TRIDENT || stack.getUseAnimation() == ItemUseAnimation.BLOCK) && !(stack.getItem() instanceof ShovelItem)) {
+                            if (stack.getItem() instanceof RapierItem && swingProgress < 0.001F) {
+                                this.fpanims$rapierThrustSwing = RapierCombat.isThrustReady(player);
+                            }
+
+                            if (stack.getItem() instanceof RapierItem && this.fpanims$rapierThrustSwing && swingProgress >= 0.001F) {
+                                poseStack.translate(-0.12 * (double) ll * (double) swing, -0.04 * (double) swing, -1.0 * (double) swing);
+                            } else if ((this.left || stack.getItem() instanceof AxeItem || stack.getUseAnimation() == ItemUseAnimation.TRIDENT || stack.getUseAnimation() == ItemUseAnimation.BLOCK) && !(stack.getItem() instanceof ShovelItem)) {
                                 if (!stack.is(ItemTags.SWORDS) && !(stack.getItem() instanceof AxeItem)) {
                                     if (stack.getUseAnimation() == ItemUseAnimation.TRIDENT) {
                                         poseStack.translate((double) 0.0F, (double) 0.0F, 0.45 * (double) swing_rot);

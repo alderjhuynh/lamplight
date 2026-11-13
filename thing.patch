@@ -1,0 +1,1068 @@
+diff -ruN src/src/client/java/com/aura/lamplight/client/mixin/puppeteer/fpanims/HeldItemsMixin.java work/src/client/java/com/aura/lamplight/client/mixin/puppeteer/fpanims/HeldItemsMixin.java
+--- src/src/client/java/com/aura/lamplight/client/mixin/puppeteer/fpanims/HeldItemsMixin.java	2026-11-13 02:01:59.000000000 +0000
++++ work/src/client/java/com/aura/lamplight/client/mixin/puppeteer/fpanims/HeldItemsMixin.java	2026-11-13 13:42:54.340105679 +0000
+@@ -3,6 +3,8 @@
+ import com.mojang.blaze3d.vertex.PoseStack;
+ import com.mojang.math.Axis;
+ import com.aura.lamplight.armory.GreatswordItem;
++import com.aura.lamplight.armory.RapierCombat;
++import com.aura.lamplight.armory.RapierItem;
+ import com.aura.lamplight.puppeteer.fpanims.FpAnimsClient;
+ import com.aura.lamplight.puppeteer.fpanims.FpAnimsConfig;
+ import com.aura.lamplight.puppeteer.fpanims.BlockEmissionRenderer;
+@@ -92,9 +94,14 @@
+         // DUDE I SWEAR TO GOD I MADE A SCYTHE ITEM TAG WHERE IS IT
+     }
+ 
++    // whether the current rapier swing is a thrust, latched when the swing starts so it can't flip mid-swing
++    @Unique
++    private boolean fpanims$rapierThrustSwing;
++
+     @Unique
+     private static boolean fpanims$isGreatswordBlock(AbstractClientPlayer player, ItemStack stack, InteractionHand hand) {
+-        return stack.getItem() instanceof GreatswordItem
++        // greatswords block, and the rapier's parry window reuses the same raised guard pose
++        return (stack.getItem() instanceof GreatswordItem || stack.getItem() instanceof RapierItem)
+             && player.isUsingItem()
+             && player.getUseItemRemainingTicks() > 0
+             && player.getUsedItemHand() == hand;
+@@ -461,7 +468,14 @@
+                             }
+ 
+                             float ll = bl ? 1.0F : -1.0F;
+-                            if ((this.left || stack.getItem() instanceof AxeItem || stack.getUseAnimation() == ItemUseAnimation.TRIDENT || stack.getUseAnimation() == ItemUseAnimation.BLOCK) && !(stack.getItem() instanceof ShovelItem)) {
++                            if (stack.getItem() instanceof RapierItem && swingProgress < 0.001F) {
++                                this.fpanims$rapierThrustSwing = RapierCombat.isThrustReady(player);
++                            }
++
++                            if (stack.getItem() instanceof RapierItem && this.fpanims$rapierThrustSwing && swingProgress >= 0.001F) {
++                                // every third rapier hit: no arc, the blade drives straight ahead
++                                poseStack.translate(-0.12 * (double) ll * (double) swing, -0.04 * (double) swing, -1.0 * (double) swing);
++                            } else if ((this.left || stack.getItem() instanceof AxeItem || stack.getUseAnimation() == ItemUseAnimation.TRIDENT || stack.getUseAnimation() == ItemUseAnimation.BLOCK) && !(stack.getItem() instanceof ShovelItem)) {
+                                 if (!stack.is(ItemTags.SWORDS) && !(stack.getItem() instanceof AxeItem)) {
+                                     if (stack.getUseAnimation() == ItemUseAnimation.TRIDENT) {
+                                         poseStack.translate((double) 0.0F, (double) 0.0F, 0.45 * (double) swing_rot);
+diff -ruN src/src/main/java/com/aura/lamplight/armory/Armory.java work/src/main/java/com/aura/lamplight/armory/Armory.java
+--- src/src/main/java/com/aura/lamplight/armory/Armory.java	2026-11-12 11:32:43.000000000 +0000
++++ work/src/main/java/com/aura/lamplight/armory/Armory.java	2026-11-13 13:42:05.413574408 +0000
+@@ -24,6 +24,7 @@
+ 		TwoHanded.register();
+ 		DualWielded.register();
+ 		ModItems.register();
++		RapierCombat.register();
+ 		PayloadTypeRegistry.serverboundPlay().register(DrawSheathPayload.TYPE, DrawSheathPayload.CODEC);
+ 		ServerPlayNetworking.registerGlobalReceiver(DrawSheathPayload.TYPE, (payload, context) -> {
+ 			context.server().execute(() -> {
+diff -ruN src/src/main/java/com/aura/lamplight/armory/ModItems.java work/src/main/java/com/aura/lamplight/armory/ModItems.java
+--- src/src/main/java/com/aura/lamplight/armory/ModItems.java	2026-11-13 01:19:28.000000000 +0000
++++ work/src/main/java/com/aura/lamplight/armory/ModItems.java	2026-11-13 13:42:05.413387930 +0000
+@@ -39,6 +39,19 @@
+ 		});
+ 	}
+ 
++	private static void addRapierAttributes(DefaultItemComponentEvents.ModifyContext context, Item rapier) {
++		context.modify(rapier, builder -> {
++			ItemAttributeModifiers existing = builder.getOrDefault(
++					DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
++			builder.set(DataComponents.ATTRIBUTE_MODIFIERS, existing
++					.withModifierAdded(
++							Attributes.ENTITY_INTERACTION_RANGE,
++							new AttributeModifier(Armory.id("rapier_reach"), 0.5D,
++									AttributeModifier.Operation.ADD_VALUE),
++							EquipmentSlotGroup.MAINHAND));
++		});
++	}
++
+ 	private static void addTwoHanded(DefaultItemComponentEvents.ModifyContext context, Item item) {
+ 		context.modify(item, builder -> {
+ 			builder.set(ModDataComponents.TWO_HANDED, true);
+@@ -224,6 +237,66 @@
+ 			new ScytheItem(ToolMaterial.NETHERITE, 5.0F, -3.0F,
+ 					new Item.Properties().fireResistant().setId(NETHERITE_SCYTHE_KEY)));
+ 
++	// rapiers: fast single-target swords built around timing (see RapierCombat)
++	private static final float RAPIER_DAMAGE = 2.0F;
++	private static final float RAPIER_SPEED = -2.2F;
++
++	public static final ResourceKey<Item> WOODEN_RAPIER_KEY =
++			ResourceKey.create(Registries.ITEM, Armory.id("wooden_rapier"));
++	public static final Item WOODEN_RAPIER = Registry.register(
++			BuiltInRegistries.ITEM,
++			WOODEN_RAPIER_KEY,
++			new RapierItem(ToolMaterial.WOOD, RAPIER_DAMAGE, RAPIER_SPEED,
++					new Item.Properties().setId(WOODEN_RAPIER_KEY)));
++
++	public static final ResourceKey<Item> STONE_RAPIER_KEY =
++			ResourceKey.create(Registries.ITEM, Armory.id("stone_rapier"));
++	public static final Item STONE_RAPIER = Registry.register(
++			BuiltInRegistries.ITEM,
++			STONE_RAPIER_KEY,
++			new RapierItem(ToolMaterial.STONE, RAPIER_DAMAGE, RAPIER_SPEED,
++					new Item.Properties().setId(STONE_RAPIER_KEY)));
++
++	public static final ResourceKey<Item> COPPER_RAPIER_KEY =
++			ResourceKey.create(Registries.ITEM, Armory.id("copper_rapier"));
++	public static final Item COPPER_RAPIER = Registry.register(
++			BuiltInRegistries.ITEM,
++			COPPER_RAPIER_KEY,
++			new RapierItem(ToolMaterial.COPPER, RAPIER_DAMAGE, RAPIER_SPEED,
++					new Item.Properties().setId(COPPER_RAPIER_KEY)));
++
++	public static final ResourceKey<Item> IRON_RAPIER_KEY =
++			ResourceKey.create(Registries.ITEM, Armory.id("iron_rapier"));
++	public static final Item IRON_RAPIER = Registry.register(
++			BuiltInRegistries.ITEM,
++			IRON_RAPIER_KEY,
++			new RapierItem(ToolMaterial.IRON, RAPIER_DAMAGE, RAPIER_SPEED,
++					new Item.Properties().setId(IRON_RAPIER_KEY)));
++
++	public static final ResourceKey<Item> GOLDEN_RAPIER_KEY =
++			ResourceKey.create(Registries.ITEM, Armory.id("golden_rapier"));
++	public static final Item GOLDEN_RAPIER = Registry.register(
++			BuiltInRegistries.ITEM,
++			GOLDEN_RAPIER_KEY,
++			new RapierItem(ToolMaterial.GOLD, RAPIER_DAMAGE, RAPIER_SPEED,
++					new Item.Properties().setId(GOLDEN_RAPIER_KEY)));
++
++	public static final ResourceKey<Item> DIAMOND_RAPIER_KEY =
++			ResourceKey.create(Registries.ITEM, Armory.id("diamond_rapier"));
++	public static final Item DIAMOND_RAPIER = Registry.register(
++			BuiltInRegistries.ITEM,
++			DIAMOND_RAPIER_KEY,
++			new RapierItem(ToolMaterial.DIAMOND, RAPIER_DAMAGE, RAPIER_SPEED,
++					new Item.Properties().setId(DIAMOND_RAPIER_KEY)));
++
++	public static final ResourceKey<Item> NETHERITE_RAPIER_KEY =
++			ResourceKey.create(Registries.ITEM, Armory.id("netherite_rapier"));
++	public static final Item NETHERITE_RAPIER = Registry.register(
++			BuiltInRegistries.ITEM,
++			NETHERITE_RAPIER_KEY,
++			new RapierItem(ToolMaterial.NETHERITE, RAPIER_DAMAGE, RAPIER_SPEED,
++					new Item.Properties().fireResistant().setId(NETHERITE_RAPIER_KEY)));
++
+ 	public static final ResourceKey<CreativeModeTab> COMBAT_TAB =
+ 			ResourceKey.create(Registries.CREATIVE_MODE_TAB, Identifier.withDefaultNamespace("combat"));
+ 
+@@ -239,6 +312,11 @@
+ 					GOLDEN_SCYTHE, DIAMOND_SCYTHE, NETHERITE_SCYTHE }) {
+ 				addScytheAttributes(context, scythe);
+ 			}
++			for (Item rapier : new Item[] {
++					WOODEN_RAPIER, STONE_RAPIER, COPPER_RAPIER, IRON_RAPIER,
++					GOLDEN_RAPIER, DIAMOND_RAPIER, NETHERITE_RAPIER }) {
++				addRapierAttributes(context, rapier);
++			}
+ 			for (Item item : new Item[] {
+ 					WOODEN_GREATSWORD, STONE_GREATSWORD, COPPER_GREATSWORD, IRON_GREATSWORD,
+ 					GOLDEN_GREATSWORD, DIAMOND_GREATSWORD, NETHERITE_GREATSWORD,
+@@ -260,6 +338,13 @@
+ 			output.accept(GOLDEN_GREATSWORD);
+ 			output.accept(DIAMOND_GREATSWORD);
+ 			output.accept(NETHERITE_GREATSWORD);
++			output.accept(WOODEN_RAPIER);
++			output.accept(STONE_RAPIER);
++			output.accept(COPPER_RAPIER);
++			output.accept(IRON_RAPIER);
++			output.accept(GOLDEN_RAPIER);
++			output.accept(DIAMOND_RAPIER);
++			output.accept(NETHERITE_RAPIER);
+ 			output.accept(WOODEN_SCYTHE);
+ 			output.accept(STONE_SCYTHE);
+ 			output.accept(COPPER_SCYTHE);
+diff -ruN src/src/main/java/com/aura/lamplight/armory/RapierCombat.java work/src/main/java/com/aura/lamplight/armory/RapierCombat.java
+--- src/src/main/java/com/aura/lamplight/armory/RapierCombat.java	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/java/com/aura/lamplight/armory/RapierCombat.java	2026-11-13 09:38:08.878945005 +0000
+@@ -0,0 +1,321 @@
++package com.aura.lamplight.armory;
++
++import java.util.Map;
++import java.util.UUID;
++import java.util.concurrent.ConcurrentHashMap;
++
++import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
++import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
++import net.minecraft.core.particles.ColorParticleOption;
++import net.minecraft.core.particles.ParticleTypes;
++import net.minecraft.resources.Identifier;
++import net.minecraft.server.MinecraftServer;
++import net.minecraft.server.level.ServerLevel;
++import net.minecraft.server.level.ServerPlayer;
++import net.minecraft.sounds.SoundEvents;
++import net.minecraft.sounds.SoundSource;
++import net.minecraft.tags.DamageTypeTags;
++import net.minecraft.world.InteractionHand;
++import net.minecraft.world.damagesource.DamageSource;
++import net.minecraft.world.damagesource.DamageTypes;
++import net.minecraft.world.effect.MobEffectInstance;
++import net.minecraft.world.effect.MobEffects;
++import net.minecraft.world.entity.Entity;
++import net.minecraft.world.entity.LivingEntity;
++import net.minecraft.world.entity.Mob;
++import net.minecraft.world.entity.ai.attributes.AttributeInstance;
++import net.minecraft.world.entity.ai.attributes.AttributeModifier;
++import net.minecraft.world.entity.ai.attributes.Attributes;
++import net.minecraft.world.entity.player.Player;
++import net.minecraft.world.item.Item;
++import net.minecraft.world.item.ItemStack;
++import net.minecraft.world.phys.Vec3;
++
++/**
++ * Server-side rapier mechanics: the parry window, the riposte crit and the every-third-hit thrust.
++ *
++ * <p>Thrust state is mirrored to the client for free: while a thrust is ready the server keeps a
++ * transient {@code entity_interaction_range} modifier on the player. Vanilla syncs attributes, so the
++ * client's targeting range, its attack code and the first-person animation can all read the thrust
++ * state off that modifier ({@link #isThrustReady(Player)}) without any custom packet.
++ */
++public final class RapierCombat {
++	private RapierCombat() {}
++
++	// ---- parry --------------------------------------------------------------------------------
++
++	/** Length of the parry window, ~0.3s. Also the use duration of the rapier. */
++	public static final int PARRY_TICKS = 6;
++	/** Item cooldown after a parry that did not catch anything. */
++	public static final int PARRY_WHIFF_COOLDOWN_TICKS = 30;
++	/** Short lockout after a successful parry so it can not be chained into permanent invulnerability. */
++	public static final int PARRY_SUCCESS_COOLDOWN_TICKS = 8;
++	/** Horizontal speed of the hop back when the parry starts. */
++	public static final double PARRY_HOP_STRENGTH = 0.45D;
++	/** Extra vertical speed of the hop back (only when standing on the ground). */
++	public static final double PARRY_HOP_LIFT = 0.2D;
++
++	/** How long a parried melee attacker is slowed for. */
++	public static final int STAGGER_TICKS = 20;
++	/** Slowness amplifier of the stagger (4 = Slowness V). */
++	public static final int STAGGER_SLOWNESS_AMPLIFIER = 4;
++	/** Knockback applied to a parried melee attacker. */
++	public static final double STAGGER_KNOCKBACK = 0.6D;
++
++	// ---- riposte (guaranteed crit after a parry) ------------------------------------------------
++
++	/** How long the guaranteed crit stays available after a successful parry (3s). */
++	public static final int RIPOSTE_TICKS = 60;
++
++	// ---- thrust (every third hit) ---------------------------------------------------------------
++
++	/** Every Nth consecutive hit is a thrust. */
++	public static final int THRUST_EVERY = 3;
++	/** The hit counter resets if no hit lands for this long (3s). */
++	public static final int COMBO_TIMEOUT_TICKS = 60;
++	/** Extra damage of a thrust, as a fraction of the normal hit. */
++	public static final float THRUST_DAMAGE_BONUS = 0.6F;
++	/** Extra reach (blocks) of a thrust. */
++	public static final double THRUST_REACH_BONUS = 1.0D;
++
++	public static final Identifier THRUST_REACH_ID = Armory.id("rapier_thrust_reach");
++
++	private static final class State {
++		long parryEndsAt = -1L;
++		boolean parryLanded;
++		Item parryItem;
++
++		long riposteUntil = -1L;
++
++		int hits;
++		long lastHitAt = Long.MIN_VALUE;
++	}
++
++	private static final Map<UUID, State> STATES = new ConcurrentHashMap<>();
++
++	private static State state(Player player) {
++		return STATES.computeIfAbsent(player.getUUID(), id -> new State());
++	}
++
++	public static void register() {
++		ServerTickEvents.END_SERVER_TICK.register(RapierCombat::tick);
++		ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> STATES.remove(handler.getPlayer().getUUID()));
++	}
++
++	// ---- queries ----------------------------------------------------------------------------
++
++	/**
++	 * True while the player's next rapier hit is a thrust. Works on both logical sides: it just
++	 * reads the (synced) reach modifier the server keeps on the player.
++	 */
++	public static boolean isThrustReady(Player player) {
++		AttributeInstance range = player.getAttribute(Attributes.ENTITY_INTERACTION_RANGE);
++		return range != null && range.hasModifier(THRUST_REACH_ID);
++	}
++
++	/** Server only: true while a successful parry has banked a guaranteed crit for the held rapier. */
++	public static boolean hasRiposte(Player player) {
++		if (!(player instanceof ServerPlayer) || !RapierItem.isRapier(player.getMainHandItem())) {
++			return false;
++		}
++		State s = STATES.get(player.getUUID());
++		return s != null && s.riposteUntil >= player.level().getGameTime();
++	}
++
++	// ---- parry ------------------------------------------------------------------------------
++
++	/** Called from {@link RapierItem#use}: opens the parry window and hops the player back. */
++	public static void beginParry(ServerPlayer player, InteractionHand hand) {
++		State s = state(player);
++		s.parryEndsAt = player.level().getGameTime() + PARRY_TICKS;
++		s.parryLanded = false;
++		s.parryItem = player.getItemInHand(hand).getItem();
++
++		hopBack(player);
++		player.level().playSound(null, player.getX(), player.getY(), player.getZ(),
++				SoundEvents.PLAYER_ATTACK_WEAK, SoundSource.PLAYERS, 0.8F, 1.6F);
++	}
++
++	private static void hopBack(ServerPlayer player) {
++		if (player.isPassenger() || player.isInWater() || player.isFallFlying() || player.onClimbable()) {
++			return;
++		}
++		double yaw = Math.toRadians(player.getYRot());
++		// forward is (-sin(yaw), cos(yaw)), so back is the opposite
++		double backX = Math.sin(yaw);
++		double backZ = -Math.cos(yaw);
++		Vec3 motion = player.getDeltaMovement();
++		double y = player.onGround() ? PARRY_HOP_LIFT : motion.y;
++		player.setSprinting(false);
++		player.setDeltaMovement(backX * PARRY_HOP_STRENGTH, y, backZ * PARRY_HOP_STRENGTH);
++		player.hurtMarked = true;
++	}
++
++	/**
++	 * Called from the {@code Player#hurtServer} mixin before any damage is applied.
++	 *
++	 * @return true if the hit was parried and must be discarded
++	 */
++	public static boolean tryParry(ServerPlayer victim, ServerLevel level, DamageSource source) {
++		State s = STATES.get(victim.getUUID());
++		if (s == null || s.parryEndsAt < 0L || s.parryLanded) {
++			return false;
++		}
++		long now = level.getGameTime();
++		if (now > s.parryEndsAt) {
++			return false;
++		}
++		ItemStack parryStack = victim.getUseItem();
++		if (!victim.isUsingItem() || !RapierItem.isRapier(parryStack)) {
++			return false;
++		}
++
++		// only things a shield could have stopped: someone (or something) actually hit us
++		if (source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)
++				|| source.is(DamageTypeTags.BYPASSES_SHIELD)
++				|| source.is(DamageTypeTags.IS_EXPLOSION)
++				|| source.is(DamageTypes.THORNS)) {
++			return false;
++		}
++		Entity direct = source.getDirectEntity();
++		if (direct == null) {
++			return false;
++		}
++
++		// must come from the front half, like a shield
++		Vec3 origin = source.getSourcePosition() != null ? source.getSourcePosition() : direct.position();
++		Vec3 toSource = new Vec3(origin.x - victim.getX(), 0.0D, origin.z - victim.getZ());
++		if (toSource.lengthSqr() > 1.0E-6D) {
++			Vec3 facing = Vec3.directionFromRotation(0.0F, victim.getYHeadRot());
++			if (facing.dot(toSource.normalize()) <= 0.0D) {
++				return false;
++			}
++		}
++
++		// success
++		s.parryLanded = true;
++		s.parryEndsAt = -1L;
++		s.parryItem = null;
++		s.riposteUntil = now + RIPOSTE_TICKS;
++		victim.getCooldowns().addCooldown(parryStack, PARRY_SUCCESS_COOLDOWN_TICKS);
++
++		parryEffects(victim, level);
++
++		// melee attackers get staggered, projectiles just bounce off
++		if (direct == source.getEntity() && direct instanceof LivingEntity attacker) {
++			stagger(victim, attacker, source);
++		}
++		return true;
++	}
++
++	private static void parryEffects(ServerPlayer victim, ServerLevel level) {
++		Vec3 at = victim.getEyePosition().add(victim.getLookAngle().scale(0.9D)).add(0.0D, -0.25D, 0.0D);
++		level.sendParticles(ColorParticleOption.create(ParticleTypes.FLASH, 1.0F, 1.0F, 1.0F),
++				at.x, at.y, at.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
++		level.sendParticles(ParticleTypes.CRIT, at.x, at.y, at.z, 12, 0.25D, 0.25D, 0.25D, 0.35D);
++		level.sendParticles(ParticleTypes.ELECTRIC_SPARK, at.x, at.y, at.z, 8, 0.2D, 0.2D, 0.2D, 0.4D);
++		level.playSound(null, at.x, at.y, at.z, SoundEvents.SHIELD_BLOCK.value(), SoundSource.PLAYERS, 1.0F, 1.6F);
++		level.playSound(null, at.x, at.y, at.z, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 1.0F, 1.9F);
++	}
++
++	private static void stagger(ServerPlayer victim, LivingEntity attacker, DamageSource source) {
++		// shove them away from us. LivingEntity#knockback subtracts the vector it is given.
++		attacker.knockback(STAGGER_KNOCKBACK, victim.getX() - attacker.getX(), victim.getZ() - attacker.getZ(), source, 0.0F);
++		attacker.hurtMarked = true;
++		attacker.stopUsingItem();
++		attacker.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, STAGGER_TICKS, STAGGER_SLOWNESS_AMPLIFIER, false, true));
++		if (attacker instanceof Mob mob) {
++			mob.getNavigation().stop();
++		}
++		if (attacker instanceof Player other) {
++			// wipes their attack cooldown, so their next swing is a weak one
++			other.resetAttackStrengthTicker();
++		}
++	}
++
++	// ---- hit counter / thrust -----------------------------------------------------------------
++
++	/** Called from {@link RapierItem#postHurtEnemy} after a rapier hit has landed. */
++	public static void onHit(ServerPlayer player, LivingEntity target) {
++		State s = state(player);
++		long now = player.level().getGameTime();
++		boolean wasThrust = isThrustReady(player);
++
++		// the riposte crit is spent by the hit it was for
++		s.riposteUntil = -1L;
++
++		if (now - s.lastHitAt > COMBO_TIMEOUT_TICKS) {
++			s.hits = 0;
++		}
++		if (wasThrust) {
++			s.hits = 0;
++			thrustEffects(player, target);
++		} else {
++			s.hits++;
++		}
++		s.lastHitAt = now;
++		syncThrustModifier(player, s);
++	}
++
++	private static void thrustEffects(ServerPlayer player, LivingEntity target) {
++		if (!(player.level() instanceof ServerLevel level)) {
++			return;
++		}
++		Vec3 at = target.getBoundingBox().getCenter();
++		level.sendParticles(ParticleTypes.CRIT, at.x, at.y, at.z, 10, 0.2D, 0.2D, 0.2D, 0.3D);
++		level.playSound(null, at.x, at.y, at.z, SoundEvents.PLAYER_ATTACK_KNOCKBACK, SoundSource.PLAYERS, 0.8F, 1.5F);
++	}
++
++	private static void syncThrustModifier(ServerPlayer player, State s) {
++		AttributeInstance range = player.getAttribute(Attributes.ENTITY_INTERACTION_RANGE);
++		if (range == null) {
++			return;
++		}
++		boolean want = s.hits >= THRUST_EVERY - 1 && RapierItem.isRapier(player.getMainHandItem());
++		boolean has = range.hasModifier(THRUST_REACH_ID);
++		if (want && !has) {
++			range.addTransientModifier(new AttributeModifier(THRUST_REACH_ID, THRUST_REACH_BONUS, AttributeModifier.Operation.ADD_VALUE));
++		} else if (!want && has) {
++			range.removeModifier(THRUST_REACH_ID);
++		}
++	}
++
++	// ---- per tick -----------------------------------------------------------------------------
++
++	private static void tick(MinecraftServer server) {
++		for (ServerPlayer player : server.getPlayerList().getPlayers()) {
++			tickPlayer(player);
++		}
++	}
++
++	private static void tickPlayer(ServerPlayer player) {
++		State s = STATES.get(player.getUUID());
++		if (s == null) {
++			return;
++		}
++		if (!player.isAlive()) {
++			STATES.remove(player.getUUID());
++			return;
++		}
++		long now = player.level().getGameTime();
++
++		// parry window ran out without catching anything: whiff
++		if (s.parryEndsAt >= 0L && now > s.parryEndsAt) {
++			if (!s.parryLanded && s.parryItem != null) {
++				player.getCooldowns().addCooldown(new ItemStack(s.parryItem), PARRY_WHIFF_COOLDOWN_TICKS);
++			}
++			s.parryEndsAt = -1L;
++			s.parryLanded = false;
++			s.parryItem = null;
++		}
++
++		if (s.riposteUntil >= 0L && now > s.riposteUntil) {
++			s.riposteUntil = -1L;
++		}
++		if (s.hits > 0 && now - s.lastHitAt > COMBO_TIMEOUT_TICKS) {
++			s.hits = 0;
++		}
++
++		syncThrustModifier(player, s);
++	}
++}
+diff -ruN src/src/main/java/com/aura/lamplight/armory/RapierItem.java work/src/main/java/com/aura/lamplight/armory/RapierItem.java
+--- src/src/main/java/com/aura/lamplight/armory/RapierItem.java	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/java/com/aura/lamplight/armory/RapierItem.java	2026-11-13 09:37:14.726943068 +0000
+@@ -0,0 +1,113 @@
++package com.aura.lamplight.armory;
++
++import java.util.function.Consumer;
++
++import net.minecraft.ChatFormatting;
++import net.minecraft.core.component.DataComponents;
++import net.minecraft.core.registries.Registries;
++import net.minecraft.network.chat.Component;
++import net.minecraft.resources.Identifier;
++import net.minecraft.server.level.ServerPlayer;
++import net.minecraft.tags.TagKey;
++import net.minecraft.world.InteractionHand;
++import net.minecraft.world.InteractionResult;
++import net.minecraft.world.damagesource.DamageSource;
++import net.minecraft.world.entity.Entity;
++import net.minecraft.world.entity.LivingEntity;
++import net.minecraft.world.entity.player.Player;
++import net.minecraft.world.item.Item;
++import net.minecraft.world.item.ItemStack;
++import net.minecraft.world.item.ToolMaterial;
++import net.minecraft.world.item.TooltipFlag;
++import net.minecraft.world.item.component.TooltipDisplay;
++import net.minecraft.world.level.Level;
++import org.jspecify.annotations.Nullable;
++
++/**
++ * Rapier: a fast single-target sword that is all about timing.
++ *
++ * <ul>
++ *   <li>Left click: normal sword hits, except every third hit in a row is a precise thrust
++ *       (extra damage, extra reach, no sweep). See {@link RapierCombat}.</li>
++ *   <li>Right click: hop back and open a short parry window. A successful parry negates the hit,
++ *       staggers the attacker and guarantees a crit on the next attack. A whiffed parry puts the
++ *       rapier on cooldown.</li>
++ * </ul>
++ *
++ * All of the actual state lives in {@link RapierCombat}; this class only wires the item hooks.
++ */
++public class RapierItem extends Item {
++	public static final TagKey<Item> RAPIERS =
++			TagKey.create(Registries.ITEM, Identifier.withDefaultNamespace("melee_weapons/rapiers"));
++
++	public RapierItem(ToolMaterial material, float attackDamageBaseline, float attackSpeedBaseline, Properties properties) {
++		super(properties.sword(material, attackDamageBaseline, attackSpeedBaseline));
++	}
++
++	public static boolean isRapier(@Nullable ItemStack stack) {
++		return stack != null && stack.getItem() instanceof RapierItem;
++	}
++
++	@Override
++	public InteractionResult use(final Level level, final Player player, final InteractionHand hand) {
++		ItemStack stack = player.getItemInHand(hand);
++
++		// sword and board: with a blocking item in the offhand, right click raises that instead.
++		// crouch to force the parry anyway.
++		if (hand == InteractionHand.MAIN_HAND
++				&& player.getOffhandItem().has(DataComponents.BLOCKS_ATTACKS)
++				&& !player.isSecondaryUseActive()) {
++			return InteractionResult.PASS;
++		}
++
++		if (player.isUsingItem() || player.getCooldowns().isOnCooldown(stack)) {
++			return InteractionResult.PASS;
++		}
++
++		// start using on both sides so the client plays the blocking pose right away,
++		// everything that actually matters is decided on the server.
++		player.startUsingItem(hand);
++		if (player instanceof ServerPlayer serverPlayer) {
++			RapierCombat.beginParry(serverPlayer, hand);
++		}
++		return InteractionResult.CONSUME;
++	}
++
++	// the "use" is just the parry window, it ends on its own.
++	@Override
++	public int getUseDuration(final ItemStack stack, final LivingEntity user) {
++		return RapierCombat.PARRY_TICKS;
++	}
++
++	@Override
++	public void postHurtEnemy(final ItemStack stack, final LivingEntity target, final LivingEntity attacker) {
++		super.postHurtEnemy(stack, target, attacker);
++		if (attacker instanceof ServerPlayer player) {
++			RapierCombat.onHit(player, target);
++		}
++	}
++
++	@Override
++	public float getAttackDamageBonus(final Entity victim, final float damage, final DamageSource damageSource) {
++		if (damageSource.getEntity() instanceof Player attacker && RapierCombat.isThrustReady(attacker)) {
++			return damage * RapierCombat.THRUST_DAMAGE_BONUS;
++		}
++		return super.getAttackDamageBonus(victim, damage, damageSource);
++	}
++
++	@Override
++	@SuppressWarnings("deprecation")
++	public void appendHoverText(
++			final ItemStack stack,
++			final Item.TooltipContext context,
++			final TooltipDisplay display,
++			final Consumer<Component> builder,
++			final TooltipFlag flag
++	) {
++		super.appendHoverText(stack, context, display, builder, flag);
++		builder.accept(Component.translatable("tooltip.lamplight.rapier.parry")
++				.withStyle(style -> style.withColor(ChatFormatting.GRAY).withItalic(false)));
++		builder.accept(Component.translatable("tooltip.lamplight.rapier.thrust")
++				.withStyle(style -> style.withColor(ChatFormatting.GRAY).withItalic(false)));
++	}
++}
+diff -ruN src/src/main/java/com/aura/lamplight/mixin/armory/PlayerRapierMixin.java work/src/main/java/com/aura/lamplight/mixin/armory/PlayerRapierMixin.java
+--- src/src/main/java/com/aura/lamplight/mixin/armory/PlayerRapierMixin.java	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/java/com/aura/lamplight/mixin/armory/PlayerRapierMixin.java	2026-11-13 13:42:15.086383552 +0000
+@@ -0,0 +1,53 @@
++package com.aura.lamplight.mixin.armory;
++
++import com.aura.lamplight.armory.RapierCombat;
++import com.aura.lamplight.armory.RapierItem;
++import net.minecraft.server.level.ServerLevel;
++import net.minecraft.server.level.ServerPlayer;
++import net.minecraft.world.damagesource.DamageSource;
++import net.minecraft.world.entity.Entity;
++import net.minecraft.world.entity.player.Player;
++import org.spongepowered.asm.mixin.Mixin;
++import org.spongepowered.asm.mixin.injection.At;
++import org.spongepowered.asm.mixin.injection.Inject;
++import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
++
++// hooks for the rapier: parrying incoming hits, the riposte crit and the no-sweep thrust.
++@Mixin(Player.class)
++public abstract class PlayerRapierMixin {
++
++	// parry: discard the hit before any damage, knockback or invulnerability frames happen
++	@Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
++	private void armory$rapierParry(ServerLevel level, DamageSource source, float damage,
++	                                CallbackInfoReturnable<Boolean> cir) {
++		if ((Object) this instanceof ServerPlayer player && RapierCombat.tryParry(player, level, source)) {
++			cir.setReturnValue(false);
++		}
++	}
++
++	// the hit right after a parry is a guaranteed crit...
++	@Inject(method = "canCriticalAttack", at = @At("HEAD"), cancellable = true)
++	private void armory$rapierRiposteCrit(Entity target, CallbackInfoReturnable<Boolean> cir) {
++		if (RapierCombat.hasRiposte((Player) (Object) this)) {
++			cir.setReturnValue(true);
++		}
++	}
++
++	// ...and it also counts as fully charged, so spamming early can't waste it
++	@Inject(method = "getAttackStrengthScale", at = @At("HEAD"), cancellable = true)
++	private void armory$rapierRipostePower(float a, CallbackInfoReturnable<Float> cir) {
++		if (RapierCombat.hasRiposte((Player) (Object) this)) {
++			cir.setReturnValue(1.0F);
++		}
++	}
++
++	// the thrust is a precise single-target stab, it never sweeps
++	@Inject(method = "isSweepAttack", at = @At("HEAD"), cancellable = true)
++	private void armory$rapierThrustNoSweep(boolean fullStrengthAttack, boolean criticalAttack, boolean knockbackAttack,
++	                                        CallbackInfoReturnable<Boolean> cir) {
++		Player self = (Player) (Object) this;
++		if (RapierItem.isRapier(self.getMainHandItem()) && RapierCombat.isThrustReady(self)) {
++			cir.setReturnValue(false);
++		}
++	}
++}
+diff -ruN src/src/main/java/com/aura/lamplight/puppeteer/trigger/HeldItemGroupCondition.java work/src/main/java/com/aura/lamplight/puppeteer/trigger/HeldItemGroupCondition.java
+--- src/src/main/java/com/aura/lamplight/puppeteer/trigger/HeldItemGroupCondition.java	2026-11-12 11:32:43.000000000 +0000
++++ work/src/main/java/com/aura/lamplight/puppeteer/trigger/HeldItemGroupCondition.java	2026-11-13 13:42:05.413727814 +0000
+@@ -65,6 +65,7 @@
+         SPEAR("spear", stack -> stack.is(ItemTags.SPEARS)),
+         SCYTHE("scythe", stack -> heldScythe(stack)),
+         GREATSWORD("greatsword", stack -> heldGreatsword(stack)),
++        RAPIER("rapier", stack -> heldRapier(stack)),
+         DAGGER("dagger", stack -> heldDagger(stack)),
+         SHIELD("shield", stack -> stack.getItem() instanceof net.minecraft.world.item.ShieldItem),
+         FISHING_ROD("fishing_rod", stack -> stack.getItem() instanceof net.minecraft.world.item.FishingRodItem),
+@@ -130,6 +131,13 @@
+             return stack.is(SCYTHES);
+         }
+         
++        private static final TagKey<Item> RAPIERS =
++            TagKey.create(Registries.ITEM, Identifier.withDefaultNamespace("melee_weapons/rapiers"));
++
++        private static boolean heldRapier(final ItemStack stack) {
++            return stack.is(RAPIERS);
++        }
++
+         private static boolean heldGreatsword(final ItemStack stack) {
+             return stack.is(GREATSWORDS);
+         }
+diff -ruN src/src/main/resources/assets/lamplight/items/copper_rapier.json work/src/main/resources/assets/lamplight/items/copper_rapier.json
+--- src/src/main/resources/assets/lamplight/items/copper_rapier.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/assets/lamplight/items/copper_rapier.json	2026-11-13 13:42:28.281683327 +0000
+@@ -0,0 +1,6 @@
++{
++  "model": {
++    "type": "minecraft:model",
++    "model": "lamplight:item/copper_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/assets/lamplight/items/diamond_rapier.json work/src/main/resources/assets/lamplight/items/diamond_rapier.json
+--- src/src/main/resources/assets/lamplight/items/diamond_rapier.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/assets/lamplight/items/diamond_rapier.json	2026-11-13 13:42:28.282277764 +0000
+@@ -0,0 +1,6 @@
++{
++  "model": {
++    "type": "minecraft:model",
++    "model": "lamplight:item/diamond_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/assets/lamplight/items/golden_rapier.json work/src/main/resources/assets/lamplight/items/golden_rapier.json
+--- src/src/main/resources/assets/lamplight/items/golden_rapier.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/assets/lamplight/items/golden_rapier.json	2026-11-13 13:42:28.282072530 +0000
+@@ -0,0 +1,6 @@
++{
++  "model": {
++    "type": "minecraft:model",
++    "model": "lamplight:item/golden_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/assets/lamplight/items/iron_rapier.json work/src/main/resources/assets/lamplight/items/iron_rapier.json
+--- src/src/main/resources/assets/lamplight/items/iron_rapier.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/assets/lamplight/items/iron_rapier.json	2026-11-13 13:42:28.281845605 +0000
+@@ -0,0 +1,6 @@
++{
++  "model": {
++    "type": "minecraft:model",
++    "model": "lamplight:item/iron_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/assets/lamplight/items/netherite_rapier.json work/src/main/resources/assets/lamplight/items/netherite_rapier.json
+--- src/src/main/resources/assets/lamplight/items/netherite_rapier.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/assets/lamplight/items/netherite_rapier.json	2026-11-13 13:42:28.282395786 +0000
+@@ -0,0 +1,6 @@
++{
++  "model": {
++    "type": "minecraft:model",
++    "model": "lamplight:item/netherite_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/assets/lamplight/items/stone_rapier.json work/src/main/resources/assets/lamplight/items/stone_rapier.json
+--- src/src/main/resources/assets/lamplight/items/stone_rapier.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/assets/lamplight/items/stone_rapier.json	2026-11-13 13:42:28.281231742 +0000
+@@ -0,0 +1,6 @@
++{
++  "model": {
++    "type": "minecraft:model",
++    "model": "lamplight:item/stone_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/assets/lamplight/items/wooden_rapier.json work/src/main/resources/assets/lamplight/items/wooden_rapier.json
+--- src/src/main/resources/assets/lamplight/items/wooden_rapier.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/assets/lamplight/items/wooden_rapier.json	2026-11-13 13:42:28.280246438 +0000
+@@ -0,0 +1,6 @@
++{
++  "model": {
++    "type": "minecraft:model",
++    "model": "lamplight:item/wooden_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/assets/lamplight/lang/en_us.json work/src/main/resources/assets/lamplight/lang/en_us.json
+--- src/src/main/resources/assets/lamplight/lang/en_us.json	2026-11-13 03:18:17.000000000 +0000
++++ work/src/main/resources/assets/lamplight/lang/en_us.json	2026-11-13 13:42:28.283787278 +0000
+@@ -848,6 +848,15 @@
+   "item.lamplight.copper_dagger": "Copper Dagger",
+   "item.lamplight.diamond_dagger": "Diamond Dagger",
+   "item.lamplight.golden_dagger": "Golden Dagger",
++  "item.lamplight.wooden_rapier": "Wooden Rapier",
++  "item.lamplight.stone_rapier": "Stone Rapier",
++  "item.lamplight.copper_rapier": "Copper Rapier",
++  "item.lamplight.iron_rapier": "Iron Rapier",
++  "item.lamplight.golden_rapier": "Golden Rapier",
++  "item.lamplight.diamond_rapier": "Diamond Rapier",
++  "item.lamplight.netherite_rapier": "Netherite Rapier",
++  "tooltip.lamplight.rapier.parry": "Right Click: Hop back and parry (0.3s)",
++  "tooltip.lamplight.rapier.thrust": "Every 3rd hit is a long-reach thrust",
+   "item.lamplight.iron_dagger": "Iron Dagger",
+   "item.lamplight.netherite_dagger": "Netherite Dagger",
+   "item.lamplight.stone_dagger": "Stone Dagger",
+diff -ruN src/src/main/resources/assets/lamplight/models/item/copper_rapier.json work/src/main/resources/assets/lamplight/models/item/copper_rapier.json
+--- src/src/main/resources/assets/lamplight/models/item/copper_rapier.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/assets/lamplight/models/item/copper_rapier.json	2026-11-13 13:42:28.281764186 +0000
+@@ -0,0 +1,6 @@
++{
++  "parent": "minecraft:item/handheld",
++  "textures": {
++    "layer0": "lamplight:item/copper_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/assets/lamplight/models/item/diamond_rapier.json work/src/main/resources/assets/lamplight/models/item/diamond_rapier.json
+--- src/src/main/resources/assets/lamplight/models/item/diamond_rapier.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/assets/lamplight/models/item/diamond_rapier.json	2026-11-13 13:42:28.282299010 +0000
+@@ -0,0 +1,6 @@
++{
++  "parent": "minecraft:item/handheld",
++  "textures": {
++    "layer0": "lamplight:item/diamond_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/assets/lamplight/models/item/golden_rapier.json work/src/main/resources/assets/lamplight/models/item/golden_rapier.json
+--- src/src/main/resources/assets/lamplight/models/item/golden_rapier.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/assets/lamplight/models/item/golden_rapier.json	2026-11-13 13:42:28.282096227 +0000
+@@ -0,0 +1,6 @@
++{
++  "parent": "minecraft:item/handheld",
++  "textures": {
++    "layer0": "lamplight:item/golden_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/assets/lamplight/models/item/iron_rapier.json work/src/main/resources/assets/lamplight/models/item/iron_rapier.json
+--- src/src/main/resources/assets/lamplight/models/item/iron_rapier.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/assets/lamplight/models/item/iron_rapier.json	2026-11-13 13:42:28.281862761 +0000
+@@ -0,0 +1,6 @@
++{
++  "parent": "minecraft:item/handheld",
++  "textures": {
++    "layer0": "lamplight:item/iron_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/assets/lamplight/models/item/netherite_rapier.json work/src/main/resources/assets/lamplight/models/item/netherite_rapier.json
+--- src/src/main/resources/assets/lamplight/models/item/netherite_rapier.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/assets/lamplight/models/item/netherite_rapier.json	2026-11-13 13:42:28.282429145 +0000
+@@ -0,0 +1,6 @@
++{
++  "parent": "minecraft:item/handheld",
++  "textures": {
++    "layer0": "lamplight:item/netherite_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/assets/lamplight/models/item/stone_rapier.json work/src/main/resources/assets/lamplight/models/item/stone_rapier.json
+--- src/src/main/resources/assets/lamplight/models/item/stone_rapier.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/assets/lamplight/models/item/stone_rapier.json	2026-11-13 13:42:28.281264004 +0000
+@@ -0,0 +1,6 @@
++{
++  "parent": "minecraft:item/handheld",
++  "textures": {
++    "layer0": "lamplight:item/stone_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/assets/lamplight/models/item/wooden_rapier.json work/src/main/resources/assets/lamplight/models/item/wooden_rapier.json
+--- src/src/main/resources/assets/lamplight/models/item/wooden_rapier.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/assets/lamplight/models/item/wooden_rapier.json	2026-11-13 13:42:28.280296278 +0000
+@@ -0,0 +1,6 @@
++{
++  "parent": "minecraft:item/handheld",
++  "textures": {
++    "layer0": "lamplight:item/wooden_rapier"
++  }
++}
+\ No newline at end of file
+Binary files src/src/main/resources/assets/lamplight/textures/item/copper_rapier.png and work/src/main/resources/assets/lamplight/textures/item/copper_rapier.png differ
+diff -ruN src/src/main/resources/data/lamplight/recipe/armory/rapier/copper.json work/src/main/resources/data/lamplight/recipe/armory/rapier/copper.json
+--- src/src/main/resources/data/lamplight/recipe/armory/rapier/copper.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/data/lamplight/recipe/armory/rapier/copper.json	2026-11-13 13:42:28.281817786 +0000
+@@ -0,0 +1,16 @@
++{
++  "type": "minecraft:crafting_shaped",
++  "category": "equipment",
++  "key": {
++    "#": "minecraft:stick",
++    "X": "#minecraft:copper_tool_materials"
++  },
++  "pattern": [
++    "  X",
++    " X ",
++    "#  "
++  ],
++  "result": {
++    "id": "lamplight:copper_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/data/lamplight/recipe/armory/rapier/diamond.json work/src/main/resources/data/lamplight/recipe/armory/rapier/diamond.json
+--- src/src/main/resources/data/lamplight/recipe/armory/rapier/diamond.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/data/lamplight/recipe/armory/rapier/diamond.json	2026-11-13 13:42:28.282332354 +0000
+@@ -0,0 +1,16 @@
++{
++  "type": "minecraft:crafting_shaped",
++  "category": "equipment",
++  "key": {
++    "#": "minecraft:stick",
++    "X": "#minecraft:diamond_tool_materials"
++  },
++  "pattern": [
++    "  X",
++    " X ",
++    "#  "
++  ],
++  "result": {
++    "id": "lamplight:diamond_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/data/lamplight/recipe/armory/rapier/golden.json work/src/main/resources/data/lamplight/recipe/armory/rapier/golden.json
+--- src/src/main/resources/data/lamplight/recipe/armory/rapier/golden.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/data/lamplight/recipe/armory/rapier/golden.json	2026-11-13 13:42:28.282128582 +0000
+@@ -0,0 +1,16 @@
++{
++  "type": "minecraft:crafting_shaped",
++  "category": "equipment",
++  "key": {
++    "#": "minecraft:stick",
++    "X": "#minecraft:gold_tool_materials"
++  },
++  "pattern": [
++    "  X",
++    " X ",
++    "#  "
++  ],
++  "result": {
++    "id": "lamplight:golden_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/data/lamplight/recipe/armory/rapier/iron.json work/src/main/resources/data/lamplight/recipe/armory/rapier/iron.json
+--- src/src/main/resources/data/lamplight/recipe/armory/rapier/iron.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/data/lamplight/recipe/armory/rapier/iron.json	2026-11-13 13:42:28.281893085 +0000
+@@ -0,0 +1,16 @@
++{
++  "type": "minecraft:crafting_shaped",
++  "category": "equipment",
++  "key": {
++    "#": "minecraft:stick",
++    "X": "#minecraft:iron_tool_materials"
++  },
++  "pattern": [
++    "  X",
++    " X ",
++    "#  "
++  ],
++  "result": {
++    "id": "lamplight:iron_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/data/lamplight/recipe/armory/rapier/netherite_smithing.json work/src/main/resources/data/lamplight/recipe/armory/rapier/netherite_smithing.json
+--- src/src/main/resources/data/lamplight/recipe/armory/rapier/netherite_smithing.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/data/lamplight/recipe/armory/rapier/netherite_smithing.json	2026-11-13 13:42:28.282457536 +0000
+@@ -0,0 +1,9 @@
++{
++  "type": "minecraft:smithing_transform",
++  "addition": "#minecraft:netherite_tool_materials",
++  "base": "lamplight:diamond_rapier",
++  "result": {
++    "id": "lamplight:netherite_rapier"
++  },
++  "template": "minecraft:netherite_upgrade_smithing_template"
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/data/lamplight/recipe/armory/rapier/stone.json work/src/main/resources/data/lamplight/recipe/armory/rapier/stone.json
+--- src/src/main/resources/data/lamplight/recipe/armory/rapier/stone.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/data/lamplight/recipe/armory/rapier/stone.json	2026-11-13 13:42:28.281392924 +0000
+@@ -0,0 +1,16 @@
++{
++  "type": "minecraft:crafting_shaped",
++  "category": "equipment",
++  "key": {
++    "#": "minecraft:stick",
++    "X": "#minecraft:stone_tool_materials"
++  },
++  "pattern": [
++    "  X",
++    " X ",
++    "#  "
++  ],
++  "result": {
++    "id": "lamplight:stone_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/data/lamplight/recipe/armory/rapier/wooden.json work/src/main/resources/data/lamplight/recipe/armory/rapier/wooden.json
+--- src/src/main/resources/data/lamplight/recipe/armory/rapier/wooden.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/data/lamplight/recipe/armory/rapier/wooden.json	2026-11-13 13:42:28.281111327 +0000
+@@ -0,0 +1,16 @@
++{
++  "type": "minecraft:crafting_shaped",
++  "category": "equipment",
++  "key": {
++    "#": "minecraft:stick",
++    "X": "#minecraft:wooden_tool_materials"
++  },
++  "pattern": [
++    "  X",
++    " X ",
++    "#  "
++  ],
++  "result": {
++    "id": "lamplight:wooden_rapier"
++  }
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/data/minecraft/tags/item/melee_weapons/master.json work/src/main/resources/data/minecraft/tags/item/melee_weapons/master.json
+--- src/src/main/resources/data/minecraft/tags/item/melee_weapons/master.json	2026-11-12 11:32:43.000000000 +0000
++++ work/src/main/resources/data/minecraft/tags/item/melee_weapons/master.json	2026-11-13 13:42:28.282910238 +0000
+@@ -6,6 +6,7 @@
+         "#melee_weapons/spears",
+         "#melee_weapons/greatswords",
+         "#melee_weapons/daggers",
++        "#melee_weapons/rapiers",
+         "#melee_weapons/special"
+     ]
+ }
+\ No newline at end of file
+diff -ruN src/src/main/resources/data/minecraft/tags/item/melee_weapons/rapiers.json work/src/main/resources/data/minecraft/tags/item/melee_weapons/rapiers.json
+--- src/src/main/resources/data/minecraft/tags/item/melee_weapons/rapiers.json	1970-01-01 00:00:00.000000000 +0000
++++ work/src/main/resources/data/minecraft/tags/item/melee_weapons/rapiers.json	2026-11-13 13:42:28.282602772 +0000
+@@ -0,0 +1,11 @@
++{
++  "values": [
++    "lamplight:wooden_rapier",
++    "lamplight:stone_rapier",
++    "lamplight:copper_rapier",
++    "lamplight:iron_rapier",
++    "lamplight:golden_rapier",
++    "lamplight:diamond_rapier",
++    "lamplight:netherite_rapier"
++  ]
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/data/minecraft/tags/item/swords.json work/src/main/resources/data/minecraft/tags/item/swords.json
+--- src/src/main/resources/data/minecraft/tags/item/swords.json	2026-11-12 11:32:43.000000000 +0000
++++ work/src/main/resources/data/minecraft/tags/item/swords.json	2026-11-13 13:42:28.283084205 +0000
+@@ -14,6 +14,13 @@
+     "lamplight:iron_greatsword",
+     "lamplight:golden_greatsword",
+     "lamplight:diamond_greatsword",
+-    "lamplight:netherite_greatsword"
++    "lamplight:netherite_greatsword",
++    "lamplight:wooden_rapier",
++    "lamplight:stone_rapier",
++    "lamplight:copper_rapier",
++    "lamplight:iron_rapier",
++    "lamplight:golden_rapier",
++    "lamplight:diamond_rapier",
++    "lamplight:netherite_rapier"
+   ]
+-}
++}
+\ No newline at end of file
+diff -ruN src/src/main/resources/lamplight.mixins.json work/src/main/resources/lamplight.mixins.json
+--- src/src/main/resources/lamplight.mixins.json	2026-11-13 03:44:18.000000000 +0000
++++ work/src/main/resources/lamplight.mixins.json	2026-11-13 13:42:15.089376194 +0000
+@@ -59,6 +59,7 @@
+     "armory.AbstractContainerMenuInvoker",
+     "armory.LivingEntityDaggerMixin",
+     "armory.PlayerDaggerMixin",
++    "armory.PlayerRapierMixin",
+     "armory.InventoryMenuMixin",
+     "armory.InventoryMixin",
+     "armory.ItemStackDualWieldedTooltipMixin",

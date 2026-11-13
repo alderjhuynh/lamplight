@@ -1,0 +1,30 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "property": "minecraft:using_item",
+    "on_true": {
+      "type": "minecraft:select",
+      "property": "minecraft:display_context",
+      "cases": [
+        {
+          "when": [
+            "firstperson_righthand",
+            "firstperson_lefthand"
+          ],
+          "model": {
+            "type": "minecraft:model",
+            "model": "lamplight:item/golden_rapier_guard"
+          }
+        }
+      ],
+      "fallback": {
+        "type": "minecraft:model",
+        "model": "lamplight:item/golden_rapier"
+      }
+    },
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "lamplight:item/golden_rapier"
+    }
+  }
+}

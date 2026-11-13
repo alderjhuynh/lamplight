@@ -59,6 +59,7 @@
     "armory.AbstractContainerMenuInvoker",
     "armory.LivingEntityDaggerMixin",
     "armory.PlayerDaggerMixin",
+    "armory.PlayerRapierMixin",
     "armory.InventoryMenuMixin",
     "armory.InventoryMixin",
     "armory.ItemStackDualWieldedTooltipMixin",

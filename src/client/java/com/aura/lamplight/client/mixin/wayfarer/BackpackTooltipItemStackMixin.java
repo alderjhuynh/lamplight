@@ -18,24 +18,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
-/**
- * Mixin into {@link ItemStack} wiring the backpack tooltip feature into
- * the item tooltip pipeline.
- *
- * <p>Injects a preview tooltip component when a supported container item is
- * hovered, and appends additional tooltip lines via the
- * {@link BackpackTooltipApi} entrypoints.
- */
 @Mixin(ItemStack.class)
 public class BackpackTooltipItemStackMixin {
-	/**
-	 * Replaces the stack's tooltip image with a {@link PreviewTooltipComponent}
-	 * when a preview provider is available for the hovered container item.
-	 *
-	 * @param cir mixin callback used to substitute the tooltip image
-	 */
 	@Inject(at = @At("HEAD"), method = "getTooltipImage()Ljava/util/Optional;", cancellable = true)
 	private void lamplight$onGetTooltipImage(CallbackInfoReturnable<Optional<TooltipComponent>> cir) {
 		Player owner = Minecraft.getInstance().player;
@@ -46,16 +31,6 @@ public class BackpackTooltipItemStackMixin {
 			cir.setReturnValue(Optional.of(new PreviewTooltipComponent(provider, context)));
 	}
 
-	/**
-	 * Appends feature tooltip lines (registered via
-	 * {@link BackpackTooltipApi#modifyStackTooltip}) to the stack's computed
-	 * tooltip.
-	 *
-	 * @param context the item tooltip context
-	 * @param player  the player viewing the tooltip
-	 * @param type    the tooltip flag
-	 * @param cir     mixin callback providing the computed tooltip lines
-	 */
 	@Inject(at = @At("RETURN"), method =
 			"getTooltipLines(Lnet/minecraft/world/item/Item$TooltipContext;Lnet/minecraft/world/entity/player/Player;"
 			+ "Lnet/minecraft/world/item/TooltipFlag;)Ljava/util/List;")

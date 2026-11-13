@@ -14,6 +14,13 @@
     "lamplight:iron_greatsword",
     "lamplight:golden_greatsword",
     "lamplight:diamond_greatsword",
-    "lamplight:netherite_greatsword"
+    "lamplight:netherite_greatsword",
+    "lamplight:wooden_rapier",
+    "lamplight:stone_rapier",
+    "lamplight:copper_rapier",
+    "lamplight:iron_rapier",
+    "lamplight:golden_rapier",
+    "lamplight:diamond_rapier",
+    "lamplight:netherite_rapier"
   ]
 }

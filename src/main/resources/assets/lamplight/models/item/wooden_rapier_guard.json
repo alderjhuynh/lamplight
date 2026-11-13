@@ -1,0 +1,6 @@
+{
+  "parent": "lamplight:item/rapier_guard",
+  "textures": {
+    "layer0": "lamplight:item/wooden_rapier"
+  }
+}

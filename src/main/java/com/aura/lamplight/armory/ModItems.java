@@ -39,6 +39,19 @@ public final class ModItems {
 		});
 	}
 
+	private static void addRapierAttributes(DefaultItemComponentEvents.ModifyContext context, Item rapier) {
+		context.modify(rapier, builder -> {
+			ItemAttributeModifiers existing = builder.getOrDefault(
+					DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+			builder.set(DataComponents.ATTRIBUTE_MODIFIERS, existing
+					.withModifierAdded(
+							Attributes.ENTITY_INTERACTION_RANGE,
+							new AttributeModifier(Armory.id("rapier_reach"), 0.5D,
+									AttributeModifier.Operation.ADD_VALUE),
+							EquipmentSlotGroup.MAINHAND));
+		});
+	}
+
 	private static void addTwoHanded(DefaultItemComponentEvents.ModifyContext context, Item item) {
 		context.modify(item, builder -> {
 			builder.set(ModDataComponents.TWO_HANDED, true);
@@ -224,6 +237,65 @@ public final class ModItems {
 			new ScytheItem(ToolMaterial.NETHERITE, 5.0F, -3.0F,
 					new Item.Properties().fireResistant().setId(NETHERITE_SCYTHE_KEY)));
 
+	private static final float RAPIER_DAMAGE = 2.0F;
+	private static final float RAPIER_SPEED = -2.2F;
+
+	public static final ResourceKey<Item> WOODEN_RAPIER_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("wooden_rapier"));
+	public static final Item WOODEN_RAPIER = Registry.register(
+			BuiltInRegistries.ITEM,
+			WOODEN_RAPIER_KEY,
+			new RapierItem(ToolMaterial.WOOD, RAPIER_DAMAGE, RAPIER_SPEED,
+					new Item.Properties().setId(WOODEN_RAPIER_KEY)));
+
+	public static final ResourceKey<Item> STONE_RAPIER_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("stone_rapier"));
+	public static final Item STONE_RAPIER = Registry.register(
+			BuiltInRegistries.ITEM,
+			STONE_RAPIER_KEY,
+			new RapierItem(ToolMaterial.STONE, RAPIER_DAMAGE, RAPIER_SPEED,
+					new Item.Properties().setId(STONE_RAPIER_KEY)));
+
+	public static final ResourceKey<Item> COPPER_RAPIER_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("copper_rapier"));
+	public static final Item COPPER_RAPIER = Registry.register(
+			BuiltInRegistries.ITEM,
+			COPPER_RAPIER_KEY,
+			new RapierItem(ToolMaterial.COPPER, RAPIER_DAMAGE, RAPIER_SPEED,
+					new Item.Properties().setId(COPPER_RAPIER_KEY)));
+
+	public static final ResourceKey<Item> IRON_RAPIER_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("iron_rapier"));
+	public static final Item IRON_RAPIER = Registry.register(
+			BuiltInRegistries.ITEM,
+			IRON_RAPIER_KEY,
+			new RapierItem(ToolMaterial.IRON, RAPIER_DAMAGE, RAPIER_SPEED,
+					new Item.Properties().setId(IRON_RAPIER_KEY)));
+
+	public static final ResourceKey<Item> GOLDEN_RAPIER_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("golden_rapier"));
+	public static final Item GOLDEN_RAPIER = Registry.register(
+			BuiltInRegistries.ITEM,
+			GOLDEN_RAPIER_KEY,
+			new RapierItem(ToolMaterial.GOLD, RAPIER_DAMAGE, RAPIER_SPEED,
+					new Item.Properties().setId(GOLDEN_RAPIER_KEY)));
+
+	public static final ResourceKey<Item> DIAMOND_RAPIER_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("diamond_rapier"));
+	public static final Item DIAMOND_RAPIER = Registry.register(
+			BuiltInRegistries.ITEM,
+			DIAMOND_RAPIER_KEY,
+			new RapierItem(ToolMaterial.DIAMOND, RAPIER_DAMAGE, RAPIER_SPEED,
+					new Item.Properties().setId(DIAMOND_RAPIER_KEY)));
+
+	public static final ResourceKey<Item> NETHERITE_RAPIER_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("netherite_rapier"));
+	public static final Item NETHERITE_RAPIER = Registry.register(
+			BuiltInRegistries.ITEM,
+			NETHERITE_RAPIER_KEY,
+			new RapierItem(ToolMaterial.NETHERITE, RAPIER_DAMAGE, RAPIER_SPEED,
+					new Item.Properties().fireResistant().setId(NETHERITE_RAPIER_KEY)));
+
 	public static final ResourceKey<CreativeModeTab> COMBAT_TAB =
 			ResourceKey.create(Registries.CREATIVE_MODE_TAB, Identifier.withDefaultNamespace("combat"));
 
@@ -238,6 +310,11 @@ public final class ModItems {
 					WOODEN_SCYTHE, STONE_SCYTHE, COPPER_SCYTHE, IRON_SCYTHE,
 					GOLDEN_SCYTHE, DIAMOND_SCYTHE, NETHERITE_SCYTHE }) {
 				addScytheAttributes(context, scythe);
+			}
+			for (Item rapier : new Item[] {
+					WOODEN_RAPIER, STONE_RAPIER, COPPER_RAPIER, IRON_RAPIER,
+					GOLDEN_RAPIER, DIAMOND_RAPIER, NETHERITE_RAPIER }) {
+				addRapierAttributes(context, rapier);
 			}
 			for (Item item : new Item[] {
 					WOODEN_GREATSWORD, STONE_GREATSWORD, COPPER_GREATSWORD, IRON_GREATSWORD,
@@ -260,6 +337,13 @@ public final class ModItems {
 			output.accept(GOLDEN_GREATSWORD);
 			output.accept(DIAMOND_GREATSWORD);
 			output.accept(NETHERITE_GREATSWORD);
+			output.accept(WOODEN_RAPIER);
+			output.accept(STONE_RAPIER);
+			output.accept(COPPER_RAPIER);
+			output.accept(IRON_RAPIER);
+			output.accept(GOLDEN_RAPIER);
+			output.accept(DIAMOND_RAPIER);
+			output.accept(NETHERITE_RAPIER);
 			output.accept(WOODEN_SCYTHE);
 			output.accept(STONE_SCYTHE);
 			output.accept(COPPER_SCYTHE);

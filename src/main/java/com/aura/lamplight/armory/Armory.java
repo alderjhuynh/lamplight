@@ -24,6 +24,7 @@ public class Armory implements ModInitializer {
 		TwoHanded.register();
 		DualWielded.register();
 		ModItems.register();
+		RapierCombat.register();
 		PayloadTypeRegistry.serverboundPlay().register(DrawSheathPayload.TYPE, DrawSheathPayload.CODEC);
 		ServerPlayNetworking.registerGlobalReceiver(DrawSheathPayload.TYPE, (payload, context) -> {
 			context.server().execute(() -> {

@@ -49,6 +49,10 @@ public final class ModItems {
 		context.modify(item, builder -> builder.set(ModDataComponents.DUAL_WIELDED, true));
 	}
 
+	private static void addGreatswordBlocking(DefaultItemComponentEvents.ModifyContext context, Item greatsword) {
+		GreatswordItem.addBlockingComponent(context, greatsword);
+	}
+
 	public static final ResourceKey<Item> NETHERITE_DAGGER_KEY =
         ResourceKey.create(Registries.ITEM, Armory.id("netherite_dagger"));
 
@@ -125,7 +129,7 @@ public final class ModItems {
 	public static final Item NETHERITE_GREATSWORD = Registry.register(
 			BuiltInRegistries.ITEM,
 			NETHERITE_GREATSWORD_KEY, 
-			new Item(new Item.Properties().sword(ToolMaterial.NETHERITE, 5.0F, -3.3F).setId(NETHERITE_GREATSWORD_KEY)));
+			new GreatswordItem(ToolMaterial.NETHERITE, 5.0F, -3.3F, new Item.Properties().setId(NETHERITE_GREATSWORD_KEY)));
 	
 
 	public static final ResourceKey<Item> WOODEN_GREATSWORD_KEY =
@@ -133,42 +137,42 @@ public final class ModItems {
 	public static final Item WOODEN_GREATSWORD = Registry.register(
 			BuiltInRegistries.ITEM,
 			WOODEN_GREATSWORD_KEY,
-			new Item(new Item.Properties().sword(ToolMaterial.WOOD, 4.0F, -3.3F).setId(WOODEN_GREATSWORD_KEY)));
+			new GreatswordItem(ToolMaterial.WOOD, 4.0F, -3.3F, new Item.Properties().setId(WOODEN_GREATSWORD_KEY)));
 
 	public static final ResourceKey<Item> STONE_GREATSWORD_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("stone_greatsword"));
 	public static final Item STONE_GREATSWORD = Registry.register(
 			BuiltInRegistries.ITEM,
 			STONE_GREATSWORD_KEY,
-			new Item(new Item.Properties().sword(ToolMaterial.STONE, 4.0F, -3.3F).setId(STONE_GREATSWORD_KEY)));
+			new GreatswordItem(ToolMaterial.STONE, 4.0F, -3.3F, new Item.Properties().setId(STONE_GREATSWORD_KEY)));
 
 	public static final ResourceKey<Item> COPPER_GREATSWORD_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("copper_greatsword"));
 	public static final Item COPPER_GREATSWORD = Registry.register(
 			BuiltInRegistries.ITEM,
 			COPPER_GREATSWORD_KEY,
-			new Item(new Item.Properties().sword(ToolMaterial.COPPER, 4.0F, -3.3F).setId(COPPER_GREATSWORD_KEY)));
+			new GreatswordItem(ToolMaterial.COPPER, 4.0F, -3.3F, new Item.Properties().setId(COPPER_GREATSWORD_KEY)));
 
 	public static final ResourceKey<Item> IRON_GREATSWORD_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("iron_greatsword"));
 	public static final Item IRON_GREATSWORD = Registry.register(
 			BuiltInRegistries.ITEM,
 			IRON_GREATSWORD_KEY,
-			new Item(new Item.Properties().sword(ToolMaterial.IRON, 5.0F, -3.3F).setId(IRON_GREATSWORD_KEY)));
+			new GreatswordItem(ToolMaterial.IRON, 5.0F, -3.3F, new Item.Properties().setId(IRON_GREATSWORD_KEY)));
 
 	public static final ResourceKey<Item> GOLDEN_GREATSWORD_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("golden_greatsword"));
 	public static final Item GOLDEN_GREATSWORD = Registry.register(
 			BuiltInRegistries.ITEM,
 			GOLDEN_GREATSWORD_KEY,
-			new Item(new Item.Properties().sword(ToolMaterial.GOLD, 4.0F, -3.3F).setId(GOLDEN_GREATSWORD_KEY)));
+			new GreatswordItem(ToolMaterial.GOLD, 4.0F, -3.3F, new Item.Properties().setId(GOLDEN_GREATSWORD_KEY)));
 
 	public static final ResourceKey<Item> DIAMOND_GREATSWORD_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("diamond_greatsword"));
 	public static final Item DIAMOND_GREATSWORD = Registry.register(
 			BuiltInRegistries.ITEM,
 			DIAMOND_GREATSWORD_KEY,
-			new Item(new Item.Properties().sword(ToolMaterial.DIAMOND, 5.0F, -3.3F).setId(DIAMOND_GREATSWORD_KEY)));
+			new GreatswordItem(ToolMaterial.DIAMOND, 5.0F, -3.3F, new Item.Properties().setId(DIAMOND_GREATSWORD_KEY)));
 
 	public static final ResourceKey<Item> WOODEN_SCYTHE_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("wooden_scythe"));
@@ -240,6 +244,11 @@ public final class ModItems {
 					GOLDEN_GREATSWORD, DIAMOND_GREATSWORD, NETHERITE_GREATSWORD,
 					Items.BOW, Items.CROSSBOW, Items.MACE }) {
 				addTwoHanded(context, item);
+			}
+			for (Item greatsword : new Item[] {
+					WOODEN_GREATSWORD, STONE_GREATSWORD, COPPER_GREATSWORD, IRON_GREATSWORD,
+					GOLDEN_GREATSWORD, DIAMOND_GREATSWORD, NETHERITE_GREATSWORD }) {
+				addGreatswordBlocking(context, greatsword);
 			}
 		});
 		CreativeModeTabEvents.modifyOutputEvent(COMBAT_TAB).register((output) -> {

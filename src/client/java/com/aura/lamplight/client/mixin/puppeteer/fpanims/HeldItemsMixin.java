@@ -2,6 +2,7 @@ package com.aura.lamplight.client.mixin.puppeteer.fpanims;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.aura.lamplight.armory.GreatswordItem;
 import com.aura.lamplight.puppeteer.fpanims.FpAnimsClient;
 import com.aura.lamplight.puppeteer.fpanims.FpAnimsConfig;
 import com.aura.lamplight.puppeteer.fpanims.BlockEmissionRenderer;
@@ -89,6 +90,14 @@ public abstract class HeldItemsMixin {
         if (stack.is(ItemTags.SPEARS)) return true;
         return id != null && id.getPath().contains("scythe");
         // DUDE I SWEAR TO GOD I MADE A SCYTHE ITEM TAG WHERE IS IT
+    }
+
+    @Unique
+    private static boolean fpanims$isGreatswordBlock(AbstractClientPlayer player, ItemStack stack, InteractionHand hand) {
+        return stack.getItem() instanceof GreatswordItem
+            && player.isUsingItem()
+            && player.getUseItemRemainingTicks() > 0
+            && player.getUsedItemHand() == hand;
     }
 
     @Unique
@@ -826,8 +835,13 @@ public abstract class HeldItemsMixin {
                             hmiBlockRest: {
                                 boolean bl2 = arm == HumanoidArm.RIGHT;
                                 int l = bl2 ? 1 : -1;
+                                ItemUseAnimation fpanims$useAnim = stack.getUseAnimation();
+                                if (fpanims$useAnim == ItemUseAnimation.NONE && fpanims$isGreatswordBlock(player, stack, hand)) {
+                                    fpanims$useAnim = ItemUseAnimation.BLOCK;
+                                }
+
                                 if (player.isUsingItem() && player.getUseItemRemainingTicks() > 0 && player.getUsedItemHand() == hand) {
-                                    switch (stack.getUseAnimation()) {
+                                    switch (fpanims$useAnim) {
                                         case NONE:
                                             this.applyItemArmTransform(poseStack, arm, equipProgress);
                                             break;
@@ -1200,7 +1214,7 @@ public abstract class HeldItemsMixin {
                                         poseStack.mulPose(Axis.ZP.rotationDegrees((float) (45 * l)));
                                     }
 
-                                    if (stack.getUseAnimation() != ItemUseAnimation.BLOCK) {
+                                    if (fpanims$useAnim != ItemUseAnimation.BLOCK) {
                                         poseStack.scale(1.2F, 1.2F, 1.2F);
                                     }
 

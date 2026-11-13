@@ -6,6 +6,7 @@ import com.aura.lamplight.tinkerer.Tinkerer;
 import com.aura.lamplight.tinkerer.charm.CharmDeckLayout;
 import com.aura.lamplight.tinkerer.client.CharmTooltips;
 import com.aura.lamplight.wayfarer.atlas.AtlasPanel;
+import com.aura.lamplight.wayfarer.client.BackpackAddonPanel;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.Hud;
@@ -78,6 +79,7 @@ public class CharmDeckScreen extends InventoryScreen {
 	protected void init() {
 		super.init();
 		this.syncPaneVisibility();
+		BackpackAddonPanel.syncVisibility(this);
 		ScreenPosition buttonPos = this.getRecipeBookButtonPosition();
 		this.deckButton = this.addRenderableWidget(new ImageButton(
 				buttonPos.x() + BUTTON_WIDTH + PANE_GAP, buttonPos.y(),
@@ -127,6 +129,7 @@ public class CharmDeckScreen extends InventoryScreen {
 	@Override
 	protected void onRecipeBookButtonClick() {
 		super.onRecipeBookButtonClick();
+		BackpackAddonPanel.syncVisibility(this);
 		this.positionDeckButton();
 	}
 
@@ -148,6 +151,9 @@ public class CharmDeckScreen extends InventoryScreen {
 
 	@Override
 	protected boolean hasClickedOutside(double mouseX, double mouseY, int left, int top) {
+		if (BackpackAddonPanel.contains(this, mouseX, mouseY)) {
+			return false;
+		}
 		if (AtlasPanel.contains(this, mouseX, mouseY)) {
 			return false;
 		}
@@ -236,6 +242,7 @@ public class CharmDeckScreen extends InventoryScreen {
 	@Override
 	public void extractBackground(GuiGraphicsExtractor gfx, int mouseX, int mouseY, float partialTick) {
 		super.extractBackground(gfx, mouseX, mouseY, partialTick);
+		BackpackAddonPanel.extract(this, gfx);
 		AtlasPanel.extract(this, gfx, mouseX, mouseY);
 		this.extractEffects(gfx);
 		if (!this.isDeckOpen()) {

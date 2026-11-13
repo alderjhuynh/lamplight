@@ -87,7 +87,8 @@
     "tinkerer.InventoryMenuCharmSlotsMixin",
     "tinkerer.PlayerCharmAttributesMixin",
     "tinkerer.PlayerInventoryMenuAccessor",
-    "tinkerer.ServerPlayerInitMenuInvoker"
+    "tinkerer.ServerPlayerInitMenuInvoker",
+    "wayfarer.InventoryMenuBackpackAddonMixin"
   ],
   "injectors": {
     "defaultRequire": 1

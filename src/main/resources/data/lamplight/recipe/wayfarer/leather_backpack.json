@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sls",
+    "sbs",
+    "lll"
+  ],
+  "key": {
+    "s": "minecraft:string",
+    "l": "minecraft:leather",
+    "b": "#minecraft:bundles"
+  },
+  "result": {
+    "id": "lamplight:leather_backpack"
+  }
+}

@@ -1,7 +1,10 @@
 package com.aura.lamplight.wayfarer.client;
 
+import com.aura.lamplight.wayfarer.ModMenus;
 import com.aura.lamplight.wayfarer.Wayfarer;
 import com.aura.lamplight.wayfarer.client.config.WayfarerConfig;
+import com.aura.lamplight.wayfarer.client.gui.BackpackScreen;
+import com.aura.lamplight.wayfarer.client.backpacktooltip.BackpackTooltipProviders;
 import com.aura.lamplight.wayfarer.client.gui.WorldMapScreen;
 import com.aura.lamplight.wayfarer.client.input.MapKeybindings;
 import com.aura.lamplight.wayfarer.client.minimap.MinimapDataStore;
@@ -27,6 +30,7 @@ import com.aura.lamplight.wayfarer.waystone.WaystoneNamingPayload;
 import com.aura.lamplight.wayfarer.waystone.WaystoneTravelListPayload;
 import com.aura.lamplight.wayfarer.client.waystone.WaystoneTeleportParticle;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.ClientTooltipComponentCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -36,6 +40,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
 
 public class WayfarerClient implements ClientModInitializer {
     public static WayfarerConfig CONFIG;
@@ -51,6 +56,13 @@ public class WayfarerClient implements ClientModInitializer {
     @SuppressWarnings ("deprecation")
     @Override
     public void onInitializeClient() {
+        MenuScreens.register(ModMenus.LEATHER_BACKPACK, BackpackScreen::new);
+        BackpackTooltipProviders.register();
+        ClientTooltipComponentCallback.EVENT.register(data -> {
+            if (data instanceof com.aura.lamplight.wayfarer.client.backpacktooltip.tooltip.PreviewTooltipComponent previewData)
+                return new com.aura.lamplight.wayfarer.client.backpacktooltip.tooltip.PreviewClientTooltipComponent(previewData);
+            return null;
+        });
         CONFIG = WayfarerConfig.load();
         for (var kb : MapKeybindings.all()) {
             KeyMappingHelper.registerKeyMapping(kb);

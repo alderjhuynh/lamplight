@@ -52,6 +52,52 @@
     ],
     "subtitle": "minecraft:subtitles.item.armor.equip"
   },
+  "item.leather_backpack.open": {
+    "sounds": [
+      {
+        "name": "lamplight:item/leather_backpack/leather_backpack_open1"
+      },
+      {
+        "name": "lamplight:item/leather_backpack/leather_backpack_open2"
+      },
+      {
+        "name": "lamplight:item/leather_backpack/leather_backpack_open3"
+      },
+      {
+        "name": "lamplight:item/leather_backpack/leather_backpack_open4"
+      },
+      {
+        "name": "lamplight:item/leather_backpack/leather_backpack_open5"
+      },
+      {
+        "name": "lamplight:item/leather_backpack/leather_backpack_open6"
+      }
+    ],
+    "subtitle": "minecraft:subtitles.item.armor.equip"
+  },
+  "item.leather_backpack.close": {
+    "sounds": [
+      {
+        "name": "lamplight:item/leather_backpack/leather_backpack_close1"
+      },
+      {
+        "name": "lamplight:item/leather_backpack/leather_backpack_close2"
+      },
+      {
+        "name": "lamplight:item/leather_backpack/leather_backpack_close3"
+      },
+      {
+        "name": "lamplight:item/leather_backpack/leather_backpack_close4"
+      },
+      {
+        "name": "lamplight:item/leather_backpack/leather_backpack_close5"
+      },
+      {
+        "name": "lamplight:item/leather_backpack/leather_backpack_close6"
+      }
+    ],
+    "subtitle": "minecraft:subtitles.item.armor.equip"
+  },
   "inferno_launch": {
     "sounds": [
       {

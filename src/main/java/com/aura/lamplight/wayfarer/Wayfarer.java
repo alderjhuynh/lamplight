@@ -25,8 +25,12 @@ public class Wayfarer implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ModDataComponents.initialize();
 		ModBlocks.register();
 		ModBlockEntities.register();
+		ModItems.register();
+		ModMenus.register();
+		WayfarerSounds.register();
 		ModParticles.register();
 		WaystoneTravelListPayload.initialize();
 		WaystoneTravelPayload.initialize();

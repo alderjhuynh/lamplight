@@ -1,0 +1,43 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:diamond_dagger"
+    },
+    "title": {
+      "translate": "advancements.lamplight.armory.dagger_hit.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.armory.dagger_hit.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:armory/dagger",
+  "criteria": {
+    "hit": {
+      "trigger": "minecraft:player_hurt_entity",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "equipment": {
+                "mainhand": {
+                  "items": [
+                    "lamplight:wooden_dagger",
+                    "lamplight:stone_dagger",
+                    "lamplight:copper_dagger",
+                    "lamplight:iron_dagger",
+                    "lamplight:golden_dagger",
+                    "lamplight:diamond_dagger",
+                    "lamplight:netherite_dagger"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

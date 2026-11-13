@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:stew"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.nourished.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.nourished.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:ambrosia/first_meal",
+  "criteria": {
+    "nourished": {
+      "trigger": "minecraft:effects_changed",
+      "conditions": {
+        "effects": {
+          "lamplight:nourishment": {}
+        }
+      }
+    }
+  }
+}

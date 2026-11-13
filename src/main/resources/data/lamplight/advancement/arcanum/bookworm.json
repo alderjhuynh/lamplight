@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:enchanted_book"
+    },
+    "title": {
+      "translate": "advancements.lamplight.arcanum.bookworm.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.arcanum.bookworm.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:story/enchant_item",
+  "criteria": {
+    "book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {}
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

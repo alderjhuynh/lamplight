@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:snowball"
+    },
+    "title": {
+      "translate": "advancements.lamplight.panacea.frostproof.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.panacea.frostproof.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:nether/brew_potion",
+  "criteria": {
+    "b": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:frost_resistance_potion"
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:wine_rack"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.wine_rack.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.wine_rack.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:husbandry/plant_seed",
+  "criteria": {
+    "rack": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:wine_rack"
+          }
+        ]
+      }
+    }
+  }
+}

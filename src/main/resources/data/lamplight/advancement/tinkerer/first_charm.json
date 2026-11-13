@@ -1,0 +1,31 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:charm_ring"
+    },
+    "title": {
+      "translate": "advancements.lamplight.tinkerer.first_charm.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.tinkerer.first_charm.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:tinkerer/jeweling_table",
+  "criteria": {
+    "charm": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lamplight:charm_ring",
+              "lamplight:charm_necklace",
+              "lamplight:charm_cuff"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

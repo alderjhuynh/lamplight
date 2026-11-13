@@ -1,0 +1,71 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:leather_boots"
+    },
+    "title": {
+      "translate": "advancements.lamplight.arcanum.stride.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.arcanum.stride.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:story/enchant_item",
+  "criteria": {
+    "legs": {
+      "trigger": "minecraft:tick",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "equipment": {
+                "legs": {
+                  "predicates": {
+                    "minecraft:enchantments": [
+                      {
+                        "enchantments": "#lamplight:slot/stride"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "feet": {
+      "trigger": "minecraft:tick",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "equipment": {
+                "feet": {
+                  "predicates": {
+                    "minecraft:enchantments": [
+                      {
+                        "enchantments": "#lamplight:slot/stride"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "legs",
+      "feet"
+    ]
+  ]
+}

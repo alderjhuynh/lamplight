@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:rose_gold_ingot"
+    },
+    "title": {
+      "translate": "advancements.lamplight.tinkerer.rose_gold.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.tinkerer.rose_gold.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:tinkerer/raw_rose_gold",
+  "criteria": {
+    "ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:rose_gold_ingot"
+          }
+        ]
+      }
+    }
+  }
+}

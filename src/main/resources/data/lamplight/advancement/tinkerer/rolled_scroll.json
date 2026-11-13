@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:rolled_scroll"
+    },
+    "title": {
+      "translate": "advancements.lamplight.tinkerer.rolled_scroll.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.tinkerer.rolled_scroll.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:tinkerer/first_charm",
+  "criteria": {
+    "scroll": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:rolled_scroll"
+          }
+        ]
+      }
+    }
+  }
+}

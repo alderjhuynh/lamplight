@@ -1,0 +1,392 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:lectern"
+    },
+    "title": {
+      "translate": "advancements.lamplight.arcanum.well_rounded.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.arcanum.well_rounded.description"
+    },
+    "frame": "challenge"
+  },
+  "parent": "lamplight:arcanum/bookworm",
+  "criteria": {
+    "edge_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/edge"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "edge_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/edge"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "tempo_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/tempo"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "tempo_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/tempo"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flourish_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/flourish"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flourish_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/flourish"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "ward_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/ward"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "ward_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/ward"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "stride_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/stride"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "stride_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/stride"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "rite_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/rite"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "rite_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/rite"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "method_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/method"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "method_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/method"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "boon_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/boon"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "boon_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/boon"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "main_effect_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/main_effect"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "main_effect_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/main_effect"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "secondary_effect_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/secondary_effect"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "secondary_effect_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/secondary_effect"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "edge_item",
+      "edge_book"
+    ],
+    [
+      "tempo_item",
+      "tempo_book"
+    ],
+    [
+      "flourish_item",
+      "flourish_book"
+    ],
+    [
+      "ward_item",
+      "ward_book"
+    ],
+    [
+      "stride_item",
+      "stride_book"
+    ],
+    [
+      "rite_item",
+      "rite_book"
+    ],
+    [
+      "method_item",
+      "method_book"
+    ],
+    [
+      "boon_item",
+      "boon_book"
+    ],
+    [
+      "main_effect_item",
+      "main_effect_book"
+    ],
+    [
+      "secondary_effect_item",
+      "secondary_effect_book"
+    ]
+  ],
+  "rewards": {
+    "experience": 200
+  }
+}

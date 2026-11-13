@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:polished_calcite_bricks"
+    },
+    "title": {
+      "translate": "advancements.lamplight.hearthwright.chalk_it_up.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.hearthwright.chalk_it_up.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:hearthwright/walls",
+  "criteria": {
+    "bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:polished_calcite_bricks"
+          }
+        ]
+      }
+    },
+    "pillar": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:calcite_pillar"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 25
+  }
+}

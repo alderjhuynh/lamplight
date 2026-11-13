@@ -1,0 +1,38 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:soul_soil"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.soul_tiller.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.soul_tiller.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:ambrosia/seeds",
+  "criteria": {
+    "till": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "#minecraft:hoes"
+            }
+          },
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": "lamplight:soul_farmland"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

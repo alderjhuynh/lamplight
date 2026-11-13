@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:tomato_soup"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.comfort.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.comfort.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:ambrosia/first_meal",
+  "criteria": {
+    "comfort": {
+      "trigger": "minecraft:effects_changed",
+      "conditions": {
+        "effects": {
+          "lamplight:comfort": {}
+        }
+      }
+    }
+  }
+}

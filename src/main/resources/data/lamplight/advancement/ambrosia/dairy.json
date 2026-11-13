@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:cheese"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.dairy.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.dairy.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:ambrosia/milk",
+  "criteria": {
+    "butter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:butter"
+          }
+        ]
+      }
+    },
+    "cheese": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:cheese"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 25
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:golden_carrot"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.master_chef.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.master_chef.description"
+    },
+    "frame": "challenge"
+  },
+  "parent": "lamplight:ambrosia/sweet_tooth",
+  "criteria": {
+    "hamburger": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:hamburger"
+        }
+      }
+    },
+    "blt": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:blt"
+        }
+      }
+    },
+    "burrito": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:burrito"
+        }
+      }
+    },
+    "gyro": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:gyro"
+        }
+      }
+    },
+    "kebab": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:kebab"
+        }
+      }
+    },
+    "poutine": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:poutine"
+        }
+      }
+    },
+    "spaghetti": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:spaghetti"
+        }
+      }
+    },
+    "beef_stroganoff": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:beef_stroganoff"
+        }
+      }
+    },
+    "shepherds_pie": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:shepherds_pie"
+        }
+      }
+    },
+    "roast_dinner": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:roast_dinner"
+        }
+      }
+    },
+    "surf_n_turf": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:surf_n_turf"
+        }
+      }
+    },
+    "honey_glazed_ham": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:honey_glazed_ham"
+        }
+      }
+    },
+    "fish_and_chips": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:fish_and_chips"
+        }
+      }
+    },
+    "fried_chicken": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:fried_chicken"
+        }
+      }
+    },
+    "egg_fried_rice": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:egg_fried_rice"
+        }
+      }
+    },
+    "mushroom_risotto": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:mushroom_risotto"
+        }
+      }
+    },
+    "lettuce_wrap": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:lettuce_wrap"
+        }
+      }
+    },
+    "chicken_satay": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:chicken_satay"
+        }
+      }
+    },
+    "chicken_sandwich": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:chicken_sandwich"
+        }
+      }
+    },
+    "grilled_cheese": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:grilled_cheese"
+        }
+      }
+    },
+    "pb_and_j": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:pb_and_j"
+        }
+      }
+    },
+    "tomato_soup": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:tomato_soup"
+        }
+      }
+    },
+    "vegetable_soup": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:vegetable_soup"
+        }
+      }
+    },
+    "stew": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:stew"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "experience": 300
+  }
+}

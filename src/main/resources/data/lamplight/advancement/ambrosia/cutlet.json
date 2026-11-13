@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:beef_cutlets"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.cutlet.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.cutlet.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:ambrosia/knife",
+  "criteria": {
+    "cutlet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lamplight:beef_cutlets",
+              "lamplight:chicken_cutlets",
+              "lamplight:mutton_cutlets",
+              "lamplight:rabbit_cutlets"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:iron_scythe"
+    },
+    "title": {
+      "translate": "advancements.lamplight.armory.scythe.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.armory.scythe.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:adventure/kill_a_mob",
+  "criteria": {
+    "scythe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lamplight:wooden_scythe",
+              "lamplight:stone_scythe",
+              "lamplight:copper_scythe",
+              "lamplight:iron_scythe",
+              "lamplight:golden_scythe",
+              "lamplight:diamond_scythe",
+              "lamplight:netherite_scythe"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:blt"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.sandwiches.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.sandwiches.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:ambrosia/first_meal",
+  "criteria": {
+    "blt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:blt"
+          }
+        ]
+      }
+    },
+    "chicken_sandwich": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:chicken_sandwich"
+          }
+        ]
+      }
+    },
+    "grilled_cheese": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:grilled_cheese"
+          }
+        ]
+      }
+    },
+    "pb_and_j": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:pb_and_j"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 25
+  }
+}

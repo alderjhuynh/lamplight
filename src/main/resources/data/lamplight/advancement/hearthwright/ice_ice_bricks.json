@@ -1,0 +1,50 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:packed_ice_bricks"
+    },
+    "title": {
+      "translate": "advancements.lamplight.hearthwright.ice_ice_bricks.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.hearthwright.ice_ice_bricks.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:hearthwright/walls",
+  "criteria": {
+    "packed_ice_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:packed_ice_bricks"
+          }
+        ]
+      }
+    },
+    "chiseled_packed_ice": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:chiseled_packed_ice"
+          }
+        ]
+      }
+    },
+    "snow_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:snow_bricks"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 25
+  }
+}

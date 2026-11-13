@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:coffee"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.coffee.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.coffee.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:ambrosia/seeds",
+  "criteria": {
+    "coffee": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:coffee"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:stone_wall"
+    },
+    "title": {
+      "translate": "advancements.lamplight.hearthwright.walls.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.hearthwright.walls.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:story/mine_stone",
+  "criteria": {
+    "wall": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lamplight:amethyst_brick_wall",
+              "lamplight:basalt_wall",
+              "lamplight:cobbled_sandstone_wall",
+              "lamplight:cut_red_sandstone_wall",
+              "lamplight:cut_sandstone_wall",
+              "lamplight:dark_prismarine_wall",
+              "lamplight:deepslate_wall",
+              "lamplight:end_stone_wall",
+              "lamplight:mossy_cobbled_sandstone_wall",
+              "lamplight:mossy_sandstone_brick_wall",
+              "lamplight:netherrack_wall",
+              "lamplight:packed_ice_brick_wall",
+              "lamplight:packed_mud_wall",
+              "lamplight:polished_andesite_wall",
+              "lamplight:polished_basalt_wall",
+              "lamplight:polished_calcite_brick_wall",
+              "lamplight:polished_calcite_wall",
+              "lamplight:polished_diorite_wall",
+              "lamplight:polished_granite_wall",
+              "lamplight:prismarine_brick_wall",
+              "lamplight:purpur_wall",
+              "lamplight:quartz_brick_wall",
+              "lamplight:quartz_wall",
+              "lamplight:sandstone_brick_wall",
+              "lamplight:smooth_basalt_wall",
+              "lamplight:smooth_red_sandstone_wall",
+              "lamplight:smooth_sandstone_wall",
+              "lamplight:smooth_stone_wall",
+              "lamplight:snow_brick_wall",
+              "lamplight:stone_wall"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

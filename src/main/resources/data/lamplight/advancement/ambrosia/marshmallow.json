@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:marshmallow"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.marshmallow.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.marshmallow.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:husbandry/plant_seed",
+  "criteria": {
+    "mallow": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:marshmallow"
+          }
+        ]
+      }
+    }
+  }
+}

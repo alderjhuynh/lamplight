@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:iron_knife"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.knife.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.knife.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:husbandry/plant_seed",
+  "criteria": {
+    "knife": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lamplight:wooden_knife",
+              "lamplight:stone_knife",
+              "lamplight:copper_knife",
+              "lamplight:iron_knife",
+              "lamplight:golden_knife",
+              "lamplight:diamond_knife",
+              "lamplight:netherite_knife"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

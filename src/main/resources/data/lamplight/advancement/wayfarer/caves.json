@@ -1,0 +1,148 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:glow_berries"
+    },
+    "title": {
+      "translate": "advancements.lamplight.wayfarer.caves.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.wayfarer.caves.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:wayfarer/root",
+  "criteria": {
+    "dirt_caves": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "lamplight:dirt_caves"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "cold_caves": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "lamplight:cold_caves"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "warm_caves": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "lamplight:warm_caves"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "lukewarm_caves": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "lamplight:lukewarm_caves"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "frozen_caves": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "lamplight:frozen_caves"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "fungal_caves": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "lamplight:fungal_caves"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "pale_cave": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "lamplight:pale_cave"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "sulfur_caves": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "minecraft:sulfur_caves"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 50
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:sandstone_bricks"
+    },
+    "title": {
+      "translate": "advancements.lamplight.hearthwright.sun_baked.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.hearthwright.sun_baked.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:hearthwright/walls",
+  "criteria": {
+    "sandstone_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:sandstone_bricks"
+          }
+        ]
+      }
+    },
+    "cobbled_sandstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:cobbled_sandstone"
+          }
+        ]
+      }
+    },
+    "mossy_cobbled_sandstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:mossy_cobbled_sandstone"
+          }
+        ]
+      }
+    },
+    "mossy_sandstone_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:mossy_sandstone_bricks"
+          }
+        ]
+      }
+    },
+    "cracked_sandstone_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:cracked_sandstone_bricks"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 25
+  }
+}

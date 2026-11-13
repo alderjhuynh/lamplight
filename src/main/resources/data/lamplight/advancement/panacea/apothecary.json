@@ -1,0 +1,116 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:cauldron"
+    },
+    "title": {
+      "translate": "advancements.lamplight.panacea.apothecary.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.panacea.apothecary.description"
+    },
+    "frame": "challenge"
+  },
+  "parent": "lamplight:panacea/pour",
+  "criteria": {
+    "vulnerability": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:vulnerability_potion"
+      }
+    },
+    "frost_resistance": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:frost_resistance_potion"
+      }
+    },
+    "fuse": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:fuse_potion"
+      }
+    },
+    "sinking": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:sinking_potion"
+      }
+    },
+    "undying": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:undying_potion"
+      }
+    },
+    "blindness": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:blindness_potion"
+      }
+    },
+    "darkness": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:darkness_potion"
+      }
+    },
+    "levitation": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:levitation_potion"
+      }
+    },
+    "glowing": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:glowing_potion"
+      }
+    },
+    "haste": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:haste_potion"
+      }
+    },
+    "mining_fatigue": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:mining_fatigue_potion"
+      }
+    },
+    "health_boost": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:health_boost_potion"
+      }
+    },
+    "unluck": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:unluck_potion"
+      }
+    },
+    "wither": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:wither_potion"
+      }
+    },
+    "shrouded_invisibility": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:shrouded_invisibility_potion"
+      }
+    },
+    "true_sight": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:true_sight_potion"
+      }
+    }
+  },
+  "rewards": {
+    "experience": 300
+  }
+}

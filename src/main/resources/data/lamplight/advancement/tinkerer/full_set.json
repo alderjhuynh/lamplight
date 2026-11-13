@@ -1,0 +1,50 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:charm_necklace"
+    },
+    "title": {
+      "translate": "advancements.lamplight.tinkerer.full_set.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.tinkerer.full_set.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:tinkerer/first_charm",
+  "criteria": {
+    "ring": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:charm_ring"
+          }
+        ]
+      }
+    },
+    "necklace": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:charm_necklace"
+          }
+        ]
+      }
+    },
+    "cuff": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:charm_cuff"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 50
+  }
+}

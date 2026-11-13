@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:totem_of_undying"
+    },
+    "title": {
+      "translate": "advancements.lamplight.panacea.not_today.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.panacea.not_today.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:panacea/sink_or_swim",
+  "criteria": {
+    "b": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:undying_potion"
+      }
+    }
+  },
+  "rewards": {
+    "experience": 50
+  }
+}

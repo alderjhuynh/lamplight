@@ -1,0 +1,132 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:heroic_wine"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.sommelier.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.sommelier.description"
+    },
+    "frame": "challenge"
+  },
+  "parent": "lamplight:ambrosia/fine_wine",
+  "criteria": {
+    "wine": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:wine"
+        }
+      }
+    },
+    "grape_wine": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:grape_wine"
+        }
+      }
+    },
+    "fine_wine": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:fine_wine"
+        }
+      }
+    },
+    "sweet_berry_wine": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:sweet_berry_wine"
+        }
+      }
+    },
+    "mulled_wine": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:mulled_wine"
+        }
+      }
+    },
+    "blazing_wine": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:blazing_wine"
+        }
+      }
+    },
+    "breezing_wine": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:breezing_wine"
+        }
+      }
+    },
+    "creeping_wine": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:creeping_wine"
+        }
+      }
+    },
+    "gleaming_wine": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:gleaming_wine"
+        }
+      }
+    },
+    "heroic_wine": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:heroic_wine"
+        }
+      }
+    },
+    "blessing_wine": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:blessing_wine"
+        }
+      }
+    },
+    "chorus_wine": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:chorus_wine"
+        }
+      }
+    },
+    "diving_wine": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:diving_wine"
+        }
+      }
+    },
+    "prospecting_wine": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:prospecting_wine"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "experience": 300
+  }
+}

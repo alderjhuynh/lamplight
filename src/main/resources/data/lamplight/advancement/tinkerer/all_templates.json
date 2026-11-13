@@ -1,0 +1,90 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:template_locket"
+    },
+    "title": {
+      "translate": "advancements.lamplight.tinkerer.all_templates.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.tinkerer.all_templates.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:tinkerer/template",
+  "criteria": {
+    "band": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:template_band"
+          }
+        ]
+      }
+    },
+    "signet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:template_signet"
+          }
+        ]
+      }
+    },
+    "twin_band": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:template_twin_band"
+          }
+        ]
+      }
+    },
+    "cuff": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:template_cuff"
+          }
+        ]
+      }
+    },
+    "collar": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:template_collar"
+          }
+        ]
+      }
+    },
+    "locket": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:template_locket"
+          }
+        ]
+      }
+    },
+    "pendant": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:template_pendant"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 50
+  }
+}

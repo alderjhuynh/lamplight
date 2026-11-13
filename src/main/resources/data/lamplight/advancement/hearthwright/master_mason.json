@@ -1,0 +1,43 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:stonecutter"
+    },
+    "title": {
+      "translate": "advancements.lamplight.hearthwright.master_mason.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.hearthwright.master_mason.description"
+    },
+    "frame": "challenge"
+  },
+  "parent": "lamplight:hearthwright/rooftop_rainbow",
+  "criteria": {
+    "mason": {
+      "trigger": "minecraft:tick",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type_specific/player": {
+                "advancements": {
+                  "lamplight:hearthwright/chalk_it_up": true,
+                  "lamplight:hearthwright/geode_chic": true,
+                  "lamplight:hearthwright/ice_ice_bricks": true,
+                  "lamplight:hearthwright/sun_baked": true,
+                  "lamplight:hearthwright/rooftop_rainbow": true,
+                  "lamplight:hearthwright/slab_city": true
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 200
+  }
+}

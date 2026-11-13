@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:message_in_a_bottle"
+    },
+    "title": {
+      "translate": "advancements.lamplight.menagerie.bottle.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.menagerie.bottle.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:husbandry/fishy_business",
+  "criteria": {
+    "bottle": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:message_in_a_bottle"
+          }
+        ]
+      }
+    }
+  }
+}

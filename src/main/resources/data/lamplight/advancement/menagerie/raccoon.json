@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:bread"
+    },
+    "title": {
+      "translate": "advancements.lamplight.menagerie.raccoon.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.menagerie.raccoon.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "minecraft:husbandry/breed_an_animal",
+  "criteria": {
+    "bred": {
+      "trigger": "minecraft:bred_animals",
+      "conditions": {
+        "child": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "entity_type": "lamplight:raccoon"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 25
+  }
+}

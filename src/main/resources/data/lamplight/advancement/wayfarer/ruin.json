@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:mossy_stone_bricks"
+    },
+    "title": {
+      "translate": "advancements.lamplight.wayfarer.ruin.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.wayfarer.ruin.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:wayfarer/root",
+  "criteria": {
+    "ruin": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structures": "lamplight:waystone_ruin_small"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:tomato_seeds"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.seeds.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.seeds.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:husbandry/plant_seed",
+  "criteria": {
+    "seeds": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lamplight:lettuce_seeds",
+              "lamplight:tomato_seeds",
+              "lamplight:corn_seeds",
+              "lamplight:rice_seeds",
+              "lamplight:grape_seeds"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

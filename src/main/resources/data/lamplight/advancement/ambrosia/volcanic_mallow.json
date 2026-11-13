@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:volcanic_marshmallow"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.volcanic_mallow.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.volcanic_mallow.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:ambrosia/marshmallow",
+  "criteria": {
+    "volcanic": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:volcanic_marshmallow"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 50
+  }
+}

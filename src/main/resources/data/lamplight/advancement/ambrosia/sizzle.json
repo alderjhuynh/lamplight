@@ -1,0 +1,41 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:campfire"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.sizzle.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.sizzle.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:ambrosia/pan",
+  "criteria": {
+    "sizzle": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "lamplight:frying_pan"
+            }
+          },
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": [
+                  "minecraft:campfire",
+                  "minecraft:soul_campfire"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

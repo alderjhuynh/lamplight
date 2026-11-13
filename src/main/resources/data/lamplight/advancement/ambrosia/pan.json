@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:frying_pan"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.pan.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.pan.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:husbandry/plant_seed",
+  "criteria": {
+    "pan": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:frying_pan"
+          }
+        ]
+      }
+    }
+  }
+}

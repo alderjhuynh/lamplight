@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:sponge"
+    },
+    "title": {
+      "translate": "advancements.lamplight.panacea.sink_or_swim.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.panacea.sink_or_swim.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:nether/brew_potion",
+  "criteria": {
+    "b": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:sinking_potion"
+      }
+    }
+  }
+}

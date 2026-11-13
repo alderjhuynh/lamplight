@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:burnt_marshmallow"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.burnt_mallow.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.burnt_mallow.description"
+    },
+    "frame": "task",
+    "hidden": true
+  },
+  "parent": "lamplight:ambrosia/marshmallow",
+  "criteria": {
+    "burnt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:burnt_marshmallow"
+          }
+        ]
+      }
+    }
+  }
+}

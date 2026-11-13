@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:tnt"
+    },
+    "title": {
+      "translate": "advancements.lamplight.panacea.short_fuse.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.panacea.short_fuse.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:nether/brew_potion",
+  "criteria": {
+    "b": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:fuse_potion"
+      }
+    }
+  }
+}

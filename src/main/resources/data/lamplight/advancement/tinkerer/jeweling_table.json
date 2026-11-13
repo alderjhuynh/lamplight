@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:jeweling_table"
+    },
+    "title": {
+      "translate": "advancements.lamplight.tinkerer.jeweling_table.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.tinkerer.jeweling_table.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:wayfarer/root",
+  "criteria": {
+    "table": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:jeweling_table"
+          }
+        ]
+      }
+    }
+  }
+}

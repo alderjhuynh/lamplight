@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:wine"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.first_wine.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.first_wine.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:ambrosia/wine_rack",
+  "criteria": {
+    "wine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:wine"
+          }
+        ]
+      }
+    }
+  }
+}

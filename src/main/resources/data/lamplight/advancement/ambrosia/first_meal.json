@@ -1,0 +1,50 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:hamburger"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.first_meal.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.first_meal.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:husbandry/plant_seed",
+  "criteria": {
+    "dish": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": [
+            "lamplight:hamburger",
+            "lamplight:blt",
+            "lamplight:burrito",
+            "lamplight:gyro",
+            "lamplight:kebab",
+            "lamplight:poutine",
+            "lamplight:spaghetti",
+            "lamplight:beef_stroganoff",
+            "lamplight:shepherds_pie",
+            "lamplight:roast_dinner",
+            "lamplight:surf_n_turf",
+            "lamplight:honey_glazed_ham",
+            "lamplight:fish_and_chips",
+            "lamplight:fried_chicken",
+            "lamplight:egg_fried_rice",
+            "lamplight:mushroom_risotto",
+            "lamplight:lettuce_wrap",
+            "lamplight:chicken_satay",
+            "lamplight:chicken_sandwich",
+            "lamplight:grilled_cheese",
+            "lamplight:pb_and_j",
+            "lamplight:tomato_soup",
+            "lamplight:vegetable_soup",
+            "lamplight:stew"
+          ]
+        }
+      }
+    }
+  }
+}

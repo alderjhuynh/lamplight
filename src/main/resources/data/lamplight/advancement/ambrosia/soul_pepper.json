@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:soul_pepper"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.soul_pepper.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.soul_pepper.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:ambrosia/soul_tiller",
+  "criteria": {
+    "pepper": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:soul_pepper"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:sandstone_lodestone"
+    },
+    "title": {
+      "translate": "advancements.lamplight.hearthwright.needle.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.hearthwright.needle.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:hearthwright/sun_baked",
+  "criteria": {
+    "l": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:sandstone_lodestone"
+          }
+        ]
+      }
+    }
+  }
+}

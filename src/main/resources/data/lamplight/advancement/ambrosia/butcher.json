@@ -1,0 +1,60 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:mutton_cutlets"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.butcher.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.butcher.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:ambrosia/cutlet",
+  "criteria": {
+    "beef_cutlets": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:beef_cutlets"
+          }
+        ]
+      }
+    },
+    "chicken_cutlets": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:chicken_cutlets"
+          }
+        ]
+      }
+    },
+    "mutton_cutlets": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:mutton_cutlets"
+          }
+        ]
+      }
+    },
+    "rabbit_cutlets": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:rabbit_cutlets"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 25
+  }
+}

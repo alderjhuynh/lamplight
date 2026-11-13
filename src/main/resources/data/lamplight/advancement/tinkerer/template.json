@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:template_band"
+    },
+    "title": {
+      "translate": "advancements.lamplight.tinkerer.template.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.tinkerer.template.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:tinkerer/jeweling_table",
+  "criteria": {
+    "template": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lamplight:template_band",
+              "lamplight:template_signet",
+              "lamplight:template_twin_band",
+              "lamplight:template_cuff",
+              "lamplight:template_collar",
+              "lamplight:template_locket",
+              "lamplight:template_pendant"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

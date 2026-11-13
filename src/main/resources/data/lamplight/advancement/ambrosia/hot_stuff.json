@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:blaze_powder"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.hot_stuff.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.hot_stuff.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:ambrosia/soul_pepper",
+  "criteria": {
+    "eat": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:soul_pepper"
+        }
+      }
+    }
+  }
+}

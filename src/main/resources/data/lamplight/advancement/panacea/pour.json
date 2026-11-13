@@ -1,0 +1,42 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:glass_bottle"
+    },
+    "title": {
+      "translate": "advancements.lamplight.panacea.pour.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.panacea.pour.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:nether/brew_potion",
+  "criteria": {
+    "pour": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": [
+                "minecraft:potion",
+                "minecraft:splash_potion",
+                "minecraft:lingering_potion"
+              ]
+            }
+          },
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": "lamplight:potion_cauldron"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,230 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:golden_greatsword"
+    },
+    "title": {
+      "translate": "advancements.lamplight.armory.whole_rack.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.armory.whole_rack.description"
+    },
+    "frame": "challenge"
+  },
+  "parent": "lamplight:armory/netherite_arms",
+  "criteria": {
+    "wooden_greatsword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:wooden_greatsword"
+          }
+        ]
+      }
+    },
+    "stone_greatsword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:stone_greatsword"
+          }
+        ]
+      }
+    },
+    "copper_greatsword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:copper_greatsword"
+          }
+        ]
+      }
+    },
+    "iron_greatsword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:iron_greatsword"
+          }
+        ]
+      }
+    },
+    "golden_greatsword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:golden_greatsword"
+          }
+        ]
+      }
+    },
+    "diamond_greatsword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:diamond_greatsword"
+          }
+        ]
+      }
+    },
+    "netherite_greatsword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:netherite_greatsword"
+          }
+        ]
+      }
+    },
+    "wooden_scythe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:wooden_scythe"
+          }
+        ]
+      }
+    },
+    "stone_scythe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:stone_scythe"
+          }
+        ]
+      }
+    },
+    "copper_scythe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:copper_scythe"
+          }
+        ]
+      }
+    },
+    "iron_scythe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:iron_scythe"
+          }
+        ]
+      }
+    },
+    "golden_scythe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:golden_scythe"
+          }
+        ]
+      }
+    },
+    "diamond_scythe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:diamond_scythe"
+          }
+        ]
+      }
+    },
+    "netherite_scythe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:netherite_scythe"
+          }
+        ]
+      }
+    },
+    "wooden_dagger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:wooden_dagger"
+          }
+        ]
+      }
+    },
+    "stone_dagger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:stone_dagger"
+          }
+        ]
+      }
+    },
+    "copper_dagger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:copper_dagger"
+          }
+        ]
+      }
+    },
+    "iron_dagger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:iron_dagger"
+          }
+        ]
+      }
+    },
+    "golden_dagger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:golden_dagger"
+          }
+        ]
+      }
+    },
+    "diamond_dagger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:diamond_dagger"
+          }
+        ]
+      }
+    },
+    "netherite_dagger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:netherite_dagger"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 300
+  }
+}

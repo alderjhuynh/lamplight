@@ -253,18 +253,37 @@
             {
               "condition": "minecraft:inverted",
               "term": {
-                "condition": "minecraft:location_check",
-                "predicate": {
-                  "biomes": [
-                    "#lamplight:fishing_cold",
-                    "#lamplight:fishing_warm",
-                    "#lamplight:fishing_tropical",
-                    "#lamplight:fishing_kelp",
-                    "#lamplight:fishing_deep",
-                    "#lamplight:fishing_bog",
-                    "lamplight:cave/underground_jungle"
-                  ]
-                }
+                "condition": "minecraft:any_of",
+                "terms": [
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_cold" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_warm" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_tropical" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_kelp" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_deep" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_bog" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "lamplight:cave/underground_jungle" }
+                  }
+                ]
               }
             }
           ],
@@ -277,18 +296,37 @@
             {
               "condition": "minecraft:inverted",
               "term": {
-                "condition": "minecraft:location_check",
-                "predicate": {
-                  "biomes": [
-                    "#lamplight:fishing_cold",
-                    "#lamplight:fishing_warm",
-                    "#lamplight:fishing_tropical",
-                    "#lamplight:fishing_kelp",
-                    "#lamplight:fishing_deep",
-                    "#lamplight:fishing_bog",
-                    "lamplight:cave/underground_jungle"
-                  ]
-                }
+                "condition": "minecraft:any_of",
+                "terms": [
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_cold" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_warm" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_tropical" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_kelp" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_deep" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_bog" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "lamplight:cave/underground_jungle" }
+                  }
+                ]
               }
             }
           ],
@@ -301,18 +339,37 @@
             {
               "condition": "minecraft:inverted",
               "term": {
-                "condition": "minecraft:location_check",
-                "predicate": {
-                  "biomes": [
-                    "#lamplight:fishing_cold",
-                    "#lamplight:fishing_warm",
-                    "#lamplight:fishing_tropical",
-                    "#lamplight:fishing_kelp",
-                    "#lamplight:fishing_deep",
-                    "#lamplight:fishing_bog",
-                    "lamplight:cave/underground_jungle"
-                  ]
-                }
+                "condition": "minecraft:any_of",
+                "terms": [
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_cold" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_warm" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_tropical" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_kelp" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_deep" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_bog" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "lamplight:cave/underground_jungle" }
+                  }
+                ]
               }
             }
           ],
@@ -325,18 +382,37 @@
             {
               "condition": "minecraft:inverted",
               "term": {
-                "condition": "minecraft:location_check",
-                "predicate": {
-                  "biomes": [
-                    "#lamplight:fishing_cold",
-                    "#lamplight:fishing_warm",
-                    "#lamplight:fishing_tropical",
-                    "#lamplight:fishing_kelp",
-                    "#lamplight:fishing_deep",
-                    "#lamplight:fishing_bog",
-                    "lamplight:cave/underground_jungle"
-                  ]
-                }
+                "condition": "minecraft:any_of",
+                "terms": [
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_cold" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_warm" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_tropical" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_kelp" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_deep" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "#lamplight:fishing_bog" }
+                  },
+                  {
+                    "condition": "minecraft:location_check",
+                    "predicate": { "biomes": "lamplight:cave/underground_jungle" }
+                  }
+                ]
               }
             }
           ],

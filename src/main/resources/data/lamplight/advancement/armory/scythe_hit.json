@@ -1,0 +1,43 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:diamond_scythe"
+    },
+    "title": {
+      "translate": "advancements.lamplight.armory.scythe_hit.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.armory.scythe_hit.description"
+    },
+    "frame": "task"
+  },
+  "parent": "lamplight:armory/scythe",
+  "criteria": {
+    "hit": {
+      "trigger": "minecraft:player_hurt_entity",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "equipment": {
+                "mainhand": {
+                  "items": [
+                    "lamplight:wooden_scythe",
+                    "lamplight:stone_scythe",
+                    "lamplight:copper_scythe",
+                    "lamplight:iron_scythe",
+                    "lamplight:golden_scythe",
+                    "lamplight:diamond_scythe",
+                    "lamplight:netherite_scythe"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

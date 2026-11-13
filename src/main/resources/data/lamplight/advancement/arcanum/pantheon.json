@@ -1,0 +1,651 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:beacon"
+    },
+    "title": {
+      "translate": "advancements.lamplight.arcanum.pantheon.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.arcanum.pantheon.description"
+    },
+    "frame": "challenge"
+  },
+  "parent": "lamplight:arcanum/capstone",
+  "criteria": {
+    "dragonheart_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "lamplight:dragonheart"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "dragonheart_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "lamplight:dragonheart"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "cinderheart_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "lamplight:cinderheart"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "cinderheart_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "lamplight:cinderheart"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "winters_edge_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "lamplight:winters_edge"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "winters_edge_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "lamplight:winters_edge"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "thunderstep_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "lamplight:thunderstep"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "thunderstep_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "lamplight:thunderstep"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "sunder_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "lamplight:sunder"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "sunder_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "lamplight:sunder"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "heartwood_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "lamplight:heartwood"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "heartwood_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "lamplight:heartwood"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "windrunner_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "lamplight:windrunner"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "windrunner_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "lamplight:windrunner"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "gravecaller_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "lamplight:gravecaller"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "gravecaller_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "lamplight:gravecaller"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "magnum_opus_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "lamplight:magnum_opus"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "magnum_opus_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "lamplight:magnum_opus"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "emberforge_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "lamplight:emberforge"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "emberforge_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "lamplight:emberforge"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "icebound_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "lamplight:icebound"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "icebound_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "lamplight:icebound"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "stormward_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "lamplight:stormward"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "stormward_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "lamplight:stormward"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "unbroken_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "lamplight:unbroken"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "unbroken_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "lamplight:unbroken"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "grovekeeper_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "lamplight:grovekeeper"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "grovekeeper_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "lamplight:grovekeeper"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "zephyr_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "lamplight:zephyr"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "zephyr_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "lamplight:zephyr"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "shroud_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "lamplight:shroud"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "shroud_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "lamplight:shroud"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "provisioner_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "lamplight:provisioner"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "provisioner_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "lamplight:provisioner"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "dragonheart_item",
+      "dragonheart_book"
+    ],
+    [
+      "cinderheart_item",
+      "cinderheart_book"
+    ],
+    [
+      "winters_edge_item",
+      "winters_edge_book"
+    ],
+    [
+      "thunderstep_item",
+      "thunderstep_book"
+    ],
+    [
+      "sunder_item",
+      "sunder_book"
+    ],
+    [
+      "heartwood_item",
+      "heartwood_book"
+    ],
+    [
+      "windrunner_item",
+      "windrunner_book"
+    ],
+    [
+      "gravecaller_item",
+      "gravecaller_book"
+    ],
+    [
+      "magnum_opus_item",
+      "magnum_opus_book"
+    ],
+    [
+      "emberforge_item",
+      "emberforge_book"
+    ],
+    [
+      "icebound_item",
+      "icebound_book"
+    ],
+    [
+      "stormward_item",
+      "stormward_book"
+    ],
+    [
+      "unbroken_item",
+      "unbroken_book"
+    ],
+    [
+      "grovekeeper_item",
+      "grovekeeper_book"
+    ],
+    [
+      "zephyr_item",
+      "zephyr_book"
+    ],
+    [
+      "shroud_item",
+      "shroud_book"
+    ],
+    [
+      "provisioner_item",
+      "provisioner_book"
+    ]
+  ],
+  "rewards": {
+    "experience": 500
+  }
+}

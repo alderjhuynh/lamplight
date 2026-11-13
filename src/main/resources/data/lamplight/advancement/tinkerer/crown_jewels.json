@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:diamond"
+    },
+    "title": {
+      "translate": "advancements.lamplight.tinkerer.crown_jewels.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.tinkerer.crown_jewels.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:tinkerer/sapphire",
+  "criteria": {
+    "ruby": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:ruby"
+          }
+        ]
+      }
+    },
+    "sapphire": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:sapphire"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 50
+  }
+}

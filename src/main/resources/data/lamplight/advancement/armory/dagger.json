@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:iron_dagger"
+    },
+    "title": {
+      "translate": "advancements.lamplight.armory.dagger.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.armory.dagger.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:adventure/kill_a_mob",
+  "criteria": {
+    "dagger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lamplight:wooden_dagger",
+              "lamplight:stone_dagger",
+              "lamplight:copper_dagger",
+              "lamplight:iron_dagger",
+              "lamplight:golden_dagger",
+              "lamplight:diamond_dagger",
+              "lamplight:netherite_dagger"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:golden_apple"
+    },
+    "title": {
+      "translate": "advancements.lamplight.panacea.heart_to_spare.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.panacea.heart_to_spare.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:nether/brew_potion",
+  "criteria": {
+    "b": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:health_boost_potion"
+      }
+    }
+  }
+}

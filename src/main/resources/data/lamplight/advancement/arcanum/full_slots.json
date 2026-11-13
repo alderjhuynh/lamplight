@@ -1,0 +1,204 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:diamond_chestplate"
+    },
+    "title": {
+      "translate": "advancements.lamplight.arcanum.full_slots.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.arcanum.full_slots.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "minecraft:story/enchant_item",
+  "criteria": {
+    "helmet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:head_armor",
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/ward"
+                },
+                {
+                  "enchantments": "#lamplight:slot/rite"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "chestplate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:chest_armor",
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/ward"
+                },
+                {
+                  "enchantments": "#lamplight:slot/rite"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "leggings": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:leg_armor",
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/ward"
+                },
+                {
+                  "enchantments": "#lamplight:slot/stride"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "boots": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:foot_armor",
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/stride"
+                },
+                {
+                  "enchantments": "#lamplight:slot/rite"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "sword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:swords",
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/edge"
+                },
+                {
+                  "enchantments": "#lamplight:slot/tempo"
+                },
+                {
+                  "enchantments": "#lamplight:slot/flourish"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "axe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:axes",
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/edge"
+                },
+                {
+                  "enchantments": "#lamplight:slot/flourish"
+                },
+                {
+                  "enchantments": "#lamplight:slot/method"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "bow": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:bow",
+              "minecraft:crossbow"
+            ],
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/main_effect"
+                },
+                {
+                  "enchantments": "#lamplight:slot/secondary_effect"
+                },
+                {
+                  "enchantments": "#lamplight:slot/flourish"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "pickaxe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:pickaxes",
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:slot/method"
+                },
+                {
+                  "enchantments": "#lamplight:slot/boon"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "helmet",
+      "chestplate",
+      "leggings",
+      "boots",
+      "sword",
+      "axe",
+      "bow",
+      "pickaxe"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  }
+}

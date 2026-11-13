@@ -1,0 +1,68 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:carrot_cake"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.sweet_tooth.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.sweet_tooth.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:ambrosia/first_meal",
+  "criteria": {
+    "carrot_cake": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:carrot_cake"
+        }
+      }
+    },
+    "cheesecake": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:cheesecake"
+        }
+      }
+    },
+    "caramel_apple": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:caramel_apple"
+        }
+      }
+    },
+    "buttered_apple": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:buttered_apple"
+        }
+      }
+    },
+    "chorus_cupcake": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:chorus_cupcake"
+        }
+      }
+    },
+    "chocolate_bar": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "lamplight:chocolate_bar"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "experience": 50
+  }
+}

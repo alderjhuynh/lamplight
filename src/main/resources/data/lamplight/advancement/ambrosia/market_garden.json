@@ -1,0 +1,70 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:corn"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.market_garden.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.market_garden.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:ambrosia/seeds",
+  "criteria": {
+    "corn": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:corn"
+          }
+        ]
+      }
+    },
+    "rice": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:rice"
+          }
+        ]
+      }
+    },
+    "tomato": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:tomato"
+          }
+        ]
+      }
+    },
+    "lettuce": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:lettuce"
+          }
+        ]
+      }
+    },
+    "grapes": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:grapes"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 50
+  }
+}

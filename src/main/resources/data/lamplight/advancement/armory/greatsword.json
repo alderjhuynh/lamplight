@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:iron_greatsword"
+    },
+    "title": {
+      "translate": "advancements.lamplight.armory.greatsword.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.armory.greatsword.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:adventure/kill_a_mob",
+  "criteria": {
+    "sword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lamplight:wooden_greatsword",
+              "lamplight:stone_greatsword",
+              "lamplight:copper_greatsword",
+              "lamplight:iron_greatsword",
+              "lamplight:golden_greatsword",
+              "lamplight:diamond_greatsword",
+              "lamplight:netherite_greatsword"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:fine_wine"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.fine_wine.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.fine_wine.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:ambrosia/first_wine",
+  "criteria": {
+    "fine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:fine_wine"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 50
+  }
+}

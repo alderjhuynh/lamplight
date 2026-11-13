@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "title": {
+      "translate": "advancements.lamplight.wayfarer.root.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.wayfarer.root.description"
+    },
+    "frame": "task",
+    "background": "lamplight:gui/advancements/backgrounds/wayfarer",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "entered": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

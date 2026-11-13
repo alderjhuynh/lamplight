@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:sculk"
+    },
+    "title": {
+      "translate": "advancements.lamplight.panacea.lights_out.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.panacea.lights_out.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:nether/brew_potion",
+  "criteria": {
+    "b": {
+      "trigger": "minecraft:brewed_potion",
+      "conditions": {
+        "potion": "lamplight:darkness_potion"
+      }
+    }
+  }
+}

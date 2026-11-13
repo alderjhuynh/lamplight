@@ -1,0 +1,50 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:chiseled_amethyst"
+    },
+    "title": {
+      "translate": "advancements.lamplight.hearthwright.geode_chic.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.hearthwright.geode_chic.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:hearthwright/walls",
+  "criteria": {
+    "amethyst_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:amethyst_bricks"
+          }
+        ]
+      }
+    },
+    "chiseled_amethyst": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:chiseled_amethyst"
+          }
+        ]
+      }
+    },
+    "amethyst_pillar": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:amethyst_pillar"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 25
+  }
+}

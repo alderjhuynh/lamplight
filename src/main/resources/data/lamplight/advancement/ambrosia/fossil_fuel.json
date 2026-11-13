@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:dino_nugget_trex"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.fossil_fuel.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.fossil_fuel.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:ambrosia/first_meal",
+  "criteria": {
+    "stego": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:dino_nugget_stego"
+          }
+        ]
+      }
+    },
+    "trex": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:dino_nugget_trex"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 25
+  }
+}

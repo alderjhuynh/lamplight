@@ -1,0 +1,60 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:netherite_greatsword"
+    },
+    "title": {
+      "translate": "advancements.lamplight.armory.netherite_arms.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.armory.netherite_arms.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:armory/greatsword",
+  "criteria": {
+    "greatsword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:netherite_greatsword"
+          }
+        ]
+      }
+    },
+    "scythe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:netherite_scythe"
+          }
+        ]
+      }
+    },
+    "knife": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:netherite_knife"
+          }
+        ]
+      }
+    },
+    "dagger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:netherite_dagger"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 75
+  }
+}

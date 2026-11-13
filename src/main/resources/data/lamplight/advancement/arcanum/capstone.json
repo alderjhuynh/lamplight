@@ -1,0 +1,59 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:nether_star"
+    },
+    "title": {
+      "translate": "advancements.lamplight.arcanum.capstone.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.arcanum.capstone.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "lamplight:arcanum/full_slots",
+  "criteria": {
+    "item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "#lamplight:capstone"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "#lamplight:capstone"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "item",
+      "book"
+    ]
+  ],
+  "rewards": {
+    "experience": 75
+  }
+}

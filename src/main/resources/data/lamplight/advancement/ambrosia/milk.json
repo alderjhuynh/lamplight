@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "id": "lamplight:milk_bottle"
+    },
+    "title": {
+      "translate": "advancements.lamplight.ambrosia.milk.title"
+    },
+    "description": {
+      "translate": "advancements.lamplight.ambrosia.milk.description"
+    },
+    "frame": "task"
+  },
+  "parent": "minecraft:husbandry/plant_seed",
+  "criteria": {
+    "milk": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lamplight:milk_bottle"
+          }
+        ]
+      }
+    }
+  }
+}

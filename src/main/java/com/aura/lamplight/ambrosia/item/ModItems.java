@@ -25,6 +25,10 @@ public final class ModItems {
     private ModItems() {}
 
     public static final Item FRYING_PAN = register("frying_pan", FryingPanItem::new, new Item.Properties().stacksTo(1));
+    public static final Item COOKING_POT = register("cooking_pot",
+            properties -> new CookingPotItem(ModBlocks.COOKING_POT, ModBlocks.CAMPFIRE_COOKING_POT,
+                    ModBlocks.SOUL_CAMPFIRE_COOKING_POT, properties),
+            new Item.Properties());
     public static final Item SOUL_PEPPER =
             register("soul_pepper", SoulPepperItem::new, new Item.Properties().food(Foods.CARROT));
     public static final Item SEEDS_SOUL_PEPPER =
@@ -211,7 +215,10 @@ public final class ModItems {
             ResourceKey.create(Registries.CREATIVE_MODE_TAB, Identifier.withDefaultNamespace("ingredients"));
 
     public static void initialize() {
-        CreativeModeTabEvents.modifyOutputEvent(TOOLS_TAB).register((output) -> output.accept(FRYING_PAN));
+        CreativeModeTabEvents.modifyOutputEvent(TOOLS_TAB).register((output) -> {
+            output.accept(FRYING_PAN);
+            output.accept(COOKING_POT);
+        });
         CreativeModeTabEvents.modifyOutputEvent(FOOD_TAB).register((output) -> {
             output.accept(SOUL_PEPPER);
             for (Item food : FOODS) {
@@ -224,7 +231,7 @@ public final class ModItems {
                 output.accept(ingredient);
             }
         });
-        Ambrosia.LOGGER.info("Registering {} items for {}", 3 + FOODS.length + INGREDIENTS.length, Ambrosia.MOD_ID);
+        Ambrosia.LOGGER.info("Registering {} items for {}", 4 + FOODS.length + INGREDIENTS.length, Ambrosia.MOD_ID);
     }
 
     static final Item[] FOODS = {

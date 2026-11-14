@@ -1,11 +1,7 @@
 package com.aura.lamplight.armory;
 
-import java.util.function.Consumer;
-
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
@@ -18,8 +14,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ToolMaterial;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import org.jspecify.annotations.Nullable;
 
@@ -75,21 +69,5 @@ public class RapierItem extends Item {
 			return damage * RapierCombat.THRUST_DAMAGE_BONUS;
 		}
 		return super.getAttackDamageBonus(victim, damage, damageSource);
-	}
-
-	@Override
-	@SuppressWarnings("deprecation")
-	public void appendHoverText(
-			final ItemStack stack,
-			final Item.TooltipContext context,
-			final TooltipDisplay display,
-			final Consumer<Component> builder,
-			final TooltipFlag flag
-	) {
-		super.appendHoverText(stack, context, display, builder, flag);
-		builder.accept(Component.translatable("tooltip.lamplight.rapier.parry")
-				.withStyle(style -> style.withColor(ChatFormatting.GRAY).withItalic(false)));
-		builder.accept(Component.translatable("tooltip.lamplight.rapier.thrust")
-				.withStyle(style -> style.withColor(ChatFormatting.GRAY).withItalic(false)));
 	}
 }

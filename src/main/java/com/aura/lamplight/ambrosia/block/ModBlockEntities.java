@@ -13,6 +13,11 @@ public final class ModBlockEntities {
             BuiltInRegistries.BLOCK_ENTITY_TYPE, Ambrosia.id("wine_rack"),
             FabricBlockEntityTypeBuilder.create(WineRackBlockEntity::new, ModBlocks.WINE_RACK).build());
 
+    public static final BlockEntityType<CookingPotBlockEntity> COOKING_POT = Registry.register(
+            BuiltInRegistries.BLOCK_ENTITY_TYPE, Ambrosia.id("cooking_pot"),
+            FabricBlockEntityTypeBuilder.create(CookingPotBlockEntity::new,
+                    ModBlocks.CAMPFIRE_COOKING_POT, ModBlocks.SOUL_CAMPFIRE_COOKING_POT).build());
+
     public static void register() {
         Ambrosia.LOGGER.info("Registering block entities for {}", Ambrosia.MOD_ID);
     }

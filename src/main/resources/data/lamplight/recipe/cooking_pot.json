@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "u u",
+    "uuu"
+  ],
+  "key": {
+    "u": "minecraft:brick"
+  },
+  "result": {
+    "id": "lamplight:cooking_pot"
+  }
+}

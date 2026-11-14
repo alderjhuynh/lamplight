@@ -1,0 +1,10 @@
+{
+  "base": "water",
+  "ingredients": [
+    "minecraft:apple",
+    "minecraft:sugar",
+    "lamplight:cinnamon"
+  ],
+  "result": "apple_cider",
+  "cook_time": 100
+}

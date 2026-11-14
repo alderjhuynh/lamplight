@@ -1,0 +1,15 @@
+{
+	"textures": {
+		"still": "lamplight:block/cooking_pot_fluid_still",
+		"particle": "lamplight:block/cooking_pot_fluid_still"
+	},
+	"elements": [
+		{
+			"from": [3, 13, 3],
+			"to": [13, 14, 13],
+			"faces": {
+				"up": {"uv": [0, 0, 16, 16], "texture": "#still", "tintindex": 0}
+			}
+		}
+	]
+}

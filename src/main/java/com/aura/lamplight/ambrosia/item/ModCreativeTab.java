@@ -13,7 +13,7 @@ public final class ModCreativeTab {
     private ModCreativeTab() {}
 
     private static final net.minecraft.world.item.Item[] STATIONS = {
-            ModItems.WINE_RACK,
+            ModItems.WINE_RACK, ModItems.COOKING_POT,
     };
 
     private static final net.minecraft.world.item.Item[] KNIVES = {

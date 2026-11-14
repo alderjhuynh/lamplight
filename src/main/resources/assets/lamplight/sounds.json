@@ -211,5 +211,50 @@
       }
     ],
     "subtitle": "lamplight.sound.subtitle.wisp_tame"
+  },
+  "block.cooking_pot.insert": {
+    "sounds": [
+      {
+        "name": "lamplight:block/cooking_pot/insert1"
+      },
+      {
+        "name": "lamplight:block/cooking_pot/insert2"
+      },
+      {
+        "name": "lamplight:block/cooking_pot/insert3"
+      }
+    ]
+  },
+  "block.cooking_pot.collect": {
+    "sounds": [
+      {
+        "name": "lamplight:block/cooking_pot/collect1"
+      },
+      {
+        "name": "lamplight:block/cooking_pot/collect2"
+      },
+      {
+        "name": "lamplight:block/cooking_pot/collect3"
+      }
+    ]
+  },
+  "block.cooking_pot.ambient": {
+    "sounds": [
+      {
+        "name": "lamplight:block/cooking_pot/ambient1"
+      },
+      {
+        "name": "lamplight:block/cooking_pot/ambient2"
+      },
+      {
+        "name": "lamplight:block/cooking_pot/ambient3"
+      },
+      {
+        "name": "lamplight:block/cooking_pot/ambient4"
+      },
+      {
+        "name": "lamplight:block/cooking_pot/ambient5"
+      }
+    ]
   }
 }

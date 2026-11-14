@@ -1,0 +1,9 @@
+{
+  "base": "milk",
+  "ingredients": [
+    "minecraft:cocoa_beans",
+    "minecraft:sugar"
+  ],
+  "result": "hot_chocolate",
+  "cook_time": 100
+}

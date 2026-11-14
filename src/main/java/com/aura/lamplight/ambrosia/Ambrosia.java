@@ -2,6 +2,8 @@ package com.aura.lamplight.ambrosia;
 
 import com.aura.lamplight.ambrosia.block.ModBlockEntities;
 import com.aura.lamplight.ambrosia.block.ModBlocks;
+import com.aura.lamplight.ambrosia.block.CookingPotRecipes;
+import com.aura.lamplight.ambrosia.block.PotParticles;
 import com.aura.lamplight.ambrosia.effect.ModEffects;
 import com.aura.lamplight.ambrosia.food.ModFoods;
 import com.aura.lamplight.ambrosia.food.VanillaFoodEffects;
@@ -26,6 +28,9 @@ public class Ambrosia implements ModInitializer {
 		VanillaFoodEffects.register();
 		ModBlocks.register();
 		ModBlockEntities.register();
+		AmbrosiaSounds.register();
+		PotParticles.register();
+		CookingPotRecipes.initialize();
 		ModItems.initialize();
 		ModCreativeTab.register();
 		ModFoods.register();

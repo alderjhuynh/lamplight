@@ -26,6 +26,9 @@ public final class ModBlocks {
     public static final ResourceKey<Block> LETTUCE_CROP_KEY = blockKey("lettuce_crop");
     public static final ResourceKey<Block> GRAPE_CROP_KEY = blockKey("grape_crop");
     public static final ResourceKey<Block> WINE_RACK_KEY = blockKey("wine_rack");
+    public static final ResourceKey<Block> COOKING_POT_KEY = blockKey("cooking_pot");
+    public static final ResourceKey<Block> CAMPFIRE_COOKING_POT_KEY = blockKey("campfire_cooking_pot");
+    public static final ResourceKey<Block> SOUL_CAMPFIRE_COOKING_POT_KEY = blockKey("soul_campfire_cooking_pot");
     public static final ResourceKey<Block> CORN_TOP_KEY = blockKey("corn_top");
     public static final ResourceKey<Block> RICE_TOP_KEY = blockKey("rice_top");
     public static final ResourceKey<Block> TOMATO_TOP_KEY = blockKey("tomato_top");
@@ -65,6 +68,31 @@ public final class ModBlocks {
                     .sound(SoundType.WOOD)
                     .setId(WINE_RACK_KEY)));
 
+    public static final Block COOKING_POT = register("cooking_pot", new CookingPotBlock(
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_ORANGE)
+                    .strength(2.0F)
+                    .sound(SoundType.DECORATED_POT)
+                    .setId(COOKING_POT_KEY)));
+
+    public static final Block CAMPFIRE_COOKING_POT = register("campfire_cooking_pot", new CampfireCookingPotBlock(false,
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_ORANGE)
+                    .strength(2.0F)
+                    .sound(SoundType.DECORATED_POT)
+                    .pushReaction(PushReaction.DESTROY)
+                    .lightLevel(state -> state.getValue(CampfireCookingPotBlock.LIT) ? 13 : 0)
+                    .setId(CAMPFIRE_COOKING_POT_KEY)));
+
+    public static final Block SOUL_CAMPFIRE_COOKING_POT = register("soul_campfire_cooking_pot", new CampfireCookingPotBlock(true,
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_ORANGE)
+                    .strength(2.0F)
+                    .sound(SoundType.DECORATED_POT)
+                    .pushReaction(PushReaction.DESTROY)
+                    .lightLevel(state -> state.getValue(CampfireCookingPotBlock.LIT) ? 10 : 0)
+                    .setId(SOUL_CAMPFIRE_COOKING_POT_KEY)));
+
     public static final Block CORN_TOP = register("corn_top", new CornTopBlock(topCropProperties(CORN_TOP_KEY)));
     public static final Block RICE_TOP = register("rice_top", new RiceTopBlock(topCropProperties(RICE_TOP_KEY)));
     public static final Block TOMATO_TOP = register("tomato_top", new TomatoTopBlock(topCropProperties(TOMATO_TOP_KEY)));
@@ -101,6 +129,6 @@ public final class ModBlocks {
 
     public static void register() {
         TillableBlockRegistry.register(Blocks.SOUL_SOIL, HoeItem::onlyIfAirAbove, SOUL_FARMLAND.defaultBlockState());
-        Ambrosia.LOGGER.info("Registering {} blocks for {}", 13, Ambrosia.MOD_ID);
+        Ambrosia.LOGGER.info("Registering {} blocks for {}", 16, Ambrosia.MOD_ID);
     }
 }

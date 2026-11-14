@@ -7,12 +7,15 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.EntityTypes;
 
 public class PicturesqueClient implements ClientModInitializer {
     @Override
+    @SuppressWarnings ("all")
     public void onInitializeClient() {
         PicturesqueConfig config = PicturesqueConfig.load();
         PicturesqueState.get().attach(config);
@@ -22,6 +25,8 @@ public class PicturesqueClient implements ClientModInitializer {
                 new KeyMapping("key.lamplight.toggle", InputConstants.Type.KEYSYM, InputConstants.KEY_P, category));
         KeyMapping raytrace = KeyMappingHelper.registerKeyMapping(
                 new KeyMapping("key.lamplight.raytrace", InputConstants.Type.KEYSYM, InputConstants.KEY_R, category));
+
+        EntityRendererRegistry.register(EntityTypes.AXOLOTL, EndAxolotlRenderer::new);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             PicturesqueState.get().tick(client);

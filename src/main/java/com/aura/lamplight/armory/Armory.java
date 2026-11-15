@@ -21,6 +21,8 @@ public class Armory implements ModInitializer {
 		Object ignored = BackSlotAttachments.BACK_STACK;
 
 		ModDataComponents.initialize();
+		ArmorySounds.initialize();
+		ArmoryEntityTypes.initialize();
 		TwoHanded.register();
 		DualWielded.register();
 		ModItems.register();

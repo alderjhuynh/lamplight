@@ -11,6 +11,8 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityRenderLayerRegistrationCallback;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.entity.player.AvatarRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderers;
+import com.aura.lamplight.armory.ArmoryEntityTypes;
 
 @SuppressWarnings ("all")
 public class ArmoryClient implements ClientModInitializer {
@@ -20,6 +22,7 @@ public class ArmoryClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		BackSlotTransform.load();
+		EntityRenderers.register(ArmoryEntityTypes.THROWN_CHAKRAM, ThrownChakramRenderer::new);
 
 		KeyMapping.Category category = LamplightKeyCategories.MAIN;
 

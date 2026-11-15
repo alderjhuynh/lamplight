@@ -237,6 +237,13 @@ public final class ModItems {
 			new ScytheItem(ToolMaterial.NETHERITE, 5.0F, -3.0F,
 					new Item.Properties().fireResistant().setId(NETHERITE_SCYTHE_KEY)));
 
+	public static final ResourceKey<Item> DIAMOND_CHAKRAM_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("diamond_chakram"));
+	public static final Item DIAMOND_CHAKRAM = Registry.register(
+			BuiltInRegistries.ITEM,
+			DIAMOND_CHAKRAM_KEY,
+			new ChakramItem(ToolMaterial.DIAMOND, 1.0F, -2.4F, new Item.Properties().setId(DIAMOND_CHAKRAM_KEY)));
+
 	private static final float RAPIER_DAMAGE = 2.0F;
 	private static final float RAPIER_SPEED = -2.2F;
 
@@ -358,6 +365,7 @@ public final class ModItems {
 			output.accept(GOLDEN_DAGGER);
 			output.accept(DIAMOND_DAGGER);
 			output.accept(NETHERITE_DAGGER);
+			output.accept(DIAMOND_CHAKRAM);
 		});
 		Armory.LOGGER.info("Registered armory items");
 	}

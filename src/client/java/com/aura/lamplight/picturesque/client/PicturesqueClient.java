@@ -3,11 +3,13 @@ package com.aura.lamplight.picturesque.client;
 import com.aura.lamplight.client.LamplightKeyCategories;
 import com.aura.lamplight.picturesque.client.raytrace.RaytracePostTuner;
 import com.aura.lamplight.picturesque.client.raytrace.RaytraceState;
+import com.aura.lamplight.picturesque.client.splash.SplashManager;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -28,7 +30,10 @@ public class PicturesqueClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(EntityTypes.AXOLOTL, EndAxolotlRenderer::new);
 
+        LevelRenderEvents.COLLECT_SUBMITS.register(SplashManager.get()::collect);
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            SplashManager.get().tick(client);
             PicturesqueState.get().tick(client);
             RaytraceState.get().tick(client);
             RaytracePostTuner.tick(client);

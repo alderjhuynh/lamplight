@@ -28,6 +28,8 @@ public final class PicturesqueConfig {
     public boolean raytraceBloom = true;
     public boolean raytraceBake = true;
     public boolean sunRefresh = true;
+    public boolean splashes = true;
+    public float splashMinSpeed = 0.35f;
 
     public static PicturesqueConfig load() {
         Path path = file();
@@ -62,6 +64,7 @@ public final class PicturesqueConfig {
         fogStrength = clamp01(fogStrength);
         raytraceStrength = clamp01(raytraceStrength);
         vibrantBoost = clamp01(vibrantBoost);
+        splashMinSpeed = splashMinSpeed < 0.05f ? 0.05f : (splashMinSpeed > 3.0f ? 3.0f : splashMinSpeed);
     }
 
     private static float clamp01(float v) {

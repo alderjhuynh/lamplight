@@ -1,0 +1,19 @@
+{
+  "values": [
+    "minecraft:savanna",
+    "minecraft:savanna_plateau",
+    "minecraft:windswept_savanna",
+    "minecraft:wooded_badlands",
+    "lamplight:burnt_savanna",
+    "lamplight:savanna_badlands",
+    "lamplight:savanna_slopes",
+    "lamplight:shattered_savanna",
+    "lamplight:shrubland",
+    "lamplight:scrublands",
+    "lamplight:thornscrub",
+    "lamplight:coniferous_thicket",
+    "lamplight:desert_oasis",
+    "lamplight:oasis",
+    "lamplight:lush_desert"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "values": [
+    "minecraft:flower_forest",
+    "minecraft:meadow",
+    "minecraft:sunflower_plains",
+    "minecraft:cherry_grove",
+    "lamplight:flower_plateau",
+    "lamplight:flower_valley",
+    "lamplight:hanging_meadow",
+    "lamplight:lavender_forest",
+    "lamplight:sakura_grove",
+    "lamplight:moonlight_grove",
+    "lamplight:lush_valley",
+    "lamplight:cloud_forest"
+  ]
+}

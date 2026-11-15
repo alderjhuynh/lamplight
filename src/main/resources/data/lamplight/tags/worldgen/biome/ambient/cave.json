@@ -1,0 +1,16 @@
+{
+  "values": [
+    "minecraft:sulfur_caves",
+    "lamplight:caves",
+    "lamplight:cold_caves",
+    "lamplight:frozen_caves",
+    "lamplight:lukewarm_caves",
+    "lamplight:warm_caves",
+    "lamplight:cave/deep_caves",
+    "lamplight:cave/frostflare_caves",
+    "lamplight:cave/magma_caves",
+    "lamplight:cave/spider_caves",
+    "lamplight:cave/thermal_caves",
+    "lamplight:literally_just_fire"
+  ]
+}

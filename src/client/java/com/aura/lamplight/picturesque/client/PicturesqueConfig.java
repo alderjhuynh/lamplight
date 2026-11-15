@@ -30,6 +30,7 @@ public final class PicturesqueConfig {
     public boolean sunRefresh = true;
     public boolean splashes = true;
     public float splashMinSpeed = 0.35f;
+    public boolean ambientSounds = true;
 
     public static PicturesqueConfig load() {
         Path path = file();

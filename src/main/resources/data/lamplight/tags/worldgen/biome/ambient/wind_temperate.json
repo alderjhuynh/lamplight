@@ -1,0 +1,27 @@
+{
+  "values": [
+    "minecraft:plains",
+    "minecraft:sunflower_plains",
+    "minecraft:meadow",
+    "minecraft:cherry_grove",
+    "minecraft:mushroom_fields",
+    "lamplight:highlands",
+    "lamplight:temperate_highlands",
+    "lamplight:forested_highlands",
+    "lamplight:mountainous_highlands",
+    "lamplight:steppe",
+    "lamplight:flower_plateau",
+    "lamplight:flower_valley",
+    "lamplight:hanging_meadow",
+    "lamplight:lush_valley",
+    "lamplight:yosemite_lowlands",
+    "lamplight:basin",
+    "lamplight:sakura_grove",
+    "lamplight:lavender_forest",
+    "lamplight:moonlight_grove",
+    "lamplight:cloud_forest",
+    "lamplight:yellowstone",
+    "lamplight:diorite_coast",
+    "lamplight:granite_bluff"
+  ]
+}

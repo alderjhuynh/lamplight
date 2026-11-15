@@ -256,5 +256,185 @@
         "name": "lamplight:block/cooking_pot/ambient5"
       }
     ]
+  },
+  "ambient.animal.bees": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/animal_bees",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.animal.birds": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/animal_birds",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.animal.cicadas": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/animal_cicadas",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.animal.crickets": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/animal_crickets",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.animal.frogs_and_crickets": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/animal_frogs_and_crickets"
+      }
+    ]
+  },
+  "ambient.animal.jungle_day": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/animal_jungle_day",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.animal.jungle_night": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/animal_jungle_night",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.animal.mangrove_birds": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/animal_mangrove_birds",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.animal.owls": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/animal_owls",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.foliage.cave_leaves": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/foliage_cave_leaves",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.foliage.leaves": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/foliage_leaves",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.water.dripstone_caves": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/water_dripstone_caves",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.water.lush_caves": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/water_lush_caves",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.water.river": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/water_river",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.water.waves": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/water_waves",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.water.waterfall": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/waterfall"
+      }
+    ]
+  },
+  "ambient.wind.arid": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/wind_arid",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.wind.cave": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/wind_cave",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.wind.cold": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/wind_cold",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.wind.deep_dark": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/wind_deep_dark"
+      }
+    ]
+  },
+  "ambient.wind.end": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/wind_end"
+      }
+    ]
+  },
+  "ambient.wind.mountains": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/wind_mountains",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.wind.temperate": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/wind_temperate",
+        "stream": true
+      }
+    ]
   }
 }

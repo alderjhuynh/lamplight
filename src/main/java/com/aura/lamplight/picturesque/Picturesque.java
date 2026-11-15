@@ -14,6 +14,7 @@ public class Picturesque implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		PicturesqueSounds.init();
 		LOGGER.info("Picturesque gouache grade loaded.");
 	}
 

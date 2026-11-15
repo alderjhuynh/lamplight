@@ -1,0 +1,11 @@
+{
+  "values": [
+    "minecraft:beach",
+    "minecraft:snowy_beach",
+    "minecraft:stony_shore",
+    "lamplight:gravel_beach",
+    "lamplight:tropical_beach",
+    "lamplight:diorite_coast",
+    "lamplight:snowy_diorite_shore"
+  ]
+}

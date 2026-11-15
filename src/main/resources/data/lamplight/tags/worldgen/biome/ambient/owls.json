@@ -1,0 +1,31 @@
+{
+  "values": [
+    "minecraft:forest",
+    "minecraft:birch_forest",
+    "minecraft:old_growth_birch_forest",
+    "minecraft:dark_forest",
+    "minecraft:taiga",
+    "minecraft:old_growth_pine_taiga",
+    "minecraft:old_growth_spruce_taiga",
+    "minecraft:snowy_taiga",
+    "minecraft:grove",
+    "minecraft:windswept_forest",
+    "minecraft:cherry_grove",
+    "lamplight:birch_taiga",
+    "lamplight:coniferous_thicket",
+    "lamplight:forested_highlands",
+    "lamplight:lavender_forest",
+    "lamplight:moonlight_grove",
+    "lamplight:mountain_grove",
+    "lamplight:mountainous_taiga",
+    "lamplight:shield",
+    "lamplight:snowy_old_growth_taiga",
+    "lamplight:snowy_shield",
+    "lamplight:sparse_forest",
+    "lamplight:wintry_forest",
+    "lamplight:cloud_forest",
+    "lamplight:sakura_grove",
+    "lamplight:snowy_cherry_grove",
+    "lamplight:temperate_highlands"
+  ]
+}

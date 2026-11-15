@@ -1,0 +1,18 @@
+{
+  "values": [
+    "minecraft:ocean",
+    "minecraft:deep_ocean",
+    "minecraft:cold_ocean",
+    "minecraft:deep_cold_ocean",
+    "minecraft:frozen_ocean",
+    "minecraft:deep_frozen_ocean",
+    "minecraft:lukewarm_ocean",
+    "minecraft:deep_lukewarm_ocean",
+    "minecraft:warm_ocean",
+    "minecraft:mushroom_fields",
+    "lamplight:stone_ocean",
+    "lamplight:deep_warm_ocean",
+    "lamplight:kelp_thicket",
+    "lamplight:misty_isles"
+  ]
+}

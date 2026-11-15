@@ -1,6 +1,7 @@
 package com.aura.lamplight.picturesque.client;
 
 import com.aura.lamplight.client.LamplightKeyCategories;
+import com.aura.lamplight.picturesque.client.ambient.AmbientEngine;
 import com.aura.lamplight.picturesque.client.raytrace.RaytracePostTuner;
 import com.aura.lamplight.picturesque.client.raytrace.RaytraceState;
 import com.aura.lamplight.picturesque.client.splash.SplashManager;
@@ -34,6 +35,7 @@ public class PicturesqueClient implements ClientModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             SplashManager.get().tick(client);
+            AmbientEngine.get().tick(client, config.ambientSounds);
             PicturesqueState.get().tick(client);
             RaytraceState.get().tick(client);
             RaytracePostTuner.tick(client);

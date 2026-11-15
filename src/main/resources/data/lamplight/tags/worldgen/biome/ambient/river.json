@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:river",
+    "minecraft:frozen_river",
+    "lamplight:cold_river",
+    "lamplight:tropical_river",
+    "lamplight:warm_river"
+  ]
+}

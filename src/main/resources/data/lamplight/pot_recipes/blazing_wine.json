@@ -1,0 +1,9 @@
+{
+  "base": "wine",
+  "ingredients": [
+    "minecraft:blaze_powder",
+    "lamplight:soul_pepper"
+  ],
+  "result": "blazing_wine",
+  "cook_time": 100
+}

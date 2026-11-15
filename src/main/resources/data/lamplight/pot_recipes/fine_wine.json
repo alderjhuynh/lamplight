@@ -1,0 +1,8 @@
+{
+  "base": "grape_wine",
+  "ingredients": [
+    "minecraft:gold_nugget"
+  ],
+  "result": "fine_wine",
+  "cook_time": 100
+}

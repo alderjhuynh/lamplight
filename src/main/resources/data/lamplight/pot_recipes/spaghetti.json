@@ -1,0 +1,10 @@
+{
+  "base": "water",
+  "ingredients": [
+    "lamplight:noodles",
+    "lamplight:tomato",
+    "lamplight:beef_cutlets"
+  ],
+  "result": "spaghetti",
+  "cook_time": 100
+}

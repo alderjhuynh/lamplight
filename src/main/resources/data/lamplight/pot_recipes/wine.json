@@ -1,0 +1,9 @@
+{
+  "base": "water",
+  "ingredients": [
+    "lamplight:grapes",
+    "minecraft:sugar"
+  ],
+  "result": "wine",
+  "cook_time": 100
+}

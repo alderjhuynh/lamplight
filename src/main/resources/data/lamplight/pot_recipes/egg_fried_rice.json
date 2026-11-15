@@ -1,0 +1,10 @@
+{
+  "base": "water",
+  "ingredients": [
+    "lamplight:rice",
+    "minecraft:egg",
+    "lamplight:corn"
+  ],
+  "result": "egg_fried_rice",
+  "cook_time": 100
+}

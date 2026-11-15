@@ -1,0 +1,9 @@
+{
+  "base": "water",
+  "ingredients": [
+    "minecraft:brown_mushroom",
+    "minecraft:red_mushroom"
+  ],
+  "result": "mushroom_stew",
+  "cook_time": 100
+}

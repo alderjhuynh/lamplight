@@ -1,0 +1,8 @@
+{
+  "base": "wine",
+  "ingredients": [
+    "lamplight:grapes"
+  ],
+  "result": "grape_wine",
+  "cook_time": 100
+}

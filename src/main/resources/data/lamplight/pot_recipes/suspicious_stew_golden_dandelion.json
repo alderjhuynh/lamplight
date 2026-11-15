@@ -1,0 +1,10 @@
+{
+  "base": "mushroom_stew",
+  "ingredients": [
+    "minecraft:golden_dandelion"
+  ],
+  "result": "suspicious_stew",
+  "stew_effects": [
+    {"id": "minecraft:saturation", "duration": 7}
+  ]
+}

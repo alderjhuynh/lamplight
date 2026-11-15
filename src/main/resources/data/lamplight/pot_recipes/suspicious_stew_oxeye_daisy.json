@@ -1,0 +1,10 @@
+{
+  "base": "mushroom_stew",
+  "ingredients": [
+    "minecraft:oxeye_daisy"
+  ],
+  "result": "suspicious_stew",
+  "stew_effects": [
+    {"id": "minecraft:regeneration", "duration": 140}
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "base": "wine",
+  "ingredients": [
+    "minecraft:ghast_tear"
+  ],
+  "result": "blessing_wine",
+  "cook_time": 100
+}

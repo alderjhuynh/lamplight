@@ -1,0 +1,10 @@
+{
+  "base": "water",
+  "ingredients": [
+    "lamplight:beef_cutlets",
+    "minecraft:carrot",
+    "minecraft:potato"
+  ],
+  "result": "stew",
+  "cook_time": 100
+}

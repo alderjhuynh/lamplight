@@ -1,0 +1,10 @@
+{
+  "base": "mushroom_stew",
+  "ingredients": [
+    "minecraft:lily_of_the_valley"
+  ],
+  "result": "suspicious_stew",
+  "stew_effects": [
+    {"id": "minecraft:poison", "duration": 220}
+  ]
+}

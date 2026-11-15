@@ -11,18 +11,23 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.Nullable;
 
 public class CookingPotBlockEntity extends BlockEntity {
     public static final int MAX_INGREDIENTS = 4;
 
     private final List<ItemStack> ingredients = new ArrayList<>();
     private int cookProgress;
+    /** Effects to stamp onto suspicious stew when it is scooped out. */
+    @Nullable
+    private SuspiciousStewEffects stewEffects;
 
     public CookingPotBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.COOKING_POT, pos, state);
@@ -55,6 +60,7 @@ public class CookingPotBlockEntity extends BlockEntity {
     public void addIngredient(ItemStack stack) {
         this.ingredients.add(stack.copyWithCount(1));
         this.cookProgress = 0;
+        this.stewEffects = null;
         this.sync();
     }
 
@@ -64,6 +70,7 @@ public class CookingPotBlockEntity extends BlockEntity {
         }
         ItemStack popped = this.ingredients.removeLast();
         this.cookProgress = 0;
+        this.stewEffects = null;
         this.sync();
         return popped;
     }
@@ -71,6 +78,17 @@ public class CookingPotBlockEntity extends BlockEntity {
     public void clearIngredients() {
         this.ingredients.clear();
         this.cookProgress = 0;
+        this.stewEffects = null;
+        this.sync();
+    }
+
+    @Nullable
+    public SuspiciousStewEffects getStewEffects() {
+        return this.stewEffects;
+    }
+
+    public void setStewEffects(@Nullable SuspiciousStewEffects stewEffects) {
+        this.stewEffects = stewEffects;
         this.sync();
     }
 
@@ -103,6 +121,7 @@ public class CookingPotBlockEntity extends BlockEntity {
         if (++pot.cookProgress >= recipe.cookTime()) {
             pot.clearIngredients();
             level.setBlock(pos, state.setValue(CampfireCookingPotBlock.FLUID, recipe.result()), Block.UPDATE_ALL);
+            recipe.stewEffects().ifPresent(pot::setStewEffects);
             level.playSound(null, pos, AmbrosiaSounds.COOKING_POT_INSERT, SoundSource.BLOCKS, 1.0F, 1.0F);
             level.gameEvent(null, net.minecraft.world.level.gameevent.GameEvent.FLUID_PLACE, pos);
         }
@@ -115,6 +134,9 @@ public class CookingPotBlockEntity extends BlockEntity {
             output.store("Ingredients", ItemStack.CODEC.listOf(), this.ingredients);
         }
         output.putInt("CookProgress", this.cookProgress);
+        if (this.stewEffects != null) {
+            output.store("StewEffects", SuspiciousStewEffects.CODEC, this.stewEffects);
+        }
     }
 
     @Override
@@ -123,6 +145,7 @@ public class CookingPotBlockEntity extends BlockEntity {
         this.ingredients.clear();
         this.ingredients.addAll(input.read("Ingredients", ItemStack.CODEC.listOf()).orElse(List.of()));
         this.cookProgress = input.getIntOr("CookProgress", 0);
+        this.stewEffects = input.read("StewEffects", SuspiciousStewEffects.CODEC).orElse(null);
     }
 
     @Override

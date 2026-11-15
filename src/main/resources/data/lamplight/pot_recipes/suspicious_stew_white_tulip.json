@@ -1,0 +1,10 @@
+{
+  "base": "mushroom_stew",
+  "ingredients": [
+    "minecraft:white_tulip"
+  ],
+  "result": "suspicious_stew",
+  "stew_effects": [
+    {"id": "minecraft:weakness", "duration": 140}
+  ]
+}

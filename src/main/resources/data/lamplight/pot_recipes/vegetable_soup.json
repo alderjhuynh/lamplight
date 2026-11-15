@@ -1,0 +1,10 @@
+{
+  "base": "water",
+  "ingredients": [
+    "minecraft:carrot",
+    "minecraft:potato",
+    "lamplight:lettuce"
+  ],
+  "result": "vegetable_soup",
+  "cook_time": 100
+}

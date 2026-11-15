@@ -1,0 +1,9 @@
+{
+  "base": "wine",
+  "ingredients": [
+    "minecraft:rabbit_foot",
+    "minecraft:amethyst_shard"
+  ],
+  "result": "prospecting_wine",
+  "cook_time": 100
+}

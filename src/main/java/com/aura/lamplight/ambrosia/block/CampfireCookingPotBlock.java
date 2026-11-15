@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import com.aura.lamplight.ambrosia.AmbrosiaSounds;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.stats.Stats;
@@ -14,7 +15,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemUtils;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -106,7 +106,7 @@ public class CampfireCookingPotBlock extends CookingPotBlock implements EntityBl
             }
             if (!level.isClientSide()) {
                 level.setBlock(pos, state.setValue(FLUID, pour), Block.UPDATE_ALL);
-                player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, PotFluid.pourRemainder(stack)));
+                player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, PotFluid.pourRemainder(stack, pour)));
                 player.awardStat(Stats.FILL_CAULDRON);
                 player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
                 level.playSound(null, pos, AmbrosiaSounds.COOKING_POT_INSERT, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -115,15 +115,20 @@ public class CampfireCookingPotBlock extends CookingPotBlock implements EntityBl
             return InteractionResult.SUCCESS;
         }
         CookingPotBlockEntity pot = level.getBlockEntity(pos) instanceof CookingPotBlockEntity blockEntity ? blockEntity : null;
-        if (stack.is(Items.GLASS_BOTTLE)) {
+        ItemStack scooped = fluid.scoopWith(stack);
+        if (scooped != null) {
             if (pot != null && !pot.isEmpty()) {
                 return InteractionResult.FAIL;
             }
             if (!level.isClientSide()) {
                 level.setBlock(pos, state.setValue(FLUID, PotFluid.EMPTY), Block.UPDATE_ALL);
-                player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, fluid.scoopItem()));
+                if (pot != null && pot.getStewEffects() != null) {
+                    scooped.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, pot.getStewEffects());
+                    pot.setStewEffects(null);
+                }
+                player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, scooped));
                 player.awardStat(Stats.USE_CAULDRON);
-                player.awardStat(Stats.ITEM_USED.get(Items.GLASS_BOTTLE));
+                player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
                 level.playSound(null, pos, AmbrosiaSounds.COOKING_POT_COLLECT, SoundSource.BLOCKS, 1.0F, 1.0F);
                 level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
             }

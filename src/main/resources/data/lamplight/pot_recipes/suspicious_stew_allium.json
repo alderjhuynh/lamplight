@@ -1,0 +1,10 @@
+{
+  "base": "mushroom_stew",
+  "ingredients": [
+    "minecraft:allium"
+  ],
+  "result": "suspicious_stew",
+  "stew_effects": [
+    {"id": "minecraft:fire_resistance", "duration": 60}
+  ]
+}

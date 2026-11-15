@@ -1,0 +1,10 @@
+{
+  "base": "water",
+  "ingredients": [
+    "lamplight:beef_cutlets",
+    "minecraft:brown_mushroom",
+    "lamplight:noodles"
+  ],
+  "result": "beef_stroganoff",
+  "cook_time": 100
+}

@@ -1,0 +1,9 @@
+{
+  "base": "wine",
+  "ingredients": [
+    "minecraft:sweet_berries",
+    "minecraft:sugar"
+  ],
+  "result": "sweet_berry_wine",
+  "cook_time": 100
+}

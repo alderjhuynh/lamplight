@@ -1,0 +1,8 @@
+{
+  "base": "wine",
+  "ingredients": [
+    "minecraft:fermented_spider_eye"
+  ],
+  "result": "creeping_wine",
+  "cook_time": 100
+}

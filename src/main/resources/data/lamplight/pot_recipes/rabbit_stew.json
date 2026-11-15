@@ -1,0 +1,11 @@
+{
+  "base": "water",
+  "ingredients": [
+    "minecraft:cooked_rabbit",
+    "minecraft:carrot",
+    "minecraft:baked_potato",
+    "minecraft:brown_mushroom"
+  ],
+  "result": "rabbit_stew",
+  "cook_time": 100
+}

@@ -91,14 +91,14 @@ public final class ModItems {
     public static final Item ROAST_DINNER = food("roast_dinner", 10, 16.0F);
     public static final Item HONEY_GLAZED_HAM = food("honey_glazed_ham", 10, 14.0F);
     public static final Item SHEPHERDS_PIE = food("shepherds_pie", 9, 14.0F);
-    public static final Item SPAGHETTI = food("spaghetti", 8, 12.0F);
+    public static final Item SPAGHETTI = bowlFood("spaghetti", 8, 12.0F);
     public static final Item FRIED_CHICKEN = food("fried_chicken", 8, 10.0F);
     public static final Item CHICKEN_SATAY = food("chicken_satay", 6, 8.0F);
     public static final Item KEBAB = food("kebab", 8, 10.0F);
     public static final Item FRIED_FISH = food("fried_fish", 5, 7.0F);
     public static final Item FISH_AND_CHIPS = food("fish_and_chips", 8, 10.0F);
     public static final Item SURF_N_TURF = food("surf_n_turf", 10, 16.0F);
-    public static final Item EGG_FRIED_RICE = food("egg_fried_rice", 8, 10.0F);
+    public static final Item EGG_FRIED_RICE = bowlFood("egg_fried_rice", 8, 10.0F);
     public static final Item HAMBURGER = food("hamburger", 8, 10.0F);
     public static final Item CHICKEN_SANDWICH = food("chicken_sandwich", 8, 10.0F);
     public static final Item GRILLED_CHEESE = food("grilled_cheese", 7, 9.0F);
@@ -114,37 +114,37 @@ public final class ModItems {
     public static final Item HOT_CHOCOLATE = drink("hot_chocolate", 4, 5.0F);
     public static final Item APPLE_CIDER = drink("apple_cider", 4, 5.0F);
 
-    public static final Item WINE = drink("wine", 4, 4.0F);
-    public static final Item GRAPE_WINE = drink("grape_wine", 4, 5.0F);
-    public static final Item FINE_WINE = drink("fine_wine", 5, 6.0F);
-    public static final Item SWEET_BERRY_WINE = drink("sweet_berry_wine", 4, 4.0F);
-    public static final Item MULLED_WINE = drink("mulled_wine", 4, 5.0F);
-    public static final Item BLAZING_WINE = drinkWithEffect("blazing_wine", 4, 4.0F,
+    public static final Item WINE = wine("wine");
+    public static final Item GRAPE_WINE = wine("grape_wine");
+    public static final Item FINE_WINE = wine("fine_wine");
+    public static final Item SWEET_BERRY_WINE = wine("sweet_berry_wine");
+    public static final Item MULLED_WINE = wine("mulled_wine");
+    public static final Item BLAZING_WINE = wineWithEffect("blazing_wine",
             Consumables.defaultDrink().onConsume(new ApplyStatusEffectsConsumeEffect(
-                    new MobEffectInstance(net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE, 3600), 1.0F)).build());
-    public static final Item BREEZING_WINE = drinkWithEffect("breezing_wine", 4, 4.0F,
+                    new MobEffectInstance(net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE, 6000), 1.0F)).build());
+    public static final Item BREEZING_WINE = wineWithEffect("breezing_wine",
             Consumables.defaultDrink().onConsume(new ApplyStatusEffectsConsumeEffect(
-                    new MobEffectInstance(net.minecraft.world.effect.MobEffects.WIND_CHARGED, 1200), 1.0F)).build());
-    public static final Item CREEPING_WINE = drinkWithEffect("creeping_wine", 4, 4.0F,
+                    new MobEffectInstance(net.minecraft.world.effect.MobEffects.WIND_CHARGED, 3600), 1.0F)).build());
+    public static final Item CREEPING_WINE = wineWithEffect("creeping_wine",
             Consumables.defaultDrink().onConsume(new ApplyStatusEffectsConsumeEffect(
-                    new MobEffectInstance(net.minecraft.world.effect.MobEffects.INFESTED, 3600), 1.0F)).build());
-    public static final Item DIVING_WINE = drinkWithEffect("diving_wine", 4, 4.0F,
+                    new MobEffectInstance(net.minecraft.world.effect.MobEffects.INFESTED, 1200), 1.0F)).build());
+    public static final Item DIVING_WINE = wineWithEffect("diving_wine",
             Consumables.defaultDrink().onConsume(new ApplyStatusEffectsConsumeEffect(
-                    new MobEffectInstance(net.minecraft.world.effect.MobEffects.WATER_BREATHING, 3600), 1.0F)).build());
-    public static final Item GLEAMING_WINE = drinkWithEffect("gleaming_wine", 4, 4.0F,
+                    new MobEffectInstance(net.minecraft.world.effect.MobEffects.WATER_BREATHING, 6000), 1.0F)).build());
+    public static final Item GLEAMING_WINE = wineWithEffect("gleaming_wine",
             Consumables.defaultDrink().onConsume(new ApplyStatusEffectsConsumeEffect(
-                    new MobEffectInstance(net.minecraft.world.effect.MobEffects.GLOWING, 3600), 1.0F)).build());
-    public static final Item BLESSING_WINE = drinkWithEffect("blessing_wine", 4, 4.0F,
+                    new MobEffectInstance(net.minecraft.world.effect.MobEffects.GLOWING, 6000), 1.0F)).build());
+    public static final Item BLESSING_WINE = wineWithEffect("blessing_wine",
             Consumables.defaultDrink().onConsume(new ApplyStatusEffectsConsumeEffect(
-                    new MobEffectInstance(net.minecraft.world.effect.MobEffects.REGENERATION, 400), 1.0F)).build());
-    public static final Item CHORUS_WINE = drinkWithEffect("chorus_wine", 4, 4.0F,
+                    new MobEffectInstance(net.minecraft.world.effect.MobEffects.REGENERATION, 900), 1.0F)).build());
+    public static final Item CHORUS_WINE = wineWithEffect("chorus_wine",
             Consumables.defaultDrink().onConsume(new TeleportRandomlyConsumeEffect(16.0F)).build());
-    public static final Item HEROIC_WINE = drinkWithEffect("heroic_wine", 4, 5.0F,
+    public static final Item HEROIC_WINE = wineWithEffect("heroic_wine",
             Consumables.defaultDrink().onConsume(new ApplyStatusEffectsConsumeEffect(
-                    new MobEffectInstance(net.minecraft.world.effect.MobEffects.HERO_OF_THE_VILLAGE, 3600), 1.0F)).build());
-    public static final Item PROSPECTING_WINE = drinkWithEffect("prospecting_wine", 4, 5.0F,
+                    new MobEffectInstance(net.minecraft.world.effect.MobEffects.HERO_OF_THE_VILLAGE, 6000), 1.0F)).build());
+    public static final Item PROSPECTING_WINE = wineWithEffect("prospecting_wine",
             Consumables.defaultDrink().onConsume(new ApplyStatusEffectsConsumeEffect(
-                    new MobEffectInstance(net.minecraft.world.effect.MobEffects.LUCK, 3600), 1.0F)).build());
+                    new MobEffectInstance(net.minecraft.world.effect.MobEffects.LUCK, 6000), 1.0F)).build());
 
     public static final Item MARSHMALLOW = food("marshmallow", 2, 1.0F);
     public static final Item TOASTED_MARSHMALLOW = food("toasted_marshmallow", 4, 5.0F);
@@ -168,12 +168,21 @@ public final class ModItems {
 
     private static Item drink(String name, int hunger, float saturation) {
         return register(name, Item::new, new Item.Properties()
-                .food(new FoodProperties(hunger, saturation, true), Consumables.DEFAULT_DRINK));
+                .food(new FoodProperties(hunger, saturation, true), Consumables.DEFAULT_DRINK)
+                .usingConvertsTo(Items.GLASS_BOTTLE));
     }
 
-    private static Item drinkWithEffect(String name, int hunger, float saturation, net.minecraft.world.item.component.Consumable consumable) {
+    /** Wines have no nutrition — their value is the effect they carry. */
+    private static Item wine(String name) {
         return register(name, Item::new, new Item.Properties()
-                .food(new FoodProperties(hunger, saturation, true), consumable));
+                .food(new FoodProperties(0, 0.0F, true), Consumables.DEFAULT_DRINK)
+                .usingConvertsTo(Items.GLASS_BOTTLE));
+    }
+
+    private static Item wineWithEffect(String name, net.minecraft.world.item.component.Consumable consumable) {
+        return register(name, Item::new, new Item.Properties()
+                .food(new FoodProperties(0, 0.0F, true), consumable)
+                .usingConvertsTo(Items.GLASS_BOTTLE));
     }
 
     private static Item seed(String name, Block crop) {

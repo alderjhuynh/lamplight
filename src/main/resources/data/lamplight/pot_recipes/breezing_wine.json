@@ -1,0 +1,8 @@
+{
+  "base": "wine",
+  "ingredients": [
+    "minecraft:breeze_rod"
+  ],
+  "result": "breezing_wine",
+  "cook_time": 100
+}

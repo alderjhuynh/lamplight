@@ -1,0 +1,8 @@
+{
+  "base": "wine",
+  "ingredients": [
+    "minecraft:chorus_fruit"
+  ],
+  "result": "chorus_wine",
+  "cook_time": 100
+}

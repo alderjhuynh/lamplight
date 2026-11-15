@@ -1,0 +1,9 @@
+{
+  "base": "wine",
+  "ingredients": [
+    "minecraft:pufferfish",
+    "minecraft:kelp"
+  ],
+  "result": "diving_wine",
+  "cook_time": 100
+}

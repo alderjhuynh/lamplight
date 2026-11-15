@@ -1,0 +1,8 @@
+{
+  "base": "wine",
+  "ingredients": [
+    "minecraft:emerald"
+  ],
+  "result": "heroic_wine",
+  "cook_time": 100
+}

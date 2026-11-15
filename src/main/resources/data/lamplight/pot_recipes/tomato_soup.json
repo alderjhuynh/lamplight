@@ -1,0 +1,9 @@
+{
+  "base": "water",
+  "ingredients": [
+    "lamplight:tomato",
+    "lamplight:milk_bottle"
+  ],
+  "result": "tomato_soup",
+  "cook_time": 100
+}

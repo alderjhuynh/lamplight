@@ -1,0 +1,10 @@
+{
+  "base": "water",
+  "ingredients": [
+    "lamplight:rice",
+    "minecraft:brown_mushroom",
+    "lamplight:butter"
+  ],
+  "result": "mushroom_risotto",
+  "cook_time": 100
+}

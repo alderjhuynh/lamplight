@@ -1,0 +1,9 @@
+{
+  "base": "wine",
+  "ingredients": [
+    "lamplight:cinnamon",
+    "lamplight:ginger"
+  ],
+  "result": "mulled_wine",
+  "cook_time": 100
+}

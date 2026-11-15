@@ -1,0 +1,9 @@
+{
+  "base": "wine",
+  "ingredients": [
+    "minecraft:glow_berries",
+    "minecraft:glow_ink_sac"
+  ],
+  "result": "gleaming_wine",
+  "cook_time": 100
+}

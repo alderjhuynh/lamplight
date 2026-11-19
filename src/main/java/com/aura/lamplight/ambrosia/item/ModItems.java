@@ -69,6 +69,7 @@ public final class ModItems {
 
     public static final Item BEEF_CUTLETS = food("beef_cutlets", 2, 1.0F);
     public static final Item CHICKEN_CUTLETS = food("chicken_cutlets", 2, 1.0F);
+    public static final Item CHICKEN_NOODLE_SOUP = bowlFood("chicken_noodle_soup", 8, 12.0F);
     public static final Item MUTTON_CUTLETS = food("mutton_cutlets", 2, 1.0F);
     public static final Item RABBIT_CUTLETS = food("rabbit_cutlets", 2, 1.0F);
     public static final Item COD_FILLETS = food("cod_fillets", 1, 0.5F);
@@ -172,7 +173,6 @@ public final class ModItems {
                 .usingConvertsTo(Items.GLASS_BOTTLE));
     }
 
-    /** Wines have no nutrition — their value is the effect they carry. */
     private static Item wine(String name) {
         return register(name, Item::new, new Item.Properties()
                 .food(new FoodProperties(0, 0.0F, true), Consumables.DEFAULT_DRINK)
@@ -248,7 +248,7 @@ public final class ModItems {
             CHOCOLATE_BAR, BEEF_CUTLETS, CHICKEN_CUTLETS, MUTTON_CUTLETS, RABBIT_CUTLETS,
             COD_FILLETS, SALMON_FILLETS, BUTTERED_APPLE, CARAMEL_APPLE, CARROT_CAKE,
             CHEESECAKE, CHORUS_CUPCAKE, DINO_NUGGET_STEGO, DINO_NUGGET_TREX, FRIES,
-            STEW, TOMATO_SOUP, VEGETABLE_SOUP, MUSHROOM_RISOTTO, BEEF_STROGANOFF, ROAST_DINNER,
+            STEW, TOMATO_SOUP, VEGETABLE_SOUP, MUSHROOM_RISOTTO, BEEF_STROGANOFF, CHICKEN_NOODLE_SOUP, ROAST_DINNER,
             HONEY_GLAZED_HAM, SHEPHERDS_PIE, SPAGHETTI, FRIED_CHICKEN, CHICKEN_SATAY, KEBAB,
             FRIED_FISH, FISH_AND_CHIPS, SURF_N_TURF, EGG_FRIED_RICE, HAMBURGER, CHICKEN_SANDWICH,
             GRILLED_CHEESE, BLT, PB_AND_J, BURRITO, GYRO, LETTUCE_WRAP, POUTINE, SOURDOUGH_BREAD,

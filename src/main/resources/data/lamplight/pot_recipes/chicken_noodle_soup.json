@@ -1,0 +1,10 @@
+{
+  "base": "water",
+  "ingredients": [
+    "minecraft:cooked_chicken",
+    "lamplight:noodles",
+    "minecraft:carrot"
+  ],
+  "result": "chicken_noodle_soup",
+  "cook_time": 100
+}

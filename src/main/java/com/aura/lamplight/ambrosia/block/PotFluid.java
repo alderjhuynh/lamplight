@@ -45,6 +45,7 @@ public enum PotFluid implements StringRepresentable {
     VEGETABLE_SOUP("vegetable_soup", false, 0xFF93623B, null, () -> new ItemStack(ModItems.VEGETABLE_SOUP)),
     MUSHROOM_RISOTTO("mushroom_risotto", false, 0xFFB8AB7B, null, () -> new ItemStack(ModItems.MUSHROOM_RISOTTO)),
     BEEF_STROGANOFF("beef_stroganoff", false, 0xFF976C43, null, () -> new ItemStack(ModItems.BEEF_STROGANOFF)),
+    CHICKEN_NOODLE_SOUP("chicken_noodle_soup", false, 0xFF866E3C, null, () -> new ItemStack(ModItems.CHICKEN_NOODLE_SOUP)),
     SPAGHETTI("spaghetti", false, 0xFFA9541C, null, () -> new ItemStack(ModItems.SPAGHETTI)),
     EGG_FRIED_RICE("egg_fried_rice", false, 0xFFAB8D3C, null, () -> new ItemStack(ModItems.EGG_FRIED_RICE));
 

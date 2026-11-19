@@ -5,6 +5,7 @@ import net.minecraft.world.item.Item;
 
 import static com.aura.lamplight.ambrosia.food.VanillaFoodTweaks.FIVE_MINUTES;
 import static com.aura.lamplight.ambrosia.food.VanillaFoodTweaks.NO_EFFECT;
+import static com.aura.lamplight.ambrosia.food.VanillaFoodTweaks.ONE_AND_A_HALF_MINUTES;
 import static com.aura.lamplight.ambrosia.food.VanillaFoodTweaks.ONE_MINUTE;
 import static com.aura.lamplight.ambrosia.food.VanillaFoodTweaks.THIRTY_SECONDS;
 
@@ -59,6 +60,7 @@ public final class ModFoods {
         food(ModItems.VEGETABLE_SOUP, 8, 12.0F, ONE_MINUTE, ONE_MINUTE * 3);
         food(ModItems.MUSHROOM_RISOTTO, 8, 12.0F, ONE_MINUTE, ONE_MINUTE * 3);
         food(ModItems.BEEF_STROGANOFF, 10, 14.0F, ONE_MINUTE, ONE_MINUTE * 3);
+        food(ModItems.CHICKEN_NOODLE_SOUP, 8, 12, ONE_MINUTE, ONE_AND_A_HALF_MINUTES);
 
         // feasts & baked dishes
         comfort(ModItems.ROAST_DINNER, 10, 16.0F, ONE_MINUTE, FIVE_MINUTES, ONE_MINUTE);

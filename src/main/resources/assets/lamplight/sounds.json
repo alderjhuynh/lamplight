@@ -98,6 +98,43 @@
     ],
     "subtitle": "minecraft:subtitles.item.armor.equip"
   },
+  "item.chakram.bounce": {
+    "sounds": [
+      {
+        "name": "lamplight:item/chakram/bounce1"
+      },
+      {
+        "name": "lamplight:item/chakram/bounce2"
+      },
+      {
+        "name": "lamplight:item/chakram/bounce3"
+      }
+    ],
+    "subtitle": "lamplight.sound.subtitle.chakram_bounce"
+  },
+  "item.chakram.hit": {
+    "sounds": [
+      {
+        "name": "lamplight:item/chakram/hit1"
+      },
+      {
+        "name": "lamplight:item/chakram/hit2"
+      },
+      {
+        "name": "lamplight:item/chakram/hit3"
+      },
+      {
+        "name": "lamplight:item/chakram/hit4"
+      },
+      {
+        "name": "lamplight:item/chakram/hit5"
+      },
+      {
+        "name": "lamplight:item/chakram/hit6"
+      }
+    ],
+    "subtitle": "lamplight.sound.subtitle.chakram_hit"
+  },
   "inferno_launch": {
     "sounds": [
       {

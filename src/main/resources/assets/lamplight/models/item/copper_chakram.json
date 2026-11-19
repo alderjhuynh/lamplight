@@ -1,0 +1,6 @@
+{
+  "parent": "lamplight:item/chakram",
+  "textures": {
+    "layer0": "lamplight:item/copper_chakram"
+  }
+}

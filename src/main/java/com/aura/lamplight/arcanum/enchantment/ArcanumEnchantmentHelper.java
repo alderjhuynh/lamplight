@@ -1,5 +1,6 @@
 package com.aura.lamplight.arcanum.enchantment;
 
+import com.aura.lamplight.armory.ChakramItem;
 import com.aura.lamplight.armory.DaggerItem;
 import com.aura.lamplight.armory.ModItems;
 import net.minecraft.core.Holder;
@@ -75,6 +76,7 @@ public final class ArcanumEnchantmentHelper {
     private static boolean isMeleeWeapon(ItemStack stack) {
         return stack.is(ItemTags.SHARP_WEAPON_ENCHANTABLE)
                 || stack.is(DaggerItem.DAGGERS)
+                || stack.is(ChakramItem.CHAKRAMS)
                 || stack.is(Items.MACE)
                 || stack.is(Items.TRIDENT);
     }
@@ -440,6 +442,7 @@ public final class ArcanumEnchantmentHelper {
         if (ench.isSupportedItem(new ItemStack(ModItems.NETHERITE_SCYTHE))) sprites.add(NETHERITE_SCYTHE);
         if (ench.isSupportedItem(new ItemStack(ModItems.NETHERITE_GREATSWORD))) sprites.add(NETHERITE_GREATSWORD);
         if (ench.isSupportedItem(new ItemStack(ModItems.NETHERITE_DAGGER))) sprites.add(NETHERITE_DAGGER);
+        if (ench.isSupportedItem(new ItemStack(ModItems.NETHERITE_CHAKRAM))) sprites.add(NETHERITE_CHAKRAM);
         if (ench.isSupportedItem(new ItemStack(Items.MACE))) sprites.add(MACE);
         if (ench.isSupportedItem(new ItemStack(Items.TRIDENT))) sprites.add(TRIDENT);
         if (ench.isSupportedItem(new ItemStack(Items.BOW))) sprites.add(BOW);
@@ -462,6 +465,7 @@ public final class ArcanumEnchantmentHelper {
     private static final Identifier NETHERITE_SCYTHE = Identifier.fromNamespaceAndPath("lamplight", "item/netherite_scythe");
     private static final Identifier NETHERITE_GREATSWORD = Identifier.fromNamespaceAndPath("lamplight", "item/netherite_greatsword");
     private static final Identifier NETHERITE_DAGGER = Identifier.fromNamespaceAndPath("lamplight", "item/netherite_dagger");
+    private static final Identifier NETHERITE_CHAKRAM = Identifier.fromNamespaceAndPath("lamplight", "item/netherite_chakram");
     private static final Identifier MACE = Identifier.withDefaultNamespace("item/mace");
     private static final Identifier TRIDENT = Identifier.withDefaultNamespace("item/trident");
     private static final Identifier BOW = Identifier.withDefaultNamespace("item/bow");

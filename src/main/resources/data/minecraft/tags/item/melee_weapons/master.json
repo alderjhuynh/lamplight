@@ -1,12 +1,13 @@
 {
-    "values": [
-        "#melee_weapons/axes",
-        "#melee_weapons/swords",
-        "#melee_weapons/scythes",
-        "#melee_weapons/spears",
-        "#melee_weapons/greatswords",
-        "#melee_weapons/daggers",
-        "#melee_weapons/rapiers",
-        "#melee_weapons/special"
-    ]
+  "values": [
+    "#melee_weapons/axes",
+    "#melee_weapons/swords",
+    "#melee_weapons/scythes",
+    "#melee_weapons/spears",
+    "#melee_weapons/greatswords",
+    "#melee_weapons/daggers",
+    "#melee_weapons/rapiers",
+    "#melee_weapons/chakrams",
+    "#melee_weapons/special"
+  ]
 }

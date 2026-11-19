@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:melee_weapons/daggers"
+    "#minecraft:melee_weapons/daggers",
+    "#minecraft:melee_weapons/chakrams"
   ]
 }

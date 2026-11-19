@@ -22,6 +22,9 @@ public final class Spells {
     public static final Spell FROST_BOLT = register(new FrostBoltSpell());
     public static final Spell SLOWING_AURA = register(new SlowingAuraSpell());
 
+    // --- Temporal scroll spells ---
+    public static final Spell GRAVITY_WELL = register(new GravityWellSpell());
+
     private static Spell register(final Spell spell) {
         Spell previous = BY_ID.putIfAbsent(spell.id(), spell);
         if (previous != null) {

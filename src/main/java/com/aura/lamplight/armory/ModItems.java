@@ -237,12 +237,64 @@ public final class ModItems {
 			new ScytheItem(ToolMaterial.NETHERITE, 5.0F, -3.0F,
 					new Item.Properties().fireResistant().setId(NETHERITE_SCYTHE_KEY)));
 
+	private static final float CHAKRAM_DAMAGE = 1.0F;
+	private static final float CHAKRAM_SPEED = -2.4F;
+
+	public static final ResourceKey<Item> WOODEN_CHAKRAM_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("wooden_chakram"));
+	public static final Item WOODEN_CHAKRAM = Registry.register(
+			BuiltInRegistries.ITEM,
+			WOODEN_CHAKRAM_KEY,
+			new ChakramItem(ToolMaterial.WOOD, CHAKRAM_DAMAGE, CHAKRAM_SPEED,
+					new Item.Properties().setId(WOODEN_CHAKRAM_KEY)));
+
+	public static final ResourceKey<Item> STONE_CHAKRAM_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("stone_chakram"));
+	public static final Item STONE_CHAKRAM = Registry.register(
+			BuiltInRegistries.ITEM,
+			STONE_CHAKRAM_KEY,
+			new ChakramItem(ToolMaterial.STONE, CHAKRAM_DAMAGE, CHAKRAM_SPEED,
+					new Item.Properties().setId(STONE_CHAKRAM_KEY)));
+
+	public static final ResourceKey<Item> COPPER_CHAKRAM_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("copper_chakram"));
+	public static final Item COPPER_CHAKRAM = Registry.register(
+			BuiltInRegistries.ITEM,
+			COPPER_CHAKRAM_KEY,
+			new ChakramItem(ToolMaterial.COPPER, CHAKRAM_DAMAGE, CHAKRAM_SPEED,
+					new Item.Properties().setId(COPPER_CHAKRAM_KEY)));
+
+	public static final ResourceKey<Item> IRON_CHAKRAM_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("iron_chakram"));
+	public static final Item IRON_CHAKRAM = Registry.register(
+			BuiltInRegistries.ITEM,
+			IRON_CHAKRAM_KEY,
+			new ChakramItem(ToolMaterial.IRON, CHAKRAM_DAMAGE, CHAKRAM_SPEED,
+					new Item.Properties().setId(IRON_CHAKRAM_KEY)));
+
+	public static final ResourceKey<Item> GOLDEN_CHAKRAM_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("golden_chakram"));
+	public static final Item GOLDEN_CHAKRAM = Registry.register(
+			BuiltInRegistries.ITEM,
+			GOLDEN_CHAKRAM_KEY,
+			new ChakramItem(ToolMaterial.GOLD, CHAKRAM_DAMAGE, CHAKRAM_SPEED,
+					new Item.Properties().setId(GOLDEN_CHAKRAM_KEY)));
+
 	public static final ResourceKey<Item> DIAMOND_CHAKRAM_KEY =
 			ResourceKey.create(Registries.ITEM, Armory.id("diamond_chakram"));
 	public static final Item DIAMOND_CHAKRAM = Registry.register(
 			BuiltInRegistries.ITEM,
 			DIAMOND_CHAKRAM_KEY,
-			new ChakramItem(ToolMaterial.DIAMOND, 1.0F, -2.4F, new Item.Properties().setId(DIAMOND_CHAKRAM_KEY)));
+			new ChakramItem(ToolMaterial.DIAMOND, CHAKRAM_DAMAGE, CHAKRAM_SPEED,
+					new Item.Properties().setId(DIAMOND_CHAKRAM_KEY)));
+
+	public static final ResourceKey<Item> NETHERITE_CHAKRAM_KEY =
+			ResourceKey.create(Registries.ITEM, Armory.id("netherite_chakram"));
+	public static final Item NETHERITE_CHAKRAM = Registry.register(
+			BuiltInRegistries.ITEM,
+			NETHERITE_CHAKRAM_KEY,
+			new ChakramItem(ToolMaterial.NETHERITE, CHAKRAM_DAMAGE, CHAKRAM_SPEED,
+					new Item.Properties().fireResistant().setId(NETHERITE_CHAKRAM_KEY)));
 
 	private static final float RAPIER_DAMAGE = 2.0F;
 	private static final float RAPIER_SPEED = -2.2F;
@@ -365,7 +417,13 @@ public final class ModItems {
 			output.accept(GOLDEN_DAGGER);
 			output.accept(DIAMOND_DAGGER);
 			output.accept(NETHERITE_DAGGER);
+			output.accept(WOODEN_CHAKRAM);
+			output.accept(STONE_CHAKRAM);
+			output.accept(COPPER_CHAKRAM);
+			output.accept(IRON_CHAKRAM);
+			output.accept(GOLDEN_CHAKRAM);
 			output.accept(DIAMOND_CHAKRAM);
+			output.accept(NETHERITE_CHAKRAM);
 		});
 		Armory.LOGGER.info("Registered armory items");
 	}

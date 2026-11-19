@@ -11,6 +11,7 @@ import com.aura.lamplight.folio.component.ModDataComponents;
 import com.aura.lamplight.folio.entity.ModEntityTypes;
 import com.aura.lamplight.folio.item.ModItems;
 import com.aura.lamplight.folio.spell.Spells;
+import com.aura.lamplight.folio.temporal.TemporalFields;
 
 public class Folio implements ModInitializer {
 	public static final String MOD_ID = "lamplight";
@@ -22,6 +23,7 @@ public class Folio implements ModInitializer {
 		ModDataComponents.initialize();
 		ModEntityTypes.initialize();
 		Spells.initialize();
+		TemporalFields.initialize();
 		ModItems.initialize();
 	}
 

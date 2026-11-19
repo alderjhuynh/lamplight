@@ -89,7 +89,9 @@
     "tinkerer.PlayerCharmAttributesMixin",
     "tinkerer.PlayerInventoryMenuAccessor",
     "tinkerer.ServerPlayerInitMenuInvoker",
-    "wayfarer.InventoryMenuBackpackAddonMixin"
+    "wayfarer.InventoryMenuBackpackAddonMixin",
+    "folio.ServerLevelTemporalMixin",
+    "folio.ServerGamePacketListenerTemporalMixin"
   ],
   "injectors": {
     "defaultRequire": 1

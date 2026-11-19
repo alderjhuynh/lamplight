@@ -13,27 +13,17 @@ import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-/**
- * A field-type spell: drops a lingering {@link AreaEffectCloud} at the
- * caster's feet that continuously slows anything standing inside it.
- *
- * <p>{@code AreaEffectCloud} already re-applies its effects to anything
- * inside it roughly once a second for as long as it lives, which is
- * exactly the "continuous aura" behaviour we want, so no custom entity
- * is needed for this spell. Use this as a template for other "field"
- * or "aura" spells.</p>
- */
 public final class SlowingAuraSpell extends Spell {
 
     public static final Identifier ID = Folio.id("slowing_aura");
 
     private static final float RADIUS = 3.5F;
-    private static final int DURATION_TICKS = 160; // 8 seconds total lifetime
-    private static final int EFFECT_DURATION_TICKS = 40; // must outlast the ~20-tick reapplication gap
-    private static final int SLOW_AMPLIFIER = 1; // Slowness II
+    private static final int DURATION_TICKS = 160;
+    private static final int EFFECT_DURATION_TICKS = 40; 
+    private static final int SLOW_AMPLIFIER = 1;
 
     public SlowingAuraSpell() {
-        super(ID, Component.translatable("spell.lamplight.slowing_aura"));
+        super(ID, Component.translatable("spell.lamplight.slowing_aura"), SpellSchool.ICE, 18, 25, 160, true);
     }
 
     @Override
@@ -53,7 +43,7 @@ public final class SlowingAuraSpell extends Spell {
         cloud.setOwner(caster);
         cloud.setRadius(RADIUS);
         cloud.setDuration(DURATION_TICKS);
-        cloud.setWaitTime(0); // active immediately, no vanilla-lingering-potion windup
+        cloud.setWaitTime(0);
         cloud.setCustomParticle(ParticleTypes.SNOWFLAKE);
         cloud.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, EFFECT_DURATION_TICKS, SLOW_AMPLIFIER));
 

@@ -1,5 +1,7 @@
 package com.aura.lamplight.mixin.tinkerer;
 
+import com.aura.lamplight.folio.attribute.FolioAttributes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import com.aura.lamplight.tinkerer.charm.CharmSlotKinds;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.player.Player;
@@ -14,6 +16,8 @@ public abstract class PlayerCharmAttributesMixin {
 			at = @At("RETURN"))
 	private static AttributeSupplier.Builder lamplight$addCharmAttributes(
 			final AttributeSupplier.Builder original) {
-		return CharmSlotKinds.addToPlayerAttributes(original);
+		return CharmSlotKinds.addToPlayerAttributes(original)
+				.add(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(FolioAttributes.MANA), 0.0D)
+				.add(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(FolioAttributes.MAX_MANA), 50.0D);
 	}
 }

@@ -91,7 +91,8 @@
     "tinkerer.ServerPlayerInitMenuInvoker",
     "wayfarer.InventoryMenuBackpackAddonMixin",
     "folio.ServerLevelTemporalMixin",
-    "folio.ServerGamePacketListenerTemporalMixin"
+    "folio.ServerGamePacketListenerTemporalMixin",
+    "folio.DragonbladeCritMixin"
   ],
   "injectors": {
     "defaultRequire": 1

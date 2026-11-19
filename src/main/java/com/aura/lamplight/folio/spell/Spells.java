@@ -6,23 +6,22 @@ import java.util.Map;
 import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.Nullable;
 
-/**
- * Central lookup of every spell Folio knows about, keyed by {@link Identifier}.
- *
- * <p>This is intentionally a plain map rather than a full Minecraft
- * {@code Registry} for now - it's easy to swap for a datapack-driven
- * registry later without changing anything that calls {@link #byId}.</p>
- */
 public final class Spells {
     private Spells() {}
 
     private static final Map<Identifier, Spell> BY_ID = new LinkedHashMap<>();
 
-    // --- Ice scroll spells ---
+    // arcane
+    public static final Spell DRAGONBLADE = register(new DragonbladeSpell());
+
+    //i ice
     public static final Spell FROST_BOLT = register(new FrostBoltSpell());
     public static final Spell SLOWING_AURA = register(new SlowingAuraSpell());
 
-    // --- Temporal scroll spells ---
+    // wind
+    public static final Spell GALE_TETHER = register(new GaleTetherSpell());
+
+    // uhhh whatever
     public static final Spell GRAVITY_WELL = register(new GravityWellSpell());
 
     private static Spell register(final Spell spell) {
@@ -33,7 +32,6 @@ public final class Spells {
         return spell;
     }
 
-    /** Looks up a spell by id, or {@code null} if no such spell is registered. */
     public static @Nullable Spell byId(final Identifier id) {
         return BY_ID.get(id);
     }

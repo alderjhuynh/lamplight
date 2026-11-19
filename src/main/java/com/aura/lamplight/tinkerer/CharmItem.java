@@ -53,7 +53,7 @@ public class CharmItem extends Item {
 		return InteractionResult.CONSUME;
 	}
 
-	private Identifier firstMatchingSlot(final Player player, final ItemStack stack) {
+	protected Identifier firstMatchingSlot(final Player player, final ItemStack stack) {
 		boolean clientSide = player.level().isClientSide();
 		Map<String, Integer> capacities = clientSide
 				? CharmDeckLayout.clientCapacities()

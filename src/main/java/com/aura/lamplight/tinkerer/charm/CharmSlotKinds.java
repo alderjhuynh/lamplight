@@ -28,7 +28,7 @@ public final class CharmSlotKinds {
 	public record Kind(String slug, Holder<Attribute> current, Holder<Attribute> max) {}
 
 	private static final List<Kind> KINDS = List.of(registerKind("ring"), registerKind("necklace"),
-			registerKind("cuff"));
+			registerKind("cuff"), registerKind("spellbook"));
 
 	private static Kind registerKind(final String slug) {
 		Attribute current = Registry.register(

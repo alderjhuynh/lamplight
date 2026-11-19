@@ -11,12 +11,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 
-/**
- * A simple bolt-type spell: launches a single {@link FrostBoltEntity}
- * from the caster, following their aim.
- *
- * <p>Use this as a template for other "shoot a projectile" spells.</p>
- */
 public final class FrostBoltSpell extends Spell {
 
     public static final Identifier ID = Folio.id("frost_bolt");
@@ -25,7 +19,7 @@ public final class FrostBoltSpell extends Spell {
     private static final float PROJECTILE_INACCURACY = 0.6F;
 
     public FrostBoltSpell() {
-        super(ID, Component.translatable("spell.lamplight.frost_bolt"));
+        super(ID, Component.translatable("spell.lamplight.frost_bolt"), SpellSchool.ICE, 8, 0, 30, false);
     }
 
     @Override

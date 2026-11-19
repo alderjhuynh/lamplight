@@ -12,23 +12,16 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-/**
- * A field-type spell: a sphere of slowed time around the caster. Every
- * other player inside it experiences the world as if the global tick rate
- * had been set to 10, while the caster is left untouched. Built on top of
- * {@link TemporalFields}, so it can be reused for any other "time
- * dilation" effect.
- */
 public final class GravityWellSpell extends Spell {
 
     public static final Identifier ID = Folio.id("gravity_well");
 
     private static final float RADIUS = 6.0F;
-    private static final int DURATION_TICKS = 200; // 10 seconds
+    private static final int DURATION_TICKS = 200; 
     private static final float TARGET_TICK_RATE = 10.0F;
 
     public GravityWellSpell() {
-        super(ID, Component.translatable("spell.lamplight.gravity_well"));
+        super(ID, Component.translatable("spell.lamplight.gravity_well"), SpellSchool.ARCANE, 30, 40, 240, true);
     }
 
     @Override

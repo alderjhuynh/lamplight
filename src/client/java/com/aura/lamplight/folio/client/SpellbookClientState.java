@@ -2,9 +2,11 @@ package com.aura.lamplight.folio.client;
 
 import com.aura.lamplight.folio.CastingStatePayload;
 import com.aura.lamplight.folio.CastSpellPayload;
+import com.aura.lamplight.folio.ReleaseSpellPayload;
 import com.aura.lamplight.folio.SelectSpellPayload;
 import com.aura.lamplight.folio.SpellCooldownPayload;
 import com.aura.lamplight.folio.item.SpellbookItem;
+import com.aura.lamplight.folio.spell.ChargeSpell;
 import com.aura.lamplight.folio.spell.Spell;
 import com.aura.lamplight.folio.spell.Spells;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -29,6 +31,8 @@ public final class SpellbookClientState {
     private static int castTotal = 0;
     private static int castRemaining = 0;
     private static boolean channeled = false;
+
+    private static boolean holdingCast = false;
 
     private static final Map<Identifier, Integer> COOLDOWNS = new HashMap<>();
     private static int lastSentSelection = Integer.MIN_VALUE;
@@ -88,12 +92,38 @@ public final class SpellbookClientState {
         }
     }
 
+    /**
+     * Casts the selected spell as a tap: charge spells are started and released in the same tick, so
+     * they fire at minimum power. Used by the spell wheel, where there is no key to hold.
+     */
     public static void castSelected() {
+        castSelectedHeld();
+        releaseCast();
+    }
+
+    /**
+     * Starts casting the selected spell from the cast key. If it is a charge spell, the caller must
+     * call {@link #releaseCast()} once the key is let go (FolioClient does this every tick).
+     */
+    public static void castSelectedHeld() {
         if (spells.isEmpty()) {
             return;
         }
         int index = selected();
         ClientPlayNetworking.send(new CastSpellPayload(index < 0 ? -1 : index));
+        holdingCast = selectedSpell() instanceof ChargeSpell;
+    }
+
+    public static boolean isHoldingCast() {
+        return holdingCast;
+    }
+
+    public static void releaseCast() {
+        if (!holdingCast) {
+            return;
+        }
+        holdingCast = false;
+        ClientPlayNetworking.send(ReleaseSpellPayload.INSTANCE);
     }
 
     public static boolean isCasting() {
@@ -193,6 +223,7 @@ public final class SpellbookClientState {
         castTotal = 0;
         castRemaining = 0;
         channeled = false;
+        holdingCast = false;
         COOLDOWNS.clear();
         lastSentSelection = Integer.MIN_VALUE;
         pendingSelection = Integer.MIN_VALUE;

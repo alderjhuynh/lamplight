@@ -21,6 +21,17 @@ public final class ModEntityTypes {
             .updateInterval(10)
     );
 
+    public static final EntityType<FireballEntity> FIREBALL = register(
+        "fireball",
+        EntityType.Builder.<FireballEntity>of(FireballEntity::new, MobCategory.MISC)
+            .noLootTable()
+            .noSave()
+            .fireImmune()
+            .sized(0.5F, 0.5F)
+            .clientTrackingRange(8)
+            .updateInterval(1)
+    );
+
     private static <T extends Entity> EntityType<T> register(final String name, final EntityType.Builder<T> builder) {
         ResourceKey<EntityType<?>> key = ResourceKey.create(Registries.ENTITY_TYPE, Folio.id(name));
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, key, builder.build(key));

@@ -3,9 +3,12 @@ package com.aura.lamplight.folio.server;
 import com.aura.lamplight.folio.CastSpellPayload;
 import com.aura.lamplight.folio.CastingStatePayload;
 import com.aura.lamplight.folio.Folio;
+import com.aura.lamplight.folio.ReleaseSpellPayload;
 import com.aura.lamplight.folio.SelectSpellPayload;
 import com.aura.lamplight.folio.SpellCooldownPayload;
 import com.aura.lamplight.folio.item.SpellbookItem;
+import com.aura.lamplight.folio.spell.CastOrigin;
+import com.aura.lamplight.folio.spell.ChargeSpell;
 import com.aura.lamplight.folio.spell.Spell;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -13,6 +16,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -22,12 +26,14 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+@SuppressWarnings ("all")
 public final class FolioCastHandler {
     private FolioCastHandler() {}
 
@@ -35,6 +41,7 @@ public final class FolioCastHandler {
     private static final Identifier CAST_SLOW_ID = Folio.id("casting_slow");
 
     private static final Map<UUID, Casting> CASTING = new HashMap<>();
+    private static final Map<UUID, Holding> HOLDING = new HashMap<>();
     private static final Map<UUID, Map<Identifier, Long>> COOLDOWNS = new HashMap<>();
 
     public static void initialize() {
@@ -43,12 +50,16 @@ public final class FolioCastHandler {
         net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.DISCONNECT.register(
             (handler, server) -> {
                 UUID id = handler.player.getUUID();
+                cancelHold(handler.player, false);
                 CASTING.remove(id);
                 COOLDOWNS.remove(id);
             });
 
         ServerPlayNetworking.registerGlobalReceiver(CastSpellPayload.TYPE, (payload, context) ->
             context.server().execute(() -> castSelected(context.player(), payload.spellIndex())));
+
+        ServerPlayNetworking.registerGlobalReceiver(ReleaseSpellPayload.TYPE, (payload, context) ->
+            context.server().execute(() -> release(context.player())));
 
         ServerPlayNetworking.registerGlobalReceiver(SelectSpellPayload.TYPE, (payload, context) ->
             context.server().execute(() -> select(context.player(), payload.spellIndex())));
@@ -92,7 +103,7 @@ public final class FolioCastHandler {
         }
 
         UUID uuid = player.getUUID();
-        if (CASTING.containsKey(uuid)) {
+        if (CASTING.containsKey(uuid) || HOLDING.containsKey(uuid)) {
             message(player, "message.lamplight.spellbook.busy", ChatFormatting.GRAY);
             return;
         }
@@ -121,6 +132,11 @@ public final class FolioCastHandler {
             source = player.getMainHandItem();
         }
 
+        if (spell instanceof ChargeSpell chargeSpell) {
+            startHold(player, chargeSpell, source, CastOrigin.SPELLBOOK, now);
+            return;
+        }
+
         int total = Math.max(0, spell.castTime());
         if (total <= 0) {
             complete(player, spell, source, now);
@@ -135,6 +151,13 @@ public final class FolioCastHandler {
     private static void tick(final MinecraftServer server) {
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             UUID uuid = player.getUUID();
+
+            Holding holding = HOLDING.get(uuid);
+            if (holding != null) {
+                tickHold(player, holding);
+                continue;
+            }
+
             Casting casting = CASTING.get(uuid);
             if (casting == null) {
                 continue;
@@ -170,13 +193,100 @@ public final class FolioCastHandler {
 
         spell.cast(player.level(), player, source);
 
+        startCooldown(player, spell, now);
+        sendCastingState(player, null, 0, 0, false);
+    }
+
+    private static void startCooldown(final ServerPlayer player, final Spell spell, final long now) {
         if (spell.cooldownTicks() > 0) {
             COOLDOWNS.computeIfAbsent(player.getUUID(), ignored -> new HashMap<>())
                 .put(spell.id(), now + spell.cooldownTicks());
             ServerPlayNetworking.send(player,
                 new SpellCooldownPayload(spell.id().toString(), spell.cooldownTicks()));
         }
-        sendCastingState(player, null, 0, 0, false);
+    }
+
+    public static boolean beginScrollHold(final ServerPlayer player, final ChargeSpell spell, final ItemStack scroll) {
+        if (!player.isAlive() || player.isRemoved()) {
+            return false;
+        }
+        UUID uuid = player.getUUID();
+        if (CASTING.containsKey(uuid) || HOLDING.containsKey(uuid)) {
+            message(player, "message.lamplight.spellbook.busy", ChatFormatting.GRAY);
+            return false;
+        }
+        startHold(player, spell, scroll, CastOrigin.SCROLL, player.level().getGameTime());
+        return true;
+    }
+
+    private static void startHold(
+        final ServerPlayer player,
+        final ChargeSpell spell,
+        final ItemStack source,
+        final CastOrigin origin,
+        final long now
+    ) {
+        HOLDING.put(player.getUUID(), new Holding(spell, source, origin, now, player.level().dimension()));
+        if (origin == CastOrigin.SPELLBOOK) {
+            applySlow(player);
+        }
+        spell.chargeStart(player.level(), player, source, origin);
+    }
+
+    private static void tickHold(final ServerPlayer player, final Holding holding) {
+        if (!player.isAlive()
+            || player.isRemoved()
+            || player.level().dimension() != holding.dimension
+            || (holding.origin == CastOrigin.SCROLL && !player.isUsingItem())) {
+            cancelHold(player, false);
+            return;
+        }
+
+        int held = (int) Math.min(Integer.MAX_VALUE, player.level().getGameTime() - holding.startTick);
+        if (!holding.spell.chargeTick(player.level(), player, holding.source, holding.origin, held)) {
+            cancelHold(player, false);
+            return;
+        }
+
+        if (held >= holding.spell.maxHoldTicks()) {
+            if (holding.origin == CastOrigin.SCROLL) {
+               player.releaseUsingItem();
+            } else {
+                release(player);
+            }
+        }
+    }
+
+    public static boolean release(final ServerPlayer player) {
+        Holding holding = HOLDING.remove(player.getUUID());
+        if (holding == null) {
+            return false;
+        }
+        clearSlow(player);
+
+        long now = player.level().getGameTime();
+        int held = (int) Math.min(Integer.MAX_VALUE, now - holding.startTick);
+        holding.spell.chargeRelease(player.level(), player, holding.source, holding.origin, held);
+
+        if (holding.origin == CastOrigin.SPELLBOOK) {
+            startCooldown(player, holding.spell, now);
+        }
+        return true;
+    }
+
+    public static void cancelHold(final ServerPlayer player, final boolean interrupted) {
+        Holding holding = HOLDING.remove(player.getUUID());
+        if (holding == null) {
+            return;
+        }
+        clearSlow(player);
+        holding.spell.chargeCancel(player.level(), player, holding.origin);
+        if (holding.origin == CastOrigin.SCROLL && player.isUsingItem()) {
+            player.stopUsingItem();
+        }
+        if (interrupted) {
+            message(player, "message.lamplight.spellbook.interrupted", ChatFormatting.RED);
+        }
     }
 
     public static void cancel(final ServerPlayer player, final boolean interrupted) {
@@ -205,15 +315,24 @@ public final class FolioCastHandler {
         if (casting != null && casting.spell.interruptible()) {
             cancel(player, true);
         }
+        Holding holding = HOLDING.get(player.getUUID());
+        if (holding != null && holding.spell.interruptible()) {
+            cancelHold(player, true);
+        }
     }
 
     public static boolean isCasting(final ServerPlayer player) {
-        return CASTING.containsKey(player.getUUID());
+        return CASTING.containsKey(player.getUUID()) || HOLDING.containsKey(player.getUUID());
     }
 
     public record CastView(Spell spell, float progress) {}
 
     public static @Nullable CastView castView(final ServerPlayer player) {
+        Holding holding = HOLDING.get(player.getUUID());
+        if (holding != null) {
+            int held = (int) Math.min(Integer.MAX_VALUE, player.level().getGameTime() - holding.startTick);
+            return new CastView(holding.spell, holding.spell.chargeProgress(player, held));
+        }
         Casting casting = CASTING.get(player.getUUID());
         if (casting == null) {
             return null;
@@ -276,6 +395,28 @@ public final class FolioCastHandler {
 
     private static void message(final ServerPlayer player, final Component text, final ChatFormatting color) {
         player.sendSystemMessage(text.copy().withStyle(color), true);
+    }
+
+    private static final class Holding {
+        final ChargeSpell spell;
+        final ItemStack source;
+        final CastOrigin origin;
+        final long startTick;
+        final ResourceKey<Level> dimension;
+
+        Holding(
+            final ChargeSpell spell,
+            final ItemStack source,
+            final CastOrigin origin,
+            final long startTick,
+            final ResourceKey<Level> dimension
+        ) {
+            this.spell = spell;
+            this.source = source;
+            this.origin = origin;
+            this.startTick = startTick;
+            this.dimension = dimension;
+        }
     }
 
     private static final class Casting {

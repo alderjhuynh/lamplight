@@ -10,13 +10,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
+@SuppressWarnings ("all")
 public final class TemporalField {
     private final ResourceKey<Level> dimension;
     private final Vec3 center;
     private final @Nullable Entity anchor;
-    private final double radius;
-    private final double radiusSq;
-    private final float tickRate;
+    private double radius;
+    private double radiusSq;
+    private float tickRate;
     private final long expiresAtGameTime;
     private final Predicate<Entity> filter;
     private final @Nullable ParticleOptions particle;
@@ -57,8 +58,23 @@ public final class TemporalField {
         return radius;
     }
 
+    public void setRadius(final double radius) {
+        if (radius <= 0.0D) {
+            throw new IllegalArgumentException("radius must be positive");
+        }
+        this.radius = radius;
+        this.radiusSq = radius * radius;
+    }
+
     public float tickRate() {
         return tickRate;
+    }
+
+    public void setTickRate(final float tickRate) {
+        if (tickRate < 1.0F) {
+            throw new IllegalArgumentException("tickRate must be >= 1");
+        }
+        this.tickRate = tickRate;
     }
 
     public boolean contains(Entity entity) {

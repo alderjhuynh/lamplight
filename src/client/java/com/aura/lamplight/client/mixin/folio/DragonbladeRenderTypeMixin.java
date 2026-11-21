@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntityRenderer.class)
+@SuppressWarnings ("all")
 public abstract class DragonbladeRenderTypeMixin {
     @Inject(method = "getRenderType", at = @At("RETURN"), cancellable = true)
     private void lamplight$swapGrayscale(LivingEntityRenderState state, boolean bodyVisible, boolean translucent, boolean glowing, CallbackInfoReturnable<RenderType> cir) {

@@ -142,6 +142,54 @@
       }
     ]
   },
+  "spell.gravity_well": {
+    "sounds": [
+      {
+        "name": "lamplight:spell/gravity_well"
+      }
+    ],
+    "subtitle": "lamplight.sound.subtitle.gravity_well"
+  },
+  "spell.fireball.initial_cast": {
+    "sounds": [
+      {
+        "name": "lamplight:spell/fireball_initial_cast"
+      }
+    ],
+    "subtitle": "lamplight.sound.subtitle.fireball_charge"
+  },
+  "spell.fireball.cast": {
+    "sounds": [
+      {
+        "name": "lamplight:spell/fireball_cast"
+      }
+    ],
+    "subtitle": "lamplight.sound.subtitle.fireball_cast"
+  },
+  "spell.fireball.impact": {
+    "sounds": [
+      {
+        "name": "lamplight:spell/fireball_impact"
+      }
+    ],
+    "subtitle": "lamplight.sound.subtitle.fireball_impact"
+  },
+  "spell.fireball.impact_heavy": {
+    "sounds": [
+      {
+        "name": "lamplight:spell/fireball_impact_heavy"
+      }
+    ],
+    "subtitle": "lamplight.sound.subtitle.fireball_impact_heavy"
+  },
+  "spell.fireball.prepare": {
+    "sounds": [
+      {
+        "name": "lamplight:spell/fireball_prepare"
+      }
+    ],
+    "subtitle": "lamplight.sound.subtitle.fireball_prepare"
+  },
   "wavedash_activates": {
     "sounds": [
       {

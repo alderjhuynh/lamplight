@@ -53,6 +53,7 @@
     "picturesque.raytrace.RaytraceLightmapMixin",
     "picturesque.raytrace.RaytraceSkyMixin",
     "picturesque.raytrace.RaytraceWaterMixin",
+    "impactframe.ImpactFrameGameMixin",
     "folio.DragonbladeAttackMixin",
     "folio.DragonbladeRenderStateMixin",
     "folio.DragonbladeExtractMixin",

@@ -15,6 +15,7 @@ import com.aura.lamplight.folio.client.FolioClient;
 import com.aura.lamplight.wayfarer.client.WayfarerClient;
 import com.aura.lamplight.puppeteer.client.PuppeteerClient;
 import com.aura.lamplight.picturesque.client.PicturesqueClient;
+import com.aura.lamplight.client.impactframe.ImpactFrameClient;
 import net.fabricmc.api.ClientModInitializer;
 
 public class LamplightClient implements ClientModInitializer {
@@ -36,5 +37,6 @@ public class LamplightClient implements ClientModInitializer {
 		new com.aura.lamplight.wayfarer.atlas.AtlasClient().onInitializeClient();
 		new PuppeteerClient().onInitializeClient();
 		new PicturesqueClient().onInitializeClient();
+		new ImpactFrameClient().onInitializeClient();
 	}
 }

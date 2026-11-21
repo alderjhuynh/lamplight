@@ -24,9 +24,11 @@ import net.minecraft.world.BossEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.hurtingprojectile.windcharge.AbstractWindCharge;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+@SuppressWarnings ("all")
 public final class DragonbladeHandler {
 
     private DragonbladeHandler() {}
@@ -47,8 +49,8 @@ public final class DragonbladeHandler {
                 State state = STATES.get(sp.getUUID());
                 if (state == null) return;
                 Entity target = sp.level().getEntity(payload.entityId());
-                if (!(target instanceof LivingEntity living) || !living.isAlive()) return;
-                if (target == sp) return;
+                if (target == null || target == sp || !target.isAlive()) return;
+                if (!(target instanceof LivingEntity) && !(target instanceof AbstractWindCharge)) return;
                 if (sp.position().distanceTo(target.position()) > TELEPORT_RANGE) return;
                 if (state.teleportedEntities.contains(target.getUUID())) return;
 
@@ -60,8 +62,10 @@ public final class DragonbladeHandler {
                 state.durationTicks = RESET_TICKS;
                 state.hasTeleported = true;
                 state.bossBar.setColor(BossEvent.BossBarColor.RED);
-                requestForcedCrit(sp);
-                sp.attack(living);
+                if (target instanceof LivingEntity living) {
+                    requestForcedCrit(sp);
+                    sp.attack(living);
+                }
 
                 level.playSound(null, sp.getX(), sp.getY(), sp.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 0.8F, 1.2F);
             });

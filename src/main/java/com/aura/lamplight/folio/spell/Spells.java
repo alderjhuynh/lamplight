@@ -14,12 +14,11 @@ public final class Spells {
     // arcane
     public static final Spell DRAGONBLADE = register(new DragonbladeSpell());
 
-    //i ice
+    // `ice
     public static final Spell FROST_BOLT = register(new FrostBoltSpell());
-    public static final Spell SLOWING_AURA = register(new SlowingAuraSpell());
 
-    // wind
-    public static final Spell GALE_TETHER = register(new GaleTetherSpell());
+    // flame
+    public static final Spell FIREBALL = register(new FireballSpell());
 
     // uhhh whatever
     public static final Spell GRAVITY_WELL = register(new GravityWellSpell());

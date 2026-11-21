@@ -1,0 +1,64 @@
+{
+    "targets": {
+        "swap": {}
+    },
+    "passes": [
+        {
+            "vertex_shader": "minecraft:core/screenquad",
+            "fragment_shader": "lamplight:post/impact_frame",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "minecraft:main"
+                },
+                {
+                    "sampler_name": "InDepth",
+                    "target": "minecraft:main",
+                    "use_depth_buffer": true
+                }
+            ],
+            "output": "swap",
+            "uniforms": {
+                "ImpactConfig": [
+                    { "name": "DarkColor",     "type": "vec4",  "value": [ 0.0, 0.0, 0.0, 1.0 ] },
+                    { "name": "LightColor",    "type": "vec4",  "value": [ 1.0, 1.0, 1.0, 1.0 ] },
+                    { "name": "Center",        "type": "vec2",  "value": [ 0.5, 0.5 ] },
+                    { "name": "Progress",      "type": "float", "value": 1.0 },
+                    { "name": "Beat",          "type": "float", "value": 0.0 },
+                    { "name": "Seed",          "type": "float", "value": 0.0 },
+                    { "name": "FlickerMask",   "type": "float", "value": 11.0 },
+                    { "name": "Threshold",     "type": "float", "value": 0.74 },
+                    { "name": "Softness",      "type": "float", "value": 0.021 },
+                    { "name": "LocalContrast", "type": "float", "value": 1.2 },
+                    { "name": "Halftone",      "type": "float", "value": 0.1 },
+                    { "name": "InkWidth",      "type": "float", "value": 0.0025 },
+                    { "name": "InkLuma",       "type": "float", "value": 0.62 },
+                    { "name": "InkDepth",      "type": "float", "value": 0.06 },
+                    { "name": "LineCount",     "type": "float", "value": 96.0 },
+                    { "name": "LineInner",     "type": "float", "value": 0.28 },
+                    { "name": "LineWidth",     "type": "float", "value": 0.16 },
+                    { "name": "Punch",         "type": "float", "value": 0.05 },
+                    { "name": "Shake",         "type": "float", "value": 0.006 },
+                    { "name": "ReleaseStart",  "type": "float", "value": 0.72 },
+                    { "name": "FrontWidth",    "type": "float", "value": 0.035 }
+                ]
+            }
+        },
+        {
+            "vertex_shader": "minecraft:core/screenquad",
+            "fragment_shader": "minecraft:post/blit",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap"
+                }
+            ],
+            "output": "minecraft:main",
+            "uniforms": {
+                "BlitConfig": [
+                    { "name": "ColorModulate", "type": "vec4", "value": [ 1.0, 1.0, 1.0, 1.0 ] }
+                ]
+            }
+        }
+    ]
+}

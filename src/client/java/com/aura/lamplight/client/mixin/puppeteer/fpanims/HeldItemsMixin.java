@@ -5,6 +5,9 @@ import com.mojang.math.Axis;
 import com.aura.lamplight.armory.GreatswordItem;
 import com.aura.lamplight.armory.RapierCombat;
 import com.aura.lamplight.armory.RapierItem;
+import com.aura.lamplight.folio.client.SpellbookClientState;
+import com.aura.lamplight.folio.item.ScrollItem;
+import com.aura.lamplight.folio.spell.FireballSpell;
 import com.aura.lamplight.puppeteer.fpanims.FpAnimsClient;
 import com.aura.lamplight.puppeteer.fpanims.FpAnimsConfig;
 import com.aura.lamplight.puppeteer.fpanims.BlockEmissionRenderer;
@@ -18,6 +21,7 @@ import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
@@ -94,9 +98,27 @@ public abstract class HeldItemsMixin {
         // DUDE I SWEAR TO GOD I MADE A SCYTHE ITEM TAG WHERE IS IT
     }
 
-    // whether the current rapier swing is a thrust, latched when the swing starts so it can't flip mid-swing
     @Unique
     private boolean fpanims$rapierThrustSwing;
+
+    @Unique
+    private float fpanims$castPose;
+
+    @Unique
+    private float fpanims$castTime;
+
+    @Unique
+    private float fpanims$castRecoil;
+
+    @Unique
+    private boolean fpanims$wasCasting;
+
+    @Unique
+    private static final float CAST_POSE_OFFSET_X = 0.0F;
+    @Unique
+    private static final float CAST_POSE_OFFSET_Y = -0.2F;
+    @Unique
+    private static final float CAST_POSE_OFFSET_Z = 0.7F;
 
     @Unique
     private static boolean fpanims$isGreatswordBlock(AbstractClientPlayer player, ItemStack stack, InteractionHand hand) {
@@ -229,6 +251,76 @@ public abstract class HeldItemsMixin {
         return player.isInWater() || player.isInLava() || player.isInPowderSnow;
     }
 
+    @Unique
+    private static boolean fpanims$isCastingFireball(AbstractClientPlayer player) {
+        if (player != Minecraft.getInstance().player) {
+            return false;
+        }
+        if (player.isUsingItem() && ScrollItem.getSpell(player.getUseItem()) instanceof FireballSpell) {
+            return true;
+        }
+        return SpellbookClientState.isHoldingCast()
+            && SpellbookClientState.selectedSpell() instanceof FireballSpell;
+    }
+
+    @Unique
+    private void fpanims$renderCastingArm(
+        PoseStack poseStack,
+        SubmitNodeCollector submitNodeCollector,
+        int light,
+        float equipProgress,
+        HumanoidArm arm,
+        float pose
+    ) {
+        float side = arm == HumanoidArm.RIGHT ? 1.0F : -1.0F;
+        float handTremor = Mth.sin(this.fpanims$castTime * 2.4F + (side > 0.0F ? 0.0F : 1.7F));
+        float breathe = Mth.sin(this.fpanims$castTime * 0.8F);
+
+         float recoil = this.fpanims$castRecoil * this.fpanims$castRecoil;
+        poseStack.pushPose();
+        poseStack.translate(
+            CAST_POSE_OFFSET_X * pose + 0.04F * side * recoil * pose,
+            CAST_POSE_OFFSET_Y * pose + 0.05F * recoil * pose,
+            CAST_POSE_OFFSET_Z * pose + 0.14F * recoil * pose);
+
+       poseStack.translate(0.0F, (0.10F + breathe * 0.01F) * pose, -0.12F * pose);
+        poseStack.mulPose(Axis.YP.rotationDegrees(10.0F * side * pose));
+        poseStack.mulPose(Axis.XP.rotationDegrees((34.0F + breathe * 0.8F - 7.0F * recoil) * pose));
+        poseStack.mulPose(Axis.ZP.rotationDegrees(-8.0F * side * pose));
+
+        poseStack.mulPose(Axis.XP.rotationDegrees(handTremor * 1.1F * pose));
+        poseStack.mulPose(Axis.ZP.rotationDegrees(handTremor * 0.8F * side * pose));
+        poseStack.translate(0.0F, handTremor * 0.006F * pose, 0.0F);
+
+        this.renderPlayerArm(poseStack, submitNodeCollector, light, equipProgress, 0.0F, arm);
+
+        poseStack.popPose();
+    }
+
+    @Inject(
+        method = "submitHandsWithItems",
+        at = @At("HEAD")
+    )
+    private void fpanims$updateCastingPose(float partialTicks, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, LocalPlayer player, int light, CallbackInfo ci) {
+        double frameTime = FpAnimsClient.deltaTime * FpAnimsConfig.ANIMATION_SPEED;
+
+        boolean casting = fpanims$isCastingFireball(player);
+        if (this.fpanims$wasCasting && !casting) {
+            this.fpanims$castRecoil = 1.0F;
+        }
+        this.fpanims$wasCasting = casting;
+
+        float target = casting || this.fpanims$castRecoil > 0.0F ? 1.0F : 0.0F;
+        float step = Mth.clamp((float) (frameTime * 14.0), 0.05F, 0.4F);
+        this.fpanims$castPose += Mth.clamp(target - this.fpanims$castPose, -step, step);
+        if (this.fpanims$castPose < 0.0001F) {
+            this.fpanims$castPose = 0.0F;
+        }
+
+        this.fpanims$castRecoil = Math.max(0.0F, this.fpanims$castRecoil - (float) (frameTime * 5.0));
+        this.fpanims$castTime += (float) (frameTime * 3.0);
+    }
+
     @Inject(
         method = "submitArmWithItem",
         at = @At("HEAD"),
@@ -237,6 +329,16 @@ public abstract class HeldItemsMixin {
     private void fpanims$onSubmitArmWithItem(AbstractClientPlayer player, float partialTicks, float pitch, InteractionHand hand, float swingProgress, ItemStack stack, float equipProgress, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, CallbackInfo ci) {
         if (hand == InteractionHand.MAIN_HAND) {
             FpAnimsClient.updateFrameTime();
+        }
+        if (this.fpanims$castPose > 0.0F && player == Minecraft.getInstance().player) {
+            if (!player.isInvisible() && !player.isScoping()) {
+                HumanoidArm arm = hand == InteractionHand.MAIN_HAND
+                    ? player.getMainArm()
+                    : player.getMainArm().getOpposite();
+                this.fpanims$renderCastingArm(poseStack, submitNodeCollector, light, equipProgress, arm, this.fpanims$castPose);
+            }
+            ci.cancel();
+            return;
         }
         boolean isUsingSandpaper = player.getMainHandItem().getItem().toString().contains("sand_paper") && player.isUsingItem() && player.getUsedItemHand() == InteractionHand.MAIN_HAND
             || player.getOffhandItem().getItem().toString().contains("sand_paper") && player.isUsingItem() && player.getUsedItemHand() == InteractionHand.OFF_HAND;

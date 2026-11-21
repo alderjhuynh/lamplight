@@ -15,13 +15,18 @@ import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 
 public class FolioClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		EntityRenderers.register(ModEntityTypes.FROST_BOLT, ThrownItemRenderer::new);
-		ParticleProviderRegistry.getInstance().register(ModParticles.CHAIN_LINK, ChainLinkParticle.Provider::new);
+		EntityRenderers.register(ModEntityTypes.FIREBALL, NoopRenderer::new);
+		ParticleProviderRegistry.getInstance().register(ModParticles.FLAME_CHARGE, FlameOrbParticle.Provider::new);
+		ParticleProviderRegistry.getInstance().register(ModParticles.BLASTWAVE, BlastwaveParticle.Provider::new);
+		ParticleProviderRegistry.getInstance().register(ModParticles.FIERY_SMOKE, FierySmokeParticle.Provider::new);
+		ParticleProviderRegistry.getInstance().register(ModParticles.GRAVITY_WELL, GravityWellParticle.Provider::new);
 		HudElementRegistry.attachElementAfter(VanillaHudElements.CROSSHAIR,
 			com.aura.lamplight.folio.Folio.id("dragonblade_vignette"), new DragonbladeVignette());
 
@@ -46,6 +51,9 @@ public class FolioClient implements ClientModInitializer {
 			}
 
 			Screen screen = client.gui.screen();
+			if (SpellbookClientState.isHoldingCast() && (screen != null || !FolioKeys.CAST.isDown())) {
+				SpellbookClientState.releaseCast();
+			}
 			if (screen != null) {
 				while (FolioKeys.WHEEL.consumeClick()) {
 				}
@@ -62,7 +70,10 @@ public class FolioClient implements ClientModInitializer {
 					client.gui.setScreen(new SpellWheelScreen());
 				}
 			} else if (FolioKeys.CAST.consumeClick()) {
-				SpellbookClientState.castSelected();
+				SpellbookClientState.castSelectedHeld();
+				if (!FolioKeys.CAST.isDown()) {
+					SpellbookClientState.releaseCast();
+				}
 			}
 		});
 	}

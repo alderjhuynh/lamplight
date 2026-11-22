@@ -51,7 +51,7 @@ public final class PicturesqueState {
     }
 
     public boolean active() {
-        return config != null && config.enabled;
+        return config != null && config.enabled && !com.aura.lamplight.nullbloom.client.NullbloomClientState.inside();
     }
 
     public void tick(Minecraft client) {

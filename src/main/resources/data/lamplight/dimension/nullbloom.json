@@ -1,0 +1,10 @@
+{
+  "type": "lamplight:nullbloom",
+  "generator": {
+    "type": "lamplight:nullbloom",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "lamplight:nullbloom"
+    }
+  }
+}

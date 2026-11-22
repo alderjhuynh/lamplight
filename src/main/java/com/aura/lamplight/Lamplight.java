@@ -15,6 +15,7 @@ import com.aura.lamplight.folio.Folio;
 import com.aura.lamplight.wayfarer.Wayfarer;
 import com.aura.lamplight.puppeteer.Puppeteer;
 import com.aura.lamplight.picturesque.Picturesque;
+import com.aura.lamplight.nullbloom.Nullbloom;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
@@ -42,6 +43,7 @@ public class Lamplight implements ModInitializer {
 		new Wayfarer().onInitialize();
 		new Puppeteer().onInitialize();
 		new Picturesque().onInitialize();
+		new Nullbloom().onInitialize();
 
 		LOGGER.info("Lamplight initialized");
 	}

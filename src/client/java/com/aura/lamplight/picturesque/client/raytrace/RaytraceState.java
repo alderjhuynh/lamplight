@@ -29,7 +29,8 @@ public final class RaytraceState {
 
     public boolean active() {
         PicturesqueConfig config = PicturesqueState.get().config();
-        return config != null && config.enabled && config.raytracing;
+        return config != null && config.enabled && config.raytracing
+                && !com.aura.lamplight.nullbloom.client.NullbloomClientState.inside();
     }
 
     public float raytraceStrength() {

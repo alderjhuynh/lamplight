@@ -1105,5 +1105,6 @@
   "advancements.lamplight.hearthwright.slab_city.title": "Slab City",
   "advancements.lamplight.hearthwright.slab_city.description": "Craft concrete slabs in all sixteen colors.",
   "advancements.lamplight.hearthwright.master_mason.title": "Master Mason",
-  "advancements.lamplight.hearthwright.master_mason.description": "Finish every masonry collection."
+  "advancements.lamplight.hearthwright.master_mason.description": "Finish every masonry collection.",
+  "block.lamplight.nullbloom": "Nullbloom"
 }

@@ -3,6 +3,7 @@
   "package": "com.aura.lamplight.client.mixin",
   "compatibilityLevel": "JAVA_25",
   "client": [
+    "nullbloom.NullbloomDarknessGameMixin",
     "ambrosia.FryingPanFirstPersonMixin",
     "ambrosia.FryingPanThirdPersonMixin",
     "ambrosia.appleskin.ClientTooltipComponentMixin",

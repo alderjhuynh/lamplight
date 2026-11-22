@@ -231,6 +231,9 @@ public final class FolioCastHandler {
             applySlow(player);
         }
         spell.chargeStart(player.level(), player, source, origin);
+
+        int holdTicks = Math.max(1, spell.maxHoldTicks());
+        sendCastingState(player, spell, holdTicks, holdTicks, false);
     }
 
     private static void tickHold(final ServerPlayer player, final Holding holding) {
@@ -271,6 +274,7 @@ public final class FolioCastHandler {
         if (holding.origin == CastOrigin.SPELLBOOK) {
             startCooldown(player, holding.spell, now);
         }
+        sendCastingState(player, null, 0, 0, false);
         return true;
     }
 
@@ -281,6 +285,7 @@ public final class FolioCastHandler {
         }
         clearSlow(player);
         holding.spell.chargeCancel(player.level(), player, holding.origin);
+        sendCastingState(player, null, 0, 0, false);
         if (holding.origin == CastOrigin.SCROLL && player.isUsingItem()) {
             player.stopUsingItem();
         }

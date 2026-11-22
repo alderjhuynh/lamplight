@@ -6,8 +6,6 @@ import com.aura.lamplight.armory.GreatswordItem;
 import com.aura.lamplight.armory.RapierCombat;
 import com.aura.lamplight.armory.RapierItem;
 import com.aura.lamplight.folio.client.SpellbookClientState;
-import com.aura.lamplight.folio.item.ScrollItem;
-import com.aura.lamplight.folio.spell.FireballSpell;
 import com.aura.lamplight.puppeteer.fpanims.FpAnimsClient;
 import com.aura.lamplight.puppeteer.fpanims.FpAnimsConfig;
 import com.aura.lamplight.puppeteer.fpanims.BlockEmissionRenderer;
@@ -252,15 +250,8 @@ public abstract class HeldItemsMixin {
     }
 
     @Unique
-    private static boolean fpanims$isCastingFireball(AbstractClientPlayer player) {
-        if (player != Minecraft.getInstance().player) {
-            return false;
-        }
-        if (player.isUsingItem() && ScrollItem.getSpell(player.getUseItem()) instanceof FireballSpell) {
-            return true;
-        }
-        return SpellbookClientState.isHoldingCast()
-            && SpellbookClientState.selectedSpell() instanceof FireballSpell;
+    private static boolean fpanims$isCastingChargeSpell(AbstractClientPlayer player) {
+        return player == Minecraft.getInstance().player && SpellbookClientState.isCastingChargeSpell();
     }
 
     @Unique
@@ -304,7 +295,7 @@ public abstract class HeldItemsMixin {
     private void fpanims$updateCastingPose(float partialTicks, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, LocalPlayer player, int light, CallbackInfo ci) {
         double frameTime = FpAnimsClient.deltaTime * FpAnimsConfig.ANIMATION_SPEED;
 
-        boolean casting = fpanims$isCastingFireball(player);
+        boolean casting = fpanims$isCastingChargeSpell(player);
         if (this.fpanims$wasCasting && !casting) {
             this.fpanims$castRecoil = 1.0F;
         }

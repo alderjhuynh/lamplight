@@ -28,6 +28,7 @@ public final class SpellbookClientState {
 
     private static boolean casting = false;
     private static String castingSpell = "";
+    private static @Nullable Spell castingSpellType;
     private static int castTotal = 0;
     private static int castRemaining = 0;
     private static boolean channeled = false;
@@ -92,19 +93,11 @@ public final class SpellbookClientState {
         }
     }
 
-    /**
-     * Casts the selected spell as a tap: charge spells are started and released in the same tick, so
-     * they fire at minimum power. Used by the spell wheel, where there is no key to hold.
-     */
     public static void castSelected() {
         castSelectedHeld();
         releaseCast();
     }
 
-    /**
-     * Starts casting the selected spell from the cast key. If it is a charge spell, the caller must
-     * call {@link #releaseCast()} once the key is let go (FolioClient does this every tick).
-     */
     public static void castSelectedHeld() {
         if (spells.isEmpty()) {
             return;
@@ -128,6 +121,10 @@ public final class SpellbookClientState {
 
     public static boolean isCasting() {
         return casting;
+    }
+
+    public static boolean isCastingChargeSpell() {
+        return casting && castingSpellType instanceof ChargeSpell;
     }
 
     public static String castingSpell() {
@@ -166,6 +163,7 @@ public final class SpellbookClientState {
         if (payload.spell().isEmpty()) {
             casting = false;
             castingSpell = "";
+            castingSpellType = null;
             castTotal = 0;
             castRemaining = 0;
             channeled = false;
@@ -173,6 +171,8 @@ public final class SpellbookClientState {
         }
         casting = true;
         castingSpell = payload.spell();
+        Identifier spellId = Identifier.tryParse(payload.spell());
+        castingSpellType = spellId == null ? null : Spells.byId(spellId);
         castTotal = payload.totalTicks();
         castRemaining = Math.min(payload.totalTicks(), payload.remainingTicks());
         channeled = payload.channeled();
@@ -220,6 +220,7 @@ public final class SpellbookClientState {
         equipped = false;
         casting = false;
         castingSpell = "";
+        castingSpellType = null;
         castTotal = 0;
         castRemaining = 0;
         channeled = false;

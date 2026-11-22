@@ -19,6 +19,8 @@ import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 
 public class FolioClient implements ClientModInitializer {
+	private static boolean castKeyWasDown;
+
 	@Override
 	public void onInitializeClient() {
 		EntityRenderers.register(ModEntityTypes.FROST_BOLT, ThrownItemRenderer::new);
@@ -47,11 +49,13 @@ public class FolioClient implements ClientModInitializer {
 			SpellbookClientState.refresh(client);
 			SpellbookClientState.tick();
 			if (client.player == null) {
+				castKeyWasDown = false;
 				return;
 			}
 
+			boolean castDown = FolioKeys.CAST.isDown();
 			Screen screen = client.gui.screen();
-			if (SpellbookClientState.isHoldingCast() && (screen != null || !FolioKeys.CAST.isDown())) {
+			if (SpellbookClientState.isHoldingCast() && (screen != null || !castDown)) {
 				SpellbookClientState.releaseCast();
 			}
 			if (screen != null) {
@@ -59,22 +63,33 @@ public class FolioClient implements ClientModInitializer {
 				}
 				while (FolioKeys.CAST.consumeClick()) {
 				}
+				castKeyWasDown = castDown;
 				return;
 			}
 			if (!SpellbookClientState.hasSpellbook()) {
+				while (FolioKeys.CAST.consumeClick()) {
+				}
+				castKeyWasDown = castDown;
 				return;
 			}
 
-			if (FolioKeys.WHEEL.consumeClick()) {
+			boolean wheelClicked = FolioKeys.WHEEL.consumeClick();
+			boolean castClicked = false;
+			while (FolioKeys.CAST.consumeClick()) {
+				castClicked = true;
+			}
+
+			if (wheelClicked) {
 				if (FolioKeys.WHEEL.isDown()) {
 					client.gui.setScreen(new SpellWheelScreen());
 				}
-			} else if (FolioKeys.CAST.consumeClick()) {
+			} else if (castClicked && !castKeyWasDown) {
 				SpellbookClientState.castSelectedHeld();
-				if (!FolioKeys.CAST.isDown()) {
+				if (!castDown) {
 					SpellbookClientState.releaseCast();
 				}
 			}
+			castKeyWasDown = castDown;
 		});
 	}
 }

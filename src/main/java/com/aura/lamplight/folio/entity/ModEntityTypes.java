@@ -32,6 +32,15 @@ public final class ModEntityTypes {
             .updateInterval(1)
     );
 
+    public static final EntityType<HolyBoltEntity> HOLY_BOLT = register(
+        "holy_bolt",
+        EntityType.Builder.<HolyBoltEntity>of(HolyBoltEntity::new, MobCategory.MISC)
+            .noLootTable()
+            .sized(0.25F, 0.25F)
+            .clientTrackingRange(4)
+            .updateInterval(10)
+    );
+
     private static <T extends Entity> EntityType<T> register(final String name, final EntityType.Builder<T> builder) {
         ResourceKey<EntityType<?>> key = ResourceKey.create(Registries.ENTITY_TYPE, Folio.id(name));
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, key, builder.build(key));

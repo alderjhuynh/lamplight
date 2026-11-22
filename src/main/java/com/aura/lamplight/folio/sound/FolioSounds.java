@@ -16,6 +16,9 @@ public final class FolioSounds {
     public static final SoundEvent FIREBALL_IMPACT = register("spell.fireball.impact");
     public static final SoundEvent FIREBALL_IMPACT_HEAVY = register("spell.fireball.impact_heavy");
 
+    public static final SoundEvent SHIELD_CAST = register("spell.shield.cast");
+    public static final SoundEvent SHIELD_HIT = register("spell.shield.hit");
+
     private static SoundEvent register(final String path) {
         return Registry.register(BuiltInRegistries.SOUND_EVENT, Folio.id(path),
             SoundEvent.createVariableRangeEvent(Folio.id(path)));

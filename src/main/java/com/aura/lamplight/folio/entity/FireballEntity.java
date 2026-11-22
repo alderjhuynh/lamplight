@@ -109,6 +109,12 @@ public class FireballEntity extends ThrowableProjectile {
         return this.entityData.get(DATA_CHARGE);
     }
 
+    public float estimatedDamage() {
+        float charge = this.charge();
+        return Mth.lerp(charge, MIN_DIRECT_DAMAGE, MAX_DIRECT_DAMAGE)
+            + 2.0F * Mth.lerp(charge, MIN_EXPLOSION_POWER, MAX_EXPLOSION_POWER);
+    }
+
     public boolean isLaunched() {
         return this.entityData.get(DATA_LAUNCHED);
     }

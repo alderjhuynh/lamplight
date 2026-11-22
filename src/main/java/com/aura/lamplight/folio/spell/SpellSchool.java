@@ -11,7 +11,8 @@ public enum SpellSchool {
     ARCANE("arcane", "Arcane"),
     FLAME("flame", "Flame"),
     BLOOD("blood", "Blood"),
-    WIND("wind", "Wind");
+    WIND("wind", "Wind"),
+    HOLY("holy", "Holy");
 
     private final String id;
     private final String displayName;

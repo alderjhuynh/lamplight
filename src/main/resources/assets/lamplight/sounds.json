@@ -521,5 +521,21 @@
         "stream": true
       }
     ]
+  },
+  "spell.shield.cast": {
+    "sounds": [
+      {
+        "name": "lamplight:spell/shield_cast"
+      }
+    ],
+    "subtitle": "lamplight.sound.subtitle.shield_cast"
+  },
+  "spell.shield.hit": {
+    "sounds": [
+      {
+        "name": "lamplight:spell/shield_projectile_hit"
+      }
+    ],
+    "subtitle": "lamplight.sound.subtitle.shield_hit"
   }
 }

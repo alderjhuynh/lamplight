@@ -16,6 +16,7 @@ import com.aura.lamplight.folio.server.FolioBossBars;
 import com.aura.lamplight.folio.server.FolioManaHandler;
 import com.aura.lamplight.folio.server.FolioCastHandler;
 import com.aura.lamplight.folio.server.GravityWellHandler;
+import com.aura.lamplight.folio.server.ShieldHandler;
 import com.aura.lamplight.folio.sound.FolioSounds;
 import com.aura.lamplight.folio.spell.Spells;
 import com.aura.lamplight.folio.attribute.FolioAttributes;
@@ -45,6 +46,7 @@ public class Folio implements ModInitializer {
 		Spells.initialize();
 		DragonbladeHandler.initialize();
 		GravityWellHandler.initialize();
+		ShieldHandler.initialize();
 		FolioManaHandler.initialize();
 		FolioCastHandler.initialize();
 		FolioBossBars.initialize();

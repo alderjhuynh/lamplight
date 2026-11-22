@@ -23,6 +23,7 @@ public final class ModItems {
     public static final Item LIGHTNING_SCROLL = register("lightning_scroll", p -> new ScrollItem(p, SpellSchool.LIGHTNING), new Item.Properties().stacksTo(SCROLL_MAX_STACK_SIZE));
     public static final Item NATURE_SCROLL = register("nature_scroll", p -> new ScrollItem(p, SpellSchool.NATURE), new Item.Properties().stacksTo(SCROLL_MAX_STACK_SIZE));
     public static final Item WIND_SCROLL = register("wind_scroll", p -> new ScrollItem(p, SpellSchool.WIND), new Item.Properties().stacksTo(SCROLL_MAX_STACK_SIZE));
+    public static final Item HOLY_SCROLL = register("holy_scroll", p -> new ScrollItem(p, SpellSchool.HOLY), new Item.Properties().stacksTo(SCROLL_MAX_STACK_SIZE));
     public static final Item APPRENTICES_SPELLBOOK = register("apprentices_spellbook", SpellbookItem::new, new Item.Properties().stacksTo(1));
 
     private static Item register(String name, Function<Item.Properties, Item> factory, Item.Properties properties) {

@@ -24,11 +24,13 @@ public class FolioClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		EntityRenderers.register(ModEntityTypes.FROST_BOLT, ThrownItemRenderer::new);
+		EntityRenderers.register(ModEntityTypes.HOLY_BOLT, ThrownItemRenderer::new);
 		EntityRenderers.register(ModEntityTypes.FIREBALL, NoopRenderer::new);
 		ParticleProviderRegistry.getInstance().register(ModParticles.FLAME_CHARGE, FlameOrbParticle.Provider::new);
 		ParticleProviderRegistry.getInstance().register(ModParticles.BLASTWAVE, BlastwaveParticle.Provider::new);
 		ParticleProviderRegistry.getInstance().register(ModParticles.FIERY_SMOKE, FierySmokeParticle.Provider::new);
 		ParticleProviderRegistry.getInstance().register(ModParticles.GRAVITY_WELL, GravityWellParticle.Provider::new);
+		ParticleProviderRegistry.getInstance().register(ModParticles.SHIELD, ShieldParticle.Provider::new);
 		HudElementRegistry.attachElementAfter(VanillaHudElements.CROSSHAIR,
 			com.aura.lamplight.folio.Folio.id("dragonblade_vignette"), new DragonbladeVignette());
 

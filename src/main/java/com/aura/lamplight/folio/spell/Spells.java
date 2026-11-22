@@ -23,6 +23,11 @@ public final class Spells {
     // uhhh whatever
     public static final Spell GRAVITY_WELL = register(new GravityWellSpell());
 
+    // holy
+    public static final Spell HOLY_BOLT = register(new HolyBoltSpell());
+    public static final Spell BLESSING = register(new BlessingSpell());
+    public static final Spell SHIELD = register(new ShieldSpell());
+
     private static Spell register(final Spell spell) {
         Spell previous = BY_ID.putIfAbsent(spell.id(), spell);
         if (previous != null) {

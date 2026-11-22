@@ -92,7 +92,8 @@
     "wayfarer.InventoryMenuBackpackAddonMixin",
     "folio.ServerLevelTemporalMixin",
     "folio.ServerGamePacketListenerTemporalMixin",
-    "folio.DragonbladeCritMixin"
+    "folio.DragonbladeCritMixin",
+    "folio.ProjectileShieldMixin"
   ],
   "injectors": {
     "defaultRequire": 1

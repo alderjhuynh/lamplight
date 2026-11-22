@@ -22,10 +22,13 @@ public final class ModParticles {
         BuiltInRegistries.PARTICLE_TYPE, Folio.id("blastwave"),
         FabricParticleTypes.complex(BlastwaveParticleOptions.CODEC, BlastwaveParticleOptions.STREAM_CODEC));
 
-    /** Smoke that is still burning; spawned after the fireball explodes. */
     public static final SimpleParticleType FIERY_SMOKE = Registry.register(
         BuiltInRegistries.PARTICLE_TYPE, Folio.id("fiery_smoke"),
         FabricParticleTypes.simple());
+
+    public static final ParticleType<ShieldParticleOptions> SHIELD = Registry.register(
+        BuiltInRegistries.PARTICLE_TYPE, Folio.id("shield"),
+        FabricParticleTypes.complex(ShieldParticleOptions.CODEC, ShieldParticleOptions.STREAM_CODEC));
 
     public static void register() {
         Folio.LOGGER.info("Registered folio particles");

@@ -73,6 +73,9 @@ public final class DragonbladeHandler {
     }
 
     public static void activate(ServerPlayer caster) {
+        if (com.aura.lamplight.nullbloom.NullbloomDimension.is(caster.level())) {
+            return;
+        }
         long now = caster.level().getGameTime();
         deactivate(caster.getUUID(), caster.level().getServer());
 

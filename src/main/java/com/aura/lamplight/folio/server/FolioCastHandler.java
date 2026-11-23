@@ -79,6 +79,10 @@ public final class FolioCastHandler {
     }
 
     public static void castSelected(final ServerPlayer player, final int requestedIndex) {
+        if (com.aura.lamplight.nullbloom.NullbloomDimension.is(player.level())) {
+            message(player, Component.literal("Spells cannot be cast here."), ChatFormatting.GRAY);
+            return;
+        }
         if (!player.isAlive() || player.isRemoved()) {
             return;
         }

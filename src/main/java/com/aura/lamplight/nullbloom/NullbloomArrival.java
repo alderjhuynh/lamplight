@@ -8,7 +8,12 @@ import java.util.Map;
 import java.util.UUID;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.portal.TeleportTransition;
 
 public final class NullbloomArrival {
@@ -19,6 +24,7 @@ public final class NullbloomArrival {
 	private static final Map<UUID, Boolean> WAS_INSIDE = new HashMap<>();
 	private static final Map<UUID, Integer> AWAITING_GREETING = new HashMap<>();
 	private static final Map<UUID, Integer> AWAITING_HOME = new HashMap<>();
+	private static int soulboundTickCounter = 0;
 
 	private NullbloomArrival() {
 	}
@@ -34,6 +40,10 @@ public final class NullbloomArrival {
 		detectArrivals(server);
 		countDown(server, AWAITING_GREETING, NullbloomArrival::greet);
 		countDown(server, AWAITING_HOME, NullbloomArrival::sendHome);
+		if (++soulboundTickCounter >= 20) {
+			soulboundTickCounter = 0;
+			ensureSoulboundItems(server);
+		}
 	}
 
 	private static void detectArrivals(MinecraftServer server) {
@@ -104,4 +114,31 @@ public final class NullbloomArrival {
 		TeleportTransition home = player.findRespawnPositionAndUseSpawnBlock(false, TeleportTransition.DO_NOTHING);
 		player.teleport(home);
 	}
+
+	private static void ensureSoulboundItems(MinecraftServer server) {
+		for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+			if (!GodsBargain.hasAccepted(player)) {
+				continue;
+			}
+			// Re-apply the heart-taken modifier if it was lost (e.g. on respawn).
+			AttributeInstance maxHealth = player.getAttribute(Attributes.MAX_HEALTH);
+			Identifier heartId = Nullbloom.id("god_heart_taken");
+			if (maxHealth != null && !maxHealth.hasModifier(heartId)) {
+				maxHealth.addPermanentModifier(new AttributeModifier(heartId, -2.0, AttributeModifier.Operation.ADD_VALUE));
+				player.setHealth(Math.min(player.getHealth(), player.getMaxHealth()));
+			}
+			boolean has = false;
+			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+				if (player.getInventory().getItem(i).getItem() == NullbloomBlocks.NULLBLOOM_ITEM) {
+					has = true;
+					break;
+				}
+			}
+			if (!has) {
+				ItemStack flower = new ItemStack(NullbloomBlocks.NULLBLOOM_ITEM);
+				player.getInventory().add(flower);
+			}
+		}
+	}
+
 }

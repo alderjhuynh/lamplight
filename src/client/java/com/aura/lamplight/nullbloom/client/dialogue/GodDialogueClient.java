@@ -23,6 +23,10 @@ public class GodDialogueClient implements ClientModInitializer {
 	public static final KeyMapping NO = KeyMappingHelper.registerKeyMapping(new KeyMapping(
 		"key.lamplight.god_no", InputConstants.Type.KEYSYM, InputConstants.KEY_N, LamplightKeyCategories.MAIN));
 
+	public static boolean isDialogueActive() {
+		return VIEW != null && VIEW.isActive();
+	}
+
 	private static final GodDialogueView VIEW = new GodDialogueView();
 	private boolean spaceWasDown;
 

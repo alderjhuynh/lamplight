@@ -5,7 +5,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -38,7 +37,7 @@ public final class NullbloomBlocks {
 	public static final Item NULLBLOOM_ITEM = Registry.register(
 		BuiltInRegistries.ITEM,
 		NULLBLOOM_ITEM_KEY,
-		new BlockItem(NULLBLOOM, new Item.Properties().useBlockDescriptionPrefix().setId(NULLBLOOM_ITEM_KEY)));
+		new SoulboundNullbloomItem(NULLBLOOM, new Item.Properties().useBlockDescriptionPrefix().setId(NULLBLOOM_ITEM_KEY)));
 
 	public static void register() {
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.NATURAL_BLOCKS)

@@ -537,5 +537,44 @@
       }
     ],
     "subtitle": "lamplight.sound.subtitle.shield_hit"
+  },
+  "ambient.nullbloom.loop": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/nullbloom/loop",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.nullbloom.abyss_quake": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/nullbloom/abyss_quake1"
+      },
+      {
+        "name": "lamplight:ambient/nullbloom/abyss_quake2"
+      },
+      {
+        "name": "lamplight:ambient/nullbloom/abyss_quake3"
+      },
+      {
+        "name": "lamplight:ambient/nullbloom/abyss_quake4"
+      },
+      {
+        "name": "lamplight:ambient/nullbloom/abyss_quake5"
+      }
+    ]
+  },
+  "ambient.nullbloom.god_whisper": {
+    "sounds": [
+      {
+        "name": "lamplight:ambient/nullbloom/whisper1",
+        "stream": true
+      },
+      {
+        "name": "lamplight:ambient/nullbloom/whisper2",
+        "stream": true
+      }
+    ]
   }
 }

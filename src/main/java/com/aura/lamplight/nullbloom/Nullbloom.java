@@ -16,6 +16,7 @@ public class Nullbloom {
 	public void onInitialize() {
 		NullbloomBlocks.register();
 		NullbloomChunkGenerator.register();
+		NullbloomSounds.register();
 		GodDialogue.initialize();
 		NullbloomArrival.initialize();
 		LOGGER.info("Registered nullbloom");

@@ -1,5 +1,6 @@
 package com.aura.lamplight.nullbloom.client.dialogue;
 
+import com.aura.lamplight.nullbloom.client.NullbloomClient;
 import com.aura.lamplight.nullbloom.dialogue.GodDialoguePayload;
 import com.aura.lamplight.nullbloom.dialogue.GodDialogueResponsePayload;
 import com.aura.lamplight.nullbloom.dialogue.GodLine;
@@ -89,6 +90,7 @@ public final class GodDialogueView implements HudElement {
 	}
 
 	public void cancel(int id) {
+		NullbloomClient.stopWhisper();
 		if (phase == Phase.IDLE || id != sessionId) {
 			return;
 		}
@@ -99,6 +101,7 @@ public final class GodDialogueView implements HudElement {
 	}
 
 	public void reset() {
+		NullbloomClient.stopWhisper();
 		queue.clear();
 		fading.clear();
 		current = null;
@@ -182,6 +185,7 @@ public final class GodDialogueView implements HudElement {
 		lineStart = now + currentSource.pauseBeforeMs();
 		lineCounter++;
 		phase = Phase.LINE;
+		NullbloomClient.startWhisper();
 	}
 
 	private void enterChoice(long now) {
@@ -222,6 +226,7 @@ public final class GodDialogueView implements HudElement {
 	}
 
 	private void close(long now) {
+		NullbloomClient.stopWhisper();
 		phase = Phase.CLOSING;
 		closingAt = now;
 		current = null;
@@ -293,6 +298,7 @@ public final class GodDialogueView implements HudElement {
 			drawLine(g, font, current, now, lineStart, w / 2.0F, top, scale, 1.0F, -1, 1.0F, 0.0F);
 			long done = lineStart + current.totalMs;
 			if (phase == Phase.LINE && now >= done) {
+				NullbloomClient.stopWhisper();
 				drawContinueMark(g, now, done, w / 2.0F, top + current.rows * 11.0F * scale + 14.0F * scale, scale);
 				if (now - done > HINT_AFTER_MS) {
 					drawHint(g, font, "[" + keyName(GodDialogueClient.ADVANCE) + "] to continue", w,

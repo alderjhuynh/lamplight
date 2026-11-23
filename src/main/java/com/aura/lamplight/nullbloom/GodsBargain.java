@@ -15,7 +15,20 @@ public final class GodsBargain {
 	private GodsBargain() {
 	}
 
+	public static final String DEAL_KEY = "lamplight_god_deal";
+
 	public static boolean hasAccepted(ServerPlayer player) {
+		if (player.entityTags().contains(DEAL_KEY)) {
+			return true;
+		}
+		AttributeInstance maxHealth = player.getAttribute(Attributes.MAX_HEALTH);
+		return maxHealth != null && maxHealth.hasModifier(HEART_TAKEN);
+	}
+
+	public static boolean hasAccepted(net.minecraft.world.entity.player.Player player) {
+		if (player.entityTags().contains(DEAL_KEY)) {
+			return true;
+		}
 		AttributeInstance maxHealth = player.getAttribute(Attributes.MAX_HEALTH);
 		return maxHealth != null && maxHealth.hasModifier(HEART_TAKEN);
 	}
@@ -24,6 +37,7 @@ public final class GodsBargain {
 		if (hasAccepted(player)) {
 			return;
 		}
+		player.addTag(DEAL_KEY);
 		AttributeInstance maxHealth = player.getAttribute(Attributes.MAX_HEALTH);
 		if (maxHealth != null && maxHealth.getValue() - HEART >= MIN_MAX_HEALTH_AFTER) {
 			maxHealth.addPermanentModifier(new AttributeModifier(HEART_TAKEN, -HEART, AttributeModifier.Operation.ADD_VALUE));

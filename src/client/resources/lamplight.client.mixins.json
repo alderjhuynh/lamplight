@@ -4,6 +4,8 @@
   "compatibilityLevel": "JAVA_25",
   "client": [
     "nullbloom.NullbloomDarknessGameMixin",
+    "nullbloom.HudMissingHeartMixin",
+    "nullbloom.SoulboundClientDropMixin",
     "ambrosia.FryingPanFirstPersonMixin",
     "ambrosia.FryingPanThirdPersonMixin",
     "ambrosia.appleskin.ClientTooltipComponentMixin",

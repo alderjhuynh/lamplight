@@ -39,5 +39,6 @@ public class LamplightClient implements ClientModInitializer {
 		new PicturesqueClient().onInitializeClient();
 		new ImpactFrameClient().onInitializeClient();
 		new com.aura.lamplight.nullbloom.client.dialogue.GodDialogueClient().onInitializeClient();
+		new com.aura.lamplight.nullbloom.client.NullbloomClient().onInitializeClient();
 	}
 }

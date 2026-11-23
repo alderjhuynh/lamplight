@@ -8,6 +8,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -33,6 +34,8 @@ public final class ModBlocks {
     public static final ResourceKey<Block> RICE_TOP_KEY = blockKey("rice_top");
     public static final ResourceKey<Block> TOMATO_TOP_KEY = blockKey("tomato_top");
     public static final ResourceKey<Block> COFFEE_TOP_KEY = blockKey("coffee_top");
+    public static final ResourceKey<Block> CARROT_CAKE_KEY = blockKey("carrot_cake");
+    public static final ResourceKey<Block> CHOCOLATE_CAKE_KEY = blockKey("chocolate_cake");
 
     public static final Block SOUL_FARMLAND = register("soul_farmland", new SoulFarmlandBlock(
             BlockBehaviour.Properties.of()
@@ -98,6 +101,22 @@ public final class ModBlocks {
     public static final Block TOMATO_TOP = register("tomato_top", new TomatoTopBlock(topCropProperties(TOMATO_TOP_KEY)));
     public static final Block COFFEE_TOP = register("coffee_top", new CoffeeTopBlock(topCropProperties(COFFEE_TOP_KEY)));
 
+    public static final Block CARROT_CAKE = register("carrot_cake", new CakeBlock(
+            BlockBehaviour.Properties.of()
+                    .forceSolidOn()
+                    .strength(0.5F)
+                    .sound(SoundType.WOOL)
+                    .pushReaction(PushReaction.DESTROY)
+                    .setId(CARROT_CAKE_KEY)));
+
+    public static final Block CHOCOLATE_CAKE = register("chocolate_cake", new CakeBlock(
+            BlockBehaviour.Properties.of()
+                    .forceSolidOn()
+                    .strength(0.5F)
+                    .sound(SoundType.WOOL)
+                    .pushReaction(PushReaction.DESTROY)
+                    .setId(CHOCOLATE_CAKE_KEY)));
+
     private static BlockBehaviour.Properties topCropProperties(ResourceKey<Block> key) {
         return BlockBehaviour.Properties.of()
                 .mapColor(MapColor.PLANT)
@@ -129,6 +148,6 @@ public final class ModBlocks {
 
     public static void register() {
         TillableBlockRegistry.register(Blocks.SOUL_SOIL, HoeItem::onlyIfAirAbove, SOUL_FARMLAND.defaultBlockState());
-        Ambrosia.LOGGER.info("Registering {} blocks for {}", 16, Ambrosia.MOD_ID);
+        Ambrosia.LOGGER.info("Registering {} blocks for {}", 18, Ambrosia.MOD_ID);
     }
 }

@@ -66,6 +66,8 @@ public final class ModItems {
     public static final Item MILK_BOTTLE = register("milk_bottle", Item::new, new Item.Properties().craftRemainder(Items.GLASS_BOTTLE));
     public static final Item NOODLES = food("noodles", 3, 3.0F);
     public static final Item CHOCOLATE_BAR = food("chocolate_bar", 3, 3.0F);
+    public static final Item BERRY_COOKIE = food("berry_cookie", 2, 0.1F);
+    public static final Item HONEY_COOKIE = food("honey_cookie", 2, 0.1F);
 
     public static final Item BEEF_CUTLETS = food("beef_cutlets", 2, 1.0F);
     public static final Item CHICKEN_CUTLETS = food("chicken_cutlets", 2, 1.0F);
@@ -77,7 +79,8 @@ public final class ModItems {
 
     public static final Item BUTTERED_APPLE = food("buttered_apple", 5, 5.0F);
     public static final Item CARAMEL_APPLE = food("caramel_apple", 5, 6.0F);
-    public static final Item CARROT_CAKE = food("carrot_cake", 8, 10.0F);
+    public static final Item CARROT_CAKE = blockItem("carrot_cake", ModBlocks.CARROT_CAKE);
+    public static final Item CHOCOLATE_CAKE = blockItem("chocolate_cake", ModBlocks.CHOCOLATE_CAKE);
     public static final Item CHEESECAKE = food("cheesecake", 8, 10.0F);
     public static final Item CHORUS_CUPCAKE = register("chorus_cupcake", Item::new, new Item.Properties().food(new FoodProperties(4, 5.0F, false), Consumables.CHORUS_FRUIT));
     public static final Item DINO_NUGGET_STEGO = food("dino_nugget_stego", 3, 3.0F);
@@ -245,9 +248,9 @@ public final class ModItems {
 
     static final Item[] FOODS = {
             CORN, RICE, TOMATO, LETTUCE, GRAPES, GINGER, BUTTER, CHEESE, NOODLES,
-            CHOCOLATE_BAR, BEEF_CUTLETS, CHICKEN_CUTLETS, MUTTON_CUTLETS, RABBIT_CUTLETS,
+            CHOCOLATE_BAR, BERRY_COOKIE, HONEY_COOKIE, BEEF_CUTLETS, CHICKEN_CUTLETS, MUTTON_CUTLETS, RABBIT_CUTLETS,
             COD_FILLETS, SALMON_FILLETS, BUTTERED_APPLE, CARAMEL_APPLE, CARROT_CAKE,
-            CHEESECAKE, CHORUS_CUPCAKE, DINO_NUGGET_STEGO, DINO_NUGGET_TREX, FRIES,
+            CHOCOLATE_CAKE, CHEESECAKE, CHORUS_CUPCAKE, DINO_NUGGET_STEGO, DINO_NUGGET_TREX, FRIES,
             STEW, TOMATO_SOUP, VEGETABLE_SOUP, MUSHROOM_RISOTTO, BEEF_STROGANOFF, CHICKEN_NOODLE_SOUP, ROAST_DINNER,
             HONEY_GLAZED_HAM, SHEPHERDS_PIE, SPAGHETTI, FRIED_CHICKEN, CHICKEN_SATAY, KEBAB,
             FRIED_FISH, FISH_AND_CHIPS, SURF_N_TURF, EGG_FRIED_RICE, HAMBURGER, CHICKEN_SANDWICH,

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": "minecraft:milk_bucket",
+    "B": "minecraft:sugar",
+    "C": "minecraft:wheat",
+    "E": "#minecraft:eggs",
+    "S": "minecraft:sweet_berries",
+    "N": "minecraft:cocoa_beans"
+  },
+  "pattern": [
+    "ASA",
+    "BEB",
+    "CNC"
+  ],
+  "result": {
+    "id": "lamplight:chocolate_cake"
+  }
+}

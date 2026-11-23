@@ -35,6 +35,8 @@ public final class ModFoods {
         food(ModItems.CHEESE, 4, 5.0F, NO_EFFECT, NO_EFFECT);
         food(ModItems.NOODLES, 3, 3.0F, NO_EFFECT, NO_EFFECT);
         food(ModItems.CHOCOLATE_BAR, 3, 3.0F, ONE_MINUTE, NO_EFFECT);
+        food(ModItems.BERRY_COOKIE, 2, 0.1F, NO_EFFECT, NO_EFFECT);
+        food(ModItems.HONEY_COOKIE, 2, 0.1F, NO_EFFECT, NO_EFFECT);
 
         // raw cuts
         food(ModItems.BEEF_CUTLETS, 2, 1.0F, NO_EFFECT, NO_EFFECT);
@@ -47,7 +49,6 @@ public final class ModFoods {
         // snacks sweets & baked goods
         food(ModItems.BUTTERED_APPLE, 5, 5.0F, ONE_MINUTE, NO_EFFECT);
         food(ModItems.CARAMEL_APPLE, 5, 6.0F, ONE_MINUTE, NO_EFFECT);
-        food(ModItems.CARROT_CAKE, 8, 10.0F, ONE_MINUTE * 2, NO_EFFECT);
         food(ModItems.CHEESECAKE, 8, 10.0F, ONE_MINUTE * 2, NO_EFFECT);
         food(ModItems.CHORUS_CUPCAKE, 4, 5.0F, ONE_MINUTE, NO_EFFECT);
         food(ModItems.DINO_NUGGET_STEGO, 3, 3.0F, THIRTY_SECONDS, NO_EFFECT);

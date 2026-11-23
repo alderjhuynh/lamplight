@@ -120,7 +120,6 @@ public final class NullbloomArrival {
 			if (!GodsBargain.hasAccepted(player)) {
 				continue;
 			}
-			// Re-apply the heart-taken modifier if it was lost (e.g. on respawn).
 			AttributeInstance maxHealth = player.getAttribute(Attributes.MAX_HEALTH);
 			Identifier heartId = Nullbloom.id("god_heart_taken");
 			if (maxHealth != null && !maxHealth.hasModifier(heartId)) {

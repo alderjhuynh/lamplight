@@ -30,7 +30,7 @@ public final class NullbloomDimension {
 	public static final int ALTAR_GROUND_LAYER = 0;
 
 	public static Vec3 spawnPosition() {
-		return new Vec3(-0.5, SURFACE_Y + 1, -0.5);
+		return new Vec3(-0.5, SURFACE_Y + 2, -0.5);
 	}
 
 	public static boolean is(@Nullable Level level) {

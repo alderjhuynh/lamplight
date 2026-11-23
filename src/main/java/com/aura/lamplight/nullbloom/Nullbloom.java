@@ -1,6 +1,7 @@
 package com.aura.lamplight.nullbloom;
 
 import com.aura.lamplight.Lamplight;
+import com.aura.lamplight.nullbloom.dialogue.GodDialogue;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,8 @@ public class Nullbloom {
 	public void onInitialize() {
 		NullbloomBlocks.register();
 		NullbloomChunkGenerator.register();
+		GodDialogue.initialize();
+		NullbloomArrival.initialize();
 		LOGGER.info("Registered nullbloom");
 	}
 }

@@ -23,6 +23,9 @@ public class BackSlotLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
 		if (state.isInvisible) {
 			return;
 		}
+		if (!ArmorVisibilityClient.isBackVisible(state)) {
+			return;
+		}
 		ItemStackRenderState itemState = ((FabricRenderState) (Object) state).getData(BackSlotRenderState.BACK_ITEM_KEY);
 		if (itemState == null || itemState.isEmpty()) {
 			return;

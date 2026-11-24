@@ -22,6 +22,9 @@
     "arcanum.DeepGazeOverlayMixin",
     "arcanum.WavedashHudMixin",
     "armory.AvatarRendererMixin",
+    "armory.ArmorSlotAccessor",
+    "armory.ArmorVisibilityButtonMixin",
+    "armory.HumanoidArmorLayerVisibilityMixin",
     "armory.CreativeModeInventoryScreenMixin",
     "armory.HudMixin",
     "armory.HumanoidModelScythePoseMixin",
@@ -29,7 +32,7 @@
     "armory.ScytheHeldItemDeltaMixin",
     "armory.ScytheInHandDeltaMixin",
     "menagerie.AvatarRenderStateMixin",
-    "menagerie.AvatarRendererMixin",    
+    "menagerie.AvatarRendererMixin",
     "panacea.LivingEntityRenderStateMixin",
     "panacea.LivingEntityRendererMixin",
     "tinkerer.CreativeModeInventoryScreenMixin",
@@ -71,7 +74,9 @@
     "puppeteer.HumanoidModelAnimationMixin",
     "puppeteer.AvatarRendererAnimationMixin",
     "puppeteer.ShieldItemModelMixin",
-    "wayfarer.LevelChunkHookMixin"
+    "wayfarer.LevelChunkHookMixin",
+    "armory.InventoryScreenArmorVisibilityMixin",
+    "armory.CreativeInventoryArmorVisibilityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

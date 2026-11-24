@@ -19,6 +19,7 @@ public class Armory implements ModInitializer {
 	public void onInitialize() {
 		// force attachment registration
 		Object ignored = BackSlotAttachments.BACK_STACK;
+		Object ignored2 = ArmorVisibility.VISIBILITY;
 
 		ModDataComponents.initialize();
 		ArmorySounds.initialize();
@@ -42,6 +43,21 @@ public class Armory implements ModInitializer {
 				} else {
 					BackSlotAttachments.setHolding(player, false);
 				}
+			});
+		});
+
+		PayloadTypeRegistry.serverboundPlay().register(ArmorVisibilityTogglePayload.TYPE, ArmorVisibilityTogglePayload.CODEC);
+		ServerPlayNetworking.registerGlobalReceiver(ArmorVisibilityTogglePayload.TYPE, (payload, context) -> {
+			context.server().execute(() -> {
+				ServerPlayer player = context.player();
+				if (player.isSpectator()) {
+					return;
+				}
+				int bit = payload.bit();
+				if (Integer.bitCount(bit) != 1 || (bit & ArmorVisibility.ALL) == 0 || (bit & ~ArmorVisibility.ALL) != 0) {
+					return;
+				}
+				ArmorVisibility.toggle(player, bit);
 			});
 		});
 

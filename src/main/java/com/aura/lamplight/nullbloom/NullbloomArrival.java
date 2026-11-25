@@ -1,5 +1,6 @@
 package com.aura.lamplight.nullbloom;
 
+import com.aura.lamplight.nullbloom.dialogue.GodContext;
 import com.aura.lamplight.nullbloom.dialogue.GodDialogue;
 import com.aura.lamplight.nullbloom.dialogue.GodScripts;
 import java.util.HashMap;
@@ -24,7 +25,6 @@ public final class NullbloomArrival {
 	private static final Map<UUID, Boolean> WAS_INSIDE = new HashMap<>();
 	private static final Map<UUID, Integer> AWAITING_GREETING = new HashMap<>();
 	private static final Map<UUID, Integer> AWAITING_HOME = new HashMap<>();
-	private static int soulboundTickCounter = 0;
 
 	private NullbloomArrival() {
 	}
@@ -40,10 +40,7 @@ public final class NullbloomArrival {
 		detectArrivals(server);
 		countDown(server, AWAITING_GREETING, NullbloomArrival::greet);
 		countDown(server, AWAITING_HOME, NullbloomArrival::sendHome);
-		if (++soulboundTickCounter >= 20) {
-			soulboundTickCounter = 0;
-			ensureSoulboundItems(server);
-		}
+		ensureSoulboundItems(server);
 	}
 
 	private static void detectArrivals(MinecraftServer server) {
@@ -84,13 +81,39 @@ public final class NullbloomArrival {
 				player.getName().getString(), NullbloomDimension.is(player), player.isAlive(), GodDialogue.isTalking(player));
 			return;
 		}
-		if (GodsBargain.hasAccepted(player)) {
-			Nullbloom.LOGGER.info("Player {} already accepted; sending home after delay", player.getName().getString());
-			AWAITING_HOME.put(player.getUUID(), HOME_DELAY_TICKS);
+		MinecraftServer server = player.level().getServer();
+		GodMemory memory = GodMemory.get(server);
+		GodMemory.Entry entry = memory.get(player.getUUID());
+		boolean accepted = GodsBargain.hasAccepted(player);
+		int deaths = GodContext.deaths(player);
+
+		if (!entry.met() && !accepted) {
+			Nullbloom.LOGGER.info("Greeting {} with first meeting", player.getName().getString());
+			GodDialogue.start(player, GodScripts.FIRST_MEETING, (p, result) -> {
+				Nullbloom.LOGGER.info("God dialogue with {} ended: {}", p.getName().getString(), result);
+				switch (result) {
+					case ACCEPTED -> {
+						GodsBargain.strike(p);
+						rememberFirstMeeting(server, p);
+						AWAITING_HOME.put(p.getUUID(), HOME_DELAY_TICKS);
+					}
+					case REFUSED, COMPLETED -> {
+						rememberFirstMeeting(server, p);
+						AWAITING_HOME.put(p.getUUID(), HOME_DELAY_TICKS);
+					}
+					case CANCELLED -> {
+					}
+				}
+			});
 			return;
 		}
-		Nullbloom.LOGGER.info("Greeting {} with first meeting", player.getName().getString());
-		GodDialogue.start(player, GodScripts.FIRST_MEETING, (p, result) -> {
+
+		int returnVisit = entry.returnVisits() + 1;
+		boolean diedSince = entry.deathsAtLastVisit() >= 0 && deaths > entry.deathsAtLastVisit();
+		memory.update(player.getUUID(), e -> new GodMemory.Entry(true, returnVisit, deaths, e.contacts()));
+		Nullbloom.LOGGER.info("Greeting {} with return visit {} (accepted={}, diedSince={})",
+			player.getName().getString(), returnVisit, accepted, diedSince);
+		GodDialogue.start(player, GodScripts.returnVisit(player, returnVisit, diedSince, accepted), (p, result) -> {
 			Nullbloom.LOGGER.info("God dialogue with {} ended: {}", p.getName().getString(), result);
 			switch (result) {
 				case ACCEPTED -> {
@@ -102,6 +125,12 @@ public final class NullbloomArrival {
 				}
 			}
 		});
+	}
+
+	private static void rememberFirstMeeting(MinecraftServer server, ServerPlayer player) {
+		int deaths = GodContext.deaths(player);
+		GodMemory.get(server).update(player.getUUID(),
+			e -> new GodMemory.Entry(true, e.returnVisits(), deaths, e.contacts()));
 	}
 
 	public static void sendHome(ServerPlayer player) {
@@ -120,6 +149,7 @@ public final class NullbloomArrival {
 			if (!GodsBargain.hasAccepted(player)) {
 				continue;
 			}
+			// Re-apply the heart-taken modifier if it was lost (e.g. on respawn).
 			AttributeInstance maxHealth = player.getAttribute(Attributes.MAX_HEALTH);
 			Identifier heartId = Nullbloom.id("god_heart_taken");
 			if (maxHealth != null && !maxHealth.hasModifier(heartId)) {

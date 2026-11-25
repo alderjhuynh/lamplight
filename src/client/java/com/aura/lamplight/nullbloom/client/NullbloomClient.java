@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
-
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 
@@ -33,7 +32,6 @@ public final class NullbloomClient {
 			return;
 		}
 
-		// Ambient loop
 		if (loopInstance == null || client.getSoundManager().isActive(loopInstance) == false) {
 			loopInstance = new SimpleSoundInstance(
 				NullbloomSounds.NULLBLOOM_LOOP.location(), SoundSource.AMBIENT, 0.55F, 1.0F,
@@ -42,7 +40,6 @@ public final class NullbloomClient {
 			client.getSoundManager().play(loopInstance);
 		}
 
-		// Abyss quakes: every 30-60s pick one.
 		if (quakeTicks <= 0) {
 			playOneShot(client, NullbloomSounds.ABYSS_QUAKE, 0.75F);
 			quakeTicks = 600 + RANDOM.nextInt(601);
@@ -53,6 +50,7 @@ public final class NullbloomClient {
 	}
 
 	public static void startWhisper() {
+		com.aura.lamplight.nullbloom.client.god.GodSequence.onSpeak();
 		stopWhisper();
 		Minecraft mc = Minecraft.getInstance();
 		if (mc == null) return;

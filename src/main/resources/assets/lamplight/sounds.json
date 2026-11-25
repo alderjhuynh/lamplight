@@ -576,5 +576,7 @@
         "stream": true
       }
     ]
-  }
+  },
+  "ambient.god.bells": {"sounds": [{"name": "lamplight:ambient/god/ominous_bells", "stream": true}]},
+  "ambient.god.glitch": {"sounds": [{"name": "lamplight:ambient/god/glitch"}]}
 }

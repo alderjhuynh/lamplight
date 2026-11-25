@@ -1,5 +1,6 @@
 package com.aura.lamplight.mixin.nullbloom;
 
+import com.aura.lamplight.nullbloom.GodAudience;
 import com.aura.lamplight.nullbloom.NullbloomDimension;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
@@ -13,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BuildLockItemStackMixin {
 	@Inject(method = "useOn", at = @At("HEAD"), cancellable = true)
 	private void nullbloom$lockItemUseOnBlock(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
-		if (NullbloomDimension.isBuildLocked(context.getLevel())) {
+		if (NullbloomDimension.isBuildLocked(context.getLevel()) || GodAudience.locksBuilding(context.getPlayer())) {
 			cir.setReturnValue(InteractionResult.PASS);
 		}
 	}

@@ -16,6 +16,7 @@
     "nullbloom.SoulboundDropMixin",
     "nullbloom.SoulboundServerDropMixin",
     "nullbloom.SoulboundDeathMixin",
+    "nullbloom.GodAudienceInvulnerableMixin",
     "ambrosia.CampfirePanCooldownMixin",
     "ambrosia.FamishedCanEatMixin",
     "ambrosia.FoodDataMixin",

@@ -1,5 +1,6 @@
 package com.aura.lamplight.mixin.nullbloom;
 
+import com.aura.lamplight.nullbloom.GodAudience;
 import com.aura.lamplight.nullbloom.NullbloomDimension;
 import java.util.UUID;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -15,6 +16,11 @@ public class PrivateItemEntityMixin {
 	private void nullbloom$noStealing(Player player, CallbackInfo ci) {
 		ItemEntity self = (ItemEntity) (Object) this;
 		if (!NullbloomDimension.is(self)) {
+			UUID thrower = NullbloomDimension.privateOwner(self);
+			if (thrower != null && !thrower.equals(player.getUUID())
+				&& (GodAudience.isIn(thrower) || GodAudience.isIn(player))) {
+				ci.cancel();
+			}
 			return;
 		}
 		UUID owner = NullbloomDimension.privateOwner(self);

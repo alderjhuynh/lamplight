@@ -18,6 +18,7 @@ public class Nullbloom {
 		NullbloomChunkGenerator.register();
 		NullbloomSounds.register();
 		GodDialogue.initialize();
+		GodCall.initialize();
 		NullbloomArrival.initialize();
 		LOGGER.info("Registered nullbloom");
 	}

@@ -1,6 +1,7 @@
 package com.aura.lamplight.client.mixin.nullbloom;
 
 import com.aura.lamplight.nullbloom.client.NullbloomDarkness;
+import com.aura.lamplight.nullbloom.client.god.GodFxPass;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
@@ -15,5 +16,6 @@ public class NullbloomDarknessGameMixin {
 		target = "Lcom/mojang/blaze3d/systems/CommandEncoder;clearDepthTexture(Lcom/mojang/blaze3d/textures/GpuTexture;D)V"))
 	private void nullbloom$darkness(DeltaTracker deltaTracker, CallbackInfo ci) {
 		NullbloomDarkness.render(Minecraft.getInstance());
+		GodFxPass.render(Minecraft.getInstance());
 	}
 }

@@ -1,5 +1,6 @@
 package com.aura.lamplight.mixin.nullbloom;
 
+import com.aura.lamplight.nullbloom.GodAudience;
 import com.aura.lamplight.nullbloom.NullbloomDimension;
 import net.minecraft.core.Holder;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
@@ -28,6 +29,9 @@ public abstract class PrivateSoundMixin {
 	) {
 		ServerLevel self = (ServerLevel) (Object) this;
 		if (!NullbloomDimension.is(self)) {
+			if (except instanceof Player talker && GodAudience.isIn(talker)) {
+				ci.cancel();
+			}
 			return;
 		}
 		if (except instanceof Player) {
@@ -52,7 +56,8 @@ public abstract class PrivateSoundMixin {
 		@Nullable Entity except, Entity sourceEntity, Holder<SoundEvent> sound, SoundSource source,
 		float volume, float pitch, long seed, CallbackInfo ci
 	) {
-		if (NullbloomDimension.is((ServerLevel) (Object) this) && (except instanceof Player || sourceEntity instanceof Player)) {
+		if ((NullbloomDimension.is((ServerLevel) (Object) this) && (except instanceof Player || sourceEntity instanceof Player))
+			|| GodAudience.isIn(except) || GodAudience.isIn(sourceEntity)) {
 			ci.cancel();
 		}
 	}

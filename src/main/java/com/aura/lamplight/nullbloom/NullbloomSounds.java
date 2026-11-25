@@ -11,6 +11,8 @@ public final class NullbloomSounds {
 	public static final SoundEvent NULLBLOOM_LOOP = register("ambient.nullbloom.loop");
 	public static final SoundEvent ABYSS_QUAKE = register("ambient.nullbloom.abyss_quake");
 	public static final SoundEvent GOD_WHISPER = register("ambient.nullbloom.god_whisper");
+	public static final SoundEvent GOD_BELLS = register("ambient.god.bells");
+	public static final SoundEvent GOD_GLITCH = register("ambient.god.glitch");
 
 	private static SoundEvent register(String path) {
 		return Registry.register(BuiltInRegistries.SOUND_EVENT, Nullbloom.id(path),

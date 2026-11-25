@@ -51,7 +51,8 @@ public final class PicturesqueState {
     }
 
     public boolean active() {
-        return config != null && config.enabled && !com.aura.lamplight.nullbloom.client.NullbloomClientState.inside();
+        return config != null && config.enabled && !com.aura.lamplight.nullbloom.client.NullbloomClientState.inside()
+                && !com.aura.lamplight.nullbloom.client.god.GodSequence.suppressesWorldGrade();
     }
 
     public void tick(Minecraft client) {

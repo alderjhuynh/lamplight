@@ -9,21 +9,28 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import org.jspecify.annotations.Nullable;
 
 public final class SpellbookContainer extends SimpleContainer {
 
     private final Player player;
-    private final SpellbookItem.@org.jspecify.annotations.Nullable Equipped equipped;
+    private final @Nullable ItemStack book;
+    private final Runnable onChanged;
     private final int capacity;
     private boolean writing;
 
-    public SpellbookContainer(final Player player, final SpellbookItem.@org.jspecify.annotations.Nullable Equipped equipped) {
-        super(capacityOf(equipped));
+    public SpellbookContainer(
+        final Player player,
+        final @Nullable ItemStack book,
+        final Runnable onChanged
+    ) {
+        super(book == null ? SpellbookItem.CAPACITY : SpellbookItem.capacity(book));
         this.player = player;
-        this.equipped = equipped;
+        this.book = book;
+        this.onChanged = onChanged;
         this.capacity = this.getContainerSize();
-        if (equipped != null) {
-            List<Identifier> spells = SpellbookItem.getSpells(equipped.stack());
+        if (book != null) {
+            List<Identifier> spells = SpellbookItem.getSpells(book);
             for (int i = 0; i < Math.min(this.capacity, spells.size()); i++) {
                 Spell spell = com.aura.lamplight.folio.spell.Spells.byId(spells.get(i));
                 if (spell != null) {
@@ -33,28 +40,20 @@ public final class SpellbookContainer extends SimpleContainer {
         }
     }
 
-    private static int capacityOf(final SpellbookItem.@org.jspecify.annotations.Nullable Equipped equipped) {
-        return equipped == null ? SpellbookItem.CAPACITY : SpellbookItem.capacity(equipped.stack());
-    }
-
-    public SpellbookItem.@org.jspecify.annotations.Nullable Equipped equipped() {
-        return this.equipped;
-    }
-
     public int capacity() {
         return this.capacity;
     }
 
     @Override
     public void setChanged() {
-        if (this.writing || this.player.level().isClientSide() || this.equipped == null) {
+        if (this.writing || this.player.level().isClientSide() || this.book == null) {
             return;
         }
         this.writeBack();
     }
 
     public void writeBack() {
-        if (this.player.level().isClientSide() || this.equipped == null || this.writing) {
+        if (this.player.level().isClientSide() || this.book == null || this.writing) {
             return;
         }
         this.writing = true;
@@ -67,9 +66,8 @@ public final class SpellbookContainer extends SimpleContainer {
                 }
             }
 
-            ItemStack book = this.equipped.stack();
-            book.set(ModDataComponents.SPELLBOOK_SPELLS, List.copyOf(ids));
-            SpellbookItem.setSelected(book, SpellbookItem.getSelected(book));
+            this.book.set(ModDataComponents.SPELLBOOK_SPELLS, List.copyOf(ids));
+            SpellbookItem.setSelected(this.book, SpellbookItem.getSelected(this.book));
 
             for (int i = 0; i < this.capacity; i++) {
                 Spell spell = i < ids.size() ? com.aura.lamplight.folio.spell.Spells.byId(ids.get(i)) : null;
@@ -77,7 +75,7 @@ public final class SpellbookContainer extends SimpleContainer {
                 this.getItems().set(i, canonical);
             }
 
-            this.equipped.sync(this.player);
+            this.onChanged.run();
         } finally {
             this.writing = false;
         }

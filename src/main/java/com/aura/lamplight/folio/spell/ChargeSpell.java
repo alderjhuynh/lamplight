@@ -19,6 +19,11 @@ public abstract class ChargeSpell extends Spell {
         super(id, name, school, manaCost, 0, cooldownTicks, interruptible, false);
     }
 
+    @Override
+    public final SpellType type() {
+        return SpellType.CHARGE;
+    }
+
     public abstract int maxChargeTicks();
 
     public int maxHoldTicks() {

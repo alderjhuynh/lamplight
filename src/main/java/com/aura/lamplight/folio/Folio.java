@@ -37,6 +37,7 @@ public class Folio implements ModInitializer {
 		CastSpellPayload.initialize();
 		ReleaseSpellPayload.initialize();
 		SelectSpellPayload.initialize();
+		OpenSpellbookPayload.initialize();
 		CastingStatePayload.initialize();
 		SpellCooldownPayload.initialize();
 		ModParticles.register();

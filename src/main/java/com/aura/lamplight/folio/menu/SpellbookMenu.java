@@ -1,6 +1,5 @@
 package com.aura.lamplight.folio.menu;
 
-import com.aura.lamplight.folio.Folio;
 import com.aura.lamplight.folio.item.SpellbookItem;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
@@ -12,24 +11,48 @@ import org.jspecify.annotations.Nullable;
 
 public class SpellbookMenu extends AbstractContainerMenu {
 
+    public static final int EQUIPPED_TARGET = -1;
     public static final int COLUMNS = 3;
     public static final int INVENTORY_TOP = 84;
 
     private final Player player;
+    private final int targetSlot;
     private final SpellbookItem.@Nullable Equipped equipped;
+    private final @Nullable ItemStack book;
     private final SpellbookContainer container;
 
-    public SpellbookMenu(final int containerId, final Inventory playerInventory) {
+    public SpellbookMenu(final int containerId, final Inventory playerInventory, final int targetSlot) {
         super(FolioMenus.SPELLBOOK, containerId);
         this.player = playerInventory.player;
-        this.equipped = SpellbookItem.findEquipped(this.player);
-        this.container = new SpellbookContainer(this.player, this.equipped);
+        this.targetSlot = targetSlot;
+        this.equipped = targetSlot == EQUIPPED_TARGET ? SpellbookItem.findEquipped(this.player) : null;
+        this.book = this.resolveBook(playerInventory);
+        this.container = new SpellbookContainer(this.player, this.book, this::syncTarget);
 
         int slots = this.container.capacity();
         for (int i = 0; i < slots; i++) {
             this.addSlot(new SpellbookSlot(this.container, i, spellSlotX(i), spellSlotY(i)));
         }
         this.addStandardInventorySlots(playerInventory, 8, INVENTORY_TOP);
+    }
+
+    private @Nullable ItemStack resolveBook(final Inventory inventory) {
+        if (this.targetSlot == EQUIPPED_TARGET) {
+            return this.equipped == null ? null : this.equipped.stack();
+        }
+        ItemStack stack = inventory.getItem(this.targetSlot);
+        return stack.getItem() instanceof SpellbookItem ? stack : null;
+    }
+
+    private void syncTarget() {
+        if (this.player.level().isClientSide()) {
+            return;
+        }
+        if (this.equipped != null) {
+            this.equipped.sync(this.player);
+        }
+        // Inventory-target books live in this menu's player inventory slots, so
+        // the normal container sync sends their updated data automatically.
     }
 
     public static int spellSlotX(final int index) {
@@ -53,23 +76,41 @@ public class SpellbookMenu extends AbstractContainerMenu {
     }
 
     public @Nullable ItemStack book() {
-        return this.equipped == null ? null : this.equipped.stack();
+        return this.book;
+    }
+
+    public int selected() {
+        return this.book == null ? -1 : SpellbookItem.getSelected(this.book);
+    }
+
+    public boolean hasSpells() {
+        return this.book != null && !SpellbookItem.getSpells(this.book).isEmpty();
     }
 
     public void select(final int index) {
-        if (this.equipped == null) {
+        if (this.book == null) {
             return;
         }
-        SpellbookItem.setSelected(this.equipped.stack(), index);
-        this.equipped.sync(this.player);
+        SpellbookItem.setSelected(this.book, index);
+        this.syncTarget();
     }
 
     @Override
     public boolean stillValid(final Player player) {
-        SpellbookItem.Equipped current = SpellbookItem.findEquipped(player);
-        return current != null && this.equipped != null
-            && current.slotId().equals(this.equipped.slotId())
-            && !current.stack().isEmpty();
+        if (this.book == null) {
+            return false;
+        }
+        if (this.targetSlot == EQUIPPED_TARGET) {
+            SpellbookItem.Equipped current = SpellbookItem.findEquipped(player);
+            return current != null && current.stack() == this.book;
+        }
+        Inventory inventory = player.getInventory();
+        for (int i = 0; i < Inventory.INVENTORY_SIZE; i++) {
+            if (inventory.getItem(i) == this.book) {
+                return true;
+            }
+        }
+        return inventory.getItem(Inventory.SLOT_OFFHAND) == this.book;
     }
 
     @Override
@@ -127,7 +168,7 @@ public class SpellbookMenu extends AbstractContainerMenu {
 
         @Override
         public Identifier getNoItemIcon() {
-            return Folio.id("container/slot/spell_slot");
+            return com.aura.lamplight.folio.Folio.id("container/slot/spell_slot");
         }
     }
 }

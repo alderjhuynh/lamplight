@@ -85,6 +85,14 @@ public abstract class Spell {
         return channeled;
     }
 
+    public SpellType type() {
+        return channeled ? SpellType.CHANNELED : SpellType.NORMAL;
+    }
+
+    public Component description() {
+        return Component.translatable(id.toLanguageKey("spell") + ".desc");
+    }
+
     public abstract void cast(ServerLevel level, Player caster, ItemStack sourceItem);
 
     public void castTick(final ServerLevel level, final Player caster, final ItemStack sourceItem) {

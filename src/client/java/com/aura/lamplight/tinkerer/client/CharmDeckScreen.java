@@ -1,12 +1,15 @@
 package com.aura.lamplight.tinkerer.client;
 
 import com.aura.lamplight.client.mixin.tinkerer.RecipeBookScreenAccessor;
+import com.aura.lamplight.folio.OpenSpellbookPayload;
+import com.aura.lamplight.folio.item.SpellbookItem;
 import com.aura.lamplight.tinkerer.CharmEquipSlot;
 import com.aura.lamplight.tinkerer.Tinkerer;
 import com.aura.lamplight.tinkerer.charm.CharmDeckLayout;
 import com.aura.lamplight.tinkerer.client.CharmTooltips;
 import com.aura.lamplight.wayfarer.atlas.AtlasPanel;
 import com.aura.lamplight.wayfarer.client.BackpackAddonPanel;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.Hud;
@@ -177,6 +180,11 @@ public class CharmDeckScreen extends InventoryScreen {
 
 	@Override
 	public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+		if (event.button() == 1 && this.hoveredSlot instanceof CharmEquipSlot
+				&& this.hoveredSlot.getItem().getItem() instanceof SpellbookItem) {
+			ClientPlayNetworking.send(OpenSpellbookPayload.INSTANCE);
+			return true;
+		}
 		if (AtlasPanel.contains(this, event.x(), event.y())
 				&& AtlasPanel.handleClick(this, event.x(), event.y(), event.button())) {
 			return true;

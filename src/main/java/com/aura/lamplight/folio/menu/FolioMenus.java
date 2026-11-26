@@ -13,7 +13,7 @@ public final class FolioMenus {
         BuiltInRegistries.MENU,
         Folio.id("spellbook"),
         new ExtendedMenuType<>(
-            (containerId, inventory, ignored) -> new SpellbookMenu(containerId, inventory),
+            (containerId, inventory, targetSlot) -> new SpellbookMenu(containerId, inventory, targetSlot),
             ByteBufCodecs.VAR_INT
         )
     );

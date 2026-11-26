@@ -1,14 +1,27 @@
 package com.aura.lamplight.folio.client;
 
+import com.aura.lamplight.folio.Folio;
+import com.aura.lamplight.folio.SelectSpellPayload;
 import com.aura.lamplight.folio.menu.SpellbookMenu;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 
 public class SpellbookScreen extends AbstractContainerScreen<SpellbookMenu> {
+
+    private static final int PANEL_X = 36;
+    private static final int PANEL_Y = 14;
+    private static final int PANEL_WIDTH = 104;
+    private static final int PANEL_HEIGHT = 60;
+    private static final int SLOT_SELECTED_SIZE = 18;
+    private static final Identifier PANEL_TEXTURE = Folio.id("textures/gui/spellbook_panel.png");
+    private static final Identifier SLOT_SELECTED_TEXTURE = Folio.id("textures/gui/spellbook_slot_selected.png");
 
     public SpellbookScreen(final SpellbookMenu menu, final Inventory inventory, final Component title) {
         super(menu, inventory, title, 176, 166);
@@ -19,20 +32,24 @@ public class SpellbookScreen extends AbstractContainerScreen<SpellbookMenu> {
 
     @Override
     public void extractContents(final GuiGraphicsExtractor gfx, final int mouseX, final int mouseY, final float partialTick) {
-        gfx.fill(this.leftPos + 36, this.topPos + 14, this.leftPos + 140, this.topPos + 74, 0x553A2A5A);
+        gfx.blit(RenderPipelines.GUI_TEXTURED, PANEL_TEXTURE,
+            this.leftPos + PANEL_X, this.topPos + PANEL_Y, 0.0F, 0.0F,
+            PANEL_WIDTH, PANEL_HEIGHT, PANEL_WIDTH, PANEL_HEIGHT);
 
-        super.extractContents(gfx, mouseX, mouseY, partialTick);
-
-        int selected = SpellbookClientState.selected();
+        int selected = this.menu.selected();
         for (int i = 0; i < this.menu.spellSlots(); i++) {
             if (i == selected) {
                 int x = this.leftPos + SpellbookMenu.spellSlotX(i);
                 int y = this.topPos + SpellbookMenu.spellSlotY(i);
-                gfx.outline(x - 1, y - 1, 18, 18, 0xFFFFD46A);
+                gfx.blit(RenderPipelines.GUI_TEXTURED, SLOT_SELECTED_TEXTURE,
+                    x - 1, y - 1, 0.0F, 0.0F,
+                    SLOT_SELECTED_SIZE, SLOT_SELECTED_SIZE, SLOT_SELECTED_SIZE, SLOT_SELECTED_SIZE);
             }
         }
 
-        if (SpellbookClientState.spells().isEmpty()) {
+        super.extractContents(gfx, mouseX, mouseY, partialTick);
+
+        if (!this.menu.hasSpells()) {
             gfx.text(this.font,
                 Component.translatable("gui.lamplight.spellbook.empty_hint"),
                 this.leftPos + 42, this.topPos + 56, 0xFF8C8C8C);
@@ -46,7 +63,8 @@ public class SpellbookScreen extends AbstractContainerScreen<SpellbookMenu> {
             if (slot != null) {
                 int index = this.menu.slots.indexOf(slot);
                 if (index >= 0 && index < this.menu.spellSlots() && slot.hasItem()) {
-                    SpellbookClientState.select(index);
+                    this.menu.select(index);
+                    ClientPlayNetworking.send(new SelectSpellPayload(index));
                 }
             }
         }

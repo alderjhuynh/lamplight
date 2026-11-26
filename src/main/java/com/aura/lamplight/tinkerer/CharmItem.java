@@ -28,6 +28,15 @@ public class CharmItem extends Item {
 		return this.slotType;
 	}
 
+	/**
+	 * Whether this item should receive the generic charm/inset tooltip block.
+	 * Items that extend {@link CharmItem} for slot or equip behaviour but are not
+	 * actual charms (for example spellbooks) override this to {@code false}.
+	 */
+	public boolean showsCharmTooltip() {
+		return true;
+	}
+
 	@Override
 	public InteractionResult use(final Level level, final Player player, final InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);

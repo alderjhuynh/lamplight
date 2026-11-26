@@ -3,10 +3,12 @@ package com.aura.lamplight.folio.server;
 import com.aura.lamplight.folio.CastSpellPayload;
 import com.aura.lamplight.folio.CastingStatePayload;
 import com.aura.lamplight.folio.Folio;
+import com.aura.lamplight.folio.OpenSpellbookPayload;
 import com.aura.lamplight.folio.ReleaseSpellPayload;
 import com.aura.lamplight.folio.SelectSpellPayload;
 import com.aura.lamplight.folio.SpellCooldownPayload;
 import com.aura.lamplight.folio.item.SpellbookItem;
+import com.aura.lamplight.folio.menu.SpellbookMenu;
 import com.aura.lamplight.folio.spell.CastOrigin;
 import com.aura.lamplight.folio.spell.ChargeSpell;
 import com.aura.lamplight.folio.spell.Spell;
@@ -63,9 +65,16 @@ public final class FolioCastHandler {
 
         ServerPlayNetworking.registerGlobalReceiver(SelectSpellPayload.TYPE, (payload, context) ->
             context.server().execute(() -> select(context.player(), payload.spellIndex())));
+
+        ServerPlayNetworking.registerGlobalReceiver(OpenSpellbookPayload.TYPE, (payload, context) ->
+            context.server().execute(() -> SpellbookItem.openEquippedMenu(context.player())));
     }
 
     public static void select(final ServerPlayer player, final int index) {
+        if (player.containerMenu instanceof SpellbookMenu menu) {
+            menu.select(index);
+            return;
+        }
         SpellbookItem.Equipped equipped = SpellbookItem.findEquipped(player);
         if (equipped == null) {
             return;

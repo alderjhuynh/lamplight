@@ -56,8 +56,10 @@ public final class CharmTooltips {
 
 	private static void append(final ItemStack stack, final net.minecraft.world.item.Item.TooltipContext context,
 	                           final TooltipFlag flag, final List<Component> lines) {
-		if (stack.getItem() instanceof CharmItem) {
-			appendCharm(stack, flag, lines);
+		if (stack.getItem() instanceof CharmItem charm) {
+			if (charm.showsCharmTooltip()) {
+				appendCharm(stack, flag, lines);
+			}
 		} else if (stack.getItem() instanceof TemplateItem) {
 			appendTemplate(stack, lines);
 		}
@@ -140,9 +142,6 @@ public final class CharmTooltips {
 	private static MutableComponent effectLine(final CharmEffect effect, final double potency) {
 		if (effect instanceof AttributeCharmEffect attr) {
 			double value = attr.amount() * potency;
-			// Attribute charms grant flat points under ADD_VALUE; only the multiplied
-			// operations are true percentages of the attribute's base/total. Report the
-			// units the engine actually uses instead of always writing "%".
 			String amount = attr.operation() == AttributeModifier.Operation.ADD_VALUE
 					? signedPoints(value)
 					: signedPercent(value);

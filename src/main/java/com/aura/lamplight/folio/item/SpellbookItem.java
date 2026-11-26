@@ -1,23 +1,25 @@
 package com.aura.lamplight.folio.item;
 
 import com.aura.lamplight.folio.component.ModDataComponents;
+import com.aura.lamplight.folio.menu.SpellbookMenu;
 import com.aura.lamplight.folio.spell.Spell;
 import com.aura.lamplight.folio.spell.Spells;
 import com.aura.lamplight.tinkerer.CharmItem;
-import com.aura.lamplight.tinkerer.TinkererSounds;
 import com.aura.lamplight.tinkerer.charm.CharmAttachments;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -32,6 +34,11 @@ public class SpellbookItem extends CharmItem {
 
     public SpellbookItem(final Properties properties) {
         super(SLOT_TYPE, properties);
+    }
+
+    @Override
+    public boolean showsCharmTooltip() {
+        return false;
     }
 
     public static int capacity(final ItemStack book) {
@@ -169,58 +176,44 @@ public class SpellbookItem extends CharmItem {
             return InteractionResult.CONSUME;
         }
 
-        Equipped equipped = findEquipped(server);
-        if (equipped == null || equipped.stack() != stack) {
-            if (!equip(server, stack)) {
-                return InteractionResult.PASS;
-            }
-            equipped = findEquipped(server);
-        }
-        if (equipped == null) {
-            return InteractionResult.PASS;
-        }
+        int targetSlot = hand == InteractionHand.OFF_HAND
+            ? Inventory.SLOT_OFFHAND
+            : server.getInventory().getSelectedSlot();
+        openMenu(server, targetSlot, stack);
+        return InteractionResult.CONSUME;
+    }
 
-        Equipped opened = equipped;
-        server.openMenu(new net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider<Integer>() {
+    public static void openEquippedMenu(final ServerPlayer player) {
+        Equipped equipped = findEquipped(player);
+        if (equipped == null) {
+            player.sendSystemMessage(Component.translatable("message.lamplight.spellbook.missing")
+                .withStyle(ChatFormatting.RED), true);
+            return;
+        }
+        openMenu(player, SpellbookMenu.EQUIPPED_TARGET, equipped.stack());
+    }
+
+    private static void openMenu(final ServerPlayer player, final int targetSlot, final ItemStack book) {
+        player.openMenu(new ExtendedMenuProvider<Integer>() {
             @Override
             public Integer getScreenOpeningData(final ServerPlayer openingPlayer) {
-                return 0;
+                return targetSlot;
             }
 
             @Override
             public Component getDisplayName() {
-                return opened.stack().getHoverName();
+                return book.getHoverName();
             }
 
             @Override
-            public net.minecraft.world.inventory.AbstractContainerMenu createMenu(
+            public AbstractContainerMenu createMenu(
                 final int containerId,
-                final net.minecraft.world.entity.player.Inventory inventory,
+                final Inventory inventory,
                 final Player openingPlayer
             ) {
-                return new com.aura.lamplight.folio.menu.SpellbookMenu(containerId, inventory);
+                return new SpellbookMenu(containerId, inventory, targetSlot);
             }
         });
-        return InteractionResult.CONSUME;
-    }
-
-    private boolean equip(final ServerPlayer player, final ItemStack stack) {
-        Identifier target = firstMatchingSlot(player, stack);
-        if (target == null) {
-            player.sendSystemMessage(Component.translatable("message.lamplight.spellbook.no_slot")
-                .withStyle(ChatFormatting.RED), true);
-            return false;
-        }
-        ItemStack worn = CharmAttachments.charmIn(player, target);
-        CharmAttachments.setCharm(player, target, stack.copyWithCount(1));
-        if (!worn.isEmpty()) {
-            player.addItem(worn);
-        }
-        stack.shrink(1);
-        player.level().playSound(null, player.blockPosition(), TinkererSounds.CHARM_EQUIP,
-            SoundSource.PLAYERS, 1.0F, 0.8F);
-        player.containerMenu.broadcastChanges();
-        return true;
     }
 
     @Override
@@ -235,6 +228,7 @@ public class SpellbookItem extends CharmItem {
         builder.accept(Component.translatable("tooltip.lamplight.spellbook.slots", spells.size(), capacity(book))
             .withStyle(ChatFormatting.GRAY));
 
+        Spell selectedSpell = null;
         if (spells.isEmpty()) {
             builder.accept(Component.translatable("tooltip.lamplight.spellbook.empty")
                 .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
@@ -251,10 +245,18 @@ public class SpellbookItem extends CharmItem {
                     name
                 );
                 builder.accept(((net.minecraft.network.chat.MutableComponent) line)
-                    .withStyle(isSelected ? ChatFormatting.AQUA : ChatFormatting.GRAY));
+                    .withStyle(isSelected ? ChatFormatting.BLUE : ChatFormatting.GRAY));
             }
+            selectedSpell = Spells.byId(spells.get(selected));
         }
-        builder.accept(Component.translatable("tooltip.lamplight.spellbook.hint")
-            .withStyle(ChatFormatting.DARK_GRAY));
+
+        if (selectedSpell != null) {
+            builder.accept(Component.empty());
+            builder.accept(Component.translatable(
+                "tooltip.lamplight.spell.type",
+                selectedSpell.type().displayName().copy().withStyle(ChatFormatting.BLUE)
+            ).withStyle(ChatFormatting.GRAY));
+            builder.accept(selectedSpell.description().copy().withStyle(ChatFormatting.DARK_GRAY));
+        }
     }
 }

@@ -107,7 +107,17 @@ public class ScrollItem extends Item {
     ) {
         Spell spell = getSpell(itemStack);
         if (spell != null) {
-            builder.accept(spell.name().copy().withStyle(ChatFormatting.AQUA));
+            builder.accept(Component.empty());
+            builder.accept(Component.translatable(
+                "tooltip.lamplight.spell.name",
+                spell.name().copy().withStyle(ChatFormatting.BLUE)
+            ).withStyle(ChatFormatting.GRAY));
+            builder.accept(Component.translatable(
+                "tooltip.lamplight.spell.type",
+                spell.type().displayName().copy().withStyle(ChatFormatting.BLUE)
+            ).withStyle(ChatFormatting.GRAY));
+            builder.accept(Component.empty());
+            builder.accept(spell.description().copy().withStyle(ChatFormatting.DARK_GRAY));
         } else {
             builder.accept(Component.translatable(itemStack.getItem().getDescriptionId() + ".blank").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }

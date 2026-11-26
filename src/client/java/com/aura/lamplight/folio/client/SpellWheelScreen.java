@@ -1,5 +1,6 @@
 package com.aura.lamplight.folio.client;
 
+import com.aura.lamplight.folio.Folio;
 import com.aura.lamplight.folio.item.SpellbookItem;
 import com.aura.lamplight.folio.spell.Spell;
 import com.aura.lamplight.folio.spell.Spells;
@@ -8,6 +9,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -16,6 +18,12 @@ public class SpellWheelScreen extends Screen {
 
     private static final int RADIUS = 58;
     private static final int TILE = 24;
+    private static final double CENTER_DEADZONE = 12.0D;
+    private static final int SLOT_TEXTURE_SIZE = TILE;
+    private static final Identifier SLOT_TEXTURE = Folio.id("textures/gui/spell_wheel_slot.png");
+    private static final Identifier SLOT_SELECTED_TEXTURE = Folio.id("textures/gui/spell_wheel_slot_selected.png");
+    private static final Identifier SLOT_HOVERED_TEXTURE = Folio.id("textures/gui/spell_wheel_slot_hovered.png");
+    private static final Identifier COOLDOWN_TEXTURE = Folio.id("textures/gui/spell_wheel_cooldown.png");
 
     private int localSelected;
     private int lastHovered = -1;
@@ -49,23 +57,19 @@ public class SpellWheelScreen extends Screen {
         }
 
         int count = ids.size();
-        int hovered = -1;
+        int hovered = hoveredSector(mouseX, mouseY, cx, cy, count);
         for (int i = 0; i < count; i++) {
             double angle = (Math.PI * 2.0D * i) / count - Math.PI / 2.0D;
             int x = cx + (int) Math.round(Math.cos(angle) * RADIUS);
             int y = cy + (int) Math.round(Math.sin(angle) * RADIUS);
-            boolean hover = Math.hypot(mouseX - x, mouseY - y) <= 13.0D;
-            if (hover) {
-                hovered = i;
-            }
+            boolean hover = i == hovered;
 
-            int background = i == this.localSelected ? 0xDD324A6B : 0xAA16161F;
-            g.fill(x - TILE / 2, y - TILE / 2, x + TILE / 2, y + TILE / 2, background);
-            if (i == this.localSelected) {
-                g.outline(x - TILE / 2 - 1, y - TILE / 2 - 1, TILE + 2, TILE + 2, 0xFFFFD46A);
-            } else if (hover) {
-                g.outline(x - TILE / 2 - 1, y - TILE / 2 - 1, TILE + 2, TILE + 2, 0xFFAAAAAA);
-            }
+            Identifier background = i == this.localSelected
+                ? SLOT_SELECTED_TEXTURE
+                : hover ? SLOT_HOVERED_TEXTURE : SLOT_TEXTURE;
+            g.blit(RenderPipelines.GUI_TEXTURED, background,
+                x - TILE / 2, y - TILE / 2, 0.0F, 0.0F,
+                TILE, TILE, SLOT_TEXTURE_SIZE, SLOT_TEXTURE_SIZE);
 
             Spell spell = Spells.byId(ids.get(i));
             if (spell != null) {
@@ -77,7 +81,9 @@ public class SpellWheelScreen extends Screen {
 
             int cooldown = SpellbookClientState.cooldown(ids.get(i));
             if (cooldown > 0) {
-                g.fill(x - TILE / 2, y - TILE / 2, x + TILE / 2, y + TILE / 2, 0x99000000);
+                g.blit(RenderPipelines.GUI_TEXTURED, COOLDOWN_TEXTURE,
+                    x - TILE / 2, y - TILE / 2, 0.0F, 0.0F,
+                    TILE, TILE, SLOT_TEXTURE_SIZE, SLOT_TEXTURE_SIZE);
                 g.centeredText(this.font,
                     Component.literal(String.valueOf((cooldown + 19) / 20)), x, y - 4, 0xFFFFFFFF);
             }
@@ -93,8 +99,6 @@ public class SpellWheelScreen extends Screen {
         if (selected != null) {
             g.centeredText(this.font, selected.name(), cx, cy - 4, 0xFFFFFFFF);
         }
-        g.centeredText(this.font,
-            Component.translatable("gui.lamplight.spellbook.wheel_hint"), cx, this.height - 30, 0xFFAAAAAA);
     }
 
     private Spell selectedSpell(final List<Identifier> ids) {
@@ -103,6 +107,26 @@ public class SpellWheelScreen extends Screen {
         }
         int index = Math.floorMod(this.localSelected, ids.size());
         return Spells.byId(ids.get(index));
+    }
+
+    private static int hoveredSector(
+        final int mouseX,
+        final int mouseY,
+        final int centerX,
+        final int centerY,
+        final int count
+    ) {
+        if (count <= 0) {
+            return -1;
+        }
+        double dx = mouseX - centerX;
+        double dy = mouseY - centerY;
+        if (Math.hypot(dx, dy) < CENTER_DEADZONE) {
+            return -1;
+        }
+        double sector = Math.PI * 2.0D / count;
+        double relative = Math.atan2(dy, dx) + Math.PI / 2.0D;
+        return Math.floorMod((int) Math.round(relative / sector), count);
     }
 
     @Override

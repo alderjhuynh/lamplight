@@ -63,6 +63,7 @@
     "folio.DragonbladeRenderStateMixin",
     "folio.DragonbladeExtractMixin",
     "folio.DragonbladeRenderTypeMixin",
+    "folio.BossHealthOverlayMixin",
     "folio.DragonbladeAimMixin",
     "folio.FrozenKeyMappingMixin",
     "folio.FrozenMouseHandlerMixin",

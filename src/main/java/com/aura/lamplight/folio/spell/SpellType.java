@@ -5,7 +5,8 @@ import net.minecraft.network.chat.Component;
 public enum SpellType {
     NORMAL("normal"),
     CHARGE("charge"),
-    CHANNELED("channeled");
+    CHANNELED("channeled"),
+    MULTICAST("multicast");
 
     private final String id;
 

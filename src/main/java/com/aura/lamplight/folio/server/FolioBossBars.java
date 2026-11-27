@@ -2,11 +2,13 @@ package com.aura.lamplight.folio.server;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.BossEvent;
+import com.aura.lamplight.folio.MulticastBarPayload;
 import com.aura.lamplight.folio.item.SpellbookItem;
 
 import java.util.HashMap;
@@ -68,8 +70,12 @@ public final class FolioBossBars {
         bars.cast.setVisible(showCast);
         if (showCast) {
             bars.cast.setProgress(cast.progress());
-            bars.cast.setName(cast.spell().name());
+            bars.cast.setName(cast.sections() > 0
+                ? Component.translatable("bossbar.lamplight.multicast",
+                    cast.spell().name(), cast.remainingCasts(), cast.sections())
+                : cast.spell().name());
         }
+        bars.setSections(showCast ? cast.sections() : 0);
     }
 
     private static void remove(final UUID id) {
@@ -87,6 +93,7 @@ public final class FolioBossBars {
         final ServerBossEvent cast = new ServerBossEvent(
             UUID.randomUUID(), Component.empty(),
             BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS);
+        int sections = -1;
 
         Bars(final ServerPlayer owner) {
             this.owner = owner;
@@ -94,6 +101,15 @@ public final class FolioBossBars {
             this.cast.setVisible(false);
             this.mana.addPlayer(owner);
             this.cast.addPlayer(owner);
+        }
+
+        void setSections(final int sections) {
+            if (this.sections == sections) {
+                return;
+            }
+            this.sections = sections;
+            ServerPlayNetworking.send(this.owner,
+                new MulticastBarPayload(this.cast.getId(), sections));
         }
 
         void detach() {

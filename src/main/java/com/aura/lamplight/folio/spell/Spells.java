@@ -13,6 +13,7 @@ public final class Spells {
 
     // arcane
     public static final Spell DRAGONBLADE = register(new DragonbladeSpell());
+    public static final Spell TELEPORT = register(new TeleportSpell());
 
     // `ice
     public static final Spell FROST_BOLT = register(new FrostBoltSpell());

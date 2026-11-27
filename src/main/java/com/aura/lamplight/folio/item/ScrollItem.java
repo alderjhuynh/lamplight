@@ -5,6 +5,7 @@ import com.aura.lamplight.folio.server.FolioCastHandler;
 import com.aura.lamplight.folio.spell.ChargeSpell;
 import com.aura.lamplight.folio.spell.Spell;
 import com.aura.lamplight.folio.spell.SpellSchool;
+import com.aura.lamplight.folio.spell.SpellType;
 import com.aura.lamplight.folio.spell.Spells;
 import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
@@ -55,6 +56,15 @@ public class ScrollItem extends Item {
         Spell spell = getSpell(stack);
         if (spell == null) {
             return InteractionResult.PASS;
+        }
+
+        if (spell.type() == SpellType.MULTICAST) {
+            if (player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.sendSystemMessage(Component.translatable(
+                    "message.lamplight.spellbook.multicast_scroll"
+                ).withStyle(ChatFormatting.RED), true);
+            }
+            return InteractionResult.FAIL;
         }
 
         if (spell instanceof ChargeSpell chargeSpell) {

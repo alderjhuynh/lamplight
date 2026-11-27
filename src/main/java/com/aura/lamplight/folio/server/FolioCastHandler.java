@@ -13,6 +13,7 @@ import com.aura.lamplight.folio.item.SpellbookItem;
 import com.aura.lamplight.folio.menu.SpellbookMenu;
 import com.aura.lamplight.folio.spell.CastOrigin;
 import com.aura.lamplight.folio.spell.ChargeSpell;
+import com.aura.lamplight.folio.spell.MultiCastSpell;
 import com.aura.lamplight.folio.spell.Spell;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -46,6 +47,7 @@ public final class FolioCastHandler {
 
     private static final Map<UUID, Casting> CASTING = new HashMap<>();
     private static final Map<UUID, Holding> HOLDING = new HashMap<>();
+    private static final Map<UUID, MultiCasting> MULTICAST = new HashMap<>();
     private static final Map<UUID, Map<Identifier, Long>> COOLDOWNS = new HashMap<>();
 
     public static void initialize() {
@@ -56,6 +58,7 @@ public final class FolioCastHandler {
                 UUID id = handler.player.getUUID();
                 cancelHold(handler.player, false);
                 CASTING.remove(id);
+                MULTICAST.remove(id);
                 COOLDOWNS.remove(id);
             });
 
@@ -124,11 +127,26 @@ public final class FolioCastHandler {
         }
 
         long now = player.level().getGameTime();
-        long remaining = remainingCooldown(uuid, spell.id(), now);
-        if (remaining > 0) {
-            message(player, Component.translatable("message.lamplight.spellbook.cooldown",
-                Math.max(1, (remaining + 19) / 20)), ChatFormatting.GRAY);
-            return;
+        MultiCasting activeMulti = MULTICAST.get(uuid);
+        if (activeMulti != null) {
+            if (now >= activeMulti.expiryTick
+                || player.level().dimension() != activeMulti.dimension) {
+                MULTICAST.remove(uuid);
+                startCooldown(player, activeMulti.spell, now);
+                activeMulti = null;
+            } else if (activeMulti.spell != spell) {
+                message(player, "message.lamplight.spellbook.busy", ChatFormatting.GRAY);
+                return;
+            }
+        }
+
+        if (activeMulti == null) {
+            long remaining = remainingCooldown(uuid, spell.id(), now);
+            if (remaining > 0) {
+                message(player, Component.translatable("message.lamplight.spellbook.cooldown",
+                    Math.max(1, (remaining + 19) / 20)), ChatFormatting.GRAY);
+                return;
+            }
         }
 
         if (!FolioManaHandler.hasMana(player, spell.manaCost())) {
@@ -145,6 +163,23 @@ public final class FolioCastHandler {
         ItemStack source = SpellbookItem.scrollFor(spell);
         if (source.isEmpty()) {
             source = player.getMainHandItem();
+        }
+
+        if (spell instanceof MultiCastSpell multiSpell) {
+            MultiCasting multi = activeMulti;
+            if (multi == null) {
+                multi = new MultiCasting(multiSpell, player.level().dimension());
+            }
+            multi.spell.castAt(player.level(), player, source, multi.castsUsed);
+            multi.castsUsed++;
+            if (multi.castsUsed >= multiSpell.casts()) {
+                MULTICAST.remove(uuid);
+                startCooldown(player, multiSpell, now);
+            } else {
+                multi.expiryTick = now + multiSpell.castWindowTicks();
+                MULTICAST.put(uuid, multi);
+            }
+            return;
         }
 
         if (spell instanceof ChargeSpell chargeSpell) {
@@ -174,25 +209,41 @@ public final class FolioCastHandler {
             }
 
             Casting casting = CASTING.get(uuid);
-            if (casting == null) {
+            if (casting != null) {
+                if (!player.isAlive() || player.isRemoved()) {
+                    cancel(player, false);
+                    continue;
+                }
+
+                long now = player.level().getGameTime();
+                if (casting.spell.channeled() && now >= casting.nextChannelTick && now < casting.finishTick) {
+                    casting.spell.castTick(player.level(), player, casting.source);
+                    casting.nextChannelTick = now + CHANNEL_INTERVAL;
+                    sendCastingState(player, casting.spell, casting.totalTicks,
+                        (int) Math.max(0, casting.finishTick - now), true);
+                }
+
+                if (now >= casting.finishTick) {
+                    complete(player, casting.spell, casting.source, now);
+                }
                 continue;
             }
 
-            if (!player.isAlive() || player.isRemoved()) {
-                cancel(player, false);
+            MultiCasting multi = MULTICAST.get(uuid);
+            if (multi == null) {
+                continue;
+            }
+
+            if (!player.isAlive() || player.isRemoved()
+                || player.level().dimension() != multi.dimension) {
+                MULTICAST.remove(uuid);
                 continue;
             }
 
             long now = player.level().getGameTime();
-            if (casting.spell.channeled() && now >= casting.nextChannelTick && now < casting.finishTick) {
-                casting.spell.castTick(player.level(), player, casting.source);
-                casting.nextChannelTick = now + CHANNEL_INTERVAL;
-                sendCastingState(player, casting.spell, casting.totalTicks,
-                    (int) Math.max(0, casting.finishTick - now), true);
-            }
-
-            if (now >= casting.finishTick) {
-                complete(player, casting.spell, casting.source, now);
+            if (now >= multi.expiryTick) {
+                MULTICAST.remove(uuid);
+                startCooldown(player, multi.spell, now);
             }
         }
     }
@@ -348,7 +399,11 @@ public final class FolioCastHandler {
         return CASTING.containsKey(player.getUUID()) || HOLDING.containsKey(player.getUUID());
     }
 
-    public record CastView(Spell spell, float progress) {}
+    public record CastView(Spell spell, float progress, int sections, int remainingCasts) {
+        public CastView(final Spell spell, final float progress) {
+            this(spell, progress, 0, 0);
+        }
+    }
 
     public static @Nullable CastView castView(final ServerPlayer player) {
         Holding holding = HOLDING.get(player.getUUID());
@@ -357,14 +412,20 @@ public final class FolioCastHandler {
             return new CastView(holding.spell, holding.spell.chargeProgress(player, held));
         }
         Casting casting = CASTING.get(player.getUUID());
-        if (casting == null) {
+        if (casting != null) {
+            long remaining = Math.max(0L, casting.finishTick - player.level().getGameTime());
+            float progress = casting.totalTicks <= 0
+                ? 1.0F
+                : 1.0F - Math.min(1.0F, (float) remaining / (float) casting.totalTicks);
+            return new CastView(casting.spell, progress);
+        }
+        MultiCasting multi = MULTICAST.get(player.getUUID());
+        if (multi == null) {
             return null;
         }
-        long remaining = Math.max(0L, casting.finishTick - player.level().getGameTime());
-        float progress = casting.totalTicks <= 0
-            ? 1.0F
-            : 1.0F - Math.min(1.0F, (float) remaining / (float) casting.totalTicks);
-        return new CastView(casting.spell, progress);
+        int total = multi.spell.casts();
+        int remainingCasts = Math.max(0, total - multi.castsUsed);
+        return new CastView(multi.spell, remainingCasts / (float) total, total, remainingCasts);
     }
 
     private static long remainingCooldown(final UUID uuid, final Identifier spellId, final long now) {
@@ -464,6 +525,18 @@ public final class FolioCastHandler {
             this.finishTick = finishTick;
             this.totalTicks = totalTicks;
             this.nextChannelTick = nextChannelTick;
+        }
+    }
+
+    private static final class MultiCasting {
+        final MultiCastSpell spell;
+        final ResourceKey<Level> dimension;
+        int castsUsed;
+        long expiryTick;
+
+        MultiCasting(final MultiCastSpell spell, final ResourceKey<Level> dimension) {
+            this.spell = spell;
+            this.dimension = dimension;
         }
     }
 }

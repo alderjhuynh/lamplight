@@ -2,6 +2,7 @@ package com.aura.lamplight.folio.client;
 
 import com.aura.lamplight.folio.CastingStatePayload;
 import com.aura.lamplight.folio.DragonbladeStatePayload;
+import com.aura.lamplight.folio.MulticastBarPayload;
 import com.aura.lamplight.folio.SpellCooldownPayload;
 import com.aura.lamplight.folio.entity.ModEntityTypes;
 import com.aura.lamplight.folio.menu.FolioMenus;
@@ -48,6 +49,11 @@ public class FolioClient implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(SpellCooldownPayload.TYPE, (payload, context) -> {
 			context.client().execute(() -> SpellbookClientState.applyCooldown(payload));
 		});
+		ClientPlayNetworking.registerGlobalReceiver(MulticastBarPayload.TYPE, (payload, context) -> {
+			context.client().execute(() -> MulticastBarClientState.apply(payload));
+		});
+		net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents.DISCONNECT.register(
+			(handler, client) -> MulticastBarClientState.reset());
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			SpellbookClientState.refresh(client);

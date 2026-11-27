@@ -107,7 +107,15 @@
     "folio.ServerLevelTemporalMixin",
     "folio.ServerGamePacketListenerTemporalMixin",
     "folio.DragonbladeCritMixin",
-    "folio.ProjectileShieldMixin"
+    "folio.ProjectileShieldMixin",
+    "folio.LivingEntityLastHurtAccessor",
+    "folio.EffectDamageMixin",
+    "folio.PlayerEffectDamageMixin",
+    "folio.FrozenLivingEntityMixin",
+    "folio.FrozenPlayerMixin",
+    "folio.FrozenGameModeMixin",
+    "folio.FrozenEnderManMixin",
+    "folio.FrozenCreeperMixin"
   ],
   "injectors": {
     "defaultRequire": 1

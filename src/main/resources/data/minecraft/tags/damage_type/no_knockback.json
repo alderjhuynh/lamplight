@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lamplight:folio_burn",
+    "lamplight:folio_burn_explosion",
+    "lamplight:folio_bleed",
+    "lamplight:folio_rupture",
+    "lamplight:folio_retribution",
+    "lamplight:folio_shock_chain"
+  ]
+}

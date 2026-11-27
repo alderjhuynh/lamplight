@@ -1,5 +1,7 @@
 {
   "values": [
-    "lamplight:reeling"
+    "lamplight:reeling",
+    "lamplight:folio_burn",
+    "lamplight:folio_bleed"
   ]
 }

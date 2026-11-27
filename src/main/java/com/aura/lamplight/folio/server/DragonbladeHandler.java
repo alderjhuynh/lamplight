@@ -1,6 +1,7 @@
 package com.aura.lamplight.folio.server;
 
 import com.aura.lamplight.folio.DragonbladeStatePayload;
+import com.aura.lamplight.folio.effect.Frozen;
 import com.aura.lamplight.folio.DragonbladeTeleportRequestPayload;
 import com.aura.lamplight.folio.temporal.TemporalField;
 import com.aura.lamplight.folio.temporal.TemporalFields;
@@ -47,7 +48,7 @@ public final class DragonbladeHandler {
             context.server().execute(() -> {
                 ServerPlayer sp = context.player();
                 State state = STATES.get(sp.getUUID());
-                if (state == null) return;
+                if (state == null || Frozen.is(sp)) return;
                 Entity target = sp.level().getEntity(payload.entityId());
                 if (target == null || target == sp || !target.isAlive()) return;
                 if (!(target instanceof LivingEntity) && !(target instanceof AbstractWindCharge)) return;

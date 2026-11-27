@@ -1,10 +1,15 @@
 package com.aura.lamplight.folio.entity;
 
+import com.aura.lamplight.folio.effect.DamageRecorder;
+import com.aura.lamplight.folio.effect.SchoolEffects;
 import com.aura.lamplight.folio.particle.BlastwaveParticleOptions;
 import com.aura.lamplight.folio.particle.FlameChargeParticleOptions;
 import com.aura.lamplight.folio.particle.ModParticles;
 import com.aura.lamplight.folio.sound.FolioSounds;
 import com.aura.lamplight.folio.spell.FireballSpell;
+import com.aura.lamplight.folio.spell.SpellSchool;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -34,7 +39,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.random.WeightedList;
 
-public class FireballEntity extends ThrowableProjectile {
+public class FireballEntity extends ThrowableProjectile implements DamageRecorder {
 
     public static final int MAX_CHARGE_TICKS = 60;
 
@@ -56,6 +61,9 @@ public class FireballEntity extends ThrowableProjectile {
     private static final int HEAVY_IMPACT_CHARGE_TICKS = MAX_CHARGE_TICKS / 2;
 
     private static final int MAX_FLIGHT_TICKS = 100;
+
+    private static final int NORMAL_BURN_STACKS = 1;
+    private static final int FULL_CHARGE_BURN_STACKS = 2;
 
     private static final double AIM_RANGE = 64.0D;
 
@@ -86,7 +94,7 @@ public class FireballEntity extends ThrowableProjectile {
     private boolean starved;
     private int flightTicks;
     private int visualTimer;
-
+    private final Set<LivingEntity> damagedTargets = new LinkedHashSet<>();
 
     public FireballEntity(final EntityType<? extends FireballEntity> type, final Level level) {
         super(type, level);
@@ -294,6 +302,7 @@ public class FireballEntity extends ThrowableProjectile {
         Vec3 center = this.getBoundingBox().getCenter();
 
         boolean grief = level.getGameRules().get(GameRules.MOB_GRIEFING);
+
         level.explode(
             this,
             this.damageSources().explosion(this, owner),
@@ -306,6 +315,8 @@ public class FireballEntity extends ThrowableProjectile {
             ParticleTypes.EXPLOSION_EMITTER, 
             BLOCK_PARTICLES,
             SILENT_EXPLOSION);
+
+        this.applyBurn(owner);
 
         double spread = 0.25D + power * 0.3D;
         int flames = 30 + (int) (power * 22.0F);
@@ -331,6 +342,21 @@ public class FireballEntity extends ThrowableProjectile {
             heavy ? 5.0F : 4.0F, 0.95F + this.random.nextFloat() * 0.1F);
 
         this.discard();
+    }
+
+    @Override
+    public void recordDamaged(final LivingEntity target) {
+        this.damagedTargets.add(target);
+    }
+
+    private void applyBurn(final @Nullable Entity owner) {
+        int stacks = this.isFullyCharged() ? FULL_CHARGE_BURN_STACKS : NORMAL_BURN_STACKS;
+        LivingEntity caster = owner instanceof LivingEntity living ? living : null;
+        for (LivingEntity entity : this.damagedTargets) {
+            if (entity != owner) {
+                SchoolEffects.onSpellDamage(SpellSchool.FLAME, caster, entity, stacks);
+            }
+        }
     }
 
     public void fizzle() {

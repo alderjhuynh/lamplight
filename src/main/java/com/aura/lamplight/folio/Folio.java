@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.aura.lamplight.folio.component.ModDataComponents;
+import com.aura.lamplight.folio.effect.FolioEffectSystem;
 import com.aura.lamplight.folio.entity.ModEntityTypes;
 import com.aura.lamplight.folio.item.ModItems;
 import com.aura.lamplight.folio.menu.FolioMenus;
@@ -43,6 +44,7 @@ public class Folio implements ModInitializer {
 		ModParticles.register();
 		FolioAttributes.initialize();
 		ModEntityTypes.initialize();
+		FolioEffectSystem.initialize();
 		FolioSounds.initialize();
 		Spells.initialize();
 		DragonbladeHandler.initialize();

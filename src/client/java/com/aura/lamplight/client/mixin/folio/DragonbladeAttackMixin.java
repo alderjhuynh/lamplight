@@ -24,6 +24,7 @@ public abstract class DragonbladeAttackMixin {
         if (!DragonbladeVignette.isActive()) return;
         Minecraft mc = (Minecraft) (Object) this;
         if (mc.player == null || mc.level == null) return;
+        if (com.aura.lamplight.folio.effect.Frozen.is(mc.player)) return;
 
         Vec3 start = mc.player.getEyePosition();
         Vec3 dir = mc.player.getLookAngle();

@@ -7,6 +7,8 @@ import com.aura.lamplight.folio.OpenSpellbookPayload;
 import com.aura.lamplight.folio.ReleaseSpellPayload;
 import com.aura.lamplight.folio.SelectSpellPayload;
 import com.aura.lamplight.folio.SpellCooldownPayload;
+import com.aura.lamplight.folio.effect.Frozen;
+import com.aura.lamplight.folio.effect.SwirlReset;
 import com.aura.lamplight.folio.item.SpellbookItem;
 import com.aura.lamplight.folio.menu.SpellbookMenu;
 import com.aura.lamplight.folio.spell.CastOrigin;
@@ -92,7 +94,7 @@ public final class FolioCastHandler {
             message(player, Component.literal("Spells cannot be cast here."), ChatFormatting.GRAY);
             return;
         }
-        if (!player.isAlive() || player.isRemoved()) {
+        if (!player.isAlive() || player.isRemoved() || Frozen.is(player)) {
             return;
         }
 
@@ -212,6 +214,9 @@ public final class FolioCastHandler {
 
     private static void startCooldown(final ServerPlayer player, final Spell spell, final long now) {
         if (spell.cooldownTicks() > 0) {
+            if (SwirlReset.tryConsume(player, spell)) {
+                return;
+            }
             COOLDOWNS.computeIfAbsent(player.getUUID(), ignored -> new HashMap<>())
                 .put(spell.id(), now + spell.cooldownTicks());
             ServerPlayNetworking.send(player,
@@ -220,7 +225,7 @@ public final class FolioCastHandler {
     }
 
     public static boolean beginScrollHold(final ServerPlayer player, final ChargeSpell spell, final ItemStack scroll) {
-        if (!player.isAlive() || player.isRemoved()) {
+        if (!player.isAlive() || player.isRemoved() || Frozen.is(player)) {
             return false;
         }
         UUID uuid = player.getUUID();

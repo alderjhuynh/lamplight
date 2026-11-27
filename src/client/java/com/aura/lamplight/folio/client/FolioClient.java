@@ -17,6 +17,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.entity.ZombieRenderer;
 
 public class FolioClient implements ClientModInitializer {
 	private static boolean castKeyWasDown;
@@ -26,6 +27,7 @@ public class FolioClient implements ClientModInitializer {
 		EntityRenderers.register(ModEntityTypes.FROST_BOLT, ThrownItemRenderer::new);
 		EntityRenderers.register(ModEntityTypes.HOLY_BOLT, ThrownItemRenderer::new);
 		EntityRenderers.register(ModEntityTypes.FIREBALL, NoopRenderer::new);
+		EntityRenderers.register(ModEntityTypes.BLOOD_THRALL, ZombieRenderer::new);
 		ParticleProviderRegistry.getInstance().register(ModParticles.FLAME_CHARGE, FlameOrbParticle.Provider::new);
 		ParticleProviderRegistry.getInstance().register(ModParticles.BLASTWAVE, BlastwaveParticle.Provider::new);
 		ParticleProviderRegistry.getInstance().register(ModParticles.FIERY_SMOKE, FierySmokeParticle.Provider::new);

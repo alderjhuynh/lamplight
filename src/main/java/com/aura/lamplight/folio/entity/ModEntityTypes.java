@@ -1,6 +1,8 @@
 package com.aura.lamplight.folio.entity;
 
 import com.aura.lamplight.folio.Folio;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -41,6 +43,16 @@ public final class ModEntityTypes {
             .updateInterval(10)
     );
 
+    public static final EntityType<BloodThrallEntity> BLOOD_THRALL = register(
+        "blood_thrall",
+        EntityType.Builder.<BloodThrallEntity>of(BloodThrallEntity::new, MobCategory.MONSTER)
+            .noLootTable()
+            .noSave()
+            .sized(0.6F, 1.95F)
+            .eyeHeight(1.74F)
+            .clientTrackingRange(8)
+    );
+
     private static <T extends Entity> EntityType<T> register(final String name, final EntityType.Builder<T> builder) {
         ResourceKey<EntityType<?>> key = ResourceKey.create(Registries.ENTITY_TYPE, Folio.id(name));
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, key, builder.build(key));
@@ -48,5 +60,6 @@ public final class ModEntityTypes {
 
     public static void initialize() {
         Folio.LOGGER.info("Registering entity types for {}", Folio.MOD_ID);
+        FabricDefaultAttributeRegistry.register(BLOOD_THRALL, Zombie.createAttributes().build());
     }
 }
